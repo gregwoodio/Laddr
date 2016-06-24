@@ -1,0 +1,8 @@
+./app/comment.js:13:            //TODO: Pagination
+./app/organization.js:28:            Password: req.body.Password, //TODO:bcrypt this
+./app/organization.js:30:            //Timestamp: 'NOW()' //TODO: Fix this
+./app/posting.js:20:            //TODO: Pagination. We're going to have a lot of postings here, so add something to 
+./app/user.js:28:            Password: req.body.Password, //TODO: bcrypt this
+./app/user.js:30:            //Timestamp: NOW(), //TODO: also needs to be fixed somehow
+./app/user.js:43:                AcademicStatus: 1 //TODO: this needs to be implemented better
+./app/topic.js:8:        //TODO: Pagination
