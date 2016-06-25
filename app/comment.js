@@ -1,12 +1,14 @@
 // comment.js
 
+var uuid = require('uuid');
+
 module.exports = function(app, connection) {
 
     // Get one or more comments
     app.get('/api/comment', function(req, res) {
         
-        var topicID = req.query.TopicID;
-        var commentID = req.query.CommentID;
+        var topicID = req.query.tid;
+        var commentID = req.query.cid;
 
         if (topicID != undefined) {
             //get comments from a particular topic
@@ -32,12 +34,13 @@ module.exports = function(app, connection) {
     // Add a comment
     app.post('/api/comment', function(req, res) {
         var comment = {
+            CommentID: uuid.v1(),
             TopicID: req.body.TopicID,
             Author: req.body.Creator, //make sure to send the logged in username
             Body: req.body.Body
         };
 
-        connection.query('INSERT INTO LdrComments (CommentID, Author, Timestamp, TopicID, Body) VALUES (NULL, ?, NOW(), ?, ?)', [comment.Author, comment.TopicID, comment.Body], function(err, rows) {
+        connection.query('INSERT INTO LdrComments (CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', [comment.CommentID, comment.Author, comment.TopicID, comment.Body], function(err, rows) {
             if (err) throw err;
 
             console.log("Comment added");

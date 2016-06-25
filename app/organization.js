@@ -1,11 +1,13 @@
 // organization.js
 
+var uuid = require('uuid');
+
 module.exports = function(app, connection) {
 
     // Get organization 
     app.get('/api/organization', function(req, res) {
 
-        var profileID = req.query.ProfileID;
+        var profileID = req.query.id;
 
         console.log("Organization profile ID: " + profileID);
         if (profileID != undefined) {
@@ -15,6 +17,8 @@ module.exports = function(app, connection) {
 
                 res.json(rows);
             });
+        } else {
+            res.json([]);
         }
     });
     
@@ -22,7 +26,7 @@ module.exports = function(app, connection) {
     app.post('/api/organization', function(req, res) {
         
         var new_profile = {
-            ProfileID: null,
+            ProfileID: uuid.v1(),
             Username: req.body.Username,
             Email: req.body.Email,
             Password: req.body.Password, //TODO:bcrypt this
@@ -31,12 +35,12 @@ module.exports = function(app, connection) {
             AccountType: 1
         };
 
-        connection.query('INSERT INTO LdrProfiles SET ?', [new_profile], function(err, result) {
+        connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, new_profile.PictureURL, new_profile.AccountType], function(err, result) {
             if (err) throw err;
             
             var new_organization = {
-                ProfileID: result.insertId,
-                OrganizationName: req.body.OrgName,
+                ProfileID: new_profile.ProfileID,
+                OrganizationName: req.body.OrganizationName,
                 Address: req.body.Address,
                 URL: req.body.URL,
                 MissionStatement: req.body.MissionStatement

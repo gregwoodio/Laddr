@@ -1,12 +1,14 @@
 // posting.js
 
+var uuid = require('uuid');
+
 module.exports = function(app, connection) {
 
     // Get postings
     app.get('/api/posting', function(req, res) {
         
         //if PostingID is specified, get that posting
-        var postingID = req.query.PostingID;
+        var postingID = req.query.id;
         
         if (postingID != undefined) {
             connection.query('SELECT p.postingID, p.jobTitle, p.location, p.description, p.timestamp, o.organizationName FROM LdrPostings p JOIN LdrOrganizations o WHERE p.ProfileID = o.ProfileID AND postingID = ?', [postingID], function(err, rows) {
@@ -30,13 +32,14 @@ module.exports = function(app, connection) {
     // Add a posting
     app.post('/api/posting', function(req, res) {
         var posting = {
-            ProfileID: req.body.ProfileID,
+            PostingID: uuid.v1(),
+            ProfileID: req.body.id,
             JobTitle: req.body.JobTitle,
             Location: req.body.Location,
             Description: req.body.Description
         };
 
-        connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES (NULL, ?, ?, ?, ?, NOW())', [posting.ProfileID, posting.JobTitle, posting.Location, posting.Location], function(err, rows) {
+        connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES (?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.id, posting.JobTitle, posting.Location, posting.Location], function(err, rows) {
             if (err) throw err;
             
             console.log('Posting added = ' + posting.JobTitle);
