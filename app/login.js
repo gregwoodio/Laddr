@@ -25,6 +25,7 @@ module.exports = function(app, connection) {
             } else {
 
                 var profile = rows[0];
+                delete profile["Password"];
 
                 if (profile.AccountType == 0) {
                     //user
