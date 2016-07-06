@@ -4,11 +4,13 @@ var express = require('express');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('./config/config');
 
 var app = express();
 var port = 3000;
 
 app.set('view engine', 'ejs');
+app.set('secret', config.secret);
 
 //body-parser to check for POST parameters
 app.use(bodyParser.json());
