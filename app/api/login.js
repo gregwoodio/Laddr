@@ -38,7 +38,23 @@ module.exports = function(app, connection) {
                         for (var key in user) {
                             profile[key] = user[key];
                         }
+
+                        var token = jwt.sign(profile, app.get('secret'), {
+                            expiresIn: '1440m'
+                        });
+
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token
+                        });
+
+                        console.log(profile);
+
                     });
+
+                    
+
                 } else if (profile.AccountType == 1) {
                     //organization
                     connection.query("SELECT * FROM LdrOrganizations WHERE ProfileID = ?", [profile.ProfileID], function(err, rows) {
@@ -47,21 +63,28 @@ module.exports = function(app, connection) {
                         }
 
                         org = rows[0];
+                        
                         for (var key in org) {
                             profile[key] = org[key];
                         }
+
+                        var token = jwt.sign(profile, app.get('secret'), {
+                            expiresIn: '1440m'
+                        });
+
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token
+                        });
+
+                        console.log(profile);
+
                     });
+
+                        
                 }
-
-                var token = jwt.sign(profile, app.get('secret'), {
-                    expiresIn: '1440m'
-                });
-
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token
-                });
+                
             }
 
         });

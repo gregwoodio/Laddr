@@ -22,10 +22,10 @@ module.exports = function(app, connection) {
                     var postingID = req.query.id;
                     
                     if (postingID != undefined) {
-                        connection.query('SELECT p.postingID, p.jobTitle, p.location, p.description, p.timestamp, o.organizationName FROM LdrPostings p JOIN LdrOrganizations o WHERE p.ProfileID = o.ProfileID AND postingID = ?', [postingID], function(err, rows) {
+                        connection.query('SELECT p.PostingID, p.JobTitle, p.Location, p.Description, p.Timestamp, o.OrganizationName, o.Address, o.MissionStatement, op.PictureURL FROM LdrPostings p INNER JOIN LdrOrganizations o ON p.ProfileID = o.ProfileID INNER JOIN LdrProfiles op ON o.ProfileID = op.ProfileID WHERE PostingID = ?', [postingID], function(err, rows) {
                             if (err) throw err;
-                
-                            res.json(rows);
+
+                            res.json(rows[0]);
                         });
                     } else {
                         

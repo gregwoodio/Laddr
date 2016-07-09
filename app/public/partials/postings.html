@@ -1,0 +1,9 @@
+<section id="postings">
+	<h3>Postings</h3>
+	<div ng-repeat="posting in postings">
+		<h4><a href="app#/postings/{{posting.PostingID}}">{{posting.JobTitle}}</a></h4>
+		<p>{{posting.OrganizationName}}</p>
+		<p>Located in: {{posting.Location}}</p>
+		<br>
+	</div>
+</section>

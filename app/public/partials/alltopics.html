@@ -1,0 +1,12 @@
+<section id="alltopics">
+	<h3>Topics</h3>
+
+	<div class='container-fluid'>
+		<table class='table table-striped'>
+			<tr ng-repeat="topic in topics">
+				<td><a href="app#/forum/{{topic.TopicID}}">{{topic.Title}}</a></td>
+			</tr>
+		</table>
+	</div>
+	
+</section>

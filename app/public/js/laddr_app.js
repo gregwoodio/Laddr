@@ -21,21 +21,28 @@
 			templateUrl: 'partials/login.html',
 			controller: 'LoginController'
 		}).
+		when('/howto', {
+			templateUrl: '/partials/howto.html',
+			controller: 'HowToController'
+		}).
+		when('/postings/:id', {
+			templateUrl: 'partials/postingsdetail.html',
+			controller: 'PostingsDetailController'
+		}).
+		when('/postings', {
+			templateUrl: 'partials/postings.html',
+			controller: 'PostingsController'
+		}).
+		when('/forum/:id', {
+			templateUrl: 'partials/topic.html',
+			controller: 'TopicController'
+		}).
+		when('/forum', {
+			templateUrl: 'partials/alltopics.html',
+			controller: 'AllTopicsController'
+		}).
 		otherwise({
 			redirectTo: '/login'
 		});
 	}]);
 })();
-
-/*
-craftingGuide.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
-    when('/view/:blockName', {
-        templateUrl: 'partials/view.html',
-        controller: 'ListController'
-    }).
-    otherwise({
-        redirectTo: '/view/null'
-    });
-}]);
-*/

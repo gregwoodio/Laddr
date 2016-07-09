@@ -1,11 +1,39 @@
 <section id="profile">
 
-	<h3>Profile</h3>
+	<div class="container-fluid">
+		<h3>Profile</h3>
 
-	<img src="{{profile.PictureURL}}">
+		<div class="row">
+			<div class="col-md-3 col-sm-4">
+				<img class="profilepic" src="{{profile.PictureURL}}">
+			</div>
+			<div class="col-md-9 col-sm-8">
+				<p><strong>Username: </strong> {{profile.Username}} </p>
 
-	<p><strong>Username: </strong> {{profile.Username}} </p>
+				<p><strong>Email: </strong> {{profile.Email}} </p>
 
-	<p><strong>Email: </strong> {{profile.Email}} </p>
+				<div ng-if='profile.AccountType == 0'>
+					<p><strong>Name: </strong> {{profile.FirstName}} {{profile.LastName}} </p>
+
+					<p><strong>Description: </strong></p>
+					<p>{{profile.Description}}</p>
+
+					<p><strong>Resume: </strong></p>
+					<p>{{profile.Resume}}</p>
+
+					<p><strong>Academic Status: </strong> {{profile.AcademicStatus}} </p>
+				</div>
+
+				<div ng-if='profile.AccountType == 1'>
+					<p><strong>Organization Name: </strong> {{profile.OrganizationName}} </p>
+					<p><strong>Address: </strong> {{profile.Address}} </p>
+					<p><a href="{{profile.URL}}"><strong>Website </strong></a></p>
+					<p><strong>Mission Statement: </strong> {{profile.MissionStatement}}</p>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 </section>

@@ -1,0 +1,26 @@
+<section id="postings">
+	<h3>Posting Detail</h3>
+	
+	<div class="container-fluid">
+	<h4>{{posting.JobTitle}}</h4>
+	<p><strong>Organization: </strong> {{posting.OrganizationName}}</p>
+	<p><strong>Located in: </strong> {{posting.Location}}</p>
+	<p><strong>Description: </strong> {{posting.Description}} </p>
+	<p><strong>Posted: </strong> {{posting.Timestamp}} </p>
+
+	<br>
+		<div class="row">
+		<div class="col-md-3 col-sm-4">
+			<img src="{{posting.PictureURL}}" class="profilepic" />
+		</div>
+		<div class="col-md-9 col-sm-8">
+			<h4>More info about {{posting.OrganizationName}}</h4>
+			
+			<p>{{posting.MissionStatement}} </p>
+			<p><strong>Address: </strong> {{posting.Address}}</p>
+
+			<button class='btn btn-primary btn-md'>Apply now!</button>
+		</div>
+	</div>
+	
+</section>

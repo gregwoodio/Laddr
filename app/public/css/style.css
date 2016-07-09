@@ -27,3 +27,35 @@
   padding-top: 25px;
   padding-bottom: 25px;
 }
+
+.sidebar {
+	position: fixed;
+	top: 50px;
+	bottom: 0;
+	background: #088c5a;
+	color: #fafafa;
+}
+
+.sidebar a {
+	color: #fafafa;
+}
+
+.sidebar a:hover {
+	color: #088c5a;
+}
+
+.sidebar a:active {
+	color: #088c5a;
+}
+
+.sidebar a:visited {
+	color: #088c5a;
+}
+
+.profilepic {
+	max-height: 250px;
+	max-width: 250px;
+	margin-left: auto;
+	margin-right: auto;
+	display: inherit;
+}

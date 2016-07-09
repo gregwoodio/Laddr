@@ -18,12 +18,24 @@ module.exports = function(app, connection) {
                         message: "Failed to authenticate token."
                     });
                 } else {
-                    //TODO: Pagination
-                    connection.query('SELECT * FROM LdrTopics ORDER BY Timestamp DESC', function(err, rows) {
-                        if (err) throw err;
-                        
-                        res.json(rows);
-                    });
+                    var topicID = req.query.tid;
+
+                    if (topicID == undefined) {
+                        //TODO: Pagination
+                        connection.query('SELECT * FROM LdrTopics ORDER BY Timestamp DESC', function(err, rows) {
+                            if (err) throw err;
+                            
+                            res.json(rows);
+                        });
+
+                    } else {
+
+                        connection.query('SELECT * FROM LdrTopics WHERE TopicID = ?', [topicID], function(err, rows) {
+                            if (err) throw err;
+
+                            res.json(rows[0]);
+                        })
+                    }
                 }
             });
         } else {
