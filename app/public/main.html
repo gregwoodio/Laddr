@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title>Laddr</title>
+	    <script src="components/angular/angular.js"></script>
+	    <script src="components/angular-route/angular-route.js"></script>
+	    <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	    <script src="js/laddr_app.js"></script>
+	    <script src="js/laddr_controllers.js"></script>
+	    <link rel='stylesheet' href='components/bootstrap/less/bootstrap.css'>
+	    <link rel='stylesheet' href='css/style.css'>
+	</head>
+
+	<body ng-app='laddrApp'>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+	        <div class="container-fluid">
+	            <div class="navbar-header navbar-collapse collapse">
+	              <a class="navbar-brand" href="app#/home">Laddr</a>
+	            </div>
+	        </div>
+	    </nav>
+
+	    <div class="container-fluid" style="margin-top:50px;">
+		    <div class="row">
+
+		    	<div class="col-md-2 col-sm-3 sidebar">
+		    		<ul class="nav nav-sidebar">
+		    			<li><a href="app#/login">Log in</a></li>
+		    		</ul>
+		    		<br>
+		    		<ul class="nav nav-sidebar">
+		    			<li><a href="app#/profile">Your Profile</a></li>
+		    			<li><a href="app#/postings">Postings</a></li>
+		    			<li><a href="app#/forum">Forum</a></li>
+		    			<li><a href="app#/howto">How To</a></li>
+		    		</ul>
+		    	</div>
+
+		    	<div class="col-md-10 main" ng-view></div>
+
+		    </div>
+	    </div>
+	</body>
+
+</html>
