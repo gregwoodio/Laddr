@@ -1,0 +1,29 @@
+{
+  "name": "ladder_node",
+  "description": "Node backend for Ladder applications",
+  "main": "index.js",
+  "authors": [
+    "Greg"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Ladder",
+    "volunteering"
+  ],
+  "homepage": "https://github.com/weirdvector/Laddr",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-route": "^1.5.7",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.3.3"
+  }
+}
