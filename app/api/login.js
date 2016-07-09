@@ -5,7 +5,7 @@ jwt = require('jsonwebtoken');
 module.exports = function(app, connection) {
 
 	//logs into our system, returns a token
-    app.post('/login', function(req, res) {
+    app.post('/api/login', function(req, res) {
 
         connection.query("SELECT * FROM LdrProfiles WHERE Username = ?", [req.body.Username], function(err, rows) {
             if (err) {
