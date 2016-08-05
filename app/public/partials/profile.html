@@ -1,39 +1,69 @@
-<section id="profile">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-collapse collapse">
+            <a class="navbar-brand" href="app#/home">Laddr</a>
+        </div>
+        <div ng-if="logout == true">
+            <ul class='nav navbar-nav navbar-right'>
+                <li><a href='app#/logout'>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-	<div class="container-fluid">
-		<h3>Profile</h3>
+<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
 
-		<div class="row">
-			<div class="col-md-3 col-sm-4">
-				<img class="profilepic" src="{{profile.PictureURL}}">
-			</div>
-			<div class="col-md-9 col-sm-8">
-				<p><strong>Username: </strong> {{profile.Username}} </p>
+    	<div class="col-md-2 col-sm-3 sidebar">
+    		<ul class="nav nav-sidebar">
+    			<li><a href="app#/profile">Your Profile</a></li>
+    			<li><a href="app#/postings">Postings</a></li>
+    			<li><a href="app#/forum">Forum</a></li>
+    			<li><a href="app#/howto">How To</a></li>
+    		</ul>
+    	</div>
 
-				<p><strong>Email: </strong> {{profile.Email}} </p>
+    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
 
-				<div ng-if='profile.AccountType == 0'>
-					<p><strong>Name: </strong> {{profile.FirstName}} {{profile.LastName}} </p>
+			<section id="profile">
 
-					<p><strong>Description: </strong></p>
-					<p>{{profile.Description}}</p>
+				<div class="container-fluid">
+					<h3>Profile</h3>
 
-					<p><strong>Resume: </strong></p>
-					<p>{{profile.Resume}}</p>
+					<div class="row">
+						<div class="col-md-3 col-sm-4">
+							<img class="profilepic" src="{{profile.PictureURL}}">
+						</div>
+						<div class="col-md-9 col-sm-8">
+							<p><strong>Username: </strong> {{profile.Username}} </p>
 
-					<p><strong>Academic Status: </strong> {{profile.AcademicStatus}} </p>
+							<p><strong>Email: </strong> {{profile.Email}} </p>
+
+							<div ng-if='profile.AccountType == 0'>
+								<p><strong>Name: </strong> {{profile.FirstName}} {{profile.LastName}} </p>
+
+								<p><strong>Description: </strong></p>
+								<p>{{profile.Description}}</p>
+
+								<p><strong>Resume: </strong></p>
+								<p>{{profile.Resume}}</p>
+
+								<p><strong>Academic Status: </strong> {{profile.AcademicStatus}} </p>
+							</div>
+
+							<div ng-if='profile.AccountType == 1'>
+								<p><strong>Organization Name: </strong> {{profile.OrganizationName}} </p>
+								<p><strong>Address: </strong> {{profile.Address}} </p>
+								<p><a href="{{profile.URL}}"><strong>Website </strong></a></p>
+								<p><strong>Mission Statement: </strong> {{profile.MissionStatement}}</p>
+
+							</div>
+
+						</div>
+					</div>
 				</div>
 
-				<div ng-if='profile.AccountType == 1'>
-					<p><strong>Organization Name: </strong> {{profile.OrganizationName}} </p>
-					<p><strong>Address: </strong> {{profile.Address}} </p>
-					<p><a href="{{profile.URL}}"><strong>Website </strong></a></p>
-					<p><strong>Mission Statement: </strong> {{profile.MissionStatement}}</p>
-
-				</div>
-
-			</div>
+			</section>
 		</div>
 	</div>
-
-</section>
+</div>

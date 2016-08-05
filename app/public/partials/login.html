@@ -1,13 +1,43 @@
-<section id="view">
-	
-	<div class="col-md-4 col-md-offset-4">
-		<h3>Login</h3>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-collapse collapse">
+            <a class="navbar-brand" href="app#/home">Laddr</a>
+        </div>
+        <div ng-if="logout == true">
+            <ul class='nav navbar-nav navbar-right'>
+                <li><a href='app#/logout'>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-		<form ng-submit="login()" class="form-signin">
-			<input ng-model="user.username" type="text" name="user" placeholder="Username" class="form-control" autofocus/>
-		    <input ng-model="user.password" type="password" name="pass" placeholder="Password" class="form-control"/>
-		    <button type="submit" value="Login" class="btn btn-md btn-primary btn-block">Log in</button>
-		</form>
+<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
+
+    	<div class="col-md-2 col-sm-3 sidebar">
+    		<ul class="nav nav-sidebar">
+    			<li><a href="app#/profile">Your Profile</a></li>
+    			<li><a href="app#/postings">Postings</a></li>
+    			<li><a href="app#/forum">Forum</a></li>
+    			<li><a href="app#/howto">How To</a></li>
+    		</ul>
+    	</div>
+
+    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
+
+			<section id="view">
+				
+				<div class="col-md-4 col-md-offset-4">
+					<h3>Login</h3>
+
+					<form ng-submit="login()" class="form-signin">
+						<input ng-model="user.username" type="text" name="user" placeholder="Username" class="form-control" autofocus/>
+					    <input ng-model="user.password" type="password" name="pass" placeholder="Password" class="form-control"/>
+					    <button type="submit" value="Login" class="btn btn-md btn-primary btn-block">Log in</button>
+					</form>
+				</div>
+
+			</section>
+		</div>
 	</div>
-
-</section>
+</div>

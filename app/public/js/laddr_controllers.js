@@ -2,20 +2,29 @@
 
 var laddrControllers = angular.module("laddrControllers", []); //normally [] contains dependencies
 
-laddrControllers.controller('HomePartialController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-        
+laddrControllers.controller('HomePartialController', ['$scope', '$http', '$routeParams', '$sessionStorage', function ($scope, $http, $routeParams, $sessionStorage) {
+    $scope.logout = false;
+    $scope.$storage = $sessionStorage;
+
+    if ($scope.$storage.ldrToken != undefined) {
+        $scope.logout = true;
+    }
+
 }]);
 
-laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
+laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', function($scope, $http, $routeParams, $location, $sessionStorage) {
 	
-    if (window.sessionStorage.ldrToken != undefined) {
+    $scope.$storage = $sessionStorage;
+
+    if ($scope.$storage.ldrToken != undefined) {
 
         $scope.profile = {};
+        $scope.logout = false;
 
         $http
             .get('/api/profile', {
                 headers: {
-                    'x-access-token': window.sessionStorage.ldrToken
+                    'x-access-token': $scope.$storage.ldrToken
                 }
             })
             .success(function(data, status, headers, config) {
@@ -33,6 +42,9 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
                 $scope.profile.Address = data.Address;
                 $scope.profile.URL = data.URL;
                 $scope.profile.MissionStatement = data.MissionStatement;
+               
+                //show logout button
+                $scope.logout = true;
             })
             .error(function(data, status, headers, config) {
                 console.log("Could not retrieve user.");
@@ -43,8 +55,10 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
     }
 }]);
 
-laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams', "$location", function($scope, $http, $routeParams, $location) {
+laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', function($scope, $http, $routeParams, $location, $sessionStorage) {
     
+    $scope.$storage = $sessionStorage;
+
     $scope.login = function() {
 
         data = {
@@ -56,36 +70,49 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
             .post('/api/login', data)
             .success(function(data, status, headers, config) {
                 if (data.success) {
-                    window.sessionStorage.ldrToken = data.token;
+                    $scope.$storage.ldrToken = data.token;
                     $location.url('/profile');
                 } else {
                     console.log("Bad login");
                 }
             })
             .error(function(data, status, headers, config) {
-                delete window.sessionStorage.ldrToken;
+                delete $scope.$storage.ldrToken;
                 console.log("Bad login");
             });
     };
 }]);
 
-laddrControllers.controller('HowToController', function() {
+laddrControllers.controller('HowToController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage) {
 
-});
+    $scope.$storage = $sessionStorage;
+    $scope.logout = false;
 
-laddrControllers.controller('PostingsController', ['$scope', '$location', '$http', '$routeParams', function($scope, $location, $http, $routeParams) {
+    if ($scope.$storage.ldrToken != undefined) {
+        $scope.logout = true;
+    } else {
+        $location.url('/login');
+    }
+    
+}]);
+
+laddrControllers.controller('PostingsController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', function($scope, $location, $http, $routeParams, $sessionStorage) {
     
     $scope.postings = {};
+    $scope.$storage = $sessionStorage;
 
-    if (window.sessionStorage.ldrToken != undefined) {
+    if ($scope.$storage.ldrToken != undefined) {
         $http
             .get('/api/posting', {
                 headers: {
-                    'x-access-token': window.sessionStorage.ldrToken
+                    'x-access-token': $scope.$storage.ldrToken
                 }
             })
             .success(function(data, status, headers, config) {
                 $scope.postings = data;
+
+                //show logout
+                $scope.logout = true;
             })
             .error(function(data, status, headers, config) {
                 //couldn't get postings
@@ -96,15 +123,16 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
     }
 }]);
 
-laddrControllers.controller('PostingsDetailController', ['$scope', '$location', '$http', '$routeParams', function($scope, $location, $http, $routeParams) {
+laddrControllers.controller('PostingsDetailController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', function($scope, $location, $http, $routeParams, $sessionStorage) {
 
     $scope.posting = {};
+    $scope.$storage = $sessionStorage;
 
-    if (window.sessionStorage.ldrToken != undefined) {
+    if ($scope.$storage.ldrToken != undefined) {
         $http
             .get('/api/posting', {
                 headers: {
-                    'x-access-token': window.sessionStorage.ldrToken
+                    'x-access-token': $scope.$storage.ldrToken
                 },
                 params: {
                     'id': $routeParams.id
@@ -120,6 +148,9 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
                 $scope.posting.Address = data.Address;
                 $scope.posting.MissionStatement = data.MissionStatement;
                 $scope.posting.PictureURL = data.PictureURL;
+
+                //show logout
+                $scope.logout = true;
             })
             .error(function(data, status, headers, config) {
                 //couldn't get postings
@@ -131,15 +162,16 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
 
 }]);
 
-laddrControllers.controller('TopicController', ['$scope', '$location', '$http', '$routeParams', function($scope, $location, $http, $routeParams) {
+laddrControllers.controller('TopicController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', function($scope, $location, $http, $routeParams, $sessionStorage) {
     
     $scope.topic = {};
+    $scope.$storage = $sessionStorage;
 
-    if (window.sessionStorage.ldrToken != undefined) {
+    if ($scope.$storage.ldrToken != undefined) {
         $http
             .get('/api/topic', {
                 headers: {
-                    'x-access-token': window.sessionStorage.ldrToken
+                    'x-access-token': $scope.$storage.ldrToken
                 },
                 params: {
                     'tid': $routeParams.id
@@ -149,11 +181,14 @@ laddrControllers.controller('TopicController', ['$scope', '$location', '$http', 
 
                 $scope.topic = data;
 
+                //show logout
+                $scope.logout = true;
+
                 //nested api calls?
                 $http
                     .get('/api/comment', {
                         headers: {
-                            'x-access-token': window.sessionStorage.ldrToken
+                            'x-access-token': $scope.$storage.ldrToken
                         },
                         params: {
                             'tid': $routeParams.id
@@ -180,20 +215,23 @@ laddrControllers.controller('TopicController', ['$scope', '$location', '$http', 
 
 }]);
 
-laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$http', function($scope, $location, $http) {
+laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage) {
+    $scope.$storage = $sessionStorage;
     $scope.topics = [];
 
-    if (window.sessionStorage.ldrToken != undefined) {
+    if ($scope.$storage.ldrToken != undefined) {
         $http
             .get('/api/topic', {
                 headers: {
-                    'x-access-token': window.sessionStorage.ldrToken
+                    'x-access-token': $scope.$storage.ldrToken
                 }
             })
             .success(function(data, status, headers, config) {
 
                 $scope.topics = data;
 
+                //show logout
+                $scope.logout = true;
             })
             .error(function(data, status, headers, config) {
                 //couldn't get topic
@@ -202,4 +240,13 @@ laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$htt
     } else {
         $location.url('/login');
     }
+}]);
+
+laddrControllers.controller('LogoutController', ['$location', '$scope', '$sessionStorage', function($location, $scope, $sessionStorage) {
+    $scope.$storage = $sessionStorage;
+    delete $scope.$storage.ldrToken;
+
+    $scope.$evalAsync(function(){
+        $location.url('/login');
+    });
 }]);

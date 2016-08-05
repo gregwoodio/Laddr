@@ -4,11 +4,16 @@
 	var laddrApp = angular.module('laddrApp', [
 		'ngRoute',
 		'ui.bootstrap',
-	    'laddrControllers'
+	    'laddrControllers',
+	    'ngStorage'
 	]);
 
 	laddrApp.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
+		when('/logout', {
+			templateUrl: 'partials/login.html',
+			controller: 'LogoutController'
+		}).
 		when('/home', {
 			templateUrl: 'partials/homepartial.html',
 			controller: 'HomePartialController'

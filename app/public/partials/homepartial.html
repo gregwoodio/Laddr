@@ -1,3 +1,33 @@
-<section id="view">
-<h3>Home Partial</h3>
-</section>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-collapse collapse">
+            <a class="navbar-brand" href="app#/home">Laddr</a>
+        </div>
+        <div ng-if="logout == true">
+            <ul class='nav navbar-nav navbar-right'>
+                <li><a href='app#/logout'>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
+
+    	<div class="col-md-2 col-sm-3 sidebar">
+    		<ul class="nav nav-sidebar">
+    			<li><a href="app#/profile">Your Profile</a></li>
+    			<li><a href="app#/postings">Postings</a></li>
+    			<li><a href="app#/forum">Forum</a></li>
+    			<li><a href="app#/howto">How To</a></li>
+    		</ul>
+    	</div>
+
+    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
+
+			<section id="view">
+				<h3>Home Partial</h3>
+			</section>
+		</div>
+	</div>
+</div>
