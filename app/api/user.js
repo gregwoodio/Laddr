@@ -24,7 +24,11 @@ module.exports = function(app, connection) {
                     connection.query('SELECT * FROM LdrUsers u INNER JOIN LdrProfiles p ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [decoded.ProfileID], function(err, rows, fields) {
                         if (err) throw err;
 
-                        res.json(rows[0]);
+                        //don't return the hashed password
+                        profile = rows[0];
+                        delete profile["Password"];
+
+                        res.json(profile);
                     });
                 }
             });
