@@ -65,13 +65,13 @@ module.exports = function(app, connection) {
 
                     var posting = {
                         PostingID: uuid.v1(),
-                        ProfileID: req.body.id,
+                        ProfileID: req.body.ProfileID,
                         JobTitle: req.body.JobTitle,
                         Location: req.body.Location,
                         Description: req.body.Description
                     };
 
-                    connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES (?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.id, posting.JobTitle, posting.Location, posting.Location], function(err, rows) {
+                    connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES (?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.ProfileID, posting.JobTitle, posting.Location, posting.Location], function(err, rows) {
                         if (err) throw err;
                         
                         console.log('Posting added = ' + posting.JobTitle);
@@ -89,5 +89,47 @@ module.exports = function(app, connection) {
             });
         }
         
+    });
+
+    app.put('/api/posting', function(req, res) {
+
+        var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+        if (token) {
+            jwt.verify(token, app.get('secret'), function(err, decoded) {
+                if (err) {
+                    res.json({
+                        success: false,
+                        message: "Failed to authenticate token."
+                    });
+                } else {
+                    // Alter the posting only if the current ProfileID is also the poster
+                    if (decoded.ProfileID == req.body.ProfileID) {
+                        updatedProfile = {
+                            PostingID: req.body.PostingID, //note this shouldn't change, but should be included in the request
+                            JobTitle: req.body.JobTitle,
+                            Location: req.body.Location,
+                            Description: req.body.Description
+                        }
+
+                        connection.query('UPDATE LdrPostings SET JobTitle = ?, Location = ?, Description = ? WHERE PostingID = ?', 
+                            [updatedProfile.JobTitle, updatedProfile.Location, updatedProfile.Description, updatedProfile.PostingID], function(err, results) {
+
+                            if (err) throw err;
+
+                            res.json({
+                                success: true,
+                                message: 'Posting updated.'
+                            });
+                        });
+                    }
+                }
+            });
+        } else {
+            res.status(403).json({
+                success: false,
+                message: "No token provided."
+            });
+        }
     });
 };

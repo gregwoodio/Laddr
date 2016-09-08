@@ -20,9 +20,14 @@ module.exports = function(app, connection) {
                     });
                 } else {
                     //what info to expose here? is this public or private?
-                    connection.query('SELECT * FROM LdrOrganizations o INNER JOIN LdrProfiles p ON o.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.id], function(err, rows, fields) {
+                    connection.query('SELECT * FROM LdrOrganizations o INNER JOIN LdrProfiles p ON o.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
                         if (err) throw err;
-                        res.json(rows[0]);
+
+                        //don't return the hashed password
+                        profile = rows[0];
+                        delete profile["Password"];
+
+                        res.json(profile);
                     });
                 }
             });
@@ -72,5 +77,63 @@ module.exports = function(app, connection) {
                 });
             });
         });
+    });
+
+    app.put('/api/organization', function(req, res) {
+
+        var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+        if (token) {
+            jwt.verify(token, app.get('secret'), function(err, decoded) {
+                if (err) {
+                    res.json({
+                        success: false,
+                        message: "Failed to authenticate token."
+                    });
+                } else {
+                    // Alter only the information for current organization
+                    // ProfileID and Username cannot change
+                    // Passwords will be changed elsewhere.
+                    updatedOrg = {
+                        ProfileID: decoded.ProfileID,
+                        Username: decoded.Username,
+                        Email: req.body.Email,
+                        PictureURL: req.body.PictureURL,
+                        OrganizationName: req.body.OrganizationName,
+                        Address: req.body.Address,
+                        URL: req.body.URL,
+                        MissionStatement: req.body.MissionStatement
+                    }
+
+                    connection.query('UPDATE LdrProfiles SET Username = ?, Email = ?, PictureURL = ? WHERE ProfileID = ?', 
+                        [updatedOrg.Username, updatedOrg.Email, updatedOrg.PictureURL, updatedOrg.ProfileID], function(err, results) {
+
+                            if (err) throw err;
+
+                            connection.query('UPDATE LdrOrganizations SET OrganizationName = ?, Address = ?, URL = ?, MissionStatement = ? WHERE ProfileID = ?',
+                                [updatedOrg.OrganizationName, updatedOrg.Address, updatedOrg.URL, updatedOrg.MissionStatement, updatedOrg.ProfileID], function(err, results) {
+
+                                if (err) throw err;
+
+                                // get a new token, the old one will now have outdated information in it
+                                // TODO: Write a method in the login class that exchanges a valid token for a refreshed version of it
+
+                                res.json({
+                                    success: true,
+                                    message: 'Account updated.',
+                                    token: token
+                                });
+
+
+                            });
+                    });
+                }
+            });
+        } else {
+            res.status(403).json({
+                success: false,
+                message: "No token provided."
+            });
+        }
     });
 };
