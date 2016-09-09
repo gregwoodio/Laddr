@@ -46,7 +46,8 @@ module.exports = function(app, connection) {
                         res.json({
                             success: true,
                             message: 'Enjoy your token!',
-                            token: token
+                            token: token,
+                            type: 0
                         });
 
                         console.log(profile);
@@ -75,7 +76,8 @@ module.exports = function(app, connection) {
                         res.json({
                             success: true,
                             message: 'Enjoy your token!',
-                            token: token
+                            token: token,
+                            type: 1
                         });
 
                         console.log(profile);
