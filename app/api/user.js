@@ -11,7 +11,7 @@ module.exports = function(app, connection) {
 
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-        if (token) {
+        if (token && req.query.ProfileID) {
             jwt.verify(token, app.get('secret'), function(err, decoded) {
                 if (err) {
                     res.json({
@@ -21,12 +21,11 @@ module.exports = function(app, connection) {
                 } else {
                     //What info to expose here?
                     //Is this for the public profile, or personal profile?
-                    connection.query('SELECT * FROM LdrUsers u INNER JOIN LdrProfiles p ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [decoded.ProfileID], function(err, rows, fields) {
+                    connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
                         if (err) throw err;
 
                         //don't return the hashed password
                         profile = rows[0];
-                        delete profile["Password"];
 
                         res.json(profile);
                     });

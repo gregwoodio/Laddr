@@ -11,7 +11,7 @@ module.exports = function(app, connection) {
 
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-        if (token) {
+        if (token && req.query.ProfileID) {
             jwt.verify(token, app.get('secret'), function(err, decoded) {
                 if (err) {
                     res.json({
@@ -20,12 +20,11 @@ module.exports = function(app, connection) {
                     });
                 } else {
                     //what info to expose here? is this public or private?
-                    connection.query('SELECT * FROM LdrOrganizations o INNER JOIN LdrProfiles p ON o.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
+                    connection.query('SELECT p.PictureURL, o.OrganizationName, o.Address, o.URL, o.MissionStatement FROM LdrOrganizations o INNER JOIN LdrProfiles p ON o.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
                         if (err) throw err;
 
                         //don't return the hashed password
                         profile = rows[0];
-                        delete profile["Password"];
 
                         res.json(profile);
                     });
