@@ -1,7 +1,5 @@
 //test/login.js 
 
-var assert = require('assert');
-
 module.exports = function(chai, server, assert) {
 
 	describe('POST to /api/login with no credentials provided.', function() {
