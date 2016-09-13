@@ -15,7 +15,7 @@ app.set('secret', config.secret);
 //body-parser to check for POST parameters
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended:true
+  extended:true
 }));
 
 //static files
@@ -33,3 +33,5 @@ require('./app/routes')(app);
 //start listening
 app.listen(port);
 console.log("Listening on port " + port);
+
+module.exports = app;

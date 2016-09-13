@@ -7,18 +7,26 @@ module.exports = function(app, connection) {
 	//logs into our system, returns a token
     app.post('/api/login', function(req, res) {
 
+        if (req.body.Username == undefined || req.body.Password == undefined) {
+            res.status(403).json({
+                success: false,
+                message: "No credentials provided."
+            });
+            return;
+        }
+
         connection.query("SELECT * FROM LdrProfiles WHERE Username = ?", [req.body.Username], function(err, rows) {
             if (err) {
                 throw err;
             }
             if (!rows.length) {
                 //username doesn't exist
-                res.json({
+                res.status(403).json({
                     success: false,
                     message: "Authentication failed, user not found."
                 });
             } else if (!bcrypt.compareSync(req.body.Password, rows[0].Password)) {
-                res.json({
+                res.status(403).json({
                     success: false,
                     message: "Authentication failed, incorrect password."
                 })
@@ -43,14 +51,12 @@ module.exports = function(app, connection) {
                             expiresIn: '1440m'
                         });
 
-                        res.json({
+                        res.status(200).json({
                             success: true,
                             message: 'Enjoy your token!',
                             token: token,
                             type: 0
                         });
-
-                        console.log(profile);
 
                     });
 
@@ -73,14 +79,12 @@ module.exports = function(app, connection) {
                             expiresIn: '1440m'
                         });
 
-                        res.json({
+                        res.status(200).json({
                             success: true,
                             message: 'Enjoy your token!',
                             token: token,
                             type: 1
                         });
-
-                        console.log(profile);
 
                     });
 
@@ -91,4 +95,28 @@ module.exports = function(app, connection) {
 
         });
     });
+
+    app.get('/api/login', function(req, res) {
+        res.status(405);
+        res.json({
+            success: false,
+            message: 'Method not allowed.'
+        })
+    }); 
+
+    app.put('/api/login', function(req, res) {
+        res.status(405);
+        res.json({
+            success: false,
+            message: 'Method not allowed.'
+        })
+    }); 
+
+    app.delete('/api/login', function(req, res) {
+        res.status(405);
+        res.json({
+            success: false,
+            message: 'Method not allowed.'
+        })
+    }); 
 };
