@@ -22,7 +22,10 @@ module.exports = function(app, connection) {
           var postingID = req.query.id;
           
           if (postingID != undefined) {
-            connection.query('SELECT p.PostingID, p.JobTitle, p.Location, p.Description, p.Timestamp, o.OrganizationName, o.Address, o.MissionStatement, op.PictureURL FROM LdrPostings p INNER JOIN LdrOrganizations o ON p.ProfileID = o.ProfileID INNER JOIN LdrProfiles op ON o.ProfileID = op.ProfileID WHERE PostingID = ?', [postingID], function(err, rows) {
+            connection.query('SELECT p.PostingID, p.JobTitle, p.Location, p.Description, p.Timestamp, o.OrganizationName, o.Address, ' +
+              'o.MissionStatement, op.PictureURL FROM LdrPostings p INNER JOIN LdrOrganizations o ON p.ProfileID = o.ProfileID ' +
+              'INNER JOIN LdrProfiles op ON o.ProfileID = op.ProfileID WHERE PostingID = ?', [postingID], function(err, rows) {
+
               if (err) throw err;
 
               res.json(rows[0]);
@@ -32,7 +35,8 @@ module.exports = function(app, connection) {
             //PostingID not specified, get most recent postings
             //TODO: Pagination. We're going to have a lot of postings here, so add something to 
             //split up the queries into manageable chunks.
-            connection.query('SELECT p.PostingID, p.JobTitle, p.Location, p.Description, p.Timestamp, p.ProfileID, o.OrganizationName FROM LdrPostings p JOIN LdrOrganizations o WHERE p.ProfileID = o.ProfileID ORDER BY p.Timestamp DESC', function(err, rows) {
+            connection.query('SELECT p.PostingID, p.JobTitle, p.Location, p.Description, p.Timestamp, p.ProfileID, o.OrganizationName ' +
+              'FROM LdrPostings p JOIN LdrOrganizations o WHERE p.ProfileID = o.ProfileID ORDER BY p.Timestamp DESC', function(err, rows) {
               if (err) throw err;
 
               res.json(rows);
@@ -71,7 +75,9 @@ module.exports = function(app, connection) {
             Description: req.body.Description
           };
 
-          connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES (?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.ProfileID, posting.JobTitle, posting.Location, posting.Location], function(err, rows) {
+          connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES ' +
+            '(?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.ProfileID, posting.JobTitle, posting.Location, posting.Location], 
+            function(err, rows) {
             if (err) throw err;
             
             console.log('Posting added = ' + posting.JobTitle);
@@ -113,7 +119,8 @@ module.exports = function(app, connection) {
             }
 
             connection.query('UPDATE LdrPostings SET JobTitle = ?, Location = ?, Description = ? WHERE PostingID = ?', 
-              [updatedProfile.JobTitle, updatedProfile.Location, updatedProfile.Description, updatedProfile.PostingID], function(err, results) {
+              [updatedProfile.JobTitle, updatedProfile.Location, updatedProfile.Description, updatedProfile.PostingID], 
+              function(err, results) {
 
               if (err) throw err;
 

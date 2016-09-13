@@ -21,7 +21,9 @@ module.exports = function(app, connection) {
         } else {
           //What info to expose here?
           //Is this for the public profile, or personal profile?
-          connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
+          connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ' + 
+            'ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
+
             if (err) throw err;
 
             //don't return the hashed password
@@ -56,7 +58,10 @@ module.exports = function(app, connection) {
         AccountType: 0
       };
 
-      connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, new_profile.PictureURL, new_profile.AccountType], function(err, result) {
+      connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
+        'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
+        new_profile.PictureURL, new_profile.AccountType], function(err, result) {
+
         if (err) throw err;
         
         var new_user = {
@@ -114,8 +119,9 @@ module.exports = function(app, connection) {
 
               if (err) throw err;
 
-              connection.query('UPDATE LdrUsers SET FirstName = ?, LastName = ?, Description = ?, Resume = ?, AcademicStatus = ? WHERE ProfileID = ?',
-                [updatedUser.Firstname, updatedUser.LastName, updatedUser.Description, updatedUser.Resume, updatedUser.AcademicStatus, updatedUser.ProfileID], function(err, results) {
+              connection.query('UPDATE LdrUsers SET FirstName = ?, LastName = ?, Description = ?, Resume = ?, AcademicStatus = ? WHERE ' +
+                'ProfileID = ?', [updatedUser.Firstname, updatedUser.LastName, updatedUser.Description, updatedUser.Resume, 
+                updatedUser.AcademicStatus, updatedUser.ProfileID], function(err, results) {
 
                 if (err) throw err;
 
