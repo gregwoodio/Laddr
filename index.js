@@ -15,7 +15,7 @@ app.set('secret', config.secret);
 //body-parser to check for POST parameters
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended:true
+  extended:true
 }));
 
 //static files
