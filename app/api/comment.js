@@ -72,7 +72,9 @@ module.exports = function(app, connection) {
             Body: req.body.Body
           };
 
-          connection.query('INSERT INTO LdrComments (CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', [comment.CommentID, comment.Author, comment.TopicID, comment.Body], function(err, rows) {
+          connection.query('INSERT INTO LdrComments (CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', 
+            [comment.CommentID, comment.Author, comment.TopicID, comment.Body], function(err, rows) {
+              
             if (err) throw err;
 
             console.log("Comment added");

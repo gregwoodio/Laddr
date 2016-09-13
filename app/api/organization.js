@@ -115,8 +115,9 @@ module.exports = function(app, connection) {
 
             if (err) throw err;
 
-            connection.query('UPDATE LdrOrganizations SET OrganizationName = ?, Address = ?, URL = ?, MissionStatement = ? WHERE ProfileID = ?',
-              [updatedOrg.OrganizationName, updatedOrg.Address, updatedOrg.URL, updatedOrg.MissionStatement, updatedOrg.ProfileID], function(err, results) {
+            connection.query('UPDATE LdrOrganizations SET OrganizationName = ?, Address = ?, URL = ?, MissionStatement = ? ' +
+              'WHERE ProfileID = ?', [updatedOrg.OrganizationName, updatedOrg.Address, updatedOrg.URL, updatedOrg.MissionStatement, 
+              updatedOrg.ProfileID], function(err, results) {
 
               if (err) throw err;
 
