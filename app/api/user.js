@@ -16,7 +16,7 @@ module.exports = function(app, connection) {
         if (err) {
           res.json({
             success: false,
-            message: "Failed to authenticate token."
+            message: 'Failed to authenticate token.'
           });
         } else {
           //What info to expose here?
@@ -36,7 +36,7 @@ module.exports = function(app, connection) {
     } else {
       res.status(403).json({
         success: false,
-        message: "No token provided."
+        message: 'No token provided.'
       });
     }
   });
@@ -46,44 +46,59 @@ module.exports = function(app, connection) {
     
     //TODO: Validate info first
 
-    bcrypt.hash(req.body.Password, 10, function(err, hash) {
+    //make sure all the required info was provided
+    if (req.body.Username == undefined ||
+      req.body.Email == undefined || 
+      req.body.Picture == undefined || 
+      req.body.FirstName == undefined ||
+      req.body.LastName == undefined ||
+      req.body.Description == undefined ||
+      req.body.Resume == undefined) {
 
-      var new_profile = {
-        ProfileID: uuid.v1(),
-        Username: req.body.Username,
-        Email: req.body.Email,
-        PictureURL: req.body.Picture,
-        Password: hash,
-        //Timestamp: NOW(), //TODO: also needs to be fixed somehow
-        AccountType: 0
-      };
+      res.status(400).json({
+        success: false,
+        message: 'Missing parameters for user creation.'
+      });
+    } else {
 
-      connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
-        'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
-        new_profile.PictureURL, new_profile.AccountType], function(err, result) {
+      bcrypt.hash(req.body.Password, 10, function(err, hash) {
 
-        if (err) throw err;
-        
-        var new_user = {
-          ProfileID: new_profile.ProfileID,
-          FirstName: req.body.FirstName,
-          LastName: req.body.LastName,
-          Description: req.body.Description,
-          Resume: req.body.Resume,
-          AcademicStatus: 1 //TODO: this needs to be implemented better
-        }
+        var new_profile = {
+          ProfileID: uuid.v1(),
+          Username: req.body.Username,
+          Email: req.body.Email,
+          PictureURL: req.body.Picture,
+          Password: hash,
+          //Timestamp: NOW(), //TODO: also needs to be fixed somehow
+          AccountType: 0
+        };
 
-        connection.query('INSERT INTO LdrUsers SET ?', [new_user], function(err, result) {
+        connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
+          'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
+          new_profile.PictureURL, new_profile.AccountType], function(err, result) {
+
           if (err) throw err;
+          
+          var new_user = {
+            ProfileID: new_profile.ProfileID,
+            FirstName: req.body.FirstName,
+            LastName: req.body.LastName,
+            Description: req.body.Description,
+            Resume: req.body.Resume,
+            AcademicStatus: 1 //TODO: this needs to be implemented better
+          }
 
-          console.log('New user added.');
-          res.json({
-            success: true,
-            message: "New user added."
+          connection.query('INSERT INTO LdrUsers SET ?', [new_user], function(err, result) {
+            if (err) throw err;
+
+            res.json({
+              success: true,
+              message: 'New user added.'
+            });
           });
-        });
-      }); 
-    });
+        }); 
+      });
+    }
   });
 
   //modify user and profile
@@ -96,7 +111,7 @@ module.exports = function(app, connection) {
         if (err) {
           res.json({
             success: false,
-            message: "Failed to authenticate token."
+            message: 'Failed to authenticate token.'
           });
         } else {
           // Alter only the information for current user
@@ -140,7 +155,7 @@ module.exports = function(app, connection) {
     } else {
       res.status(403).json({
         success: false,
-        message: "No token provided."
+        message: 'No token provided.'
       });
     }
   });

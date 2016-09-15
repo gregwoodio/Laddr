@@ -93,5 +93,21 @@ module.exports = function(app, connection) {
     }
       
   });
+
+  app.put('/api/comment', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
+
+  app.delete('/api/comment', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
     
 };

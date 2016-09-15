@@ -93,7 +93,7 @@ module.exports = function(app, connection) {
   });
 
   app.get('/api/login', function(req, res) {
-    res.status(405);
+    res.status(404);
     res.json({
       success: false,
       message: 'Method not allowed.'
@@ -101,7 +101,7 @@ module.exports = function(app, connection) {
   }); 
 
   app.put('/api/login', function(req, res) {
-    res.status(405);
+    res.status(404);
     res.json({
       success: false,
       message: 'Method not allowed.'
@@ -109,7 +109,7 @@ module.exports = function(app, connection) {
   }); 
 
   app.delete('/api/login', function(req, res) {
-    res.status(405);
+    res.status(404);
     res.json({
       success: false,
       message: 'Method not allowed.'
