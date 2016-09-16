@@ -72,7 +72,7 @@ module.exports = function(chai, server, assert, username, password) {
 				.get('/api/login')
 				.end(function(err, res) {
 					assert.notEqual(err, undefined, '404 is an error status.');
-					assert.equal(res.status, 404, 'Should have a status of 405.');
+					assert.equal(res.status, 404, 'Should have a status of 404.');
 					assert.typeOf(res.body, 'object', 'Should return JSON object.');
 					assert.equal(res.body.success, false, 'Response should inform user of failure.');
 					done();

@@ -13,7 +13,7 @@ module.exports = function(app, connection) {
     if (token) {
       jwt.verify(token, app.get('secret'), function(err, decoded) {
         if (err) {
-          res.json({
+          res.status(403).json({
             success: false,
             message: "Failed to authenticate token."
           });
@@ -58,43 +58,51 @@ module.exports = function(app, connection) {
 
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-
-          var posting = {
-            PostingID: uuid.v1(),
-            ProfileID: req.body.ProfileID,
-            JobTitle: req.body.JobTitle,
-            Location: req.body.Location,
-            Description: req.body.Description
-          };
-
-          connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES ' +
-            '(?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.ProfileID, posting.JobTitle, posting.Location, posting.Location], 
-            function(err, rows) {
-            if (err) throw err;
-            
-            console.log('Posting added = ' + posting.JobTitle);
-            res.json({
-              success: true,
-              message: "Posting added."
-            });
-          });
-        }
+    if (req.body.ProfileID == undefined || req.body.JobTitle == undefined || req.body.Location == undefined ||
+      req.body.Description == undefined || req.body.ProfileID == '' || req.body.JobTitle == '' ||
+      req.body.Location == '' || req.body.Description == '') {
+      res.status(400).json({
+        success: false,
+        message: 'Missing parameters for user creation.'
       });
     } else {
-      res.status(403).json({
-        success: false,
-        message: "No token provided."
-      });
+
+      if (token) {
+        jwt.verify(token, app.get('secret'), function(err, decoded) {
+          if (err) {
+            res.json({
+              success: false,
+              message: "Failed to authenticate token."
+            });
+          } else {
+
+            var posting = {
+              PostingID: uuid.v1(),
+              ProfileID: req.body.ProfileID,
+              JobTitle: req.body.JobTitle,
+              Location: req.body.Location,
+              Description: req.body.Description
+            };
+
+            connection.query('INSERT INTO LdrPostings (PostingID, ProfileID, JobTitle, Location, Description, Timestamp) VALUES ' +
+              '(?, ?, ?, ?, ?, NOW())', [posting.PostingID, posting.ProfileID, posting.JobTitle, posting.Location, posting.Description], 
+              function(err, rows) {
+              if (err) throw err;
+              
+              res.json({
+                success: true,
+                message: "Posting added."
+              });
+            });
+          }
+        });
+      } else {
+        res.status(403).json({
+          success: false,
+          message: "No token provided."
+        });
+      }
     }
-    
   });
 
   app.put('/api/posting', function(req, res) {
