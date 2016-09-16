@@ -15,3 +15,4 @@ var password = 'oshitwhaddup';
 require('./user')(chai, server, assert, username, password);
 require('./login')(chai, server, assert, username, password);
 require('./profile')(chai, server, assert, username, password);
+require('./topic')(chai, server, assert, username, password);

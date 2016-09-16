@@ -13,9 +13,9 @@ module.exports = function(app, connection) {
     if (token) {
       jwt.verify(token, app.get('secret'), function(err, decoded) {
         if (err) {
-          res.json({
+          res.status(403).json({
             success: false,
-            message: "Failed to authenticate token."
+            message: 'Failed to authenticate token.'
           });
         } else {
           var topicID = req.query.tid;
@@ -41,7 +41,7 @@ module.exports = function(app, connection) {
     } else {
       res.status(403).json({
         success: false,
-        message: "No token provided."
+        message: 'No token provided.'
       });
     }
       
@@ -52,48 +52,57 @@ module.exports = function(app, connection) {
       
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-          var topic = {
-            TopicID: uuid.v1(),
-            Title: req.body.Title,
-            Creator: decoded.Username,
-            Body: req.body.Body
-          };
-
-          connection.query('INSERT INTO LdrTopics (TopicID, Title, Creator, Timestamp) VALUES (?, ?, ?, NOW())', 
-          	[topic.TopicID, topic.Title, topic.Creator], function(err, rows) {
-
-            if (err) throw err;
-
-            var commentID = uuid.v1();
-
-            //add the first comment to the topic
-            connection.query('INSERT INTO LdrComments(CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', 
-            	[commentID, topic.Creator, topic.TopicID, topic.Body], function(err, rows) {
-              
-              if (err) throw err;
-
-              console.log("Topic added = \"" + topic.Title + "\"");
-              res.json({
-                success: true,
-                message: "Topic added."
-              });
-            });
-          });
-        }
+    if (req.body.Title == undefined || req.body.Creator == undefined || req.body.Body == undefined ||
+      req.body.Title == '' || req.body.Creator == '' || req.body.Body == '') {
+      res.status(400).json({
+        success: false,
+        message: 'Missing form data.'
       });
     } else {
-      res.status(403).json({
-        success: false,
-        message: "No token provided."
-      });
-    }      
+
+      if (token) {
+        jwt.verify(token, app.get('secret'), function(err, decoded) {
+          if (err) {
+            res.json({
+              success: false,
+              message: 'Failed to authenticate token.'
+            });
+          } else {
+            var topic = {
+              TopicID: uuid.v1(),
+              Title: req.body.Title,
+              Creator: decoded.Username,
+              Body: req.body.Body
+            };
+
+            connection.query('INSERT INTO LdrTopics (TopicID, Title, Creator, Timestamp) VALUES (?, ?, ?, NOW())', 
+            	[topic.TopicID, topic.Title, topic.Creator], function(err, rows) {
+
+              if (err) throw err;
+
+              var commentID = uuid.v1();
+
+              //add the first comment to the topic
+              connection.query('INSERT INTO LdrComments(CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', 
+              	[commentID, topic.Creator, topic.TopicID, topic.Body], function(err, rows) {
+                
+                if (err) throw err;
+
+                console.log('Topic added = \"' + topic.Title + '\"');
+                res.json({
+                  success: true,
+                  message: 'Topic added.'
+                });
+              });
+            });
+          }
+        });
+      } else {
+        res.status(403).json({
+          success: false,
+          message: "No token provided."
+        });
+      }      
+    }
   });
 };
