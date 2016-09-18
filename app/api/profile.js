@@ -27,4 +27,28 @@ module.exports = function(app, connection) {
       });
     }
   });
+
+  app.post('/api/profile', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
+
+  app.put('/api/profile', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
+
+  app.delete('/api/profile', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
 };

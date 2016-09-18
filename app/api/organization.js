@@ -44,44 +44,58 @@ module.exports = function(app, connection) {
   // Add organization
   app.post('/api/organization', function(req, res) {
 
-    bcrypt.hash(req.body.Password, 10, function(err, hash) {
-      var new_profile = {
-        ProfileID: uuid.v1(),
-        Username: req.body.Username,
-        Email: req.body.Email,
-        PictureURL: req.body.Picture,
-        Password: hash,
-        //Timestamp: 'NOW()' //TODO: Fix this
-        AccountType: 1
-      };
+    if (req.body.Username == undefined || req.body.Email == undefined || req.body.Picture == undefined || 
+      req.body.Password == undefined || req.body.OrganizationName == undefined || req.body.URL == undefined ||
+      req.body.MissionStatement == undefined || req.body.Address == undefined ||
+      req.body.Username == '' || req.body.Email == '' || req.body.Picture == '' || 
+      req.body.Password == '' || req.body.OrganizationName == '' || req.body.URL == '' ||
+      req.body.MissionStatement == '' || req.body.Address == '') {
 
-      console.log(new_profile['Password']);
+      res.status(400).json({
+        success: false,
+        message: 'Missing parameters for organization creation.'
+      });
+    } else {
 
-      connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
-      	'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
-      	new_profile.PictureURL, new_profile.AccountType], function(err, result) {
+      bcrypt.hash(req.body.Password, 10, function(err, hash) {
+        var new_profile = {
+          ProfileID: uuid.v1(),
+          Username: req.body.Username,
+          Email: req.body.Email,
+          PictureURL: req.body.Picture,
+          Password: hash,
+          //Timestamp: 'NOW()' //TODO: Fix this
+          AccountType: 1
+        };
 
-        if (err) throw err;
-        
-        var new_organization = {
-          ProfileID: new_profile.ProfileID,
-          OrganizationName: req.body.OrganizationName,
-          Address: req.body.Address,
-          URL: req.body.URL,
-          MissionStatement: req.body.MissionStatement
-        }
+        console.log(new_profile['Password']);
 
-        connection.query('INSERT INTO LdrOrganizations SET ?', [new_organization], function(err, result) {
+        connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
+        	'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
+        	new_profile.PictureURL, new_profile.AccountType], function(err, result) {
+
           if (err) throw err;
+          
+          var new_organization = {
+            ProfileID: new_profile.ProfileID,
+            OrganizationName: req.body.OrganizationName,
+            Address: req.body.Address,
+            URL: req.body.URL,
+            MissionStatement: req.body.MissionStatement
+          }
 
-          console.log('New organization added.');
-          res.json({
-            success: true,
-            message: "Organization added."
+          connection.query('INSERT INTO LdrOrganizations SET ?', [new_organization], function(err, result) {
+            if (err) throw err;
+
+            console.log('New organization added.');
+            res.json({
+              success: true,
+              message: "Organization added."
+            });
           });
         });
       });
-    });
+    }
   });
 
   app.put('/api/organization', function(req, res) {

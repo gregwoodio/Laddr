@@ -13,7 +13,7 @@ module.exports = function(app, connection) {
     if (token) {
       jwt.verify(token, app.get('secret'), function(err, decoded) {
         if (err) {
-          res.json({
+          res.status(403).json({
             success: false,
             message: "Failed to authenticate token."
           });
@@ -39,6 +39,11 @@ module.exports = function(app, connection) {
               console.log('Viewing Comment: ' + commentID);
               res.json(rows);
             });
+          } else {
+            res.status(400).json({
+              success: false,
+              message: 'Expected tid or cid GET parameter'
+            });
           }
         }
       });
@@ -57,41 +62,66 @@ module.exports = function(app, connection) {
 
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-          var comment = {
-            CommentID: uuid.v1(),
-            TopicID: req.body.TopicID,
-            Author: decoded.Username, 
-            Body: req.body.Body
-          };
-
-          connection.query('INSERT INTO LdrComments (CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', 
-            [comment.CommentID, comment.Author, comment.TopicID, comment.Body], function(err, rows) {
-              
-            if (err) throw err;
-
-            console.log("Comment added");
-            res.json({
-              success: true,
-              message: "Comment added."
-            });
-          });
-        }
+    if (req.body.TopicID == undefined || req.body.Author == undefined || req.body.Body == undefined ||
+      req.body.TopicID == '' || req.body.Author == '' || req.body.Body == undefined) {
+      res.status(400).json({
+        success: false,
+        message: 'Missing form data.'
       });
     } else {
-      res.status(403).json({
-        success: false,
-        message: "No token provided."
-      });
+
+      if (token) {
+        jwt.verify(token, app.get('secret'), function(err, decoded) {
+          if (err) {
+            res.status(403).json({
+              success: false,
+              message: "Failed to authenticate token."
+            });
+          } else {
+            var comment = {
+              CommentID: uuid.v1(),
+              TopicID: req.body.TopicID,
+              Author: decoded.Username, 
+              Body: req.body.Body
+            };
+
+            connection.query('INSERT INTO LdrComments (CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', 
+              [comment.CommentID, comment.Author, comment.TopicID, comment.Body], function(err, rows) {
+                
+              if (err) throw err;
+
+              console.log("Comment added");
+              res.json({
+                success: true,
+                message: "Comment added."
+              });
+            });
+          }
+        });
+      } else {
+        res.status(403).json({
+          success: false,
+          message: "No token provided."
+        });
+      }
     }
       
   });
+
+  app.put('/api/comment', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
+
+  app.delete('/api/comment', function(req, res) {
+    res.status(404);
+    res.json({
+      success: false,
+      message: 'Method not allowed.'
+    });
+  }); 
     
 };

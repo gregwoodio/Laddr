@@ -1,14 +1,13 @@
-  // database.js
-
-var process = require('process');
+  // testdatabase.js
 
 module.exports = {
 
+  
   'connection': {
     'host': 'localhost',
     'user': 'ladder',
     'password': 'codebusters',
-    'database': 'Ladder'
+    'database': 'TestLadder'
   },
   'comments_table': 'LdrComments',
   'organizations_table': 'LdrOrganizations',
@@ -16,5 +15,5 @@ module.exports = {
   'profiles_table': 'LdrProfile',
   'topics_table': 'LdrTopics',
   'users_table': 'LdrUsers'
-  
+
 };

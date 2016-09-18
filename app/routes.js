@@ -1,10 +1,25 @@
 // routes.js
 
 var mysql = require('mysql');
-var db = require('../config/database');
+var process = require('process');
+if (process.env.NODE_ENV == 'test') {
+  var db = require('../config/testdatabase');
+} else {
+  var db = require('../config/database')
+}
 var connection = mysql.createConnection(db.connection);
 
 connection.connect();
+
+if (process.env.NODE_ENV == 'test') {
+
+  //for testing, work with empty database tables
+  connection.query('DELETE FROM LdrComments');
+  connection.query('DELETE FROM LdrTopics');
+  connection.query('DELETE FROM LdrUsers');
+  connection.query('DELETE FROM LdrOrganizations');
+  connection.query('DELETE FROM LdrProfiles');
+}
 
 module.exports = function(app) {
 
