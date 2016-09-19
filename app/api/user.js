@@ -4,41 +4,62 @@ uuid = require('uuid');
 bcrypt = require('bcrypt');
 jwt = require('jsonwebtoken');
 
-module.exports = function(app, connection) {
+module.exports = function(app, models) {
 
   // Get user
-  app.get('/api/user', function(req, res) {
+  app.get('/api/user', isLoggedIn, function(req, res) {
 
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.headers['x-access-token'];
 
-    if (token && req.query.ProfileID) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
+    // if (token && req.query.ProfileID) {
+      // jwt.verify(token, app.get('secret'), function(err, decoded) {
+      //   if (err) {
+      //     res.json({
+      //       success: false,
+      //       message: 'Failed to authenticate token.'
+      //     });
+      //   } else {
           //What info to expose here?
           //Is this for the public profile, or personal profile?
-          connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ' + 
-            'ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
+          // connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ' + 
+          //   'ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
 
-            if (err) throw err;
+          //   if (err) throw err;
 
-            //don't return the hashed password
-            profile = rows[0];
+          //   //don't return the hashed password
+          //   profile = rows[0];
 
-            res.json(profile);
-          });
-        }
-      });
-    } else {
-      res.status(403).json({
-        success: false,
-        message: 'No token provided.'
-      });
-    }
+          //   res.json(profile);
+          // });
+
+          // console.log(models);
+
+          models.User.forge({ProfileID: req.query.ProfileID})
+            .fetch()
+            .then(function(user) {
+              if (!user) {
+                res.status(400).json({
+                  success: false,
+                  message: 'No such user.'
+                });
+              } else {
+                res.json(user.toJSON());
+              }
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
+              });
+            });
+        // }
+      // });
+    // } else {
+    //   res.status(403).json({
+    //     success: false,
+    //     message: 'No token provided.'
+    //   });
+    // }
   });
 
   // Add user
@@ -47,12 +68,9 @@ module.exports = function(app, connection) {
     //TODO: Validate info first
 
     //make sure all the required info was provided
-    if (req.body.Username == undefined ||
-      req.body.Email == undefined || 
-      req.body.Picture == undefined || 
-      req.body.FirstName == undefined ||
-      req.body.LastName == undefined ||
-      req.body.Description == undefined ||
+    if (req.body.Username == undefined || req.body.Email == undefined || 
+      req.body.Picture == undefined || req.body.FirstName == undefined ||
+      req.body.LastName == undefined || req.body.Description == undefined ||
       req.body.Resume == undefined) {
 
       res.status(400).json({
@@ -63,40 +81,48 @@ module.exports = function(app, connection) {
 
       bcrypt.hash(req.body.Password, 10, function(err, hash) {
 
-        var new_profile = {
-          ProfileID: uuid.v1(),
+        var profileID = uuid.v1();
+
+        models.Profile.forge({
+          ProfileID: profileID,
           Username: req.body.Username,
           Email: req.body.Email,
           PictureURL: req.body.Picture,
           Password: hash,
           //Timestamp: NOW(), //TODO: also needs to be fixed somehow
           AccountType: 0
-        };
-
-        connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
-          'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
-          new_profile.PictureURL, new_profile.AccountType], function(err, result) {
-
-          if (err) throw err;
-          
-          var new_user = {
-            ProfileID: new_profile.ProfileID,
+        })
+        .save()
+        .then(function(profile) {
+          models.User.forge({
+            ProfileID: profileID,
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
             Description: req.body.Description,
             Resume: req.body.Resume,
-            AcademicStatus: 1 //TODO: this needs to be implemented better
-          }
-
-          connection.query('INSERT INTO LdrUsers SET ?', [new_user], function(err, result) {
-            if (err) throw err;
-
+            AcademicStatus: 1 
+          })
+          .save()
+          .then(function(user) {
             res.json({
               success: true,
-              message: 'New user added.'
+              message: 'New user added.',
+              id: profileID
             });
+          })
+          .catch(function(err) {
+            res.status(500).json({
+              success: false,
+              message: 'Error while entering new user.'
+            });
+          })
+        })
+        .catch(function(err) {
+          res.status(500).json({
+            success: false,
+            message: 'Error while entering new user.'
           });
-        }); 
+        });
       });
     }
   });
@@ -117,38 +143,39 @@ module.exports = function(app, connection) {
           // Alter only the information for current user
           // ProfileID and Username cannot change
           // Passwords will be changed elsewhere.
-          updatedUser = {
-            ProfileID: decoded.ProfileID,
-            Username: decoded.Username,
-            Email: req.body.Email,
-            PictureURL: req.body.PictureURL,
-            Firstname: req.body.FirstName,
-            LastName: req.body.LastName,
-            Description: req.body.Description,
-            Resume: req.body.Resume,
-            AcademicStatus: req.body.AcademicStatus
-          }
 
-          connection.query('UPDATE LdrProfiles SET Username = ?, Email = ?, PictureURL = ? WHERE ProfileID = ?', 
-            [updatedUser.Username, updatedUser.Email, updatedUser.PictureURL, updatedUser.ProfileID], function(err, results) {
-
-              if (err) throw err;
-
-              connection.query('UPDATE LdrUsers SET FirstName = ?, LastName = ?, Description = ?, Resume = ?, AcademicStatus = ? WHERE ' +
-                'ProfileID = ?', [updatedUser.Firstname, updatedUser.LastName, updatedUser.Description, updatedUser.Resume, 
-                updatedUser.AcademicStatus, updatedUser.ProfileID], function(err, results) {
-
-                if (err) throw err;
-
-                // get a new token, the old one will now have outdated information in it
-                // TODO: Write a method in the login class that exchanges a valid token for a refreshed version of it
-
-                res.json({
-                  success: true,
-                  message: 'Account updated.',
-                  token: token
-                });
+          models.Profile.forge({ProfileID: decoded.ProfileID})
+            .fetch({require: true})
+            .then(function(profile) {
+              profile.save({
+                ProfileID: decoded.ProfileID,
+                Username: decoded.Username,
+                Email: req.body.Email,
+                PictureURL: req.body.PictureURL
+              })
+              .then(function() {
+                models.User.forge({
+                  ProfileID: decoded.ProfileID
+                })
+                .fetch({require: true})
+                .then(function(user) {
+                  user.save({
+                    Firstname: req.body.FirstName,
+                    LastName: req.body.LastName,
+                    Description: req.body.Description,
+                    Resume: req.body.Resume,
+                    AcademicStatus: req.body.AcademicStatus
+                  })
+                  .then(function() {
+                    res.json({
+                      success: true,
+                      message: 'Account updated.',
+                      token: token
+                    });
+                  });
               });
+            });
+          
           });
         }
       });
@@ -160,3 +187,14 @@ module.exports = function(app, connection) {
     }
   });
 };
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on 
+  if (req.isAuthenticated())
+    return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/login');
+}

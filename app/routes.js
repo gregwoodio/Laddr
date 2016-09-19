@@ -1,15 +1,17 @@
 // routes.js
 
-var mysql = require('mysql');
-var process = require('process');
-if (process.env.NODE_ENV == 'test') {
-  var db = require('../config/testdatabase');
-} else {
-  var db = require('../config/database')
-}
-var connection = mysql.createConnection(db.connection);
-
-connection.connect();
+//var mysql = require('mysql');
+// var process = require('process');
+// if (process.env.NODE_ENV == 'test') {
+//   var db = require('../config/testdatabase');
+// } else {
+//   var db = require('../config/database')
+// }
+//var connection = mysql.createConnection(db.connection);
+// var connection = require('knex')(db);
+// var Bookshelf = require('bookshelf')(connection);
+var models = require('./models');
+// connection.connect();
 
 if (process.env.NODE_ENV == 'test') {
 
@@ -21,19 +23,21 @@ if (process.env.NODE_ENV == 'test') {
   connection.query('DELETE FROM LdrProfiles');
 }
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
 	// API routes
-  var login = require('./api/login')(app, connection);
-  var profile = require('./api/profile')(app, connection);
-  var user = require('./api/user')(app, connection);
-  var organization = require('./api/organization')(app, connection);
-  var comment = require('./api/comment')(app, connection);
-  var topic = require('./api/topic')(app, connection);
-  var posting = require('./api/posting')(app, connection);
+  // var login = require('./api/login')(app, connection);
+  // var profile = require('./api/profile')(app, connection);
+  // var user = require('./api/user')(app, connection);
+  // var organization = require('./api/organization')(app, connection);
+  // var comment = require('./api/comment')(app, connection);
+  // var topic = require('./api/topic')(app, connection);
+  // var posting = require('./api/posting')(app, connection);
+  var user = require('./api/user')(app, models);
+  var login = require('./api/login')(app, models);
+  var profile = require('./api/profile')(app, passport, models);
   
   app.get('/', function(req, res) {
-    console.log('Index.html');
     res.sendFile(__dirname + '/public/index.html');
   });
 

@@ -2,30 +2,42 @@
 
 jwt = require('jsonwebtoken');
 
-module.exports = function(app, connection) {
+module.exports = function(app, passport, models) {
 
 	//logs into our system, returns a token
 	app.get('/api/profile', function(req, res) {
 
-	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    console.log('GET /api/profile');
 
-	  if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-          res.json(decoded);
-        }
+    models.User.forge({ProfileID: req.session.profile.ProfileID})
+      .fetch()
+      .then(function(user) {
+        console.log('User attributes: ' + user.attributes.toJSON());
+        return res.json(user);
+      })
+      .catch(function(err) {
+        console.log(err.message);
       });
-	  } else {
-      res.status(403).json({
-        success: false,
-        message: "No token provided."
-      });
-    }
+
+	  // var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+	  // if (token) {
+   //    jwt.verify(token, app.get('secret'), function(err, decoded) {
+   //      if (err) {
+   //        res.json({
+   //          success: false,
+   //          message: "Failed to authenticate token."
+   //        });
+   //      } else {
+   //        res.json(decoded);
+   //      }
+   //    });
+	  // } else {
+   //    res.status(403).json({
+   //      success: false,
+   //      message: "No token provided."
+   //    });
+   //  }
   });
 
   app.post('/api/profile', function(req, res) {
@@ -52,3 +64,14 @@ module.exports = function(app, connection) {
     });
   }); 
 };
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on 
+  if (req.isAuthenticated())
+    return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}

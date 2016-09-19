@@ -5,6 +5,8 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config/config');
+var passport = require('passport');
+require('./config/passport')(passport);
 
 var app = express();
 var port = 3000;
@@ -27,8 +29,13 @@ app.use('/partials', express.static(__dirname + '/app/public/partials'));
 app.use('/components', express.static(__dirname + '/app/public/components'));
 //app.use(express.static(__dirname + '/app/public'));
 
+//passport setup
+// app.use(session({secret: 'supersecretpassworddonttellanyone'}));
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 //routing
-require('./app/routes')(app);
+require('./app/routes')(app, passport);
 
 //start listening
 app.listen(port);
