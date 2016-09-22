@@ -135,13 +135,13 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
   $scope.$storage = $sessionStorage;
 
   if ($scope.$storage.ldrToken != undefined) {
+
+    console.log($routeParams);
+
     $http
-      .get('/api/posting', {
+      .get('/api/posting/' + $routeParams.id, {
         headers: {
           'x-access-token': $scope.$storage.ldrToken
-        },
-        params: {
-          'id': $routeParams.id
         }
       })
       .success(function(data, status, headers, config) {
@@ -193,12 +193,9 @@ laddrControllers.controller('TopicController', ['$scope', '$location', '$http', 
 
         //nested api calls?
         $http
-          .get('/api/comment', {
+          .get('/api/topic/' + $routeParams.id, {
             headers: {
               'x-access-token': $scope.$storage.ldrToken
-            },
-            params: {
-              'tid': $routeParams.id
             }
           })
           .success(function(data, status, headers, config) {

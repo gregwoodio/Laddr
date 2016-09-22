@@ -5,8 +5,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config/config');
-var passport = require('passport');
-require('./config/passport')(passport);
 
 var app = express();
 var port = 3000;
@@ -19,6 +17,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended:true
 }));
+app.use(cookieParser());
+
+//passport setup
+var passport = require('passport');
+require('./config/passport')(passport);
 
 //static files
 app.use('/js', express.static(__dirname + '/app/public/js'));
@@ -30,9 +33,9 @@ app.use('/components', express.static(__dirname + '/app/public/components'));
 //app.use(express.static(__dirname + '/app/public'));
 
 //passport setup
-// app.use(session({secret: 'supersecretpassworddonttellanyone'}));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(session(config));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //routing
 require('./app/routes')(app, passport);

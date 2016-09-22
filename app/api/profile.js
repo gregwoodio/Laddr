@@ -2,42 +2,34 @@
 
 jwt = require('jsonwebtoken');
 
-module.exports = function(app, passport, models) {
+module.exports = function(app, passport) {
 
 	//logs into our system, returns a token
 	app.get('/api/profile', function(req, res) {
 
-    console.log('GET /api/profile');
+    token = req.headers['x-access-token'];
 
-    models.User.forge({ProfileID: req.session.profile.ProfileID})
-      .fetch()
-      .then(function(user) {
-        console.log('User attributes: ' + user.attributes.toJSON());
-        return res.json(user);
-      })
-      .catch(function(err) {
-        console.log(err.message);
+    if (token) {
+
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
+        if (err) {
+          res.json({
+            success: false,
+            message: "Failed to authenticate token."
+          });
+        } else {
+          console.log('profile.js - decoded: ' + decoded);
+          res.json(decoded);
+        }
+      });
+    } else {
+      res.status(403).json({
+        success: false,
+        message: "No token provided."
       });
 
-	  // var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-	  // if (token) {
-   //    jwt.verify(token, app.get('secret'), function(err, decoded) {
-   //      if (err) {
-   //        res.json({
-   //          success: false,
-   //          message: "Failed to authenticate token."
-   //        });
-   //      } else {
-   //        res.json(decoded);
-   //      }
-   //    });
-	  // } else {
-   //    res.status(403).json({
-   //      success: false,
-   //      message: "No token provided."
-   //    });
-   //  }
+    }
+  
   });
 
   app.post('/api/profile', function(req, res) {
@@ -66,12 +58,39 @@ module.exports = function(app, passport, models) {
 };
 
 // route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+// function isLoggedIn(req, res, next) {
 
-  // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated())
-    return next();
+//   // if user is authenticated in the session, carry on 
+//   if (req.isAuthenticated())
+//     return next();
 
-  // if they aren't redirect them to the home page
-  res.redirect('/');
-}
+//   // if they aren't redirect them to the home page
+//   res.redirect('/');
+// }
+
+
+// function verifyToken(req, res, next) {
+
+//   // token = req.headers['x-access-token'];
+
+//   // if (token) {
+
+//   //   jwt.verify(token, app.get('secret'), function(err, decoded) {
+//   //     if (err) {
+//   //       res.json({
+//   //         success: false,
+//   //         message: "Failed to authenticate token."
+//   //       });
+//   //     } else {
+//   //       req.decoded = decoded;
+//   //       next();
+//   //     }
+//   //   });
+//   // } else {
+//   //   res.status(403).json({
+//   //     success: false,
+//   //     message: "No token provided."
+//   //   });
+
+//   // }
+// }

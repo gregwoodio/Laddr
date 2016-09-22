@@ -6,60 +6,54 @@ jwt = require('jsonwebtoken');
 
 module.exports = function(app, models) {
 
+  //TODO: isAuthenticated middleware
   // Get user
-  app.get('/api/user', isLoggedIn, function(req, res) {
+  app.get('/api/user', function(req, res) {
 
     var token = req.headers['x-access-token'];
 
-    // if (token && req.query.ProfileID) {
-      // jwt.verify(token, app.get('secret'), function(err, decoded) {
-      //   if (err) {
-      //     res.json({
-      //       success: false,
-      //       message: 'Failed to authenticate token.'
-      //     });
-      //   } else {
-          //What info to expose here?
-          //Is this for the public profile, or personal profile?
-          // connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ' + 
-          //   'ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
+    if (token && req.query.ProfileID) {
 
-          //   if (err) throw err;
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
 
-          //   //don't return the hashed password
-          //   profile = rows[0];
+        if (err) {
+          res.status(403).json({
+            success: false,
+            message: 'Failed to authenticate token.'
+          });
+        } else {
 
-          //   res.json(profile);
-          // });
-
-          // console.log(models);
-
-          models.User.forge({ProfileID: req.query.ProfileID})
-            .fetch()
-            .then(function(user) {
-              if (!user) {
-                res.status(400).json({
-                  success: false,
-                  message: 'No such user.'
-                });
-              } else {
-                res.json(user.toJSON());
-              }
-            })
-            .catch(function(err) {
-              res.status(500).json({
+          models.User.find({
+            where: {
+              ProfileID: req.query.ProfileID
+            }
+          })
+          .then(function(user) {
+            if (!user) {
+              res.status(400).json({
                 success: false,
-                message: err.message
+                message: 'No such user.'
               });
+            } else {
+              console.log(user.attributes);
+              res.json(user.attributes);
+            }
+          })
+          .catch(function(err) {
+            res.status(500).json({
+              success: false,
+              message: 'Invalid profile ID.'
             });
-        // }
-      // });
-    // } else {
-    //   res.status(403).json({
-    //     success: false,
-    //     message: 'No token provided.'
-    //   });
-    // }
+          });
+        }
+      });
+
+    } else {
+      res.status(403).json({
+        success: false, 
+        message: 'No token provided.'
+      });
+    }
   });
 
   // Add user
@@ -68,10 +62,9 @@ module.exports = function(app, models) {
     //TODO: Validate info first
 
     //make sure all the required info was provided
-    if (req.body.Username == undefined || req.body.Email == undefined || 
-      req.body.Picture == undefined || req.body.FirstName == undefined ||
-      req.body.LastName == undefined || req.body.Description == undefined ||
-      req.body.Resume == undefined) {
+    if (req.body.Username == undefined || req.body.Email == undefined || req.body.Password == undefined ||
+      req.body.Picture == undefined || req.body.FirstName == undefined || req.body.LastName == undefined ||
+      req.body.Description == undefined || req.body.Resume == undefined) {
 
       res.status(400).json({
         success: false,
@@ -83,18 +76,18 @@ module.exports = function(app, models) {
 
         var profileID = uuid.v1();
 
-        models.Profile.forge({
+        models.Profile.build({
           ProfileID: profileID,
           Username: req.body.Username,
           Email: req.body.Email,
           PictureURL: req.body.Picture,
           Password: hash,
-          //Timestamp: NOW(), //TODO: also needs to be fixed somehow
+          Timestamp: new Date(),
           AccountType: 0
         })
         .save()
         .then(function(profile) {
-          models.User.forge({
+          models.User.build({
             ProfileID: profileID,
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
@@ -113,14 +106,14 @@ module.exports = function(app, models) {
           .catch(function(err) {
             res.status(500).json({
               success: false,
-              message: 'Error while entering new user.'
+              message: err.message
             });
           })
         })
         .catch(function(err) {
           res.status(500).json({
             success: false,
-            message: 'Error while entering new user.'
+            message: err.message
           });
         });
       });
@@ -130,7 +123,7 @@ module.exports = function(app, models) {
   //modify user and profile
   app.put('/api/user', function(req, res) {
 
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.headers['x-access-token'];
 
     if (token) {
       jwt.verify(token, app.get('secret'), function(err, decoded) {
@@ -144,39 +137,47 @@ module.exports = function(app, models) {
           // ProfileID and Username cannot change
           // Passwords will be changed elsewhere.
 
-          models.Profile.forge({ProfileID: decoded.ProfileID})
-            .fetch({require: true})
+          models.Profile.update({
+              Username: decoded.Username,
+              Email: req.body.Email || decoded.Email,
+              PictureURL: req.body.PictureURL || decoded.PictureURL
+            }, {
+              where: {
+                ProfileID: decoded.ProfileID
+              }
+            })
             .then(function(profile) {
-              profile.save({
-                ProfileID: decoded.ProfileID,
-                Username: decoded.Username,
-                Email: req.body.Email,
-                PictureURL: req.body.PictureURL
-              })
-              .then(function() {
-                models.User.forge({
-                  ProfileID: decoded.ProfileID
+              models.User.update({
+                  Firstname: req.body.FirstName || decoded.FirstName,
+                  LastName: req.body.LastName || decoded.LastName,
+                  Description: req.body.Description || decoded.Description,
+                  Resume: req.body.Resume || decoded.Resume,
+                  AcademicStatus: req.body.AcademicStatus || decoded.AcademicStatus || 0 //TODO: fix this
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
                 })
-                .fetch({require: true})
                 .then(function(user) {
-                  user.save({
-                    Firstname: req.body.FirstName,
-                    LastName: req.body.LastName,
-                    Description: req.body.Description,
-                    Resume: req.body.Resume,
-                    AcademicStatus: req.body.AcademicStatus
-                  })
-                  .then(function() {
-                    res.json({
-                      success: true,
-                      message: 'Account updated.',
-                      token: token
-                    });
+                  res.json({
+                    success: true,
+                    message: 'Account updated.',
+                    token: token
                   });
+                })
+                .catch(function(err) {
+                  res.status(500).json({
+                    success: false,
+                    message: err.message
+                  });
+                });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
               });
             });
-          
-          });
         }
       });
     } else {
@@ -188,13 +189,13 @@ module.exports = function(app, models) {
   });
 };
 
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+// // route middleware to make sure a user is logged in
+// function isLoggedIn(req, res, next) {
 
-  // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated())
-    return next();
+//   // if user is authenticated in the session, carry on 
+//   if (req.isAuthenticated())
+//     return next();
 
-  // if they aren't redirect them to the home page
-  res.redirect('/login');
-}
+//   // if they aren't redirect them to the home page
+//   res.redirect('/login');
+// }

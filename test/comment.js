@@ -87,7 +87,7 @@ module.exports = function(chai, server, assert, username, password) {
   });  
 
   describe('/GET request to /api/comment with token but missing GET parameters', function() {
-    it('Should return JSON array of comments', function(done) {
+    it('Should fail.', function(done) {
 
       chai.request(server)
         .post('/api/login')
@@ -105,110 +105,11 @@ module.exports = function(chai, server, assert, username, password) {
             .end(function(err, res) {
 
               assert.typeOf(res.body, 'object', 'Should return JSON object.');
-              assert.equal(res.status, 400, 'Should return 400 status.');
+              assert.equal(res.status, 404, 'Should return 404 status.');
               assert.equal(res.body.success, false, 'Should indicate failure.');
               done();
 
             });
-        });
-    });
-  });
-
-  describe('/GET request to /api/comment with token and TopicID parameter', function() {
-    it('Should return JSON array of comments', function(done) {
-
-      chai.request(server)
-        .post('/api/login')
-        .send({
-          Username: username,
-          Password: password
-        })
-        .end(function(err, res) {
-
-          userToken = res.body.token;
-
-          chai.request(server)
-            .get('/api/topic')
-            .set('x-access-token', userToken)
-            .end(function(err, res) {
-
-              topic = res.body[0];
-
-              chai.request(server)
-              .get('/api/comment?tid=' + topic.TopicID)
-              .set('x-access-token', userToken)
-              .end(function(err, res) {
-
-                assert.equal(err, undefined, 'Should not return errors.');
-                assert.typeOf(res.body, 'array', 'Should return array of comments.');
-                assert.equal(res.status, 200, 'Should return 200 status.');
-                done();
-
-              });
-            });
-        });
-    });
-  });
-
-  describe('/GET request to /api/comment with token and CommentID parameter', function() {
-    it('Should return JSON array of comments', function(done) {
-
-      //get token
-      chai.request(server)
-        .post('/api/login')
-        .send({
-          Username: username,
-          Password: password
-        })
-        .end(function(err, res) {
-
-          userToken = res.body.token;
-
-          //get topics
-          chai.request(server)
-            .get('/api/topic')
-            .set('x-access-token', userToken)
-            .end(function(err, res) {
-
-              topic = res.body[0];
-
-              //get comments from topic
-              chai.request(server)
-                .get('/api/comment?tid=' + topic.TopicID)
-                .set('x-access-token', userToken)
-                .end(function(err, res) {
-
-                  comment = res.body[0];
-
-                  //get individual comment
-                  chai.request(server)
-                    .get('/api/comment?cid=' + comment.CommentID)
-                    .set('x-access-token', userToken)
-                    .end(function(err, res) {
-                      assert.equal(err, undefined, 'Should not return errors.');
-                      assert.typeOf(res.body, 'array', 'Should return array of comments.');
-                      assert.equal(res.status, 200, 'Should return 200 status.');
-                      done();
-                    });
-                });
-            });
-        });
-    });
-  });
-
-  describe('/GET request to /api/comment with no token', function() {
-    it('Should return JSON response indicating failure.', function(done) {
-
-      chai.request(server)
-        .get('/api/comment')
-        .end(function(err, res) {
-
-          assert.notEqual(err, undefined, 'Should return an error code.');
-          assert.equal(res.status, 403, 'Should return HTTP status 403.');
-          assert.typeOf(res.body, 'object', 'Should return a JSON object response.');
-          assert.equal(res.body.success, false, 'Should indicate failure.');
-          done();
-
         });
     });
   });

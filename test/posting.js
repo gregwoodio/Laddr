@@ -150,7 +150,7 @@ module.exports = function(chai, server, assert, username, password) {
 
               //now make request with token and specified posting
               chai.request(server)
-                .get('/api/posting?id=' + postingID)
+                .get('/api/posting/' + postingID)
                 .set('x-access-token', userToken)
                 .end(function(err, res) {
 

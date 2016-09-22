@@ -2,21 +2,27 @@
 
 var LocalStrategy = require('passport-local').Strategy;
 var models = require('../app/models');
+var bcrypt = require('bcrypt');
 
 module.exports = function(passport) {
 
-  passport.serializeUser(function(user, done) {
-    done(null, user);
+  // serialization methods
+  passport.serializeUser(function(profile, done) {
+    done(null, profile.ProfileID);
   });
 
   passport.deserializeUser(function(id, done) {
-    models.Profile.forge({ProfileID: id})
-    .fetch()
-    .then(function(profile) {
-      done(profile);
+    models.Profile.find({
+      where: {ProfileID: id}
+    }).then(function(profile) {
+      done(null, profile.toJSON());
+    })
+    .catch(function(err) {
+      done(err, null);
     });
   });
 
+  // local login strategy
   passport.use('local-login', new LocalStrategy({
     usernameField: 'Username',
     passwordField: 'Password',
@@ -24,31 +30,103 @@ module.exports = function(passport) {
   },
   function(req, username, password, done) {
 
-    models.Profile.forge({Username: username})
-      .fetch()
-      .then(function(profile) {
+    // find the requested profile
+    models.Profile.find({
+      where: {
+        Username: username
+      }}).then(function(profile) {
 
+        // no profile found
         if (!profile) {
-          return done(null, false);
+          console.log('passport.js - No such profile.');
+          return done(null, false, {
+            success: false,
+            message: 'Invalid login.'
+          });
         }
 
-        if (!bcrypt.compareSync(password, profile.attributes.Password)) {
-          return done(null, false);
+        // incorrect password
+        if (!bcrypt.compareSync(password, profile.dataValues.Password)) {
+          console.log('passport.js - Bad password.');
+          return done(null, false, {
+            success: false,
+            message: 'Incorrect password.'
+          });
         }
 
-        req.logIn(profile, function(err) {
-          if (err)
-            console.log(err.message);
+        // check if profile is User or Organization
 
-          req.session.profile = profile.attributes;
+        prof = {};
+        delete profile.dataValues.Password;
+        
+        for (key in profile.dataValues) {
+          prof[key] = profile.dataValues[key];
+        }
 
-        });
+        if (profile.dataValues.AccountType == 0) {
 
-        return done(null, profile);
+          models.User.find({
+            where: {
+              ProfileID: profile.dataValues.ProfileID
+            }
+          })
+          .then(function(user) {
 
+            //add in user values
+            for (key in user.dataValues) {
+              prof[key] = user.dataValues[key];
+            }
+            console.log(prof);
+            return done(null, prof, {
+              success: true,
+              message: 'Profile sent.'
+            });
+
+          })
+          .catch(function(err) {
+            return done(err, false, {
+              success: false,
+              message: 'Error finding account.'
+            })
+          })
+
+        } else if (profile.dataValues.AccountType == 1) {
+          //organization
+          models.Organization.find({
+            where: {
+              ProfileID: profile.dataValues.ProfileID
+            }
+          })
+          .then(function(org) {
+
+            //add in organization values
+            for (key in org.dataValues) {
+              prof[key] = org.dataValues[key];
+            }
+            console.log(prof);
+            return done(null, prof, {
+              success: true,
+              message: 'Profile sent.'
+            });
+          })
+          .catch(function(err) {
+            return done(err, false, {
+              success: false,
+              message: 'Error finding account.'
+            });
+          });
+
+        } else {
+
+          //shouldn't end up here
+          return done(null, false, {
+            success: false,
+            message: 'Bad profile type.'
+          });
+        }
       })
       .catch(function(err) {
-        console.log(err.message);
+        return done(err);
       });
   }));
 

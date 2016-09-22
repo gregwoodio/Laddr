@@ -16,27 +16,52 @@ var models = require('./models');
 if (process.env.NODE_ENV == 'test') {
 
   //for testing, work with empty database tables
-  connection.query('DELETE FROM LdrComments');
-  connection.query('DELETE FROM LdrTopics');
-  connection.query('DELETE FROM LdrUsers');
-  connection.query('DELETE FROM LdrOrganizations');
-  connection.query('DELETE FROM LdrProfiles');
+  models.sequelize.query('DELETE FROM LdrComments');
+  models.sequelize.query('DELETE FROM LdrTopics');
+  models.sequelize.query('DELETE FROM LdrPostings');
+  models.sequelize.query('DELETE FROM LdrUsers');
+  models.sequelize.query('DELETE FROM LdrOrganizations');
+  models.sequelize.query('DELETE FROM LdrProfiles');
+
+  // models.Bookshelf.knex('LdrComments').del()
+  //   .then(function(count) {
+  //     console.log('Deleted ' + count + ' rows from LdrComments');
+  //   });
+  // models.Bookshelf.knex('LdrTopics').del()
+  //   .then(function(count) {
+  //     console.log('Deleted ' + count + ' rows from LdrTopics');
+  //   });
+  // models.Bookshelf.knex('LdrPostings').del()
+  //   .then(function(count) {
+  //     console.log('Deleted ' + count + ' rows from LdrPostings');
+  //   });
+  // models.Bookshelf.knex('LdrUsers').del()
+  //   .then(function(count) {
+  //     console.log('Deleted ' + count + ' rows from LdrUsers');
+  //   });
+  // models.Bookshelf.knex('LdrOrganizations').del()
+  //   .then(function(count) {
+  //     console.log('Deleted ' + count + ' rows from LdrOrganizations');
+  //   });
+  // models.Bookshelf.knex('LdrProfiles').del()
+  //   .then(function(count) {
+  //     console.log('Deleted ' + count + ' rows from LdrProfiles');
+  //   });
+
 }
 
 module.exports = function(app, passport) {
 
 	// API routes
-  // var login = require('./api/login')(app, connection);
-  // var profile = require('./api/profile')(app, connection);
-  // var user = require('./api/user')(app, connection);
-  // var organization = require('./api/organization')(app, connection);
-  // var comment = require('./api/comment')(app, connection);
-  // var topic = require('./api/topic')(app, connection);
-  // var posting = require('./api/posting')(app, connection);
+  var login = require('./api/login')(app, passport);
+  var profile = require('./api/profile')(app, passport);
   var user = require('./api/user')(app, models);
-  var login = require('./api/login')(app, models);
-  var profile = require('./api/profile')(app, passport, models);
-  
+  var organization = require('./api/organization')(app, models);
+  var topic = require('./api/topic')(app, models);
+  var comment = require('./api/comment')(app, models);
+  var posting = require('./api/posting')(app, models);
+
+
   app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
   });

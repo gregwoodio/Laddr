@@ -3,12 +3,12 @@
 var uuid = require('uuid');
 var jwt = require('jsonwebtoken');
 
-module.exports = function(app, connection) {
+module.exports = function(app, models) {
 
   // Get listing of all topics.
   app.get('/api/topic', function(req, res) {
       
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.headers['x-access-token'];
 
     if (token) {
       jwt.verify(token, app.get('secret'), function(err, decoded) {
@@ -18,24 +18,18 @@ module.exports = function(app, connection) {
             message: 'Failed to authenticate token.'
           });
         } else {
-          var topicID = req.query.tid;
 
-          if (topicID == undefined) {
-            //TODO: Pagination
-            connection.query('SELECT * FROM LdrTopics ORDER BY Timestamp DESC', function(err, rows) {
-              if (err) throw err;
-              
-              res.json(rows);
+          models.Topic.findAll()
+            .then(function(topics) {
+              res.json(topics);
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
+              });
             });
 
-          } else {
-
-            connection.query('SELECT * FROM LdrTopics WHERE TopicID = ?', [topicID], function(err, rows) {
-              if (err) throw err;
-
-              res.json(rows[0]);
-            });
-          }
         }
       });
     } else {
@@ -45,6 +39,40 @@ module.exports = function(app, connection) {
       });
     }
       
+  });
+
+  // get Comments from one Topic
+  app.get('/api/topic/:id', function(req, res) {
+    var token = req.headers['x-access-token'];
+
+    console.log(req.params.id);
+
+    if (token) {
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
+        if (err) {
+          res.status(403).json({
+            success: false,
+            message: 'Failed to authenticate token.'
+          });
+        } else {
+          models.Comment.findAll({
+            where: {
+              TopicID: req.params.id
+            }
+          })
+          .then(function(comments) {
+            res.json(comments);
+          })
+          .catch(function(err) {
+            res.status(500).json({
+              success: false,
+              message: err.message
+            });
+          });
+        }
+      });
+    }
+
   });
 
   // Add a new topic
@@ -68,31 +96,39 @@ module.exports = function(app, connection) {
               message: 'Failed to authenticate token.'
             });
           } else {
-            var topic = {
-              TopicID: uuid.v1(),
+
+            topicID = uuid.v1();
+
+            models.Topic.build({
+              TopicID: topicID,
               Title: req.body.Title,
               Creator: decoded.Username,
-              Body: req.body.Body
-            };
+              Timestamp: new Date()
+            })
+            .save()
+            .then(function(topic) {
 
-            connection.query('INSERT INTO LdrTopics (TopicID, Title, Creator, Timestamp) VALUES (?, ?, ?, NOW())', 
-            	[topic.TopicID, topic.Title, topic.Creator], function(err, rows) {
+              models.Comment.build({
+                CommentID: uuid.v1(),
+                Author: decoded.Username,
+                Timestamp: new Date(),
+                TopicID: topicID,
+                Body: req.body.Body
+              })
+              .save()
+              .then(function(comment) {
 
-              if (err) throw err;
-
-              var commentID = uuid.v1();
-
-              //add the first comment to the topic
-              connection.query('INSERT INTO LdrComments(CommentID, Author, Timestamp, TopicID, Body) VALUES (?, ?, NOW(), ?, ?)', 
-              	[commentID, topic.Creator, topic.TopicID, topic.Body], function(err, rows) {
-                
-                if (err) throw err;
-
-                console.log('Topic added = \"' + topic.Title + '\"');
                 res.json({
                   success: true,
-                  message: 'Topic added.'
+                  message: 'New topic added.',
+                  id: topic.TopicID
                 });
+              });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
               });
             });
           }
@@ -105,4 +141,6 @@ module.exports = function(app, connection) {
       }      
     }
   });
+
+  //TODO: Delete Route
 };
