@@ -2,76 +2,43 @@
 
 var uuid = require('uuid');
 var jwt = require('jsonwebtoken');
+var mw = require('../middleware');
 
 module.exports = function(app, models) {
 
   // Get listing of all topics.
-  app.get('/api/topic', function(req, res) {
+  app.get('/api/topic', [mw.verifyToken], function(req, res) {
       
-    var token = req.headers['x-access-token'];
-
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.status(403).json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-
-          models.Topic.findAll()
-            .then(function(topics) {
-              res.json(topics);
-            })
-            .catch(function(err) {
-              res.status(500).json({
-                success: false,
-                message: err.message
-              });
-            });
-
-        }
-      });
-    } else {
-      res.status(403).json({
-        success: false,
-        message: 'No token provided.'
-      });
-    }
+    models.Topic.findAll()
+      .then(function(topics) {
+        res.json(topics);
+      })
+      .catch(function(err) {
+        res.status(500).json({
+          success: false,
+          message: err.message
+        });
+      }); 
       
   });
 
   // get Comments from one Topic
-  app.get('/api/topic/:id', function(req, res) {
-    var token = req.headers['x-access-token'];
-
-    console.log(req.params.id);
-
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.status(403).json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-          models.Comment.findAll({
-            where: {
-              TopicID: req.params.id
-            }
-          })
-          .then(function(comments) {
-            res.json(comments);
-          })
-          .catch(function(err) {
-            res.status(500).json({
-              success: false,
-              message: err.message
-            });
-          });
+  app.get('/api/topic/:id', [mw.verifyToken], function(req, res) {
+  
+    models.Comment.findAll({
+        where: {
+          TopicID: req.params.id
         }
+      })
+      .then(function(comments) {
+        res.json(comments);
+      })
+      .catch(function(err) {
+        res.status(500).json({
+          success: false,
+          message: err.message
+        });
       });
-    }
 
   });
 

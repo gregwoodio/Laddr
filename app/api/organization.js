@@ -3,59 +3,37 @@
 var uuid = require('uuid');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
+var mw = require('../middleware');
 
 module.exports = function(app, models) {
 
   // TODO: isAuthenticated middleware
   // Get organization 
-  app.get('/api/organization', function(req, res) {
+  app.get('/api/organization', [mw.verifyToken], function(req, res) {
 
-    var token = req.headers['x-access-token'];
+    models.Organization.find({
+      where: {
+        ProfileID: req.query.ProfileID
+      }
+    })
+    .then(function(org) {
 
-    if (token && req.query.ProfileID) {
-
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-
-        if (err) {
-          res.status(403).json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-
-          models.Organization.find({
-            where: {
-              ProfileID: req.query.ProfileID
-            }
-          })
-          .then(function(org) {
-
-            if (!org) {
-              res.status(400).json({
-                success: false,
-                message: 'No such user.'
-              });
-            } else {
-              console.log(org.attributes);
-              res.json(org.attributes);
-            }
-          })
-          .catch(function(err) {
-            res.status(500).json({
-              success: false,
-              message: 'Invalid profile ID.'
-            });
-          });
-        }
-      });
-
-    } else {
-      res.status(403).json({
+      if (!org) {
+        res.status(400).json({
+          success: false,
+          message: 'No such user.'
+        });
+      } else {
+        console.log(org.attributes);
+        res.json(org.attributes);
+      }
+    })
+    .catch(function(err) {
+      res.status(500).json({
         success: false,
-        message: 'No token provided.'
+        message: 'Invalid profile ID.'
       });
-    }
-
+    });
   });
     
   // Add organization

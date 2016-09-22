@@ -10,7 +10,7 @@ module.exports = function(chai, server, assert, username, password) {
 
           assert.typeOf(res.body, 'object', 'Should return JSON response.');
           assert.equal(res.body.success, false, 'Should indicate failure.');
-          assert.equal(res.status, 400, 'Should return status code 400.');
+          assert.equal(res.status, 403, 'Should return status code 400.');
           done();
         });
     });

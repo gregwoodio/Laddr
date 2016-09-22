@@ -2,6 +2,7 @@
 
 var uuid = require('uuid');
 var jwt = require('jsonwebtoken');
+var mw = require('../middleware');
 
 module.exports = function(app, models) {
 
@@ -14,9 +15,7 @@ module.exports = function(app, models) {
   });
 
   // Add a comment
-  app.post('/api/comment', function(req, res) {
-
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  app.post('/api/comment', [mw.verifyToken], function(req, res) {
 
     if (req.body.TopicID == undefined || req.body.Author == undefined || req.body.Body == undefined ||
       req.body.TopicID == '' || req.body.Author == '' || req.body.Body == undefined) {
@@ -26,42 +25,28 @@ module.exports = function(app, models) {
       });
     } else {
 
-      if (token) {
-        jwt.verify(token, app.get('secret'), function(err, decoded) {
-          if (err) {
-            res.status(403).json({
-              success: false,
-              message: "Failed to authenticate token."
-            });
-          } else {
+      models.Comment.build({
+        CommentID: uuid.v1(),
+        TopicID: req.body.TopicID,
+        Author: req.body.Author, 
+        Body: req.body.Body
+      })
+      .save()
+      .then(function(comment) {
+        res.json({
+          success: true,
+          message: "Comment added."
+        });
+      })
+      .catch(function(err) {
 
-            models.Comment.build({
-              CommentID: uuid.v1(),
-              TopicID: req.body.TopicID,
-              Author: decoded.Username, 
-              Body: req.body.Body
-            })
-            .save()
-            .then(function(comment) {
-              res.json({
-                success: true,
-                message: "Comment added."
-              });
-            })
-            .catch(function(err) {
-              res.status(500).json({
-                success: false,
-                message: err.message
-              });
-            });
-          }
-        });
-      } else {
-        res.status(403).json({
+        console.log('comments.js - err: ' + err.message);
+
+        res.status(500).json({
           success: false,
-          message: "No token provided."
+          message: err.message
         });
-      }
+      }); 
     }
       
   });

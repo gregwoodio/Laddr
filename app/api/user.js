@@ -3,57 +3,37 @@
 uuid = require('uuid');
 bcrypt = require('bcrypt');
 jwt = require('jsonwebtoken');
+mw = require('../middleware');
 
 module.exports = function(app, models) {
 
   //TODO: isAuthenticated middleware
   // Get user
-  app.get('/api/user', function(req, res) {
+  app.get('/api/user/:id', [mw.verifyToken], function(req, res) {
 
-    var token = req.headers['x-access-token'];
-
-    if (token && req.query.ProfileID) {
-
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-
-        if (err) {
-          res.status(403).json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-
-          models.User.find({
-            where: {
-              ProfileID: req.query.ProfileID
-            }
-          })
-          .then(function(user) {
-            if (!user) {
-              res.status(400).json({
-                success: false,
-                message: 'No such user.'
-              });
-            } else {
-              console.log(user.attributes);
-              res.json(user.attributes);
-            }
-          })
-          .catch(function(err) {
-            res.status(500).json({
-              success: false,
-              message: 'Invalid profile ID.'
-            });
-          });
-        }
+    models.User.find({
+      where: {
+        ProfileID: req.params.id
+      }
+    })
+    .then(function(user) {
+      if (!user) {
+        res.status(400).json({
+          success: false,
+          message: 'No such user.'
+        });
+      } else {
+        console.log(user.dataValues);
+        res.json(user.dataValues);
+      }
+    })
+    .catch(function(err) {
+      res.status(500).json({
+        success: false,
+        message: 'Invalid profile ID.'
       });
+    });
 
-    } else {
-      res.status(403).json({
-        success: false, 
-        message: 'No token provided.'
-      });
-    }
   });
 
   // Add user
@@ -188,14 +168,3 @@ module.exports = function(app, models) {
     }
   });
 };
-
-// // route middleware to make sure a user is logged in
-// function isLoggedIn(req, res, next) {
-
-//   // if user is authenticated in the session, carry on 
-//   if (req.isAuthenticated())
-//     return next();
-
-//   // if they aren't redirect them to the home page
-//   res.redirect('/login');
-// }
