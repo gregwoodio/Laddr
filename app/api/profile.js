@@ -2,14 +2,15 @@
 
 jwt = require('jsonwebtoken');
 
-module.exports = function(app, connection) {
+module.exports = function(app, passport) {
 
 	//logs into our system, returns a token
 	app.get('/api/profile', function(req, res) {
 
-	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    token = req.headers['x-access-token'];
 
-	  if (token) {
+    if (token) {
+
       jwt.verify(token, app.get('secret'), function(err, decoded) {
         if (err) {
           res.json({
@@ -17,15 +18,17 @@ module.exports = function(app, connection) {
             message: "Failed to authenticate token."
           });
         } else {
+          console.log('profile.js - decoded: ' + decoded);
           res.json(decoded);
         }
       });
-	  } else {
+    } else {
       res.status(403).json({
         success: false,
         message: "No token provided."
       });
     }
+  
   });
 
   app.post('/api/profile', function(req, res) {

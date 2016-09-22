@@ -17,6 +17,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended:true
 }));
+app.use(cookieParser());
+
+//passport setup
+var passport = require('passport');
+require('./config/passport')(passport);
 
 //static files
 app.use('/js', express.static(__dirname + '/app/public/js'));
@@ -27,8 +32,13 @@ app.use('/partials', express.static(__dirname + '/app/public/partials'));
 app.use('/components', express.static(__dirname + '/app/public/components'));
 //app.use(express.static(__dirname + '/app/public'));
 
+//passport setup
+app.use(session(config));
+app.use(passport.initialize());
+app.use(passport.session());
+
 //routing
-require('./app/routes')(app);
+require('./app/routes')(app, passport);
 
 //start listening
 app.listen(port);

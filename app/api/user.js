@@ -3,42 +3,37 @@
 uuid = require('uuid');
 bcrypt = require('bcrypt');
 jwt = require('jsonwebtoken');
+mw = require('../middleware');
 
-module.exports = function(app, connection) {
+module.exports = function(app, models) {
 
+  //TODO: isAuthenticated middleware
   // Get user
-  app.get('/api/user', function(req, res) {
+  app.get('/api/user/:id', [mw.verifyToken], function(req, res) {
 
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-    if (token && req.query.ProfileID) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-          //What info to expose here?
-          //Is this for the public profile, or personal profile?
-          connection.query('SELECT p.PictureURL, u.FirstName, u.LastName, u.Description FROM LdrUsers u INNER JOIN LdrProfiles p ' + 
-            'ON u.ProfileID = p.ProfileID WHERE p.ProfileID = ?', [req.query.ProfileID], function(err, rows, fields) {
-
-            if (err) throw err;
-
-            //don't return the hashed password
-            profile = rows[0];
-
-            res.json(profile);
-          });
-        }
-      });
-    } else {
-      res.status(403).json({
+    models.User.find({
+      where: {
+        ProfileID: req.params.id
+      }
+    })
+    .then(function(user) {
+      if (!user) {
+        res.status(400).json({
+          success: false,
+          message: 'No such user.'
+        });
+      } else {
+        console.log(user.dataValues);
+        res.json(user.dataValues);
+      }
+    })
+    .catch(function(err) {
+      res.status(500).json({
         success: false,
-        message: 'No token provided.'
+        message: 'Invalid profile ID.'
       });
-    }
+    });
+
   });
 
   // Add user
@@ -47,13 +42,9 @@ module.exports = function(app, connection) {
     //TODO: Validate info first
 
     //make sure all the required info was provided
-    if (req.body.Username == undefined ||
-      req.body.Email == undefined || 
-      req.body.Picture == undefined || 
-      req.body.FirstName == undefined ||
-      req.body.LastName == undefined ||
-      req.body.Description == undefined ||
-      req.body.Resume == undefined) {
+    if (req.body.Username == undefined || req.body.Email == undefined || req.body.Password == undefined ||
+      req.body.Picture == undefined || req.body.FirstName == undefined || req.body.LastName == undefined ||
+      req.body.Description == undefined || req.body.Resume == undefined) {
 
       res.status(400).json({
         success: false,
@@ -63,40 +54,48 @@ module.exports = function(app, connection) {
 
       bcrypt.hash(req.body.Password, 10, function(err, hash) {
 
-        var new_profile = {
-          ProfileID: uuid.v1(),
+        var profileID = uuid.v1();
+
+        models.Profile.build({
+          ProfileID: profileID,
           Username: req.body.Username,
           Email: req.body.Email,
           PictureURL: req.body.Picture,
           Password: hash,
-          //Timestamp: NOW(), //TODO: also needs to be fixed somehow
+          Timestamp: new Date(),
           AccountType: 0
-        };
-
-        connection.query('INSERT INTO LdrProfiles (ProfileID, Username, Email, Password, PictureURL, Timestamp, AccountType) ' +
-          'VALUES (?, ?, ?, ?, ?, NOW(), ?)', [new_profile.ProfileID, new_profile.Username, new_profile.Email, new_profile.Password, 
-          new_profile.PictureURL, new_profile.AccountType], function(err, result) {
-
-          if (err) throw err;
-          
-          var new_user = {
-            ProfileID: new_profile.ProfileID,
+        })
+        .save()
+        .then(function(profile) {
+          models.User.build({
+            ProfileID: profileID,
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
             Description: req.body.Description,
             Resume: req.body.Resume,
-            AcademicStatus: 1 //TODO: this needs to be implemented better
-          }
-
-          connection.query('INSERT INTO LdrUsers SET ?', [new_user], function(err, result) {
-            if (err) throw err;
-
+            AcademicStatus: 1 
+          })
+          .save()
+          .then(function(user) {
             res.json({
               success: true,
-              message: 'New user added.'
+              message: 'New user added.',
+              id: profileID
             });
+          })
+          .catch(function(err) {
+            res.status(500).json({
+              success: false,
+              message: err.message
+            });
+          })
+        })
+        .catch(function(err) {
+          res.status(500).json({
+            success: false,
+            message: err.message
           });
-        }); 
+        });
       });
     }
   });
@@ -104,7 +103,7 @@ module.exports = function(app, connection) {
   //modify user and profile
   app.put('/api/user', function(req, res) {
 
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.headers['x-access-token'];
 
     if (token) {
       jwt.verify(token, app.get('secret'), function(err, decoded) {
@@ -117,39 +116,48 @@ module.exports = function(app, connection) {
           // Alter only the information for current user
           // ProfileID and Username cannot change
           // Passwords will be changed elsewhere.
-          updatedUser = {
-            ProfileID: decoded.ProfileID,
-            Username: decoded.Username,
-            Email: req.body.Email,
-            PictureURL: req.body.PictureURL,
-            Firstname: req.body.FirstName,
-            LastName: req.body.LastName,
-            Description: req.body.Description,
-            Resume: req.body.Resume,
-            AcademicStatus: req.body.AcademicStatus
-          }
 
-          connection.query('UPDATE LdrProfiles SET Username = ?, Email = ?, PictureURL = ? WHERE ProfileID = ?', 
-            [updatedUser.Username, updatedUser.Email, updatedUser.PictureURL, updatedUser.ProfileID], function(err, results) {
-
-              if (err) throw err;
-
-              connection.query('UPDATE LdrUsers SET FirstName = ?, LastName = ?, Description = ?, Resume = ?, AcademicStatus = ? WHERE ' +
-                'ProfileID = ?', [updatedUser.Firstname, updatedUser.LastName, updatedUser.Description, updatedUser.Resume, 
-                updatedUser.AcademicStatus, updatedUser.ProfileID], function(err, results) {
-
-                if (err) throw err;
-
-                // get a new token, the old one will now have outdated information in it
-                // TODO: Write a method in the login class that exchanges a valid token for a refreshed version of it
-
-                res.json({
-                  success: true,
-                  message: 'Account updated.',
-                  token: token
+          models.Profile.update({
+              Username: decoded.Username,
+              Email: req.body.Email || decoded.Email,
+              PictureURL: req.body.PictureURL || decoded.PictureURL
+            }, {
+              where: {
+                ProfileID: decoded.ProfileID
+              }
+            })
+            .then(function(profile) {
+              models.User.update({
+                  Firstname: req.body.FirstName || decoded.FirstName,
+                  LastName: req.body.LastName || decoded.LastName,
+                  Description: req.body.Description || decoded.Description,
+                  Resume: req.body.Resume || decoded.Resume,
+                  AcademicStatus: req.body.AcademicStatus || decoded.AcademicStatus || 0 //TODO: fix this
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(user) {
+                  res.json({
+                    success: true,
+                    message: 'Account updated.',
+                    token: token
+                  });
+                })
+                .catch(function(err) {
+                  res.status(500).json({
+                    success: false,
+                    message: err.message
+                  });
                 });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
               });
-          });
+            });
         }
       });
     } else {

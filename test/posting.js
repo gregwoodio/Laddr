@@ -10,7 +10,7 @@ module.exports = function(chai, server, assert, username, password) {
 
           assert.typeOf(res.body, 'object', 'Should return JSON response.');
           assert.equal(res.body.success, false, 'Should indicate failure.');
-          assert.equal(res.status, 400, 'Should return status code 400.');
+          assert.equal(res.status, 403, 'Should return status code 400.');
           done();
         });
     });
@@ -150,7 +150,7 @@ module.exports = function(chai, server, assert, username, password) {
 
               //now make request with token and specified posting
               chai.request(server)
-                .get('/api/posting?id=' + postingID)
+                .get('/api/posting/' + postingID)
                 .set('x-access-token', userToken)
                 .end(function(err, res) {
 

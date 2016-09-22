@@ -7,10 +7,9 @@ module.exports = function(chai, server, assert, username, password) {
 			chai.request(server)
 				.post('/api/login')
 				.end(function(err, res) {
-					assert.notEqual(err, undefined, '403 is an error status.');
 					assert.equal(res.status, 403, 'Should have a status of 403');
 					assert.typeOf(res.body, 'object', 'Should return JSON object.');
-					assert.equal(res.body.success, false, 'Response should inform user of failure.');
+					assert.equal(res.body.message, "Missing credentials", 'Response should inform user of failure.');
 					done();
 				});
 
@@ -23,7 +22,6 @@ module.exports = function(chai, server, assert, username, password) {
 				.post('/api/login')
 				.send({Username: 'NotInTheDatabase', Password: 'nothere'})
 				.end(function(err, res) {
-					assert.notEqual(err, undefined, '403 is an error status.');
 					assert.equal(res.status, 403, 'Should have a status of 403.');
 					assert.typeOf(res.body, 'object', 'Should return JSON object.');
 					assert.equal(res.body.success, false, 'Response should inform user of failure.');
