@@ -26,6 +26,9 @@
 			templateUrl: 'partials/login.html',
 			controller: 'LoginController'
 		}).
+		when('/login/:token', {
+			controller: 'TwitterLoginController'
+		}).
 		when('/howto', {
 			templateUrl: '/partials/howto.html',
 			controller: 'HowToController'
@@ -45,6 +48,10 @@
 		when('/forum', {
 			templateUrl: 'partials/alltopics.html',
 			controller: 'AllTopicsController'
+		}).
+		when('/addtopic', {
+			templateUrl: 'partials/addtopic.html',
+			controller: 'AddTopicController'
 		}).
 		otherwise({
 			redirectTo: '/login'

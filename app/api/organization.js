@@ -39,10 +39,10 @@ module.exports = function(app, models) {
   // Add organization
   app.post('/api/organization', function(req, res) {
 
-    if (req.body.Username == undefined || req.body.Email == undefined || req.body.Picture == undefined || 
+    if (req.body.Email == undefined || req.body.Picture == undefined || 
       req.body.Password == undefined || req.body.OrganizationName == undefined || req.body.URL == undefined ||
       req.body.MissionStatement == undefined || req.body.Address == undefined ||
-      req.body.Username == '' || req.body.Email == '' || req.body.Picture == '' || 
+      req.body.Email == '' || req.body.Picture == '' || 
       req.body.Password == '' || req.body.OrganizationName == '' || req.body.URL == '' ||
       req.body.MissionStatement == '' || req.body.Address == '') {
 
@@ -58,7 +58,6 @@ module.exports = function(app, models) {
 
         models.Profile.build({
           ProfileID: profileID,
-          Username: req.body.Username,
           Email: req.body.Email,
           PictureURL: req.body.Picture,
           Password: hash,
@@ -112,12 +111,11 @@ module.exports = function(app, models) {
           });
         } else {
           // Alter only the information for current organization
-          // ProfileID and Username cannot change
+          // ProfileID cannot change
           // Passwords will be changed elsewhere.
 
           models.Profile.update({
               ProfileID: decoded.ProfileID,
-              Username: decoded.Username,
               Email: req.body.Email || decoded.Email,
               PictureURL: req.body.PictureURL || decoded.PictureURL
             }, {

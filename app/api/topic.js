@@ -9,7 +9,9 @@ module.exports = function(app, models) {
   // Get listing of all topics.
   app.get('/api/topic', [mw.verifyToken], function(req, res) {
       
-    models.Topic.findAll()
+    models.Topic.findAll({
+        include: [models.Profile]
+      })
       .then(function(topics) {
         res.json(topics);
       })
@@ -25,20 +27,68 @@ module.exports = function(app, models) {
   // get Comments from one Topic
   app.get('/api/topic/:id', [mw.verifyToken], function(req, res) {
   
-    models.Comment.findAll({
-        where: {
-          TopicID: req.params.id
-        }
-      })
-      .then(function(comments) {
-        res.json(comments);
-      })
-      .catch(function(err) {
-        res.status(500).json({
-          success: false,
-          message: err.message
+    models.Topic.find({
+      where: {
+        TopicID: req.params.id
+      },
+      include: {
+        model: models.Profile,
+        include: [
+          models.User
+        ]
+      }
+    })
+    .then(function(topic) {
+
+      topic = topic.dataValues;
+      topic.LdrProfile = topic.LdrProfile.dataValues;
+      delete topic.LdrProfile.Password;
+      console.log('topic.js - topic: ');
+      console.log(topic);
+
+      models.Comment.findAll({
+          where: {
+            TopicID: req.params.id
+          }, 
+          include: [
+            {
+              model: models.Profile,
+              include: [
+                models.User
+              ]
+            }
+          ]
+        })
+        .then(function(comments) {
+
+          console.log('topic.js - comments: ');
+          console.log(comments);
+
+          res.json({
+            success: true,
+            topic: topic,
+            comments: comments
+          });
+        })
+        .catch(function(err) {
+
+          console.log('topic.js - ' + err.message);
+
+          res.status(500).json({
+            success: false,
+            message: err.message
+          });
         });
+    })
+    .catch(function(err) {
+
+      console.log('topic.js - ' + err.message);
+
+      res.status(500).json({
+        success: false,
+        message: err.message
       });
+    });
 
   });
 
@@ -47,8 +97,9 @@ module.exports = function(app, models) {
       
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    if (req.body.Title == undefined || req.body.Creator == undefined || req.body.Body == undefined ||
-      req.body.Title == '' || req.body.Creator == '' || req.body.Body == '') {
+    if (req.body.Title == undefined || req.body.Body == undefined ||
+      req.body.Title == '' || req.body.Body == '') {
+      console.log('topic.js - Missing form data.');
       res.status(400).json({
         success: false,
         message: 'Missing form data.'
@@ -58,6 +109,7 @@ module.exports = function(app, models) {
       if (token) {
         jwt.verify(token, app.get('secret'), function(err, decoded) {
           if (err) {
+            console.log('topic.js - failed to authenticate token.');
             res.status(403).json({
               success: false,
               message: 'Failed to authenticate token.'
@@ -69,7 +121,7 @@ module.exports = function(app, models) {
             models.Topic.build({
               TopicID: topicID,
               Title: req.body.Title,
-              Creator: decoded.Username,
+              ProfileID: decoded.ProfileID,
               Timestamp: new Date()
             })
             .save()
@@ -77,7 +129,7 @@ module.exports = function(app, models) {
 
               models.Comment.build({
                 CommentID: uuid.v1(),
-                Author: decoded.Username,
+                ProfileID: decoded.ProfileID,
                 Timestamp: new Date(),
                 TopicID: topicID,
                 Body: req.body.Body
@@ -93,6 +145,7 @@ module.exports = function(app, models) {
               });
             })
             .catch(function(err) {
+              console.log('topic.js - ' + err.message);
               res.status(500).json({
                 success: false,
                 message: err.message
@@ -101,6 +154,7 @@ module.exports = function(app, models) {
           }
         });
       } else {
+        console.log('topic.js - No token provided.');
         res.status(403).json({
           success: false,
           message: "No token provided."

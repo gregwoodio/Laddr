@@ -42,7 +42,7 @@ module.exports = function(app, models) {
     //TODO: Validate info first
 
     //make sure all the required info was provided
-    if (req.body.Username == undefined || req.body.Email == undefined || req.body.Password == undefined ||
+    if (req.body.Email == undefined || req.body.Password == undefined ||
       req.body.Picture == undefined || req.body.FirstName == undefined || req.body.LastName == undefined ||
       req.body.Description == undefined || req.body.Resume == undefined) {
 
@@ -58,7 +58,6 @@ module.exports = function(app, models) {
 
         models.Profile.build({
           ProfileID: profileID,
-          Username: req.body.Username,
           Email: req.body.Email,
           PictureURL: req.body.Picture,
           Password: hash,
@@ -114,11 +113,10 @@ module.exports = function(app, models) {
           });
         } else {
           // Alter only the information for current user
-          // ProfileID and Username cannot change
+          // ProfileID cannot change
           // Passwords will be changed elsewhere.
 
           models.Profile.update({
-              Username: decoded.Username,
               Email: req.body.Email || decoded.Email,
               PictureURL: req.body.PictureURL || decoded.PictureURL
             }, {

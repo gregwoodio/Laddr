@@ -1,6 +1,6 @@
 // test/posting.js
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
   describe('/POST request to /api/posting without token or parameters', function() {
     it('Should return JSON response indicating failure', function(done) {
@@ -21,7 +21,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {
@@ -48,7 +48,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {
@@ -105,7 +105,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {
@@ -134,7 +134,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {
@@ -172,7 +172,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {

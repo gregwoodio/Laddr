@@ -31,7 +31,6 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
       })
       .success(function(data, status, headers, config) {
 
-        $scope.profile.Username = data.Username;
         $scope.profile.Email = data.Email;
         $scope.profile.FirstName = data.FirstName;
         $scope.profile.LastName = data.LastName;
@@ -65,7 +64,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
   $scope.login = function() {
 
     data = {
-      Username: $scope.user.username,
+      Email: $scope.user.email,
       Password: $scope.user.password
     };
 
@@ -84,6 +83,21 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
         console.log("Bad login 2");
       });
   };
+}]);
+
+laddrControllers.controller('TwitterLoginController', ['$scope', '$routeParams', '$location', '$sessionStorage', 
+  function($scope, $routeParams, $location, $sessionStorage) {
+  $scope.$storage = $sessionStorage;
+
+  console.log('TwtiterLoginController');
+  console.log($routeParams.token);
+
+  if ($routeParams.token) {
+    $scope.$storage.ldrToken = $routeParams.token;
+    $location.url('/profile');
+  } else {
+    $location.url('/login');
+  }
 }]);
 
 laddrControllers.controller('HowToController', ['$scope', '$location', '$sessionStorage', 
@@ -175,44 +189,44 @@ laddrControllers.controller('TopicController', ['$scope', '$location', '$http', 
   $scope.$storage = $sessionStorage;
 
   if ($scope.$storage.ldrToken != undefined) {
+    // $http
+    //   .get('/api/topic', {
+    //     headers: {
+    //       'x-access-token': $scope.$storage.ldrToken
+    //     },
+    //     params: {
+    //       'tid': $routeParams.id
+    //     }
+    //   })
+    //   .success(function(data, status, headers, config) {
+
+    //     $scope.topic = data;
+
+    //     //show logout
+    //     $scope.logout = true;
+
+    //     //nested api calls?
     $http
-      .get('/api/topic', {
+      .get('/api/topic/' + $routeParams.id, {
         headers: {
           'x-access-token': $scope.$storage.ldrToken
-        },
-        params: {
-          'tid': $routeParams.id
         }
       })
       .success(function(data, status, headers, config) {
 
-        $scope.topic = data;
+        $scope.topic = data.topic;
+        $scope.comments = data.comments;
 
-        //show logout
-        $scope.logout = true;
-
-        //nested api calls?
-        $http
-          .get('/api/topic/' + $routeParams.id, {
-            headers: {
-              'x-access-token': $scope.$storage.ldrToken
-            }
-          })
-          .success(function(data, status, headers, config) {
-
-            $scope.topic.comments = data;
-            console.log($scope.topic);
-
-          })
-          .error(function(data, status, headers, config) {
-            $scope.message = "Could not retrieve topic. Please try again later.";
-          });
-          
       })
       .error(function(data, status, headers, config) {
-        //couldn't get topic
         $scope.message = "Could not retrieve topic. Please try again later.";
       });
+          
+      // })
+      // .error(function(data, status, headers, config) {
+      //   //couldn't get topic
+      //   $scope.message = "Could not retrieve topic. Please try again later.";
+      // });
   } else {
     $location.url('/login');
   }
@@ -245,7 +259,41 @@ laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$htt
   }
 }]);
 
-laddrControllers.controller('LogoutController', ['$location', '$scope', '$sessionStorage', function($location, $scope, $sessionStorage) {
+laddrControllers.controller('AddTopicController', ['$location', '$scope','$http', '$sessionStorage', 
+  function($location, $scope, $http, $sessionStorage) {
+
+  $scope.$storage = $sessionStorage;
+  $scope.logout = true;
+
+  $scope.submitTopic = function() {
+
+    data = {
+      Title: $scope.topic.title,
+      Body: $scope.topic.body
+    };
+
+    $http
+      .post('/api/topic', data, {
+        headers: {
+          'x-access-token': $scope.$storage.ldrToken
+        }
+      })
+      .success(function(data, status, headers, config) {
+        if (data) {
+          $location.url('/forum');
+        } else {
+          console.log('Failed to add topic.');
+        }
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Failed to add topic, part 2.');
+      });
+  }
+
+}]);
+
+laddrControllers.controller('LogoutController', ['$location', '$scope', '$sessionStorage', 
+  function($location, $scope, $sessionStorage) {
   $scope.$storage = $sessionStorage;
   $scope.$storage.ldrToken = null;
 
