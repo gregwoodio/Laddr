@@ -51,6 +51,10 @@ module.exports = function(grunt) {
 	    	bootstrap: {
 	    		src: 'app/public/components/bootstrap/dist/js/bootstrap.min.js',
 	    		dest: 'app/public/js/bootstrap.min.js'
+	    	},
+	    	fontawesome: {
+	    		src: 'app/public/components/font-awesome/css/font-awesome.css',
+	    		dest: 'app/public/css/font-awesome.css'
 	    	}
 	  	}
 	});

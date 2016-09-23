@@ -34,12 +34,14 @@ if (process.env.NODE_ENV == 'test') {
 
 var Profile = sequelize.define('LdrProfiles', {
   ProfileID: {type: Sequelize.STRING, primaryKey: true},
-  Username: {type: Sequelize.STRING, allowNull: false, unique: 'compositeIndex'},
-  Email: {type: Sequelize.STRING},
-  Password: {type: Sequelize.STRING, allowNull: false},
-  PictureURL: {type: Sequelize.STRING},
+  //Username: {type: Sequelize.STRING, allowNull: false, unique: 'compositeIndex'},
+  Email: {type: Sequelize.STRING, defaultValue: ''},
+  Password: {type: Sequelize.STRING, allowNull: true},
+  PictureURL: {type: Sequelize.STRING, defaultValue: ''},
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
   AccountType: {type: Sequelize.INTEGER, defaultValue: 0},
+  TwitterID: {type: Sequelize.STRING, allowNull: true},
+  TwitterToken: {type: Sequelize.STRING, allowNull: true}
 }, {
   //don't include Sequelize timestamps
   timestamps: false

@@ -25,6 +25,9 @@ module.exports = function(app, passport) {
 
         delete profile.Password;
 
+        console.log('twitter.js - profile: ');
+        console.log(profile);
+
         var token = jwt.sign(profile, app.get('secret'), {
           expiresIn: '1440m'
         });
