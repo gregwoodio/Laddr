@@ -3,4 +3,6 @@ app/public/components
 app/public/css/*.min.css
 app/public/css/bootstrap.css
 app/public/js/*.min.js
+app/public/css/font-awesome.css
+app/public/fonts/*
 build/

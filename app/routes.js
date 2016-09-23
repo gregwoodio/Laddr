@@ -61,6 +61,9 @@ module.exports = function(app, passport) {
   var comment = require('./api/comment')(app, models);
   var posting = require('./api/posting')(app, models);
 
+  //social routes
+  var twitter = require('./api/twitter')(app, passport);
+
 
   app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
