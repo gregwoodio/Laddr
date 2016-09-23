@@ -140,11 +140,11 @@ Comment.belongsTo(Topic, {foreignKey: 'TopicID'});
 Comment.belongsTo(Profile, {foreignKey: 'ProfileID'});
 
 module.exports = {
-  sequelize,
-  Profile,
-  User,
-  Organization,
-  Posting,
-  Topic,
-  Comment
+  sequelize: Sequelize,
+  Profile: Profile,
+  User: User,
+  Organization: Organization,
+  Posting: Posting,
+  Topic: Topic,
+  Comment: Comment
 };
