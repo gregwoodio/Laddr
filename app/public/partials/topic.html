@@ -27,11 +27,11 @@
 			<section id="postings">
 				<h3>{{topic.Title}}</h3>
 				
-				<small>By {{topic.Creator}} on {{topic.Timestamp}} </small>
+				<small>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp}} </small>
 					
 				<table class="table table-striped">
-					<tr ng-repeat="comment in topic.comments">
-						<td>{{comment.Author}}</td>
+					<tr ng-repeat="comment in comments">
+						<td>{{comment.LdrProfile.LdrUser.FirstName}}</td>
 						<td>{{comment.Body}}</td>
 					</tr>
 				</table>

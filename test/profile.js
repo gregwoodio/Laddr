@@ -1,6 +1,6 @@
 // test/profile.js
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
 	describe('GET request to /api/profile.', function() {
 		it('Should return the user profile given a token.', function(done) {
@@ -8,7 +8,7 @@ module.exports = function(chai, server, assert, username, password) {
 			chai.request(server)
 				.post('/api/login')
 				.send({
-					Username: username,
+					Email: email,
 					Password: password
 				})
 				.end(function(err, res) {
@@ -20,7 +20,7 @@ module.exports = function(chai, server, assert, username, password) {
 						.end(function(err, res) {
 							assert.notEqual(res.body, undefined, 'Should have some value if signed in.');
 							assert.typeOf(res.body, 'object', 'Should return an object.');
-							assert.notEqual(res.body.Username, undefined, 'Response should include username.');
+							assert.notEqual(res.body.Email, undefined, 'Response should include email.');
 							assert.notProperty(res, 'Password', 'Should not return password.');
 							done();
 						});
@@ -64,7 +64,7 @@ module.exports = function(chai, server, assert, username, password) {
 			chai.request(server)
 				.post('/api/login')
 				.send({
-					Username: username,
+					Email: email,
 					Password: password
 				})
 				.end(function(err, res) {
@@ -90,7 +90,7 @@ module.exports = function(chai, server, assert, username, password) {
 			chai.request(server)
 				.post('/api/login')
 				.send({
-					Username: username,
+					Email: email,
 					Password: password
 				})
 				.end(function(err, res) {
@@ -116,7 +116,7 @@ module.exports = function(chai, server, assert, username, password) {
 			chai.request(server)
 				.post('/api/login')
 				.send({
-					Username: username,
+					Email: email,
 					Password: password
 				})
 				.end(function(err, res) {

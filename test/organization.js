@@ -1,17 +1,16 @@
 // test/organization.js
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
   describe('/POST request to /api/organization to create a new organization.', function() {
     it('Should return JSON indicating success.', function(done) {
       chai.request(server)
         .post('/api/organization')
         .send({
-          Username: username,
-          Email: 'testorg@test.com', 
+          Email: email, 
           Password: password, 
           Picture: 'somepic.jpg', 
-          OrganizationName: username,
+          OrganizationName: 'Organization Name',
           Address: '123 Fake Organization Way',
           URL: 'www.fakeorg.com',
           MissionStatement: 'To be the fakest organization.'

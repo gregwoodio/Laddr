@@ -1,6 +1,6 @@
 // test/comment.js
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
   describe('/POST request to /api/comment without token.', function() {
     it('Should return a JSON response indicating failure.', function(done) {
@@ -24,7 +24,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res)  {
@@ -50,12 +50,13 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res)  {
 
           userToken = res.body.token;
+          profileID = res.body.profileID;
 
           //need to get the topic ID to post to it
           chai.request(server)
@@ -72,7 +73,7 @@ module.exports = function(chai, server, assert, username, password) {
                 .set('x-access-token', userToken)
                 .send({
                   TopicID: topic.TopicID,
-                  Author: username,
+                  ProfileID: profileID,
                   Body: 'This is a comment added by the unit tests at ' + (new Date()) + '.'
                 })
                 .end(function(err, res) {
@@ -94,7 +95,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {

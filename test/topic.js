@@ -1,6 +1,6 @@
 // test/topic.js
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
   describe('/POST request to /api/topic without token', function() {
     it('Should return a JSON response indicating failure.', function(done) {
@@ -8,7 +8,7 @@ module.exports = function(chai, server, assert, username, password) {
         .post('/api/topic')
         .send({
           Title: 'Topic created during testing',
-          Creator: username,
+          ProfileID: 'profile_id_here.',
           Body: 'This topic was creating during testing at ' + (new Date()) + '.'
         })
         .end(function(err, res) {
@@ -29,12 +29,13 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {
 
           userToken = res.body.token;
+          profileID = res.body.profileID;
 
           chai.request(server)
             .post('/api/topic')
@@ -58,19 +59,20 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {
 
           userToken = res.body.token;
+          profileID = res.body.profileID;
  
           chai.request(server)
             .post('/api/topic')
             .set('x-access-token', userToken)
             .send({
               Title: 'Topic created during testing',
-              Creator: username,
+              ProfileID: profileID,
               Body: 'This topic was creating during testing at ' + (new Date()) + '.'
             })
             .end(function(err, res) {
@@ -109,7 +111,7 @@ module.exports = function(chai, server, assert, username, password) {
       chai.request(server)
         .post('/api/login')
         .send({
-          Username: username,
+          Email: email,
           Password: password
         })
         .end(function(err, res) {

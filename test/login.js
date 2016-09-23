@@ -1,6 +1,6 @@
 //test/login.js 
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
 	describe('POST to /api/login with no credentials provided.', function() {
 		it('Should return 403 status for unsuccessful login.', function(done) {
@@ -16,11 +16,11 @@ module.exports = function(chai, server, assert, username, password) {
 		});		
 	});
 
-	describe('POST to /api/login with a nonexistant username.', function() {
+	describe('POST to /api/login with a nonexistant email.', function() {
 		it('Should return 403 status for unsuccessful login.', function(done) {
 			chai.request(server)
 				.post('/api/login')
-				.send({Username: 'NotInTheDatabase', Password: 'nothere'})
+				.send({Email: 'NotInTheDatabase', Password: 'nothere'})
 				.end(function(err, res) {
 					assert.equal(res.status, 403, 'Should have a status of 403.');
 					assert.typeOf(res.body, 'object', 'Should return JSON object.');
@@ -35,7 +35,7 @@ module.exports = function(chai, server, assert, username, password) {
 		it('Should return 403 status for unsuccessful login.', function(done) {
 			chai.request(server)
 				.post('/api/login')
-				.send({Username: username, Password: 'wrongpassword'})
+				.send({Email: email, Password: 'wrongpassword'})
 				.end(function(err, res) {
 					assert.notEqual(err, undefined, '403 is an error status.');
 					assert.equal(res.status, 403, 'Should have a status of 403.');
@@ -51,7 +51,7 @@ module.exports = function(chai, server, assert, username, password) {
 		it('Should return status 200 and a token.', function(done) {
 			chai.request(server)
 				.post('/api/login')
-				.send({Username: username, Password: password})
+				.send({Email: email, Password: password})
 				.end(function(err, res) {
 					assert.equal(err, undefined, 'Should not return an error.');
 					assert.equal(res.status, 200, 'Should have a status of 200.');
@@ -83,7 +83,7 @@ module.exports = function(chai, server, assert, username, password) {
 		it('Should return 404 status for method not allowed.', function(done) {
 			chai.request(server)
 				.put('/api/login')
-				.send({Username: username, Password: password})
+				.send({Email: email, Password: password})
 				.end(function(err, res) {
 					assert.notEqual(err, undefined, '404 is an error status.');
 					assert.equal(res.status, 404, 'Should have a status of 405');
@@ -99,7 +99,7 @@ module.exports = function(chai, server, assert, username, password) {
 		it('Should return 404 status for method not allowed.', function(done) {
 			chai.request(server)
 				.delete('/api/login')
-				.send({Username: username, Password: password})
+				.send({Email: email, Password: password})
 				.end(function(err, res) {
 					assert.notEqual(err, undefined, '404 is an error status.');
 					assert.equal(res.status, 404, 'Should have a status of 405');

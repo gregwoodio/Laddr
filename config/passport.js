@@ -26,16 +26,16 @@ module.exports = function(passport) {
 
   // local login strategy
   passport.use('local-login', new LocalStrategy({
-    usernameField: 'Username',
+    usernameField: 'Email',
     passwordField: 'Password',
     passReqToCallback: true
   },
-  function(req, username, password, done) {
+  function(req, email, password, done) {
 
     // find the requested profile
     models.Profile.find({
       where: {
-        Username: username
+        Email: email
       }}).then(function(profile) {
 
         // no profile found
@@ -165,7 +165,6 @@ module.exports = function(passport) {
           //create new user
           models.Profile.build({
               ProfileID: profileID,
-              Username: profile.username,
               Email: undefined,
               PictureURL: profile.profile_image_url_https,
               Password: undefined,

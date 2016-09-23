@@ -1,14 +1,13 @@
 // test/user.js
 
-module.exports = function(chai, server, assert, username, password) {
+module.exports = function(chai, server, assert, email, password) {
 
   describe('/POST request to /api/user to create a new user', function() {
     it('Should return JSON indicating success', function(done) {
       chai.request(server)
         .post('/api/user')
         .send({
-          Username: username,
-          Email: 'test@test.com', 
+          Email: email, 
           Password: password, 
           Picture: 'somepic.jpg', 
           FirstName: 'Test', 

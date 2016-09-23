@@ -35,6 +35,7 @@ module.exports = function(app, passport) {
         res.status(200).json({
           success: true,
           message: 'Enjoy your token!',
+          profileID: profile.ProfileID,
           token: token,
           type: 0
         });

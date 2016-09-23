@@ -104,16 +104,26 @@ Posting.belongsTo(Profile, {foreignKey: 'ProfileID'});
 var Topic = sequelize.define('LdrTopics', {
   TopicID: {type: Sequelize.STRING, primaryKey: true},
   Title: {type: Sequelize.STRING, allowNull: false},
-  Creator: {type: Sequelize.STRING, allowNull: false},
+  ProfileID: {
+    model: Profile,
+    key: 'ProfileID',
+    type: Sequelize.STRING
+  },
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
   Archived: {type: Sequelize.BOOLEAN}
 }, {
   timestamps: false
 });
 
+Topic.belongsTo(Profile, {foreignKey: 'ProfileID'});
+
 var Comment = sequelize.define('LdrComments', {
   CommentID: {type: Sequelize.STRING, primaryKey: true},
-  Author: {type: Sequelize.STRING, allowNull: false},
+  ProfileID: {
+    model: Profile,
+    key: 'ProfileID',
+    type: Sequelize.STRING
+  },
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
   TopicID: {
     model: Topic,
@@ -127,6 +137,7 @@ var Comment = sequelize.define('LdrComments', {
 });
 
 Comment.belongsTo(Topic, {foreignKey: 'TopicID'});
+Comment.belongsTo(Profile, {foreignKey: 'ProfileID'});
 
 module.exports = {
   sequelize,
