@@ -11,7 +11,8 @@ module.exports = function(app, models) {
     
     models.Posting.find({
         where: {
-          PostingID: req.params.id
+          PostingID: req.params.id,
+          Archived: false
         }
       })
       .then(function(posting) {
@@ -29,7 +30,11 @@ module.exports = function(app, models) {
   // Get postings
   app.get('/api/posting', [mw.verifyToken], function(req, res) {
       
-    models.Posting.findAll()
+    models.Posting.findAll({
+        where: {
+          Archived: false
+        }
+      })
       .then(function(postings) {
         
         res.json(postings);
@@ -101,7 +106,8 @@ module.exports = function(app, models) {
               }, {
                 where: {
                   PostingID: req.body.PostingID,
-                  ProfileID: decoded.ProfileID
+                  ProfileID: decoded.ProfileID,
+                  Archived: false
                 }
               })
               .then(function(posting) {
