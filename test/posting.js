@@ -202,4 +202,63 @@ module.exports = function(chai, server, assert, email, password) {
         });
     });
   });
+
+    //delete tests
+  describe('/DELETE request to /api/posting without a token', function() {
+    it('Should return JSON response indicating failure.', function(done) {
+
+      chai.request(server)
+        .delete('/api/posting/12345') 
+        .end(function(err, res) {
+
+          assert.typeOf(res.body, 'object', 'Should return JSON response as an object.');
+          assert.equal(res.status, 403, 'Should have 403 status.');
+          assert.equal(res.body.success, false, 'Should indicate failure.');
+          done();
+        });
+
+    });
+  });
+
+  //delete tests
+  describe('/DELETE request to /api/posting', function() {
+    it('Should return JSON response indicating success.', function(done) {
+
+      //need token
+      chai.request(server)
+        .post('/api/login')
+        .send({
+          Email: email,
+          Password: password
+        })
+        .end(function(err, res) {
+
+          userToken = res.body.token;
+
+          chai.request(server)
+            .get('/api/posting')
+            .set('x-access-token', userToken)
+            .end(function(err, res) {
+
+              if (res.body.length > 0) {
+                postingID = res.body[0].PostingID;
+
+                chai.request(server)
+                  .delete('/api/posting/' + postingID)
+                  .set('x-access-token', userToken)
+                  .end(function(err, res) {
+
+                    assert.typeOf(res.body, 'object', 'Should return JSON response as body.');
+                    assert.equal(res.status, 200, 'Should return 200 OK status.');
+                    assert.equal(res.body.success, true, 'Should indicate success.');
+                    done();
+                  });
+                
+              } else {
+                done();
+              }
+            });
+        });
+    });
+  });
 }

@@ -32,24 +32,21 @@ module.exports = function(app, passport) {
   });
 
   app.post('/api/profile', function(req, res) {
-    res.status(404);
-    res.json({
+    res.status(404).json({
       success: false,
       message: 'Method not allowed.'
     });
   }); 
 
   app.put('/api/profile', function(req, res) {
-    res.status(404);
-    res.json({
+    res.status(404).json({
       success: false,
       message: 'Method not allowed.'
     });
   }); 
 
   app.delete('/api/profile', function(req, res) {
-    res.status(404);
-    res.json({
+    res.status(404).json({
       success: false,
       message: 'Method not allowed.'
     });

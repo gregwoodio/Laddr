@@ -45,24 +45,21 @@ module.exports = function(app, passport) {
   });
 
   app.get('/api/login', function(req, res) {
-    res.status(404);
-    res.json({
+    res.status(404).json({
       success: false,
       message: 'Method not allowed.'
     });
   }); 
 
   app.put('/api/login', function(req, res) {
-    res.status(404);
-    res.json({
+    res.status(404).json({
       success: false,
       message: 'Method not allowed.'
     });
   }); 
 
   app.delete('/api/login', function(req, res) {
-    res.status(404);
-    res.json({
+    res.status(404).json({
       success: false,
       message: 'Method not allowed.'
     });
