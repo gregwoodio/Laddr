@@ -10,6 +10,9 @@ module.exports = function(app, models) {
   app.get('/api/topic', [mw.verifyToken], function(req, res) {
       
     models.Topic.findAll({
+        where: {
+          Archived: false
+        }, 
         include: [models.Profile]
       })
       .then(function(topics) {
@@ -163,5 +166,50 @@ module.exports = function(app, models) {
     }
   });
 
-  //TODO: Delete Route
+  app.delete('/api/topic/:id', function(req, res) {
+
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if (token) {
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
+        if (err) {
+          console.log('topic.js - failed to authenticate token.');
+          res.status(403).json({
+            success: false,
+            message: 'Failed to authenticate token.'
+          });
+        } else {
+
+          models.Topic.update({
+              Archived: true
+            }, { 
+              where: {
+                ProfileID: decoded.ProfileID,
+                TopicID: req.params.id
+              }
+            })
+            .then(function(topic) {
+              res.json({
+                success: true,
+                message: 'Topic deleted.'
+              });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
+              });
+            });
+
+        }
+      });
+    } else {
+      console.log('topic.js - No token provided.');
+      res.status(403).json({
+        success: false,
+        message: "No token provided."
+      });   
+    }
+
+  });
 };
