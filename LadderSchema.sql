@@ -36,7 +36,7 @@ CREATE TABLE `LdrComments` (
   `Timestamp` datetime DEFAULT NULL,
   `TopicID` varchar(36) DEFAULT NULL,
   `Body` varchar(512) DEFAULT NULL,
-  `Archived` tinyint(1) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`CommentID`),
   KEY `TopicID` (`TopicID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
@@ -125,6 +125,7 @@ CREATE TABLE `LdrProfiles` (
   `AccountType` int(11) NOT NULL,
   `TwitterID` varchar(256) DEFAULT NULL,
   `TwitterToken` varchar(255) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`ProfileID`),
   UNIQUE KEY `Email` (`Email`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
@@ -136,7 +137,7 @@ CREATE TABLE `LdrProfiles` (
 
 LOCK TABLES `LdrProfiles` WRITE;
 /*!40000 ALTER TABLE `LdrProfiles` DISABLE KEYS */;
-INSERT INTO `LdrProfiles` VALUES ('1','woodgre@sheridancollege.ca','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','','2016-05-16 21:33:19',0,NULL,NULL),('2','volunteering@mississauga.ca','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','mississauga.ca','2016-05-16 22:00:37',1,NULL,NULL),('3','volunteer@sheridancollege.ca','d8d00c7431376128cbc7276d02bc77b97919c37d','https://lh4.googleusercontent.com/-FC5-A2EQ7aw/VyeJ34UmokI/AAAAAAAAABo/D7EEMbd7FKglgdQ_hg1TAsPfgTmdKMSrgCLIB/s320-k-no/','2016-05-17 21:15:46',1,NULL,NULL),('4','johndoe@email.com','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','http://replygif.net/thumbnail/104.gif','2016-05-31 18:21:03',0,NULL,NULL),('ac000eb0-3a6d-11e6-b780-e3a1b2b24839','newguy@email.com','password','http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg','2016-06-24 20:42:19',0,NULL,NULL),('6ed56070-3a6e-11e6-a853-1ba70c1a541c','neworg@email.com','password','http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg','2016-06-24 20:47:46',1,NULL,NULL),('f987d410-3a72-11e6-a740-f5dd31d20d02','dat@boi.com','$2a$10$EGqMbSPs5F.WZmryYbi.1.p1.D6ReNehZsDHkHUpVkivZHGWPxfB.','https://pbs.twimg.com/profile_images/726464672400953344/4nX44_A7.jpg','2016-06-24 21:20:16',0,NULL,NULL),('5ff13fa0-8133-11e6-8a17-c52e0b768e69','',NULL,'','2016-09-23 02:13:53',0,'163293600',NULL);
+INSERT INTO `LdrProfiles` VALUES ('1','woodgre@sheridancollege.ca','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','','2016-05-16 21:33:19',0,NULL,NULL,0),('2','volunteering@mississauga.ca','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','mississauga.ca','2016-05-16 22:00:37',1,NULL,NULL,0),('3','volunteer@sheridancollege.ca','d8d00c7431376128cbc7276d02bc77b97919c37d','https://lh4.googleusercontent.com/-FC5-A2EQ7aw/VyeJ34UmokI/AAAAAAAAABo/D7EEMbd7FKglgdQ_hg1TAsPfgTmdKMSrgCLIB/s320-k-no/','2016-05-17 21:15:46',1,NULL,NULL,0),('4','johndoe@email.com','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','http://replygif.net/thumbnail/104.gif','2016-05-31 18:21:03',0,NULL,NULL,0),('ac000eb0-3a6d-11e6-b780-e3a1b2b24839','newguy@email.com','password','http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg','2016-06-24 20:42:19',0,NULL,NULL,0),('6ed56070-3a6e-11e6-a853-1ba70c1a541c','neworg@email.com','password','http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg','2016-06-24 20:47:46',1,NULL,NULL,0),('f987d410-3a72-11e6-a740-f5dd31d20d02','dat@boi.com','$2a$10$EGqMbSPs5F.WZmryYbi.1.p1.D6ReNehZsDHkHUpVkivZHGWPxfB.','https://pbs.twimg.com/profile_images/726464672400953344/4nX44_A7.jpg','2016-06-24 21:20:16',0,NULL,NULL,0),('5ff13fa0-8133-11e6-8a17-c52e0b768e69','',NULL,'','2016-09-23 02:13:53',0,'163293600',NULL,0);
 /*!40000 ALTER TABLE `LdrProfiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +153,7 @@ CREATE TABLE `LdrTopics` (
   `Title` varchar(256) DEFAULT NULL,
   `ProfileID` varchar(36) DEFAULT NULL,
   `Timestamp` datetime DEFAULT NULL,
-  `Archived` tinyint(1) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`TopicID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -216,7 +217,7 @@ CREATE TABLE `LdrComments` (
   `Timestamp` datetime DEFAULT NULL,
   `TopicID` varchar(36) DEFAULT NULL,
   `Body` varchar(512) DEFAULT NULL,
-  `Archived` tinyint(1) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`CommentID`),
   KEY `TopicID` (`TopicID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
@@ -228,7 +229,7 @@ CREATE TABLE `LdrComments` (
 
 LOCK TABLES `LdrComments` WRITE;
 /*!40000 ALTER TABLE `LdrComments` DISABLE KEYS */;
-INSERT INTO `LdrComments` VALUES ('97843860-81b4-11e6-af85-25edeb873d61','96b21b50-81b4-11e6-af85-25edeb873d61','2016-09-23 17:38:51','9783c330-81b4-11e6-af85-25edeb873d61','This topic was creating during testing at Fri Sep 23 2016 13:38:51 GMT-0400 (EDT).',NULL),('97afb530-81b4-11e6-af85-25edeb873d61','96b21b50-81b4-11e6-af85-25edeb873d61','2016-09-23 17:38:52','9783c330-81b4-11e6-af85-25edeb873d61','This is a comment added by the unit tests at Fri Sep 23 2016 13:38:52 GMT-0400 (EDT).',NULL);
+INSERT INTO `LdrComments` VALUES ('1897d8f0-83b6-11e6-87e3-1df2a80dcb27','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40','18978ad0-83b6-11e6-87e3-1df2a80dcb27','This topic was creating during testing at Mon Sep 26 2016 02:54:40 GMT-0400 (EDT).',0),('18c4dc60-83b6-11e6-87e3-1df2a80dcb27','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40','18c48e40-83b6-11e6-87e3-1df2a80dcb27','This topic was creating during testing at Mon Sep 26 2016 02:54:40 GMT-0400 (EDT).',0),('18e0a1c0-83b6-11e6-87e3-1df2a80dcb27','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40','18c48e40-83b6-11e6-87e3-1df2a80dcb27','This is a comment added by the unit tests at Mon Sep 26 2016 02:54:40 GMT-0400 (EDT).',0);
 /*!40000 ALTER TABLE `LdrComments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +256,7 @@ CREATE TABLE `LdrOrganizations` (
 
 LOCK TABLES `LdrOrganizations` WRITE;
 /*!40000 ALTER TABLE `LdrOrganizations` DISABLE KEYS */;
-INSERT INTO `LdrOrganizations` VALUES ('97165b60-81b4-11e6-af85-25edeb873d61','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.');
+INSERT INTO `LdrOrganizations` VALUES ('180f4800-83b6-11e6-87e3-1df2a80dcb27','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.'),('181c6760-83b6-11e6-87e3-1df2a80dcb27','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.');
 /*!40000 ALTER TABLE `LdrOrganizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +274,7 @@ CREATE TABLE `LdrPostings` (
   `Location` varchar(200) NOT NULL,
   `Description` varchar(1000) NOT NULL,
   `Timestamp` datetime NOT NULL,
-  `Archived` tinyint(1) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`PostingID`),
   KEY `organizationID` (`ProfileID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
@@ -285,7 +286,7 @@ CREATE TABLE `LdrPostings` (
 
 LOCK TABLES `LdrPostings` WRITE;
 /*!40000 ALTER TABLE `LdrPostings` DISABLE KEYS */;
-INSERT INTO `LdrPostings` VALUES ('97d7d6a0-81b4-11e6-af85-25edeb873d61','97165b60-81b4-11e6-af85-25edeb873d61','Test job title','Mississauga','A test job created in Mississauga','2016-09-23 17:38:52',NULL);
+INSERT INTO `LdrPostings` VALUES ('191609a0-83b6-11e6-87e3-1df2a80dcb27','180f4800-83b6-11e6-87e3-1df2a80dcb27','Test job title','Mississauga','A test job created in Mississauga','2016-09-26 06:54:40',1);
 /*!40000 ALTER TABLE `LdrPostings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,6 +306,7 @@ CREATE TABLE `LdrProfiles` (
   `AccountType` int(11) NOT NULL,
   `TwitterID` varchar(256) DEFAULT NULL,
   `TwitterToken` varchar(255) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`ProfileID`),
   UNIQUE KEY `Email` (`Email`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
@@ -316,7 +318,7 @@ CREATE TABLE `LdrProfiles` (
 
 LOCK TABLES `LdrProfiles` WRITE;
 /*!40000 ALTER TABLE `LdrProfiles` DISABLE KEYS */;
-INSERT INTO `LdrProfiles` VALUES ('96b21b50-81b4-11e6-af85-25edeb873d61','dat@boi.com','$2a$10$GvaSkb0JnheprMdB/UHleuSGU41h0UoaiXd57JI.NRF4ZfVIO1Tli','somepic.jpg','2016-09-23 17:38:50',0,NULL,NULL),('97165b60-81b4-11e6-af85-25edeb873d61','codebusters@laddr.xyz','$2a$10$NPT.CAZTv3GaBsHUnMulO.mqircUXGhJ1XJItYxAb2mjDc/eTWiIq','somepic.jpg','2016-09-23 17:38:51',1,NULL,NULL);
+INSERT INTO `LdrProfiles` VALUES ('17861ad0-83b6-11e6-87e3-1df2a80dcb27','dat@boi.com','$2a$10$fRO4oY0dnOyX8D7n3ZYtPeUyXgpg5HUusjbsF57Ckg4KEAQmvyck2','somepic.jpg','2016-09-26 06:54:38',0,NULL,NULL,0),('179c61f0-83b6-11e6-87e3-1df2a80dcb27','user_to_be_deleted@gmail.com','$2a$10$VG.Ea.QA1.rJYY4gYa8LI.9cdMi6mQbDxouiAB0p0kCYd0Z1forny','somepic.jpg','2016-09-26 06:54:38',0,NULL,NULL,1),('180f4800-83b6-11e6-87e3-1df2a80dcb27','codebusters@laddr.xyz','$2a$10$obY2avj9hwHWh3FwDv.fNecoAImr8WiQ2EC/t5ARiMDeQDdveiPRa','somepic.jpg','2016-09-26 06:54:39',1,NULL,NULL,0),('181c6760-83b6-11e6-87e3-1df2a80dcb27','to_be_deleted@gmail.com','$2a$10$0gBXLh6ISKcGBr7pNTLOFu2KtnkAvoGeAPHVssMf.6.yfQI.0UdEm','somepic.jpg','2016-09-26 06:54:39',1,NULL,NULL,1);
 /*!40000 ALTER TABLE `LdrProfiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +334,7 @@ CREATE TABLE `LdrTopics` (
   `Title` varchar(256) DEFAULT NULL,
   `ProfileID` varchar(36) DEFAULT NULL,
   `Timestamp` datetime DEFAULT NULL,
-  `Archived` tinyint(1) DEFAULT NULL,
+  `Archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`TopicID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -343,7 +345,7 @@ CREATE TABLE `LdrTopics` (
 
 LOCK TABLES `LdrTopics` WRITE;
 /*!40000 ALTER TABLE `LdrTopics` DISABLE KEYS */;
-INSERT INTO `LdrTopics` VALUES ('9783c330-81b4-11e6-af85-25edeb873d61','Topic created during testing','96b21b50-81b4-11e6-af85-25edeb873d61','2016-09-23 17:38:51',NULL);
+INSERT INTO `LdrTopics` VALUES ('18978ad0-83b6-11e6-87e3-1df2a80dcb27','Topic created during testing','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40',1),('18c48e40-83b6-11e6-87e3-1df2a80dcb27','Topic created during testing','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40',0);
 /*!40000 ALTER TABLE `LdrTopics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +373,7 @@ CREATE TABLE `LdrUsers` (
 
 LOCK TABLES `LdrUsers` WRITE;
 /*!40000 ALTER TABLE `LdrUsers` DISABLE KEYS */;
-INSERT INTO `LdrUsers` VALUES ('96b21b50-81b4-11e6-af85-25edeb873d61','Test','User','Test Description','Test Resume',1);
+INSERT INTO `LdrUsers` VALUES ('17861ad0-83b6-11e6-87e3-1df2a80dcb27','Test','User','Test Description','Test Resume',1),('179c61f0-83b6-11e6-87e3-1df2a80dcb27','Deleted','User','Test Description','Test Resume',1);
 /*!40000 ALTER TABLE `LdrUsers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -384,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-23 14:38:20
+-- Dump completed on 2016-09-26  2:56:29

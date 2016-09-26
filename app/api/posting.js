@@ -11,7 +11,8 @@ module.exports = function(app, models) {
     
     models.Posting.find({
         where: {
-          PostingID: req.params.id
+          PostingID: req.params.id,
+          Archived: false
         }
       })
       .then(function(posting) {
@@ -29,7 +30,11 @@ module.exports = function(app, models) {
   // Get postings
   app.get('/api/posting', [mw.verifyToken], function(req, res) {
       
-    models.Posting.findAll()
+    models.Posting.findAll({
+        where: {
+          Archived: false
+        }
+      })
       .then(function(postings) {
         
         res.json(postings);
@@ -100,7 +105,9 @@ module.exports = function(app, models) {
                 Description: req.body.Description
               }, {
                 where: {
-                  PostingID: req.body.PostingID    
+                  PostingID: req.body.PostingID,
+                  ProfileID: decoded.ProfileID,
+                  Archived: false
                 }
               })
               .then(function(posting) {
@@ -121,6 +128,54 @@ module.exports = function(app, models) {
               message: 'Cannot edit posting created by another user.'
             });
           }
+        }
+      });
+    } else {
+      res.status(403).json({
+        success: false,
+        message: "No token provided."
+      });
+    }
+  });
+
+  app.delete('/api/posting/:id', function(req, res) {
+    var token = req.headers['x-access-token'];
+
+    if (token) {
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
+        if (err) {
+          res.json({
+            success: false,
+            message: "Failed to authenticate token."
+          });
+        } else {
+
+          models.Posting.update({
+              Archived: true
+            }, {
+              where: {
+                PostingID: req.params.id,
+                ProfileID: decoded.ProfileID
+              }
+            })
+            .then(function(posting) {
+
+              console.log('test/posting.js - ' + posting);
+
+              res.json({
+                success: true,
+                message: 'Posting deleted.'
+              });
+            })
+            .catch(function(err) {
+
+              console.log('test/posting.js - ' + err.message);
+
+              res.status(500).json({
+                success: false,
+                message: err.message
+              });
+            });
         }
       });
     } else {

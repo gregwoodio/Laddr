@@ -35,7 +35,8 @@ module.exports = function(passport) {
     // find the requested profile
     models.Profile.find({
       where: {
-        Email: email
+        Email: email,
+        Archived: false
       }}).then(function(profile) {
 
         // no profile found
@@ -172,6 +173,7 @@ module.exports = function(passport) {
               AccountType: 0,
               TwitterID: profile.id,
               TwitterToken: profile.token,
+              Archived: false
             })
             .save()
             .then(function(twitterUser) {

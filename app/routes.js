@@ -1,17 +1,6 @@
 // routes.js
 
-//var mysql = require('mysql');
-// var process = require('process');
-// if (process.env.NODE_ENV == 'test') {
-//   var db = require('../config/testdatabase');
-// } else {
-//   var db = require('../config/database')
-// }
-//var connection = mysql.createConnection(db.connection);
-// var connection = require('knex')(db);
-// var Bookshelf = require('bookshelf')(connection);
 var models = require('./models');
-// connection.connect();
 
 if (process.env.NODE_ENV == 'test') {
 
@@ -22,31 +11,6 @@ if (process.env.NODE_ENV == 'test') {
   models.sequelize.query('DELETE FROM LdrUsers');
   models.sequelize.query('DELETE FROM LdrOrganizations');
   models.sequelize.query('DELETE FROM LdrProfiles');
-
-  // models.Bookshelf.knex('LdrComments').del()
-  //   .then(function(count) {
-  //     console.log('Deleted ' + count + ' rows from LdrComments');
-  //   });
-  // models.Bookshelf.knex('LdrTopics').del()
-  //   .then(function(count) {
-  //     console.log('Deleted ' + count + ' rows from LdrTopics');
-  //   });
-  // models.Bookshelf.knex('LdrPostings').del()
-  //   .then(function(count) {
-  //     console.log('Deleted ' + count + ' rows from LdrPostings');
-  //   });
-  // models.Bookshelf.knex('LdrUsers').del()
-  //   .then(function(count) {
-  //     console.log('Deleted ' + count + ' rows from LdrUsers');
-  //   });
-  // models.Bookshelf.knex('LdrOrganizations').del()
-  //   .then(function(count) {
-  //     console.log('Deleted ' + count + ' rows from LdrOrganizations');
-  //   });
-  // models.Bookshelf.knex('LdrProfiles').del()
-  //   .then(function(count) {
-  //     console.log('Deleted ' + count + ' rows from LdrProfiles');
-  //   });
 
 }
 

@@ -62,7 +62,8 @@ module.exports = function(app, models) {
           PictureURL: req.body.Picture,
           Password: hash,
           Timestamp: new Date(),
-          AccountType: 1
+          AccountType: 1,
+          Archived: false
         })
         .save()
         .then(function(profile) {
@@ -158,9 +159,92 @@ module.exports = function(app, models) {
         });
     } else {
         res.status(403).json({
-            success: false,
-            message: "No token provided."
+          success: false,
+          message: 'No token provided.'
         });
+    }
+  });
+
+  app.delete('/api/organization', function(req, res) {
+    
+    var token = req.headers['x-access-token'];
+
+    if (token) {
+
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
+        if (err) {
+          res.json({
+            success: false,
+            message: 'Failed to authenticate token.'
+          });
+        } else {
+
+          // only delete accounts that are verified by a token. 
+          // Accounts are not deleted from the database, but are marked as archived.
+
+          models.Profile.update({
+              Archived: true
+            }, {
+              where: {
+                ProfileID: decoded.ProfileID
+              }
+            })
+            .then(function(profile) {
+
+              // delete Topics, Comments and Postings created by that user as well.
+              models.Comment.update({
+                  Archived: true
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(comments) {
+
+                });
+
+              models.Topic.update({
+                  Archived: true
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(topics) {
+
+                });
+
+              models.Posting.update({
+                  Archived: true
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(postings) {
+
+                });
+
+              res.status(200).json({
+                success: true,
+                message: 'Account deleted. Sorry to see you go!',
+              });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: 'Encountered error deleting account: ' + err.message
+              });
+            });
+
+        }
+      });
+
+    } else {
+      res.status(403).json({
+        success: false,
+        message: 'No token provided.'
+      });
     }
   });
 };

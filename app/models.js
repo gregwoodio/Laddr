@@ -41,7 +41,8 @@ var Profile = sequelize.define('LdrProfiles', {
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
   AccountType: {type: Sequelize.INTEGER, defaultValue: 0},
   TwitterID: {type: Sequelize.STRING, allowNull: true},
-  TwitterToken: {type: Sequelize.STRING, allowNull: true}
+  TwitterToken: {type: Sequelize.STRING, allowNull: true},
+  Archived: {type: Sequelize.BOOLEAN, defaultValue: false}
 }, {
   //don't include Sequelize timestamps
   timestamps: false
@@ -94,7 +95,8 @@ var Posting = sequelize.define('LdrPostings', {
   JobTitle: {type: Sequelize.STRING, allowNull: false},
   Location: {type: Sequelize.STRING, allowNull: false},
   Description: {type: Sequelize.STRING, allowNull: false},
-  Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW}
+  Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
+  Archived: {type: Sequelize.BOOLEAN, defaultValue: false}
 }, {
   timestamps: false
 });
@@ -140,11 +142,11 @@ Comment.belongsTo(Topic, {foreignKey: 'TopicID'});
 Comment.belongsTo(Profile, {foreignKey: 'ProfileID'});
 
 module.exports = {
-  sequelize: Sequelize,
-  Profile: Profile,
-  User: User,
-  Organization: Organization,
-  Posting: Posting,
-  Topic: Topic,
-  Comment: Comment
+  sequelize,
+  Profile,
+  User,
+  Organization,
+  Posting,
+  Topic,
+  Comment
 };

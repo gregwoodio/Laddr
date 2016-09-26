@@ -2,6 +2,42 @@
 
 module.exports = function(chai, server, assert, email, password) {
 
+  //we'll need a Topic to post these comments into
+  describe('/POST request to /api/topic with valid token and valid form data.', function() {
+    it('Should return a JSON response indicating success.', function(done) {
+      
+      chai.request(server)
+        .post('/api/login')
+        .send({
+          Email: email,
+          Password: password
+        })
+        .end(function(err, res) {
+
+          userToken = res.body.token;
+          profileID = res.body.profileID;
+ 
+          chai.request(server)
+            .post('/api/topic')
+            .set('x-access-token', userToken)
+            .send({
+              Title: 'Topic created during testing',
+              ProfileID: profileID,
+              Body: 'This topic was creating during testing at ' + (new Date()) + '.'
+            })
+            .end(function(err, res) {
+
+              assert.equal(err, undefined, 'Should not return errors..');
+              assert.typeOf(res.body, 'object', 'Should return a JSON object as the response.');
+              assert.equal(res.status, 200, 'Should have HTTP status 400.');
+              assert.equal(res.body.success, true, 'Should indicate success.');
+              done();
+
+            });
+          });
+    });
+  });
+
   describe('/POST request to /api/comment without token.', function() {
     it('Should return a JSON response indicating failure.', function(done) {
       chai.request(server)
@@ -112,6 +148,41 @@ module.exports = function(chai, server, assert, email, password) {
               assert.equal(res.body.success, false, 'Should indicate failure.');
               done();
 
+            });
+        });
+    });
+  });
+
+  describe('/DELETE to /api/comment with token', function() {
+    it('Should return JSON indicating successful delete.', function(done) {
+
+      chai.request(server)
+        .post('/api/login')
+        .send({
+          Email: email,
+          Password: password
+        })
+        .end(function(err, res) {
+
+          userToken = res.body.token;
+
+          chai.request(server)
+            .get('/api/topic')
+            .set('x-access-token', userToken)
+            .end(function(err, res) {
+
+              commentID = res.body[0].CommentID;
+
+              chai.request(server)
+                .delete('/api/comment/' + commentID)
+                .set('x-access-token', userToken)
+                .end(function(err, res) {
+
+                  assert.typeOf(res, 'object', 'Should return JSON object.');
+                  assert.equal(res.body.success, true, 'Should indicate successful delete.');
+                  assert.equal(res.status, 200, 'Should have a status of 200 OK.');
+                  done();
+                });
             });
         });
     });
