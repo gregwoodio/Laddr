@@ -45,7 +45,7 @@ module.exports = function(chai, server, assert, email, password) {
   });
 
   //delete routes
-  describe('/POST request to /api/organization to create a new organization.', function() {
+  describe('/POST request to /api/user to create a new user.', function() {
     it('Should return JSON indicating success.', function(done) {
       chai.request(server)
         .post('/api/user')
@@ -71,7 +71,7 @@ module.exports = function(chai, server, assert, email, password) {
     });
   });
 
-  describe('/DELETE request to /api/organization to delete organization.', function() {
+  describe('/DELETE request to /api/user to delete user.', function() {
     it('Should return JSON indicating success.', function(done) {
       chai.request(server)
         .post('/api/login')
@@ -100,7 +100,7 @@ module.exports = function(chai, server, assert, email, password) {
     });
   });
 
-  describe('/POST request to /api/login as a deleted organization.', function() {
+  describe('/POST request to /api/login as a deleted user.', function() {
     it('Should return JSON indicating failure.', function(done) {
       chai.request(server)
         .post('/api/login')

@@ -175,7 +175,7 @@ module.exports = function(app, models) {
         if (err) {
           res.json({
             success: false,
-            message: "Failed to authenticate token."
+            message: 'Failed to authenticate token.'
           });
         } else {
 
@@ -190,11 +190,53 @@ module.exports = function(app, models) {
               }
             })
             .then(function(profile) {
+
+              // delete Topics, Comments and Postings created by that user as well.
+              models.Comment.update({
+                  Archived: true
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(comments) {
+
+                });
+
+              models.Topic.update({
+                  Archived: true
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(topics) {
+
+                });
+
+              models.Posting.update({
+                  Archived: true
+                }, {
+                  where: {
+                    ProfileID: decoded.ProfileID
+                  }
+                })
+                .then(function(postings) {
+
+                });
+
               res.status(200).json({
                 success: true,
                 message: 'Account deleted. Sorry to see you go!',
               });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: 'Encountered error deleting account: ' + err.message
+              });
             });
+
         }
       });
 

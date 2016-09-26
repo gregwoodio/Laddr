@@ -153,4 +153,39 @@ module.exports = function(chai, server, assert, email, password) {
     });
   });
 
+  describe('/DELETE to /api/comment with token', function() {
+    it('Should return JSON indicating successful delete.', function(done) {
+
+      chai.request(server)
+        .post('/api/login')
+        .send({
+          Email: email,
+          Password: password
+        })
+        .end(function(err, res) {
+
+          userToken = res.body.token;
+
+          chai.request(server)
+            .get('/api/topic')
+            .set('x-access-token', userToken)
+            .end(function(err, res) {
+
+              commentID = res.body[0].CommentID;
+
+              chai.request(server)
+                .delete('/api/comment/' + commentID)
+                .set('x-access-token', userToken)
+                .end(function(err, res) {
+
+                  assert.typeOf(res, 'object', 'Should return JSON object.');
+                  assert.equal(res.body.success, true, 'Should indicate successful delete.');
+                  assert.equal(res.status, 200, 'Should have a status of 200 OK.');
+                  done();
+                });
+            });
+        });
+    });
+  });
+
 }

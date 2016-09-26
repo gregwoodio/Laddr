@@ -58,11 +58,47 @@ module.exports = function(app, models) {
     });
   }); 
 
-  app.delete('/api/comment', function(req, res) {
-    res.status(404).json({
-      success: false,
-      message: 'Method not allowed.'
-    });
-  }); 
+  app.delete('/api/comment/:id', function(req, res) {
+    
+    var token = req.headers['x-access-token'];
+
+    if (token) {
+      jwt.verify(token, app.get('secret'), function(err, decoded) {
+        if (err) {
+          res.json({
+            success: false,
+            message: "Failed to authenticate token."
+          });
+        } else {
+
+          models.Comment.update({
+              Archived: true
+            }, {
+              where: {
+                ProfileID: decoded.ProfileID,
+                CommentID: req.params.id
+              }
+            })
+            .then(function(comment) {
+              res.json({
+                success: true,
+                message: 'Comment successfully deleted.'
+              });
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: 'Error deleting comment: ' + err.message
+              });
+            });
+        }
+      });
+    } else {
+      res.status(403).json({
+        success: false,
+        message: "No token provided."
+      });
+    }
+  });
     
 };
