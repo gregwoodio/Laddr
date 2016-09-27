@@ -24,3 +24,5 @@ require('./profile')(chai, server, assert, orgEmail, orgPass);
 require('./topic')(chai, server, assert, email, password);
 require('./comment')(chai, server, assert, email, password);
 require('./posting')(chai, server, assert, orgEmail, orgPass);
+require('./password')(chai, server, assert, email, password);
+require('./password')(chai, server, assert, orgEmail, orgPass);
