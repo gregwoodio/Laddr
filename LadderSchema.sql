@@ -24,6 +24,29 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `Ladder` /*!40100 DEFAULT CHARACTER SET
 USE `Ladder`;
 
 --
+-- Table structure for table `LdrApplications`
+--
+
+DROP TABLE IF EXISTS `LdrApplications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `LdrApplications` (
+  `ProfileID` varchar(36) DEFAULT NULL,
+  `PostingID` varchar(36) DEFAULT NULL,
+  `ApplicationStatus` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `LdrApplications`
+--
+
+LOCK TABLES `LdrApplications` WRITE;
+/*!40000 ALTER TABLE `LdrApplications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `LdrApplications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `LdrComments`
 --
 
@@ -48,7 +71,7 @@ CREATE TABLE `LdrComments` (
 
 LOCK TABLES `LdrComments` WRITE;
 /*!40000 ALTER TABLE `LdrComments` DISABLE KEYS */;
-INSERT INTO `LdrComments` VALUES ('1','Burritoless in Brampton','2016-03-13 15:09:17','1','Like the topic says, where can I get a good burrito in the city? Thanks in advance.',0),('2','Userguy123','2016-03-13 15:09:17','1','Try Burrito Boyz!',0),('3','Chuckie','2016-03-13 15:09:17','2','7!',0),('4','Mumma','2016-03-17 21:40:35','1','I\'d recommend Mumma\'s Burrito\'s.',NULL),('5','Mr. Robot','2016-03-17 21:41:48','1','Go to Chipotle, it\'s the best.',NULL),('6','A real woodchuck','2016-03-18 12:06:45','2','It\'s 10. Trust me, I\'m a real woodchuck.',NULL),('7','Greg','2016-03-20 14:01:15','3','This is another topic that I\'ve added to the forum through a PHP script.',NULL),('8','Foo','2016-03-20 15:20:40','4','Baz',NULL),('9','Foo','2016-03-20 15:24:23','5','Hey there world',NULL),('10','Greg','2016-03-20 15:41:12','4','foo',NULL),('11','Sloppy Joe','2016-03-20 16:06:33','6','Like the title says, I need to know what is good in the hood',NULL),('12','Greg','2016-03-20 16:11:47','7','Bar',NULL),('13','bleep','2016-03-20 16:13:17','8','Bloop',NULL),('14','beep','2016-03-20 16:16:47','9','Boop ',NULL),('15','bingo','2016-03-20 16:17:34','10','Bongo',NULL),('16','World','2016-03-20 16:44:58','5','Hey yourself',NULL),('17','123','2016-03-20 16:45:23','5','1234',NULL),('18','','2016-03-22 11:44:53','5','',NULL),('19','Greg','2016-03-22 11:45:10','5','Hello',NULL),('20','Greg','2016-04-11 22:37:19','5','A new comment!',NULL),('21','flimflam','2016-04-12 11:02:07','6','Like, what do you mean',NULL),('22','','2016-04-13 15:43:25','11','',NULL),('23','Greg','2016-04-13 15:44:12','11','Shhhhh......',NULL),('24','Greg','2016-04-13 15:44:39','12','You bet your tits it does',NULL),('25','','2016-04-13 16:07:01','13','',NULL),('26','','2016-04-14 13:14:07','14','',NULL),('27','Peetah','2016-04-18 23:20:46','15','When will we see the light of day?',NULL),('28','Greg','2016-04-19 10:14:23','15',':D I LOVE JAWAADS EXAMS',NULL),('5fba4590-3a70-11e6-93e8-75ff278eb015','greg','2016-06-24 21:01:39','5fb90d10-3a70-11e6-93e8-75ff278eb015','Every bit helps.',NULL),('8e01f560-3a70-11e6-93e8-75ff278eb015','frud','2016-06-24 21:02:57','5fb90d10-3a70-11e6-93e8-75ff278eb015','I couldn\'t agree more! They say that security requires constant vigilance, but the attacker only needs one vulnerability.',NULL),('12345','joe','2016-09-22 22:50:07','1','adsfadsfa',NULL),('f5192490-8119-11e6-a3f4-7107b73ecbe6','JOE','2016-09-22 23:11:56','1','foo',NULL),('5e1ea110-81b8-11e6-8941-35ef8db0d8c5','f987d410-3a72-11e6-a740-f5dd31d20d02','2016-09-23 18:05:53','5e0f37c0-81b8-11e6-8941-35ef8db0d8c5','Created to test the changes made to the API!',NULL),('a6caeb90-81bc-11e6-a162-b90f84eb8a78','f987d410-3a72-11e6-a740-f5dd31d20d02','2016-09-23 18:36:33','a6c82c70-81bc-11e6-a162-b90f84eb8a78','This one has even more exclamation marks!!!!!!!!!!!!!!!!!!!!',NULL);
+INSERT INTO `LdrComments` VALUES ('2180a780-85a0-11e6-a202-4106874124de','941cc820-859e-11e6-a202-4106874124de','2016-09-28 17:22:28','21800b40-85a0-11e6-a202-4106874124de','Welcome to the Laddr forums! Check out some of the postings on the left, or How-To\'s to create a great resume and ace the interview! Good luck!',0),('d258b7f0-85a0-11e6-a202-4106874124de','d1ab72e0-859e-11e6-a202-4106874124de','2016-09-28 17:27:25','21800b40-85a0-11e6-a202-4106874124de','Thanks Greg! You\'re so smart!',0),('aa141310-85a1-11e6-a202-4106874124de','db832c80-859f-11e6-a202-4106874124de','2016-09-28 17:33:27','aa134fc0-85a1-11e6-a202-4106874124de','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',0);
 /*!40000 ALTER TABLE `LdrComments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,7 +98,7 @@ CREATE TABLE `LdrOrganizations` (
 
 LOCK TABLES `LdrOrganizations` WRITE;
 /*!40000 ALTER TABLE `LdrOrganizations` DISABLE KEYS */;
-INSERT INTO `LdrOrganizations` VALUES ('2','City of Mississauga','300 City Center Drive, Mississauga ON','mississauga.ca','Mississauga will inspire the world as a dynamic and beautiful global city for creativity and innovation, with vibrant, safe and connected communities; where we celebrate the rich diversity of our cultures, our historic villages, Lake Ontario and the Credit River valley. A place where people choose to be.'),('3','Sheridan College','1430 Trafalgar Rd, Oakville, ON L6H 2L1','www.sheridancollege.ca','Campus bookstore chain offering new, used '),('6','Sample Organization','123 Test St.','','Test mission'),('6ed56070-3a6e-11e6-a853-1ba70c1a541c','New Organization','123 New Street','http://www.neworganization.com','To be the newest organization out there!');
+INSERT INTO `LdrOrganizations` VALUES ('94fa8880-859f-11e6-a202-4106874124de','City of Mississauga','300 City Centre Dr, Mississauga, ON L5B 3C1, Canada','www.mississauga.ca/','City of Mississauga Mission Statement'),('db832c80-859f-11e6-a202-4106874124de','Trillium Health Partners','100 Queensway West Mississauga, ON L5B 1B8','www.mississauga.ca/','Trillium Helath Partners Mission Statement');
 /*!40000 ALTER TABLE `LdrOrganizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +128,7 @@ CREATE TABLE `LdrPostings` (
 
 LOCK TABLES `LdrPostings` WRITE;
 /*!40000 ALTER TABLE `LdrPostings` DISABLE KEYS */;
-INSERT INTO `LdrPostings` VALUES ('1','3','Student Union Representative','Trafalgar and Davis campuses','836a706ee9a609915a7139034765abb9c791424b','2016-04-13 13:11:44',NULL),('3','2','Marathon Volunteer','Various sites in Mississauga','Cheer on runners and provide water and Gatorade at one of the water stations along the marathon route.','2016-04-14 16:06:34',NULL),('4','3','Pysch study','Trafalgar','Volunteers needed for a psychology study. Just a focus group with multiple choice questions.','2016-04-14 16:26:47',NULL),('5','3','iOS Assistant','Sheridan College','Provide assistance in marking a LOT of exams.','2016-04-18 23:22:09',NULL),('6','3','iOS 2 Prof','Sheridan Traf','Trafalgar :D','2016-04-19 10:16:11',NULL),('14','2','A new job','Mississauga','Help out the community','2016-05-08 16:43:42',NULL),('4909aad0-3a6f-11e6-899d-c1efc2029d26',NULL,'Test Position','Brampton','Brampton','2016-06-24 20:53:52',NULL),('5763fbd0-3a6f-11e6-899d-c1efc2029d26',NULL,'Test Position','Brampton','Brampton','2016-06-24 20:54:16',NULL),('590d17f0-3a6f-11e6-899d-c1efc2029d26',NULL,'Test Position','Brampton','Brampton','2016-06-24 20:54:19',NULL);
+INSERT INTO `LdrPostings` VALUES ('6d319160-85a2-11e6-a202-4106874124de','db832c80-859f-11e6-a202-4106874124de','Client Care Volunteer','Credit Valley Hospital','Assist clients navigating the hospital.','2016-09-28 17:38:54',0),('77cbcd20-85a2-11e6-a202-4106874124de','db832c80-859f-11e6-a202-4106874124de','Client Care Volunteer','Mississauga Hospital','Assist clients navigating the hospital.','2016-09-28 17:39:12',0),('83539d30-85a2-11e6-a202-4106874124de','db832c80-859f-11e6-a202-4106874124de','Client Care Volunteer','Queensway Hospital','Assist clients navigating the hospital.','2016-09-28 17:39:31',0);
 /*!40000 ALTER TABLE `LdrPostings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +143,7 @@ CREATE TABLE `LdrProfiles` (
   `ProfileID` varchar(36) NOT NULL DEFAULT '',
   `Email` varchar(255) DEFAULT NULL,
   `Password` varchar(255) DEFAULT NULL,
-  `PictureURL` varchar(1024) NOT NULL,
+  `PictureURL` varchar(1024) DEFAULT NULL,
   `Timestamp` datetime NOT NULL,
   `AccountType` int(11) NOT NULL,
   `TwitterID` varchar(256) DEFAULT NULL,
@@ -137,7 +160,7 @@ CREATE TABLE `LdrProfiles` (
 
 LOCK TABLES `LdrProfiles` WRITE;
 /*!40000 ALTER TABLE `LdrProfiles` DISABLE KEYS */;
-INSERT INTO `LdrProfiles` VALUES ('1','woodgre@sheridancollege.ca','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','','2016-05-16 21:33:19',0,NULL,NULL,0),('2','volunteering@mississauga.ca','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','mississauga.ca','2016-05-16 22:00:37',1,NULL,NULL,0),('3','volunteer@sheridancollege.ca','d8d00c7431376128cbc7276d02bc77b97919c37d','https://lh4.googleusercontent.com/-FC5-A2EQ7aw/VyeJ34UmokI/AAAAAAAAABo/D7EEMbd7FKglgdQ_hg1TAsPfgTmdKMSrgCLIB/s320-k-no/','2016-05-17 21:15:46',1,NULL,NULL,0),('4','johndoe@email.com','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8','http://replygif.net/thumbnail/104.gif','2016-05-31 18:21:03',0,NULL,NULL,0),('ac000eb0-3a6d-11e6-b780-e3a1b2b24839','newguy@email.com','password','http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg','2016-06-24 20:42:19',0,NULL,NULL,0),('6ed56070-3a6e-11e6-a853-1ba70c1a541c','neworg@email.com','password','http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg','2016-06-24 20:47:46',1,NULL,NULL,0),('f987d410-3a72-11e6-a740-f5dd31d20d02','dat@boi.com','$2a$10$EGqMbSPs5F.WZmryYbi.1.p1.D6ReNehZsDHkHUpVkivZHGWPxfB.','https://pbs.twimg.com/profile_images/726464672400953344/4nX44_A7.jpg','2016-06-24 21:20:16',0,NULL,NULL,0),('5ff13fa0-8133-11e6-8a17-c52e0b768e69','',NULL,'','2016-09-23 02:13:53',0,'163293600',NULL,0);
+INSERT INTO `LdrProfiles` VALUES ('941cc820-859e-11e6-a202-4106874124de','greg@laddr.xyz','$2a$10$/MxGWN2QS4SJignf9CcARe1M730mS/ZyVEs.3Y8w4lyiGTHQl1O1y','pic.jpg','2016-09-28 17:11:21',0,NULL,NULL,0),('a59f0d10-859e-11e6-a202-4106874124de','alan@laddr.xyz','$2a$10$nuDAVNgGZZltqP3iLB0OKenR3acMMEMniL0zDGrtpyYvMYuAF9EeS','pic.jpg','2016-09-28 17:11:51',0,NULL,NULL,0),('b94829a0-859e-11e6-a202-4106874124de','muska@laddr.xyz','$2a$10$r1FlSz4O56CE/Pw3Z8j7s.1GWSTNle1Cg/UZgMFF21IgyzuXiSs52','pic.jpg','2016-09-28 17:12:24',0,NULL,NULL,0),('d1ab72e0-859e-11e6-a202-4106874124de','peter@laddr.xyz','$2a$10$64rrY.eMzZJqFLMd6cbWxemwXuZLuNVsF15QKnl8rVbxdEF5FyO1y','pic.jpg','2016-09-28 17:13:05',0,NULL,NULL,0),('94fa8880-859f-11e6-a202-4106874124de','volunteering@mississauga.ca','$2a$10$ixNZnHLBEkNIx/fgA3Szpud2EXMf46P76Mjk3iBN/qyIn4lJykuwG','pic.jpg','2016-09-28 17:18:32',1,NULL,NULL,0),('db832c80-859f-11e6-a202-4106874124de','volunteering@trilliumhealthpartners.ca','$2a$10$ab1XmchPyoEISAf3KjAG4uAIV8QWC7rD2qz97Lczv323S40qEllKO','pic.jpg','2016-09-28 17:20:31',1,NULL,NULL,0);
 /*!40000 ALTER TABLE `LdrProfiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +187,7 @@ CREATE TABLE `LdrTopics` (
 
 LOCK TABLES `LdrTopics` WRITE;
 /*!40000 ALTER TABLE `LdrTopics` DISABLE KEYS */;
-INSERT INTO `LdrTopics` VALUES ('1','Where can I get a good burrito?','Burritoless in Brampton','2016-03-13 15:09:17',0),('2','How much wood would a woodchuck chuck if a woodchuck could chuck wood?','Woody','2016-03-13 15:09:17',0),('3','Another topic added to the forum.','Greg','2016-04-11 22:01:58',NULL),('6','What\'s good in the hood?','Sloppy Joe','2016-03-20 16:06:33',NULL),('15','These exams are killin me!','Peetah','2016-04-18 23:20:46',NULL),('5fb90d10-3a70-11e6-93e8-75ff278eb015','When it comes to security...','greg','2016-06-24 21:01:39',NULL),('5e0f37c0-81b8-11e6-8941-35ef8db0d8c5','This is a new topic.','f987d410-3a72-11e6-a740-f5dd31d20d02','2016-09-23 18:05:53',NULL),('a6c82c70-81bc-11e6-a162-b90f84eb8a78','Check it out, another new topic.','f987d410-3a72-11e6-a740-f5dd31d20d02','2016-09-23 18:36:33',NULL);
+INSERT INTO `LdrTopics` VALUES ('21800b40-85a0-11e6-a202-4106874124de','Welcome to the Laddr forums!','941cc820-859e-11e6-a202-4106874124de','2016-09-28 17:22:28',0),('aa134fc0-85a1-11e6-a202-4106874124de','Stay tuned to Laddr for volunteering opportunities at Trillium Health Partners!','db832c80-859f-11e6-a202-4106874124de','2016-09-28 17:33:27',0);
 /*!40000 ALTER TABLE `LdrTopics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,9 +202,9 @@ CREATE TABLE `LdrUsers` (
   `ProfileID` varchar(36) DEFAULT NULL,
   `FirstName` varchar(256) NOT NULL,
   `LastName` varchar(256) NOT NULL,
-  `Description` varchar(2048) NOT NULL,
-  `Resume` varchar(2048) NOT NULL,
-  `AcademicStatus` int(11) NOT NULL,
+  `Description` varchar(2048) DEFAULT NULL,
+  `Resume` varchar(2048) DEFAULT NULL,
+  `AcademicStatus` tinyint(4) DEFAULT NULL,
   KEY `ProfileID` (`ProfileID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -192,7 +215,7 @@ CREATE TABLE `LdrUsers` (
 
 LOCK TABLES `LdrUsers` WRITE;
 /*!40000 ALTER TABLE `LdrUsers` DISABLE KEYS */;
-INSERT INTO `LdrUsers` VALUES ('1','Greg','Wood','This is a test account. Hopefully it adds to both tables!','Pretty good at stuff.',1),('4','John','Doe','This is a test account.','Test resume.',1),('5','Jane','Doe','This is another test account','Test resume',1),('ac000eb0-3a6d-11e6-b780-e3a1b2b24839','New','Guy','Just a new guy!','High school educated',1),('f987d410-3a72-11e6-a740-f5dd31d20d02','Dat','Boi','Oh shit whaddup','It\'s dat boi! Skills: Unicycle riding',1);
+INSERT INTO `LdrUsers` VALUES ('941cc820-859e-11e6-a202-4106874124de','Greg','Wood','description','resume',1),('a59f0d10-859e-11e6-a202-4106874124de','Alan','Simon','description','resume',1),('b94829a0-859e-11e6-a202-4106874124de','Muska','Ahmadzai','description','resume',1),('d1ab72e0-859e-11e6-a202-4106874124de','Peter','Phan','description','resume',1);
 /*!40000 ALTER TABLE `LdrUsers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,6 +226,29 @@ UNLOCK TABLES;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `TestLadder` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `TestLadder`;
+
+--
+-- Table structure for table `LdrApplications`
+--
+
+DROP TABLE IF EXISTS `LdrApplications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `LdrApplications` (
+  `ProfileID` varchar(36) DEFAULT NULL,
+  `PostingID` varchar(36) DEFAULT NULL,
+  `ApplicationStatus` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `LdrApplications`
+--
+
+LOCK TABLES `LdrApplications` WRITE;
+/*!40000 ALTER TABLE `LdrApplications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `LdrApplications` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `LdrComments`
@@ -229,7 +275,6 @@ CREATE TABLE `LdrComments` (
 
 LOCK TABLES `LdrComments` WRITE;
 /*!40000 ALTER TABLE `LdrComments` DISABLE KEYS */;
-INSERT INTO `LdrComments` VALUES ('1897d8f0-83b6-11e6-87e3-1df2a80dcb27','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40','18978ad0-83b6-11e6-87e3-1df2a80dcb27','This topic was creating during testing at Mon Sep 26 2016 02:54:40 GMT-0400 (EDT).',0),('18c4dc60-83b6-11e6-87e3-1df2a80dcb27','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40','18c48e40-83b6-11e6-87e3-1df2a80dcb27','This topic was creating during testing at Mon Sep 26 2016 02:54:40 GMT-0400 (EDT).',0),('18e0a1c0-83b6-11e6-87e3-1df2a80dcb27','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40','18c48e40-83b6-11e6-87e3-1df2a80dcb27','This is a comment added by the unit tests at Mon Sep 26 2016 02:54:40 GMT-0400 (EDT).',0);
 /*!40000 ALTER TABLE `LdrComments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +301,7 @@ CREATE TABLE `LdrOrganizations` (
 
 LOCK TABLES `LdrOrganizations` WRITE;
 /*!40000 ALTER TABLE `LdrOrganizations` DISABLE KEYS */;
-INSERT INTO `LdrOrganizations` VALUES ('180f4800-83b6-11e6-87e3-1df2a80dcb27','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.'),('181c6760-83b6-11e6-87e3-1df2a80dcb27','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.');
+INSERT INTO `LdrOrganizations` VALUES ('0f780be0-84ed-11e6-a0bb-c117d93dab6c','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.'),('0f8d4190-84ed-11e6-a0bb-c117d93dab6c','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.');
 /*!40000 ALTER TABLE `LdrOrganizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +331,7 @@ CREATE TABLE `LdrPostings` (
 
 LOCK TABLES `LdrPostings` WRITE;
 /*!40000 ALTER TABLE `LdrPostings` DISABLE KEYS */;
-INSERT INTO `LdrPostings` VALUES ('191609a0-83b6-11e6-87e3-1df2a80dcb27','180f4800-83b6-11e6-87e3-1df2a80dcb27','Test job title','Mississauga','A test job created in Mississauga','2016-09-26 06:54:40',1);
+INSERT INTO `LdrPostings` VALUES ('1085ab50-84ed-11e6-a0bb-c117d93dab6c','0f780be0-84ed-11e6-a0bb-c117d93dab6c','Test job title','Mississauga','A test job created in Mississauga','2016-09-27 20:00:40',1);
 /*!40000 ALTER TABLE `LdrPostings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,7 +346,7 @@ CREATE TABLE `LdrProfiles` (
   `ProfileID` varchar(36) NOT NULL DEFAULT '',
   `Email` varchar(255) DEFAULT NULL,
   `Password` varchar(255) DEFAULT NULL,
-  `PictureURL` varchar(1024) NOT NULL,
+  `PictureURL` varchar(1024) DEFAULT NULL,
   `Timestamp` datetime NOT NULL,
   `AccountType` int(11) NOT NULL,
   `TwitterID` varchar(256) DEFAULT NULL,
@@ -318,7 +363,7 @@ CREATE TABLE `LdrProfiles` (
 
 LOCK TABLES `LdrProfiles` WRITE;
 /*!40000 ALTER TABLE `LdrProfiles` DISABLE KEYS */;
-INSERT INTO `LdrProfiles` VALUES ('17861ad0-83b6-11e6-87e3-1df2a80dcb27','dat@boi.com','$2a$10$fRO4oY0dnOyX8D7n3ZYtPeUyXgpg5HUusjbsF57Ckg4KEAQmvyck2','somepic.jpg','2016-09-26 06:54:38',0,NULL,NULL,0),('179c61f0-83b6-11e6-87e3-1df2a80dcb27','user_to_be_deleted@gmail.com','$2a$10$VG.Ea.QA1.rJYY4gYa8LI.9cdMi6mQbDxouiAB0p0kCYd0Z1forny','somepic.jpg','2016-09-26 06:54:38',0,NULL,NULL,1),('180f4800-83b6-11e6-87e3-1df2a80dcb27','codebusters@laddr.xyz','$2a$10$obY2avj9hwHWh3FwDv.fNecoAImr8WiQ2EC/t5ARiMDeQDdveiPRa','somepic.jpg','2016-09-26 06:54:39',1,NULL,NULL,0),('181c6760-83b6-11e6-87e3-1df2a80dcb27','to_be_deleted@gmail.com','$2a$10$0gBXLh6ISKcGBr7pNTLOFu2KtnkAvoGeAPHVssMf.6.yfQI.0UdEm','somepic.jpg','2016-09-26 06:54:39',1,NULL,NULL,1);
+INSERT INTO `LdrProfiles` VALUES ('0ee0fc00-84ed-11e6-a0bb-c117d93dab6c','dat@boi.com','$2a$10$iJGfGku7xvoBS150EeQAB.RY8SQdL.KImFU9H5A4NehvNiKRVmQ3W','somepic.jpg','2016-09-27 20:00:37',0,NULL,NULL,0),('0efe6f10-84ed-11e6-a0bb-c117d93dab6c','user_to_be_deleted@gmail.com','$2a$10$FjvIQM1NyhKuusXrMWdbzuHefNkKdqv1yRM0lhDqGx0aY2V8/YfJ6','somepic.jpg','2016-09-27 20:00:37',0,NULL,NULL,1),('0f780be0-84ed-11e6-a0bb-c117d93dab6c','codebusters@laddr.xyz','$2a$10$5Vn.s3UgPxPwwbsc2w2SDuSz9j90KRdjmDzG8YIKcLwmseOgd96wO','somepic.jpg','2016-09-27 20:00:38',1,NULL,NULL,0),('0f8d4190-84ed-11e6-a0bb-c117d93dab6c','to_be_deleted@gmail.com','$2a$10$0ggkqnfQL1P5/XSYkMef1eKh1Y2iH2M15p3G1XY56K5Wj8QfBiti.','somepic.jpg','2016-09-27 20:00:38',1,NULL,NULL,1);
 /*!40000 ALTER TABLE `LdrProfiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,7 +390,6 @@ CREATE TABLE `LdrTopics` (
 
 LOCK TABLES `LdrTopics` WRITE;
 /*!40000 ALTER TABLE `LdrTopics` DISABLE KEYS */;
-INSERT INTO `LdrTopics` VALUES ('18978ad0-83b6-11e6-87e3-1df2a80dcb27','Topic created during testing','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40',1),('18c48e40-83b6-11e6-87e3-1df2a80dcb27','Topic created during testing','17861ad0-83b6-11e6-87e3-1df2a80dcb27','2016-09-26 06:54:40',0);
 /*!40000 ALTER TABLE `LdrTopics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,9 +404,9 @@ CREATE TABLE `LdrUsers` (
   `ProfileID` varchar(36) DEFAULT NULL,
   `FirstName` varchar(256) NOT NULL,
   `LastName` varchar(256) NOT NULL,
-  `Description` varchar(2048) NOT NULL,
-  `Resume` varchar(2048) NOT NULL,
-  `AcademicStatus` int(11) NOT NULL,
+  `Description` varchar(2048) DEFAULT NULL,
+  `Resume` varchar(2048) DEFAULT NULL,
+  `AcademicStatus` tinyint(4) DEFAULT NULL,
   KEY `ProfileID` (`ProfileID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -373,7 +417,7 @@ CREATE TABLE `LdrUsers` (
 
 LOCK TABLES `LdrUsers` WRITE;
 /*!40000 ALTER TABLE `LdrUsers` DISABLE KEYS */;
-INSERT INTO `LdrUsers` VALUES ('17861ad0-83b6-11e6-87e3-1df2a80dcb27','Test','User','Test Description','Test Resume',1),('179c61f0-83b6-11e6-87e3-1df2a80dcb27','Deleted','User','Test Description','Test Resume',1);
+INSERT INTO `LdrUsers` VALUES ('0ee0fc00-84ed-11e6-a0bb-c117d93dab6c','Test','User','Test Description','Test Resume',1),('0efe6f10-84ed-11e6-a0bb-c117d93dab6c','Deleted','User','Test Description','Test Resume',1);
 /*!40000 ALTER TABLE `LdrUsers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -386,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-26  2:56:29
+-- Dump completed on 2016-09-28 13:40:36
