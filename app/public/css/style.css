@@ -59,3 +59,31 @@
 	margin-right: auto;
 	display: inherit;
 }
+
+
+.btn {
+	background-color: #088c5a;	
+}
+
+
+/** all modal styling for login **/
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+ 
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+   
+    width:inherit;
+    height:inherit;
+   
+    margin: 0 auto;
+    pointer-events: all;
+}
