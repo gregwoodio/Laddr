@@ -141,6 +141,34 @@ var Comment = sequelize.define('LdrComments', {
 Comment.belongsTo(Topic, {foreignKey: 'TopicID'});
 Comment.belongsTo(Profile, {foreignKey: 'ProfileID'});
 
+var Application = sequelize.define('LdrApplications', {
+  ProfileID: {
+    model: Profile,
+    key: 'ProfileID',
+    type: Sequelize.STRING,
+    primaryKey: true //cool, composite key!
+  },
+  PostingID: {
+    model: Posting,
+    key: 'PostingID',
+    type: Sequelize.STRING,
+    primaryKey: true //cool, composite key!
+  },
+  ApplicationStatus: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  Timestamp: {
+    type: Sequelize.DATE, 
+    defaultValue: Sequelize.NOW
+  }
+}, {
+  timestamps: false
+});
+
+Application.belongsTo(Profile, {foreignKey: 'ProfileID'});
+Application.belongsTo(Posting, {foreignKey: 'PostingID'});
+
 module.exports = {
   sequelize,
   Profile,
@@ -148,5 +176,6 @@ module.exports = {
   Organization,
   Posting,
   Topic,
-  Comment
+  Comment,
+  Application
 };

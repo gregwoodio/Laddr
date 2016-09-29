@@ -33,7 +33,8 @@ DROP TABLE IF EXISTS `LdrApplications`;
 CREATE TABLE `LdrApplications` (
   `ProfileID` varchar(36) DEFAULT NULL,
   `PostingID` varchar(36) DEFAULT NULL,
-  `ApplicationStatus` tinyint(4) DEFAULT NULL
+  `ApplicationStatus` tinyint(4) DEFAULT NULL,
+  `Timestamp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,7 +238,8 @@ DROP TABLE IF EXISTS `LdrApplications`;
 CREATE TABLE `LdrApplications` (
   `ProfileID` varchar(36) DEFAULT NULL,
   `PostingID` varchar(36) DEFAULT NULL,
-  `ApplicationStatus` tinyint(4) DEFAULT NULL
+  `ApplicationStatus` tinyint(4) DEFAULT NULL,
+  `Timestamp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -430,4 +432,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-28 13:42:49
+-- Dump completed on 2016-09-28 19:17:38
