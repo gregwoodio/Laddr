@@ -58,7 +58,7 @@ module.exports = function(app, models) {
 
     var token = req.headers['x-access-token'];
 
-    if (token && req.body.PostingID != undefined && req.body.ApplicationStatus) {
+    if (token && req.body.PostingID != undefined && req.body.ApplicationStatus != undefined) {
 
      jwt.verify(token, app.get('secret'), function(err, decoded) {
         if (err) {
@@ -82,13 +82,13 @@ module.exports = function(app, models) {
                     ApplicationStatus: req.body.ApplicationStatus
                   }, {
                     where: {
-                      PostingID: posting.PostingID
+                      PostingID: posting[0].dataValues.PostingID
                     }
                   })
                   .then(function(application) {
                     res.json({
                       success: true,
-                      message: 'Profile updated.'
+                      message: 'Application updated.'
                     })
                   })
                   .catch(function(err) {
