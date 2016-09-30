@@ -7,6 +7,7 @@ if (process.env.NODE_ENV == 'test') {
   //for testing, work with empty database tables
   models.sequelize.query('DELETE FROM LdrComments');
   models.sequelize.query('DELETE FROM LdrTopics');
+  models.sequelize.query('DELETE FROM LdrApplications');
   models.sequelize.query('DELETE FROM LdrPostings');
   models.sequelize.query('DELETE FROM LdrUsers');
   models.sequelize.query('DELETE FROM LdrOrganizations');

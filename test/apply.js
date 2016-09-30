@@ -96,4 +96,82 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
     });
   });
 
+  describe('/PUT request to /api/apply to accept the application as a different user', function() {
+    it('Should return JSON indicating failure.', function(done) {
+
+      chai.request(server)
+        .post('/api/login')
+        .send({
+          Email: email,
+          Password: password
+        })
+        .end(function(err, res) {
+
+          userToken = res.body.token;
+
+          chai.request(server)
+            .get('/api/posting')
+            .set('x-access-token', userToken)
+            .end(function(err, res) {
+
+              postingID = res.body[res.body.length - 1].PostingID;
+
+              chai.request(server)
+                .put('/api/apply')
+                .set('x-access-token', userToken)
+                .send({
+                  PostingID: postingID,
+                  ApplicationStatus: 4 //accepted!
+                })
+                .end(function(err, res) {
+
+                  assert.typeOf(res.body, 'object', 'Should return JSON object response.');
+                  assert.equal(res.status, 403, 'Should have 500 status.');
+                  assert.equal(res.body.success, false, 'Should indicate failure.');
+                  done();
+                });
+            });
+        });
+    });
+  });
+
+  describe('/PUT request to /api/apply to accept the application', function() {
+    it('Should return JSON indicating success.', function(done) {
+
+      chai.request(server)
+        .post('/api/login')
+        .send({
+          Email: orgEmail,
+          Password: orgPass
+        })
+        .end(function(err, res) {
+
+          userToken = res.body.token;
+
+          chai.request(server)
+            .get('/api/posting')
+            .set('x-access-token', userToken)
+            .end(function(err, res) {
+
+              postingID = res.body[res.body.length - 1].PostingID;
+
+              chai.request(server)
+                .put('/api/apply')
+                .set('x-access-token', userToken)
+                .send({
+                  PostingID: postingID,
+                  ApplicationStatus: 4 //accepted!
+                })
+                .end(function(err, res) {
+
+                  assert.typeOf(res.body, 'object', 'Should return JSON object response.');
+                  assert.equal(res.status, 200, 'Should have 200 OK status.');
+                  assert.equal(res.body.success, true, 'Should indicate success.');
+                  done();
+                });
+            });
+        });
+    });
+  });
+
 }
