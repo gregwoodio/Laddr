@@ -1,0 +1,176 @@
+	<!DOCTYPE html>
+	<html >
+	  <head>
+		<meta charset="UTF-8">
+		<title>Laddr</title>
+		<link rel='stylesheet' href='../css/bootstrap.min.css'>
+		<link rel='stylesheet' href='../css/style.min.css'>
+	  </head>
+
+	  <body>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+				  <a class="navbar-brand" href=".." >Laddr</a>
+				  <a class="navbar-brand" data-toggle="modal" data-target="#myLogin" >Login</a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="jumbotron">
+			<div class="container">
+				<h1 class='text-center'>Laddr</h1>
+				<h3 class='text-center text-white'>Start your climb.</h3>
+			</div>
+		</div>
+
+		<!-- Collapsible panel src: http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_collapsible_panel&stacked=h -->
+		<div class="container">
+			<h2>Let's Get Started</h2><br>
+				<form> 
+			
+				  <div class="panel-group">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+						<h4 class="panel-title">
+						 Basic Information
+						</h4>
+					  </div>
+					  <div id="basicinformation" class="panel-collapse">
+						
+						<div class="panel-body">
+						<!-- Form for basic information -->				  
+							 <!-- User either chooses to be an organization or volunteer	
+								name:laddruser
+								value 0 == volunteer user
+								value 1 = organization user-->
+							<div class="text-center">
+								<label class="radio-inline"><input type="radio" name="laddruser" value='0' checked>	I am a volunteer!</label>								
+								<label class="radio-inline"><input type="radio" name="laddruser" value='1'>			I am an organization!</label>
+							</div>
+							<div class="form-group">
+								<label>	Email address:</label>
+								<input type="email" 	class="form-control" id="email" 		placeholder="Please enter your email" ><br>
+								<label>	Password:</label>
+								<input type="password" 	class="form-control" id="pwd" 			placeholder="Please enter your password" ><br>
+								<label>	Re-enter Password:</label>
+								<input type="password" 	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" >
+							</div>		
+						</div>
+						
+					  </div>
+					</div>
+				  </div><br>
+				  
+				  <!-- INJECT HTML FORM --> 
+				  
+				 <div class="panel-group">
+					<div class="panel panel-default">
+					
+					  <div class="panel-heading">
+						<h4 class="panel-title">
+						  <a data-toggle="collapse" href="#volunteerinformation">Volunteer</a>
+						</h4>
+					  </div>
+					  
+					  <div id="volunteerinformation" class="panel-collapse collapse">
+						<!-- Form for volunteer information -->
+						<div class="panel-body">
+							<label for="firstName">	First Name:</label>	<input 	type="text" class="form-control" id="firstName" placeholder="Please enter your first name" ><br>
+							<label for="lastName">	Last Name:</label>	<input 	type="text" class="form-control" id="lastName" 	placeholder="Please enter your last name" ><br>
+							
+							<div>
+								<label>Academic Status:</label><br>
+								<label class="radio-inline"><input type="radio" name="academicstatus" value="hs" checked>	High School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" value="ps">			Post Secondary</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" value="w">			Working</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" value="na">			Not Applicable</label>
+							</div>
+							
+						</div>
+					  </div>
+					</div>
+				  </div><br>
+				  
+				  <div class="panel-group">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+						<h4 class="panel-title">
+						  <a data-toggle="collapse" href="#organizationinformation">Organization</a>
+						</h4>
+					  </div>
+					  
+					  <div id="organizationinformation" class="panel-collapse collapse">
+						<!-- Form for organization information -->
+						<div class="panel-body">
+							<label for="organizationName">Organization Name:</label>
+							<input type="text" class="form-control" id="organizationName" placeholder="Please enter the name of your organization" ><br>
+										
+							<!-- referenced code: http://bootsnipp.com/snippets/featured/generic-postal-address-form
+							
+							address-line1 input  -->
+							<label>Address Line 1: </label><input 	id="address-line1" 	name="address-line1" 	type="text" placeholder="Enter your address line 1" class="form-control" ><br>				
+							<!-- address-line2 input -->
+							<label>Address Line 2: </label><input 	id="address-line2" 	name="address-line2" 	type="text" placeholder="Enter your sddress line 2" class="form-control"><br>	
+							<!-- city input -->		
+							<label>City / Town</label><input 		id="city" 			name="city" 			type="text" placeholder="Enter your city" 			class="form-control" required><br>	
+							<!-- region input-->
+							<label>Province</label>
+							<select class="form-control" name="province" required>
+								<option name="province" value="on">Ontario</option>
+								<option name="province" value="bc">British Columbia</option>
+								<option name="province" value="qc">Quebec</option>
+								<option name="province" value="ns">Nove Scotia</option>
+								<option name="province" value="nb">New Brunswick</option>
+								<option name="province" value="mb">Manitoba</option>
+								<option name="province" value="pe">Prince Edward Island</option>
+								<option name="province" value="sk">Saskatchewan</option>
+								<option name="province" value="ab">Alberta</option>
+								<option name="province" value="nl">New Found Land</option>
+							</select><br>	
+							<!-- postal-code input-->
+							<label>Postal Code</label><input 		id="postal-code" 	name="postal-code" 		type="text" placeholder="Please enter your postal code" class="form-control" >	
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  <br><a href="#" class="btn btn-lg btn-success"> Register</a>
+			</form>
+		</div><br><br>
+
+		<script src='../js/jquery.min.js'></script>
+		<script src='../js/bootstrap.min.js'></script>
+		
+		
+		
+		<!-- Modal for Login to Laddr http://getbootstrap.com/javascript/
+										-->
+		<div class="modal fade" id="myLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="vertical-alignment-helper">
+				<div class="modal-dialog vertical-align-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Login to Laddr</h4>
+						</div>
+						<div class="modal-body">
+							<form ng-submit="login()" class="form-signin">
+								<input ng-model="user.email" type="text" name="email" placeholder="Email" class="form-control" autofocus/><br>
+								<input ng-model="user.password" type="password" name="pass" placeholder="Password" class="form-control"/> <br>
+								<button type="submit" value="Login" class="btn btn-md btn-primary btn-block">Log in</button><br>
+							</form>			
+							<p>Login VIA</p>							
+							<a class='btn btn-md btn-primary btn-block' href='api/twitter'><span class='fa fa-twitter'></span> Twitter</a><br>
+							<p>Don't have an account?</p>
+							<a class='btn btn-md btn-primary btn-block' href="partials/register.html"> Register</a><br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	  </body>
+	</html>
