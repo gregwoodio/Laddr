@@ -22,7 +22,7 @@
 			templateUrl: 'partials/profile.html',
 			controller: 'ProfileController'
 		}).
-		when('/login', {
+		when('/login', {	
 			templateUrl: 'partials/login.html',
 			controller: 'LoginController'
 		}).
