@@ -1,0 +1,84 @@
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header navbar-collapse collapse">
+					<a class="navbar-brand" href="app#/home">Laddr</a>
+				</div>
+				<div ng-if="logout == true">
+					<ul class='nav navbar-nav navbar-right'>
+						<li><a href='app#/logout'>Logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
+
+    	<div class="col-md-2 col-sm-3 sidebar">
+    		<ul class="nav nav-sidebar">
+    			<li><a href="app#/profile">Your Profile</a></li>
+    			<li><a href="app#/postings">Postings</a></li>
+    			<li><a href="app#/forum">Forum</a></li>
+    			<li><a href="app#/howto">How To</a></li>
+    		</ul>
+    	</div>
+
+    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
+
+			<section id="profile">
+
+				<div class="container-fluid">
+				  <h1 class="page-header">Profile Information (Volunteer)</h1>
+				  <div class="row">
+					<!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->
+					<!-- left column -->
+					<div class="background-color:#000000 col-md-4 col-sm-6 col-xs-12">
+					  <div class="text-center">
+						<img src="" class="avatar img-circle img-thumbnail" alt="avatar">
+					  </div>
+					</div>
+					
+					<!-- profile column -->
+					<div class="col-md-8 col-sm-6 col-xs-12 personal-info">	
+					  
+						<div class="col-lg-8">
+						<label class="col-lg-4 control-label">First name:</label>
+							<p id="firstName">First Name Here</p>
+						</div>
+						<br><br>
+						
+						<div class="col-lg-8">
+						<label class="col-lg-4 control-label">Last name:</label>
+							<p id="lastName">Last Name Here</p>
+						</div>
+						<br><br>
+			
+						<div class="col-lg-8">
+						<label class="col-lg-4 control-label">Email:</label>	
+							<p id="email" >Email here</p>
+						</div><br>
+						
+						<div class="col-lg-8">
+						<label class="col-lg-4 control-label">Academic Status:</label>
+							<p id="academicstatus">Academic Status Here</p>
+						</div>
+						<br><br>
+
+						<div class="col-lg-8">
+						<label class="col-lg-3 control-label">Summary:</label>		
+							<p class="col-lg-10 " id="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
+													standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a 
+													type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining 
+													essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+													and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+						</div>
+						<br><br>
+							
+					</div>
+				  </div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
