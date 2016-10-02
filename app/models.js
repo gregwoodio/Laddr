@@ -75,7 +75,11 @@ var Organization = sequelize.define('LdrOrganizations', {
     primaryKey: true
   },
   OrganizationName: {type: Sequelize.STRING, allowNull: false},
-  Address: {type: Sequelize.STRING},
+  AddressLine1: {type: Sequelize.STRING, allowNull: false},
+  AddressLine2: {type: Sequelize.STRING, allowNull: false},
+  City: {type: Sequelize.STRING, allowNull: false},
+  Province: {type: Sequelize.STRING, allowNull: false},
+  Postal: {type: Sequelize.STRING, allowNull: false},
   URL: {type: Sequelize.STRING},
   MissionStatement: {type: Sequelize.STRING}
 }, {

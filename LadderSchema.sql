@@ -44,6 +44,7 @@ CREATE TABLE `LdrApplications` (
 
 LOCK TABLES `LdrApplications` WRITE;
 /*!40000 ALTER TABLE `LdrApplications` DISABLE KEYS */;
+INSERT INTO `LdrApplications` VALUES ('db832c80-859f-11e6-a202-4106874124de','6d319160-85a2-11e6-a202-4106874124de',4,'2016-09-30 01:23:36');
 /*!40000 ALTER TABLE `LdrApplications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +87,11 @@ DROP TABLE IF EXISTS `LdrOrganizations`;
 CREATE TABLE `LdrOrganizations` (
   `ProfileID` varchar(36) DEFAULT NULL,
   `OrganizationName` varchar(256) NOT NULL,
-  `Address` varchar(256) NOT NULL,
+  `AddressLine1` varchar(256) NOT NULL,
+  `AddressLine2` varchar(256) NOT NULL,
+  `City` varchar(256) NOT NULL,
+  `Province` varchar(25) NOT NULL,
+  `Postal` varchar(10) NOT NULL,
   `URL` varchar(1024) NOT NULL,
   `MissionStatement` varchar(2048) NOT NULL,
   KEY `ProfileID` (`ProfileID`)
@@ -99,7 +104,7 @@ CREATE TABLE `LdrOrganizations` (
 
 LOCK TABLES `LdrOrganizations` WRITE;
 /*!40000 ALTER TABLE `LdrOrganizations` DISABLE KEYS */;
-INSERT INTO `LdrOrganizations` VALUES ('94fa8880-859f-11e6-a202-4106874124de','City of Mississauga','300 City Centre Dr, Mississauga, ON L5B 3C1, Canada','www.mississauga.ca/','City of Mississauga Mission Statement'),('db832c80-859f-11e6-a202-4106874124de','Trillium Health Partners','100 Queensway West Mississauga, ON L5B 1B8','www.mississauga.ca/','Trillium Helath Partners Mission Statement');
+INSERT INTO `LdrOrganizations` VALUES ('94fa8880-859f-11e6-a202-4106874124de','City of Mississauga','300 City Centre Dr, Mississauga, ON L5B 3C1, Canada','','','','','www.mississauga.ca/','City of Mississauga Mission Statement'),('db832c80-859f-11e6-a202-4106874124de','Trillium Health Partners','100 Queensway West Mississauga, ON L5B 1B8','','','','','www.mississauga.ca/','Trillium Helath Partners Mission Statement');
 /*!40000 ALTER TABLE `LdrOrganizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,6 +254,7 @@ CREATE TABLE `LdrApplications` (
 
 LOCK TABLES `LdrApplications` WRITE;
 /*!40000 ALTER TABLE `LdrApplications` DISABLE KEYS */;
+INSERT INTO `LdrApplications` VALUES ('e0ad3250-86ad-11e6-8eb8-475aaea7f476','e35c73d0-86ad-11e6-8eb8-475aaea7f476',4,'2016-09-30 01:33:28');
 /*!40000 ALTER TABLE `LdrApplications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,6 +283,7 @@ CREATE TABLE `LdrComments` (
 
 LOCK TABLES `LdrComments` WRITE;
 /*!40000 ALTER TABLE `LdrComments` DISABLE KEYS */;
+INSERT INTO `LdrComments` VALUES ('e1ccac10-86ad-11e6-8eb8-475aaea7f476','e0ad3250-86ad-11e6-8eb8-475aaea7f476','2016-09-30 01:33:25','e1cc0fd0-86ad-11e6-8eb8-475aaea7f476','This topic was creating during testing at Thu Sep 29 2016 21:33:25 GMT-0400 (EDT).',0),('e1f9af80-86ad-11e6-8eb8-475aaea7f476','e0ad3250-86ad-11e6-8eb8-475aaea7f476','2016-09-30 01:33:26','e1f93a50-86ad-11e6-8eb8-475aaea7f476','This topic was creating during testing at Thu Sep 29 2016 21:33:26 GMT-0400 (EDT).',0),('e2141550-86ad-11e6-8eb8-475aaea7f476','e0ad3250-86ad-11e6-8eb8-475aaea7f476','2016-09-30 01:33:26','e1f93a50-86ad-11e6-8eb8-475aaea7f476','This is a comment added by the unit tests at Thu Sep 29 2016 21:33:26 GMT-0400 (EDT).',0);
 /*!40000 ALTER TABLE `LdrComments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +297,11 @@ DROP TABLE IF EXISTS `LdrOrganizations`;
 CREATE TABLE `LdrOrganizations` (
   `ProfileID` varchar(36) DEFAULT NULL,
   `OrganizationName` varchar(256) NOT NULL,
-  `Address` varchar(256) NOT NULL,
+  `AddressLine1` varchar(256) NOT NULL,
+  `AddressLine2` varchar(256) NOT NULL,
+  `City` varchar(256) NOT NULL,
+  `Province` varchar(25) NOT NULL,
+  `Postal` varchar(10) NOT NULL,
   `URL` varchar(1024) NOT NULL,
   `MissionStatement` varchar(2048) NOT NULL,
   KEY `ProfileID` (`ProfileID`)
@@ -303,7 +314,7 @@ CREATE TABLE `LdrOrganizations` (
 
 LOCK TABLES `LdrOrganizations` WRITE;
 /*!40000 ALTER TABLE `LdrOrganizations` DISABLE KEYS */;
-INSERT INTO `LdrOrganizations` VALUES ('0f780be0-84ed-11e6-a0bb-c117d93dab6c','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.'),('0f8d4190-84ed-11e6-a0bb-c117d93dab6c','Organization Name','123 Fake Organization Way','www.fakeorg.com','To be the fakest organization.');
+INSERT INTO `LdrOrganizations` VALUES ('e1391ea0-86ad-11e6-8eb8-475aaea7f476','Organization Name','123 Fake Organization Way','','','','','www.fakeorg.com','To be the fakest organization.'),('e14c5880-86ad-11e6-8eb8-475aaea7f476','Organization Name','123 Fake Organization Way','','','','','www.fakeorg.com','To be the fakest organization.');
 /*!40000 ALTER TABLE `LdrOrganizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +344,7 @@ CREATE TABLE `LdrPostings` (
 
 LOCK TABLES `LdrPostings` WRITE;
 /*!40000 ALTER TABLE `LdrPostings` DISABLE KEYS */;
-INSERT INTO `LdrPostings` VALUES ('1085ab50-84ed-11e6-a0bb-c117d93dab6c','0f780be0-84ed-11e6-a0bb-c117d93dab6c','Test job title','Mississauga','A test job created in Mississauga','2016-09-27 20:00:40',1);
+INSERT INTO `LdrPostings` VALUES ('e2481da0-86ad-11e6-8eb8-475aaea7f476','e1391ea0-86ad-11e6-8eb8-475aaea7f476','Test job title','Mississauga','A test job created in Mississauga','2016-09-30 01:33:26',1),('e35c73d0-86ad-11e6-8eb8-475aaea7f476','e1391ea0-86ad-11e6-8eb8-475aaea7f476','Applicant','Brampton','Apply to this job!','2016-09-30 01:33:28',0);
 /*!40000 ALTER TABLE `LdrPostings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -365,7 +376,7 @@ CREATE TABLE `LdrProfiles` (
 
 LOCK TABLES `LdrProfiles` WRITE;
 /*!40000 ALTER TABLE `LdrProfiles` DISABLE KEYS */;
-INSERT INTO `LdrProfiles` VALUES ('0ee0fc00-84ed-11e6-a0bb-c117d93dab6c','dat@boi.com','$2a$10$iJGfGku7xvoBS150EeQAB.RY8SQdL.KImFU9H5A4NehvNiKRVmQ3W','somepic.jpg','2016-09-27 20:00:37',0,NULL,NULL,0),('0efe6f10-84ed-11e6-a0bb-c117d93dab6c','user_to_be_deleted@gmail.com','$2a$10$FjvIQM1NyhKuusXrMWdbzuHefNkKdqv1yRM0lhDqGx0aY2V8/YfJ6','somepic.jpg','2016-09-27 20:00:37',0,NULL,NULL,1),('0f780be0-84ed-11e6-a0bb-c117d93dab6c','codebusters@laddr.xyz','$2a$10$5Vn.s3UgPxPwwbsc2w2SDuSz9j90KRdjmDzG8YIKcLwmseOgd96wO','somepic.jpg','2016-09-27 20:00:38',1,NULL,NULL,0),('0f8d4190-84ed-11e6-a0bb-c117d93dab6c','to_be_deleted@gmail.com','$2a$10$0ggkqnfQL1P5/XSYkMef1eKh1Y2iH2M15p3G1XY56K5Wj8QfBiti.','somepic.jpg','2016-09-27 20:00:38',1,NULL,NULL,1);
+INSERT INTO `LdrProfiles` VALUES ('e0ad3250-86ad-11e6-8eb8-475aaea7f476','dat@boi.com','$2a$10$WhrGnn4gnFK.qQb1lPK.9.fkOXpN9kE3dgu9j3sKWPwatUE6wJJgC','somepic.jpg','2016-09-30 01:33:23',0,NULL,NULL,0),('e0c1a4b0-86ad-11e6-8eb8-475aaea7f476','user_to_be_deleted@gmail.com','$2a$10$rETH4.7H8lTt9IEsgbH8aO.9ysjrA.O/7arqA6ROwKzIbWukz2YkO','somepic.jpg','2016-09-30 01:33:23',0,NULL,NULL,1),('e1391ea0-86ad-11e6-8eb8-475aaea7f476','codebusters@laddr.xyz','$2a$10$Gi.7/0CIe4deChia87o1DOIXnpi1rYOApjmd3bjGG/oV0VMljPT3C','somepic.jpg','2016-09-30 01:33:24',1,NULL,NULL,0),('e14c5880-86ad-11e6-8eb8-475aaea7f476','to_be_deleted@gmail.com','$2a$10$Jaq4HnkgR/QUVuj3ckqWHON50aM6rWMBKW.6NpLLk.rdA1WTjcRYW','somepic.jpg','2016-09-30 01:33:24',1,NULL,NULL,1);
 /*!40000 ALTER TABLE `LdrProfiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,6 +403,7 @@ CREATE TABLE `LdrTopics` (
 
 LOCK TABLES `LdrTopics` WRITE;
 /*!40000 ALTER TABLE `LdrTopics` DISABLE KEYS */;
+INSERT INTO `LdrTopics` VALUES ('e1cc0fd0-86ad-11e6-8eb8-475aaea7f476','Topic created during testing','e0ad3250-86ad-11e6-8eb8-475aaea7f476','2016-09-30 01:33:25',1),('e1f93a50-86ad-11e6-8eb8-475aaea7f476','Topic created during testing','e0ad3250-86ad-11e6-8eb8-475aaea7f476','2016-09-30 01:33:26',0);
 /*!40000 ALTER TABLE `LdrTopics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,7 +431,7 @@ CREATE TABLE `LdrUsers` (
 
 LOCK TABLES `LdrUsers` WRITE;
 /*!40000 ALTER TABLE `LdrUsers` DISABLE KEYS */;
-INSERT INTO `LdrUsers` VALUES ('0ee0fc00-84ed-11e6-a0bb-c117d93dab6c','Test','User','Test Description','Test Resume',1),('0efe6f10-84ed-11e6-a0bb-c117d93dab6c','Deleted','User','Test Description','Test Resume',1);
+INSERT INTO `LdrUsers` VALUES ('e0ad3250-86ad-11e6-8eb8-475aaea7f476','Test','User','Test Description','Test Resume',1),('e0c1a4b0-86ad-11e6-8eb8-475aaea7f476','Deleted','User','Test Description','Test Resume',1);
 /*!40000 ALTER TABLE `LdrUsers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -432,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-28 19:17:38
+-- Dump completed on 2016-10-02 14:18:08

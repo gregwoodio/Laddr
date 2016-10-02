@@ -39,12 +39,14 @@ module.exports = function(app, models) {
   // Add organization
   app.post('/api/organization', function(req, res) {
 
-    if (req.body.Email == undefined || req.body.Picture == undefined || 
-      req.body.Password == undefined || req.body.OrganizationName == undefined || req.body.URL == undefined ||
-      req.body.MissionStatement == undefined || req.body.Address == undefined ||
-      req.body.Email == '' || req.body.Picture == '' || 
-      req.body.Password == '' || req.body.OrganizationName == '' || req.body.URL == '' ||
-      req.body.MissionStatement == '' || req.body.Address == '') {
+    if (req.body.Email == undefined || req.body.Picture == undefined || req.body.Password == undefined || 
+      req.body.OrganizationName == undefined || req.body.URL == undefined || req.body.MissionStatement == undefined || 
+      req.body.AddressLine1 == undefined || req.body.AddressLine2 == undefined || req.body.City == undefined ||
+      req.body.Province == undefined || req.body.Postal == undefined ||
+      req.body.Email == "" || req.body.Picture == "" || req.body.Password == "" || 
+      req.body.OrganizationName == "" || req.body.URL == "" || req.body.MissionStatement == "" || 
+      req.body.AddressLine1 == "" || req.body.AddressLine2 == "" || req.body.City == "" ||
+      req.body.Province == "" || req.body.Postal == "") {
 
       res.status(400).json({
         success: false,
@@ -70,7 +72,11 @@ module.exports = function(app, models) {
           models.Organization.build({
             ProfileID: profileID,
             OrganizationName: req.body.OrganizationName,
-            Address: req.body.Address,
+            AddressLine1: req.body.AddressLine1,
+            AddressLine2: req.body.AddressLine2,
+            City: req.body.City,
+            Province: req.body.Province,
+            Postal: req.body.Postal,
             URL: req.body.URL,
             MissionStatement: req.body.MissionStatement
           })

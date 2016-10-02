@@ -11,7 +11,11 @@ module.exports = function(chai, server, assert, email, password) {
           Password: password, 
           Picture: 'somepic.jpg', 
           OrganizationName: 'Organization Name',
-          Address: '123 Fake Organization Way',
+          AddressLine1: '123 Fake Organization Way',
+          AddressLine2: 'Unit 4',
+          City: 'Mississauga',
+          Province: 'Ontario',
+          Postal: 'A1B2C3',
           URL: 'www.fakeorg.com',
           MissionStatement: 'To be the fakest organization.'
         })
@@ -53,7 +57,11 @@ module.exports = function(chai, server, assert, email, password) {
           Password: password, 
           Picture: 'somepic.jpg', 
           OrganizationName: 'Organization Name',
-          Address: '123 Fake Organization Way',
+          AddressLine1: '123 Fake Organization Way',
+          AddressLine2: 'Unit 4',
+          City: 'Mississauga',
+          Province: 'Ontario',
+          Postal: 'A1B2C3',
           URL: 'www.fakeorg.com',
           MissionStatement: 'To be the fakest organization.'
         })
