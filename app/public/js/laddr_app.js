@@ -26,8 +26,9 @@
 			templateUrl: 'partials/login.html',
 			controller: 'LoginController'
 		}).
-		when('/login/:token', {
-			controller: 'TwitterLoginController'
+		when('/register', {
+			templateUrl: 'partials/register.html',
+			controller: 'RegisterController'
 		}).
 		when('/howto', {
 			templateUrl: '/partials/howto.html',
