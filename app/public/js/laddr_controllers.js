@@ -89,7 +89,7 @@ laddrControllers.controller('TwitterLoginController', ['$scope', '$routeParams',
   function($scope, $routeParams, $location, $sessionStorage) {
   $scope.$storage = $sessionStorage;
 
-  console.log('TwtiterLoginController');
+  console.log('TwitterLoginController');
   console.log($routeParams.token);
 
   if ($routeParams.token) {
@@ -98,6 +98,70 @@ laddrControllers.controller('TwitterLoginController', ['$scope', '$routeParams',
   } else {
     $location.url('/login');
   }
+}]);
+
+laddrControllers.controller('RegisterController', ['$scope', '$location', '$sessionStorage',
+  function($scope, $location, $sessionStorage) {
+
+  $scope.register = function() {
+
+    if ($scope.user.password1 != $scope.user.password2) {
+      return 'Passwords don\'t match.'
+    }
+
+    if ($scope.user.accountType == 0) {
+      data = {
+        //user profile
+        AccountType: $scope.user.accountType,
+        Email: $scope.user.email,
+        Password: $scope.user.password1,
+        FirstName: $scope.user.firstName,
+        LastName: $scope.user.lastName,
+        AcademicStatus: $scope.user.academicStatus
+      };
+
+      $http
+        .post('/api/user', data)
+        .success(function(data, status, headers, config) {
+          if (data) {
+            console.log('New user added.');
+            $location.url('/login');
+          } else {
+            console.log('User not added - db error.');
+          }
+        })
+        .error(function(data, status, headers, config) {
+          console.log('User not added - AJAX error.');
+        });
+    } else {
+      data = {
+        //organization profile
+        AccountType: $scope.user.accountType,
+        Email: $scope.user.email,
+        Password: $scope.user.password1,
+        OrganizationName: $scope.user.organizationName,
+        AddressLine1: $scope.user.addressline1,
+        AddressLine2: $scope.user.addressline2,
+        City: $scope.user.city,
+        Province: $scope.user.province,
+        Postal: $scope.user.postal
+      };
+      $http
+        .post('/api/organization', data)
+        .success(function(data, status, headers, config) {
+          if (data) {
+            console.log('New organization added.');
+            $location.url('/login');
+          } else {
+            console.log('Organization not added - db error.');
+          }
+        })
+        .error(function(data, status, headers, config) {
+          console.log('Organization not added - AJAX error.');
+        });
+    }
+  }
+
 }]);
 
 laddrControllers.controller('HowToController', ['$scope', '$location', '$sessionStorage', 
@@ -301,3 +365,21 @@ laddrControllers.controller('LogoutController', ['$location', '$scope', '$sessio
     $location.url('/login');
   });
 }]);
+
+laddrControllers.directive('toggletype', function() {
+
+  console.log('toggletype directive called.');
+
+  return function(scope, element, attrs) {
+
+    console.log(element);
+
+    scope.$watch(attrs.toggletype, function(value, oldValue) {
+      if (value) {
+        element.hide();
+      } else {
+        element.show();
+      }
+    }, true);
+  }
+});
