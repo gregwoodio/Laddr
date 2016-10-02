@@ -38,7 +38,11 @@ module.exports = function(grunt) {
 	    	},
 	    	angularBootstrap: {
 	    		src: 'app/public/components/angular-bootstrap/ui-bootstrap.min.js',
-	    		dest: 'app/public/js/angular-bootstrap.min.js'
+	    		dest: 'app/public/js/ui-bootstrap.min.js'
+	    	},
+	    	angularAnimate: {
+	    		src: 'app/public/components/angular-animate/angular-animate.min.js',
+	    		dest: 'app/public/js/angular-animate.min.js'
 	    	},
 	    	ngStorage: {
 	    		src: 'app/public/components/ngstorage/ngStorage.min.js',

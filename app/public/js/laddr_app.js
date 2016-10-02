@@ -3,9 +3,10 @@
 (function () {
 	var laddrApp = angular.module('laddrApp', [
 		'ngRoute',
+		'ngAnimate',
 		'ui.bootstrap',
 	    'laddrControllers',
-	    'ngStorage'
+	    'ngStorage',
 	]);
 
 	laddrApp.config(['$routeProvider', function($routeProvider) {

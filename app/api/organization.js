@@ -42,11 +42,7 @@ module.exports = function(app, models) {
     if (req.body.Email == undefined || req.body.Picture == undefined || req.body.Password == undefined || 
       req.body.OrganizationName == undefined || req.body.URL == undefined || req.body.MissionStatement == undefined || 
       req.body.AddressLine1 == undefined || req.body.AddressLine2 == undefined || req.body.City == undefined ||
-      req.body.Province == undefined || req.body.Postal == undefined ||
-      req.body.Email == "" || req.body.Picture == "" || req.body.Password == "" || 
-      req.body.OrganizationName == "" || req.body.URL == "" || req.body.MissionStatement == "" || 
-      req.body.AddressLine1 == "" || req.body.AddressLine2 == "" || req.body.City == "" ||
-      req.body.Province == "" || req.body.Postal == "") {
+      req.body.Province == undefined || req.body.Postal == undefined) {
 
       res.status(400).json({
         success: false,

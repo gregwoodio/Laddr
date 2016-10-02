@@ -44,9 +44,12 @@
 								name:laddruser
 								value 0 == volunteer user
 								value 1 = organization user-->
-							<div class="text-center">
-								<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='0' checked>	I am a volunteer!</label>								
-								<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='1'>I am an organization!</label>
+							<div class="btn-group">
+								<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = false' uib-btn-radio="'volunteer'" value='0'>Volunteer</label>
+								<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = true' uib-btn-radio="'organization'" value='1'>Organization</label>
+
+								<!--<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='0' checked>	I am a volunteer!</label>								
+								<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='1'>I am an organization!</label>-->
 							</div>
 							<div class="form-group">
 								<label>	Email address:</label>
@@ -64,16 +67,16 @@
 				  
 				  <!-- INJECT HTML FORM --> 
 				  
-				 <div class="panel-group" toggletype='user.accountType'>
+				 <div uib-collapse="showVolunteer" class='collapse'>
 					<div class="panel panel-default">
 					
 					  <div class="panel-heading">
 						<h4 class="panel-title">
-						  <a data-toggle="collapse" href="#volunteerinformation">Volunteer</a>
+						  <a data-toggle="collapse" >Volunteer</a>
 						</h4>
 					  </div>
 					  
-					  <div id="volunteerinformation" class="panel-collapse collapse">
+					  
 						<!-- Form for volunteer information -->
 						<div class="panel-body">
 							<label for="firstName">	First Name:</label>	<input 	type="text" ng-model="user.firstName" class="form-control" id="firstName" placeholder="Please enter your first name" ><br>
@@ -81,26 +84,24 @@
 							
 							<div>
 								<label>Academic Status:</label><br>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="hs" checked>High School</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="ps">Post Secondary</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="w">Working</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="na">Not Applicable</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="0">Not in School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="1" checked>High School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="2">College</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="3">University</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="4">Graduate</label>
+								
 							</div>
-							
-						</div>
 					  </div>
 					</div>
-				  </div><br>
+				  </div>
 				  
-				  <div class="panel-group" toggletype='user.accountType'>
+				  <div uib-collapse="!showVolunteer" class='collapse'>
 					<div class="panel panel-default">
 					  <div class="panel-heading">
 						<h4 class="panel-title">
-						  <a data-toggle="collapse" href="#organizationinformation">Organization</a>
+						  <a data-toggle="collapse" href="">Organization</a>
 						</h4>
 					  </div>
-					  
-					  <div id="organizationinformation" class="panel-collapse collapse">
 						<!-- Form for organization information -->
 						<div class="panel-body">
 							<label for="organizationName">Organization Name:</label>
@@ -113,10 +114,10 @@
 							<!-- address-line2 input -->
 							<label>Address Line 2: </label><input 	id="address-line2" ng-model='user.addressline2'	name="address-line2" 	type="text" placeholder="Enter your sddress line 2" class="form-control"><br>	
 							<!-- city input -->		
-							<label>City / Town</label><input 		id="city" 			name="city" ng-model='user.city' type="text" placeholder="Enter your city" 			class="form-control" required><br>	
+							<label>City / Town</label><input 		id="city" 			name="city" ng-model='user.city' type="text" placeholder="Enter your city" 			class="form-control" ><br>	
 							<!-- region input-->
 							<label>Province</label>
-							<select class="form-control" ng-model='user.province' name="province" required>
+							<select class="form-control" ng-model='user.province' name="province">
 								<option name="province" value="on">Ontario</option>
 								<option name="province" value="bc">British Columbia</option>
 								<option name="province" value="qc">Quebec</option>
@@ -131,12 +132,11 @@
 							<!-- postal-code input-->
 							<label>Postal Code</label><input 		id="postal-code" 	name="postal-code" ng-model='user.postal' type="text" placeholder="Please enter your postal code" class="form-control" >	
 						</div>
-					  </div>
 					</div>
 				  </div>
-				  <br><button type='submit' class="btn btn-lg btn-success">Register</a>
+				  <br><button type='submit' ng-click='register()' class="btn btn-lg btn-success">Register</a>
 			</form>
-		</div><br><br>
+		</div>
 
 		<!-- Javascript dependencies for bootstrap, could cause problems with Angular-->
 		<!--<script src='../js/jquery.min.js'></script>

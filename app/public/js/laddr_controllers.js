@@ -100,8 +100,11 @@ laddrControllers.controller('TwitterLoginController', ['$scope', '$routeParams',
   }
 }]);
 
-laddrControllers.controller('RegisterController', ['$scope', '$location', '$sessionStorage',
-  function($scope, $location, $sessionStorage) {
+laddrControllers.controller('RegisterController', ['$scope', '$http', '$location', '$sessionStorage', '$animate', 
+  function($scope, $http, $location, $sessionStorage, $animate) {
+
+  $scope.accountType = 'volunteer';
+  //$scope.showVolunteer = false;
 
   $scope.register = function() {
 
@@ -109,15 +112,25 @@ laddrControllers.controller('RegisterController', ['$scope', '$location', '$sess
       return 'Passwords don\'t match.'
     }
 
-    if ($scope.user.accountType == 0) {
+    if ($scope.accountType == 'volunteer') {
+
+      console.log($scope.user.email);
+      console.log($scope.user.password1);
+      console.log($scope.user.firstName);
+      console.log($scope.user.lastName);
+      console.log($scope.user.academicStatus);
+
       data = {
         //user profile
-        AccountType: $scope.user.accountType,
+        AccountType: 0,
         Email: $scope.user.email,
         Password: $scope.user.password1,
         FirstName: $scope.user.firstName,
         LastName: $scope.user.lastName,
-        AcademicStatus: $scope.user.academicStatus
+        AcademicStatus: $scope.user.academicStatus,
+        Picture: '',
+        Description: '',
+        Resume: ''
       };
 
       $http
@@ -132,11 +145,13 @@ laddrControllers.controller('RegisterController', ['$scope', '$location', '$sess
         })
         .error(function(data, status, headers, config) {
           console.log('User not added - AJAX error.');
+          console.log(data);
+          console.log(status);
         });
-    } else {
+    } else if ($scope.accountType == 'organization') {
       data = {
         //organization profile
-        AccountType: $scope.user.accountType,
+        AccountType: 1,
         Email: $scope.user.email,
         Password: $scope.user.password1,
         OrganizationName: $scope.user.organizationName,
@@ -144,7 +159,10 @@ laddrControllers.controller('RegisterController', ['$scope', '$location', '$sess
         AddressLine2: $scope.user.addressline2,
         City: $scope.user.city,
         Province: $scope.user.province,
-        Postal: $scope.user.postal
+        Postal: $scope.user.postal,
+        Picture: '',
+        MissionStatement: '',
+        URL: ''
       };
       $http
         .post('/api/organization', data)
@@ -158,6 +176,10 @@ laddrControllers.controller('RegisterController', ['$scope', '$location', '$sess
         })
         .error(function(data, status, headers, config) {
           console.log('Organization not added - AJAX error.');
+          console.log(data);
+          console.log(status);
+          console.log(headers);
+          console.log(config);
         });
     }
   }
