@@ -28,6 +28,8 @@
   padding-bottom: 25px;
 }
 
+
+/* Left Green Sidebar*/
 .sidebar {
 	position: fixed;
 	top: 50px;
@@ -35,22 +37,47 @@
 	background: #088c5a;
 	color: #fafafa;
 }
+/* TESTING NAV-BAR COLOR
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #FFFF00;
+    color: #FFC0CB;
+}
+*/
 
 .sidebar a {
-	color: #fafafa;
+	color: #fafafa; /* Changes font color on click */
+    
 }
 
 .sidebar a:hover {
-	color: #088c5a;
+	color: #FAFAFA; /* Changes font color on hover - WORKS */
 }
 
-.sidebar a:active {
-	color: #088c5a;
+.sidebar ul li a:focus {
+    color: #FAFAFA;
+    background:#06603e;
 }
 
-.sidebar a:visited {
-	color: #088c5a;
+.sidebar ul li a:hover {
+    background:#07784d;
 }
+
+.sidebar ul li a:active {
+    background:#06603e;
+}
+
+/* Table Stuff */
+
+table {
+    font-family: arial, sans-serif;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
 
 .profilepic {
 	max-height: 250px;
