@@ -18,7 +18,8 @@ module.exports = function(app, passport) {
             message: "Failed to authenticate token."
           });
         } else {
-          console.log('profile.js - decoded: ' + decoded);
+          console.log('profile.js - decoded: ');
+          console.log(decoded);
           res.json(decoded);
         }
       });

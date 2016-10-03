@@ -23,6 +23,10 @@
 			templateUrl: 'partials/profile.html',
 			controller: 'ProfileController'
 		}).
+		when('/editProfile', {
+			templateUrl: 'partials/edit_profile.html',
+			controller: 'EditProfileController'
+		}).
 		when('/login', {	
 			templateUrl: 'partials/login.html',
 			controller: 'LoginController'

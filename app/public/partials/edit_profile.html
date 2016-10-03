@@ -1,0 +1,201 @@
+	
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header navbar-collapse collapse">
+					<a class="navbar-brand" href="app#/home">Laddr</a>
+				</div>
+				<div ng-if="logout == true">
+					<ul class='nav navbar-nav navbar-right'>
+						<li><a href='app#/logout'>Logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
+
+    	<div class="col-md-2 col-sm-3 sidebar">
+    		<ul class="nav nav-sidebar">
+    			<li><a href="app#/profile">Your Profile</a></li>
+    			<li><a href="app#/postings">Postings</a></li>
+    			<li><a href="app#/forum">Forum</a></li>
+    			<li><a href="app#/howto">How To</a></li>
+    		</ul>
+    	</div>
+
+    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
+			<section ng-if="profile.AccountType == 0">
+				<div class="container-fluid">
+				  <h1 class="page-header">Edit Profile Information</h1>
+				  <div class="row">
+					<!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->
+					<!-- left column -->
+					<div class="col-md-4 col-sm-6 col-xs-12">
+					  <div class="text-center">
+						<img src="" class="avatar img-circle img-thumbnail" alt="avatar">
+						<h6>Upload a Profile Photo</h6>
+						<input type="file" class="text-center center-block well well-sm">
+					  </div>
+					</div>
+					
+					<!-- profile column -->
+					<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+					  <form class="form-horizontal" role="form">
+					  
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">First name:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="" type="text" id="firstName" value="{{profile.FirstName}}" >
+						  </div>
+						</div>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Last name:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="" type="text" id="lastName" value="{{profile.LastName}}">
+						  </div>
+						</div>
+
+						<div>
+								<label>Academic Status:</label><br>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="0" ng-checked='profile.AcademicStatus == 0'>Not in School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="1" ng-checked='profile.AcademicStatus == 1'>High School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="2" ng-checked='profile.AcademicStatus == 2'>College</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="3" ng-checked='profile.AcademicStatus == 3'>University</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="4" ng-checked='profile.AcademicStatus == 4'>Graduate</label>
+							</div>
+
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Summary:</label>
+						  <div class="col-lg-8">
+							<textarea class="form-control" rows="5" value="" type="textbox" id="academicStatus"  >{{profile.Description}}</textarea>
+						  </div>
+						</div>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Email:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="{{profile.Email}}" type="text" id="email">
+						  </div>
+						</div>
+					<!--
+						<div class="form-group">
+						  <label class="col-md-3 control-label">Password:</label>
+						  <div class="col-md-8">
+							<input class="form-control" value="" type="password" id="pwd"  >
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="col-md-3 control-label">Confirm password:</label>
+						  <div class="col-md-8">
+							<input class="form-control" value="" type="password" id="cnfrmpwd" >
+						  </div>
+						</div>
+					-->
+						<div class="form-group">
+						  <label class="col-md-3 control-label"></label>
+						  
+						  <div class="col-md-8 text-center">
+							<input class="btn btn-primary" value="Edit Profile" type="button">
+							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editVolunteer'>
+							<input class="btn btn-primary" href='app#/profile' value="Cancel">
+						  </div>
+						  
+						</div>
+					  </form>
+					</div>
+				  </div>
+				</div>
+			</section>
+
+			<section ng-if='profile.AccountType == 1'>
+
+				<div class="container-fluid">
+				  <h1 class="page-header">Edit Profile Information</h1>
+				  <div class="row">
+					<!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->
+					<!-- left column -->
+					<div class="col-md-4 col-sm-6 col-xs-12">
+					  <div class="text-center">
+
+						<img src="" class="avatar img-circle img-thumbnail" alt="avatar">
+						<h6>Upload a Profile Photo</h6>
+						<input type="file" class="text-center center-block well well-sm">
+					  </div>
+					</div>
+					<!-- profile column -->
+					<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+					  <form class="form-horizontal" role="form">
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Organization Name:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="{{profile.OrganizationName}}" type="text" id="organizationName" >
+						  </div>
+						</div>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">URL:</label>
+						 <div class="col-lg-8">
+							<input class="form-control" value="{{profile.URL}}" type="text" id="url" >
+						  </div>
+						</div>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Mission Statement:</label>
+						  <div class="col-lg-8">
+							<textarea class="form-control" rows="6" value="{{profile.MissionStatement}}" type="textbox" id="missionStatement" ></textarea>
+						  </div>
+						</div>
+						
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Address:</label>
+						  <div class="col-lg-8">
+							<textarea class="form-control" rows="5" value="{{profile.Address}}" type="text" id="address" ></textarea>
+						  </div>
+						</div>
+						
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Email:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="{{profile.Email}}" type="text" id="email" >
+						  </div>
+						</div>
+						
+						<!--
+						<div class="form-group">
+						  <label class="col-md-3 control-label">Password:</label>
+						  <div class="col-md-8">
+							<input class="form-control" value="" type="password" id="pwd" >
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="col-md-3 control-label">Confirm password:</label>
+						  <div class="col-md-8">
+							<input class="form-control" value="" type="password" id="cnfrmpwd">
+						  </div>
+						</div>
+
+					-->
+						<div class="form-group">
+						  <label class="col-md-3 control-label"></label>
+						  
+						  <div class="col-md-8 text-center">
+							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editOrganization'>
+							<input class="btn btn-primary" value="Cancel" href='app#/profile'>
+						  </div>
+						  
+						</div>
+					  </form>
+					</div>
+				  </div>
+
+				</div>
+
+			</section>
+		</div>
+	</div>
+</div>

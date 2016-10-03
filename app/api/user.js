@@ -42,7 +42,7 @@ module.exports = function(app, models) {
     //TODO: Validate info first
 
     //make sure all the required info was provided
-    if (req.body.Email == undefined || req.body.Password == undefined || req.body.AcademicStatus ||
+    if (req.body.Email == undefined || req.body.Password == undefined || req.body.AcademicStatus == undefined ||
       req.body.Picture == undefined || req.body.FirstName == undefined || req.body.LastName == undefined ||
       req.body.Description == undefined || req.body.Resume == undefined) {
 
