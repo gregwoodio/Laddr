@@ -34,7 +34,7 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
         $scope.profile.Email = data.Email;
         $scope.profile.FirstName = data.FirstName;
         $scope.profile.LastName = data.LastName;
-        $scope.profile.PictureURL = data.PictureURL;
+        $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
         $scope.profile.AccountType = data.AccountType;
         $scope.profile.Description = data.Description;
         $scope.profile.Resume = data.Resume;

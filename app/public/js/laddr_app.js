@@ -5,8 +5,8 @@
 		'ngRoute',
 		'ngAnimate',
 		'ui.bootstrap',
-	    'laddrControllers',
-	    'ngStorage',
+	  'laddrControllers',
+	  'ngStorage',
 	]);
 
 	laddrApp.config(['$routeProvider', function($routeProvider) {
