@@ -117,10 +117,29 @@ module.exports = function(app, models) {
           // ProfileID cannot change
           // Passwords will be changed elsewhere.
 
-          models.Profile.update({
-              ProfileID: decoded.ProfileID,
-              Email: req.body.Email || decoded.Email,
-              PictureURL: req.body.PictureURL || decoded.PictureURL
+          //get the existing profile first
+          models.Profile.find({
+            where: {
+              ProfileID: decoded.ProfileID
+            }, 
+            include: [models.Organization]
+          })
+          .then(function(profile) {
+            org = {};
+
+            for (key in profile.dataValues) {
+              org[key] = profile.dataValues[key];
+            }
+
+            for (key in profile.dataValues.LdrOrganization) {
+              org[key] = profile.dataValues.LdrOrganization[key];
+            }
+
+            //now change the values to the new values
+            models.Profile.update({
+              ProfileID: org.ProfileID,
+              Email: req.body.Email || org.Email,
+              PictureURL: req.body.PictureURL || org.PictureURL
             }, {
               where: {
                 ProfileID: decoded.ProfileID
@@ -128,13 +147,14 @@ module.exports = function(app, models) {
             })
             .then(function(profile) {
               models.Organization.update({
-                  OrganizationName: req.body.OrganizationName || decoded.OrganizationName,
-                  Address: req.body.Address || decoded.Address,
-                  URL: req.body.URL || decoded.URL,
-                  MissionStatement: req.body.MissionStatement || decoded.MissionStatement
+                  OrganizationName: req.body.OrganizationName || org.OrganizationName,
+                  AddressLine1: req.body.AddressLine1 || org.AddressLine1,
+                  AddressLine2: req.body.AddressLine2 || org.AddressLine2,
+                  URL: req.body.URL || org.URL,
+                  MissionStatement: req.body.MissionStatement || org.MissionStatement
                 }, {
                   where: {
-                    ProfileID: decoded.ProfileID
+                    ProfileID: org.ProfileID
                   } 
                 })
                 .then(function(org) {
@@ -157,8 +177,17 @@ module.exports = function(app, models) {
                 message: err.message
               });
             });
-          }
-        });
+          })
+          .catch(function(err) {
+            res.status(500).json({
+              success: false,
+              message: err.message
+            });
+          });
+
+          
+        }
+      });
     } else {
         res.status(403).json({
           success: false,

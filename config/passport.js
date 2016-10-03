@@ -57,76 +57,13 @@ module.exports = function(passport) {
           });
         }
 
-        // check if profile is User or Organization
-
-        prof = {};
         delete profile.dataValues.Password;
         
-        for (key in profile.dataValues) {
-          prof[key] = profile.dataValues[key];
-        }
+        return done(null, profile.dataValues, {
+          success: true,
+          message: 'Profile sent.'
+        });
 
-        if (profile.dataValues.AccountType == 0) {
-
-          models.User.find({
-            where: {
-              ProfileID: profile.dataValues.ProfileID
-            }
-          })
-          .then(function(user) {
-
-            //add in user values
-            for (key in user.dataValues) {
-              prof[key] = user.dataValues[key];
-            }
-            console.log(prof);
-            return done(null, prof, {
-              success: true,
-              message: 'Profile sent.'
-            });
-
-          })
-          .catch(function(err) {
-            return done(err, false, {
-              success: false,
-              message: 'Error finding account.'
-            })
-          })
-
-        } else if (profile.dataValues.AccountType == 1) {
-          //organization
-          models.Organization.find({
-            where: {
-              ProfileID: profile.dataValues.ProfileID
-            }
-          })
-          .then(function(org) {
-
-            //add in organization values
-            for (key in org.dataValues) {
-              prof[key] = org.dataValues[key];
-            }
-            console.log(prof);
-            return done(null, prof, {
-              success: true,
-              message: 'Profile sent.'
-            });
-          })
-          .catch(function(err) {
-            return done(err, false, {
-              success: false,
-              message: 'Error finding account.'
-            });
-          });
-
-        } else {
-
-          //shouldn't end up here
-          return done(null, false, {
-            success: false,
-            message: 'Bad profile type.'
-          });
-        }
       })
       .catch(function(err) {
         return done(err);

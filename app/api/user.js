@@ -83,7 +83,7 @@ module.exports = function(app, models) {
               id: profileID
             });
           })
-          .catch(function(err) {
+          .catch(function(err) {  
             res.status(500).json({
               success: false,
               message: err.message
@@ -117,39 +117,65 @@ module.exports = function(app, models) {
           // ProfileID cannot change
           // Passwords will be changed elsewhere.
 
-          models.Profile.update({
-              Email: req.body.Email || decoded.Email,
-              PictureURL: req.body.PictureURL || decoded.PictureURL
-            }, {
-              where: {
-                ProfileID: decoded.ProfileID
-              }
-            })
-            .then(function(profile) {
-              models.User.update({
-                  Firstname: req.body.FirstName || decoded.FirstName,
-                  LastName: req.body.LastName || decoded.LastName,
-                  Description: req.body.Description || decoded.Description,
-                  Resume: req.body.Resume || decoded.Resume,
-                  AcademicStatus: req.body.AcademicStatus || decoded.AcademicStatus || 0 //TODO: fix this
-                }, {
-                  where: {
-                    ProfileID: decoded.ProfileID
-                  }
-                })
-                .then(function(user) {
-                  res.json({
-                    success: true,
-                    message: 'Account updated.',
-                    token: token
+          //get the existing profile first
+          models.Profile.find({
+            where: {
+              ProfileID: decoded.ProfileID
+            }, 
+            include: [models.Organization]
+          })
+          .then(function(profile) {
+            user = {};
+
+            for (key in profile.dataValues) {
+              user[key] = profile.dataValues[key];
+            }
+
+            for (key in profile.dataValues.LdrOrganization) {
+              user[key] = profile.dataValues.LdrOrganization[key];
+            }
+
+            //now change the values to the new values
+            models.Profile.update({
+                Email: req.body.Email || user.Email,
+                PictureURL: req.body.PictureURL || user.PictureURL
+              }, {
+                where: {
+                  ProfileID: decoded.ProfileID
+                }
+              })
+              .then(function(profile) {
+                models.User.update({
+                    Firstname: req.body.FirstName || user.FirstName,
+                    LastName: req.body.LastName || user.LastName,
+                    Description: req.body.Description || user.Description,
+                    Resume: req.body.Resume || user.Resume,
+                    AcademicStatus: req.body.AcademicStatus || user.AcademicStatus || 0 //TODO: fix this
+                  }, {
+                    where: {
+                      ProfileID: user.ProfileID
+                    }
+                  })
+                  .then(function(user) {
+                    res.json({
+                      success: true,
+                      message: 'Account updated.',
+                      token: token
+                    });
+                  })
+                  .catch(function(err) {
+                    res.status(500).json({
+                      success: false,
+                      message: err.message
+                    });
                   });
-                })
-                .catch(function(err) {
-                  res.status(500).json({
-                    success: false,
-                    message: err.message
-                  });
+              })
+              .catch(function(err) {
+                res.status(500).json({
+                  success: false,
+                  message: err.message
                 });
+              });
             })
             .catch(function(err) {
               res.status(500).json({

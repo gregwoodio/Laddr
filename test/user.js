@@ -13,13 +13,12 @@ module.exports = function(chai, server, assert, email, password) {
           FirstName: 'Test', 
           LastName: 'User', 
           Description: 'Test Description', 
-          Resume: 'Test Resume'
+          Resume: 'Test Resume',
+          AcademicStatus: 0
         })
         .end(function(err, res) {
 
           assert.typeOf(res.body, 'object', 'Should return response as a JSON object.');
-          console.log(err);
-          assert.equal(err, undefined, 'Should not return errors.');
           assert.equal(res.body.success, true, 'Should indicate successful add.');
           assert.equal(res.status, 200, 'Should have a HTTP status of 200.');
 
@@ -56,13 +55,12 @@ module.exports = function(chai, server, assert, email, password) {
           FirstName: 'Deleted', 
           LastName: 'User', 
           Description: 'Test Description', 
-          Resume: 'Test Resume'
+          Resume: 'Test Resume',
+          AcademicStatus: 0
         })
         .end(function(err, res) {
 
           assert.typeOf(res.body, 'object', 'Should return response as a JSON object.');
-          console.log(err);
-          assert.equal(err, undefined, 'Should not return errors.');
           assert.equal(res.body.success, true, 'Should indicate successful add.');
           assert.equal(res.status, 200, 'Should have a HTTP status of 200.');
 
@@ -90,7 +88,6 @@ module.exports = function(chai, server, assert, email, password) {
             .end(function(err, res) {
 
               assert.typeOf(res.body, 'object', 'Should return response as JSON object.');
-              assert.equal(err, undefined, 'Should not return any errors.');
               assert.equal(res.body.success, true, 'Should indicate successful delete.');
               assert.equal(res.status, 200, 'Should have HTTP status 200.');
 
@@ -111,7 +108,6 @@ module.exports = function(chai, server, assert, email, password) {
         .end(function(err, res) {
 
           assert.typeOf(res.body, 'object', 'Should return response as JSON object.');
-          assert.notEqual(err, undefined, 'Should not return any errors.');
           assert.equal(res.body.success, false, 'Should indicate failure to login.');
           assert.equal(res.body.token, undefined, 'Should not return a token.');
 

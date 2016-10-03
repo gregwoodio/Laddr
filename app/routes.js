@@ -19,7 +19,7 @@ module.exports = function(app, passport) {
 
 	// API routes
   var login = require('./api/login')(app, passport);
-  var profile = require('./api/profile')(app, passport);
+  var profile = require('./api/profile')(app, models);
   var user = require('./api/user')(app, models);
   var organization = require('./api/organization')(app, models);
   var topic = require('./api/topic')(app, models);
