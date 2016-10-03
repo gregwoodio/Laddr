@@ -2,7 +2,7 @@
 
 jwt = require('jsonwebtoken');
 
-module.exports = function(app, passport) {
+module.exports = function(app, models) {
 
 	//logs into our system, returns a token
 	app.get('/api/profile', function(req, res) {
@@ -18,9 +18,24 @@ module.exports = function(app, passport) {
             message: "Failed to authenticate token."
           });
         } else {
-          console.log('profile.js - decoded: ');
-          console.log(decoded);
-          res.json(decoded);
+
+          // why are joins so tough in Sequelize? Raw queries FTW.
+          // TODO: Take out the trash.
+          if (decoded.AccountType == 0) {
+            models.sequelize.query('SELECT * FROM LdrProfiles p INNER JOIN LdrUsers u ON ' +
+              'p.ProfileID = u.ProfileID WHERE p.ProfileID =  "' + decoded.ProfileID + '"',
+              {type: models.sequelize.QueryTypes.SELECT})
+            .then(function(results) { 
+              res.json(results[0]);
+            });
+          } else if (decoded.AccountType == 1) {
+            models.sequelize.query('SELECT * FROM LdrProfiles p INNER JOIN LdrOrganizations o ON ' +
+              'p.ProfileID = o.ProfileID WHERE p.ProfileID = "' + decoded.ProfileID + '"',
+              {type: models.sequelize.QueryTypes.SELECT})
+            .then(function(results) { 
+              res.json(results[0]);
+            });
+          }
         }
       });
     } else {
