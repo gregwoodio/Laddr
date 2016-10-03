@@ -46,37 +46,37 @@
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">First name:</label>
 						  <div class="col-lg-8">
-							<input class="form-control" value="" type="text" id="firstName" value="{{profile.FirstName}}" >
+							<input class="form-control" value="" type="text" id="firstName" ng-model='profile.FirstName'>
 						  </div>
 						</div>
 						
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Last name:</label>
 						  <div class="col-lg-8">
-							<input class="form-control" value="" type="text" id="lastName" value="{{profile.LastName}}">
+							<input class="form-control" value="" type="text" id="lastName" ng-model="profile.LastName">
 						  </div>
 						</div>
 
 						<div>
 								<label>Academic Status:</label><br>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="0" ng-checked='profile.AcademicStatus == 0'>Not in School</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="1" ng-checked='profile.AcademicStatus == 1'>High School</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="2" ng-checked='profile.AcademicStatus == 2'>College</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="3" ng-checked='profile.AcademicStatus == 3'>University</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="4" ng-checked='profile.AcademicStatus == 4'>Graduate</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="0" >Not in School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="1">High School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="2">College</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="3">University</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="4">Graduate</label>
 							</div>
 
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Summary:</label>
 						  <div class="col-lg-8">
-							<textarea class="form-control" rows="5" value="" type="textbox" id="academicStatus"  >{{profile.Description}}</textarea>
+							<textarea class="form-control" rows="5" value="" type="textbox" ng-model='profile.Description'></textarea>
 						  </div>
 						</div>
 						
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Email:</label>
 						  <div class="col-lg-8">
-							<input class="form-control" value="{{profile.Email}}" type="text" id="email">
+							<input class="form-control" ng-model="profile.Email" type="text" id="email">
 						  </div>
 						</div>
 					<!--
@@ -98,7 +98,7 @@
 						  
 						  <div class="col-md-8 text-center">
 							<input class="btn btn-primary" value="Edit Profile" type="button">
-							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editVolunteer'>
+							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editVolunteer()'>
 							<input class="btn btn-primary" href='app#/profile' value="Cancel">
 						  </div>
 						  
@@ -131,21 +131,21 @@
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Organization Name:</label>
 						  <div class="col-lg-8">
-							<input class="form-control" value="{{profile.OrganizationName}}" type="text" id="organizationName" >
+							<input class="form-control" ng-model="profile.OrganizationName" type="text" id="organizationName" >
 						  </div>
 						</div>
 						
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">URL:</label>
 						 <div class="col-lg-8">
-							<input class="form-control" value="{{profile.URL}}" type="text" id="url" >
+							<input class="form-control" ng-model='profile.URL' type="text" id="url" >
 						  </div>
 						</div>
 						
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Mission Statement:</label>
 						  <div class="col-lg-8">
-							<textarea class="form-control" rows="6" value="{{profile.MissionStatement}}" type="textbox" id="missionStatement" ></textarea>
+							<textarea class="form-control" rows="6" ng-model='profile.MissionStatement' type="textbox" id="missionStatement" ></textarea>
 						  </div>
 						</div>
 						
@@ -153,7 +153,23 @@
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Address:</label>
 						  <div class="col-lg-8">
-							<textarea class="form-control" rows="5" value="{{profile.Address}}" type="text" id="address" ></textarea>
+							<input class="form-control" ng-model="profile.AddressLine1" type="text" id="addressline1" />
+						  </div>
+						  <br>
+						  <div class="col-lg-offset-3 col-lg-8">
+							<input class="form-control" ng-model="profile.AddressLine2" type="text" id="addressline2" />
+						  </div>
+						  <br>
+						  <div class="col-lg-offset-3 col-lg-8">
+							<input class="form-control" ng-model="profile.City" type="text" id="city"	/>
+						  </div>
+						  <br>
+						  <div class="col-lg-offset-3 col-lg-8">
+							<input class="form-control" ng-model="profile.Province" type="text" id="address" />
+						  </div>
+						  <br>
+						  <div class="col-lg-offset-3 col-lg-8">
+							<input class="form-control" ng-model="profile.Postal" type="text" id="address" />
 						  </div>
 						</div>
 						
@@ -161,7 +177,7 @@
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Email:</label>
 						  <div class="col-lg-8">
-							<input class="form-control" value="{{profile.Email}}" type="text" id="email" >
+							<input class="form-control" ng-model="profile.Email" type="text" id="email" >
 						  </div>
 						</div>
 						
@@ -184,7 +200,7 @@
 						  <label class="col-md-3 control-label"></label>
 						  
 						  <div class="col-md-8 text-center">
-							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editOrganization'>
+							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editOrganization()'>
 							<input class="btn btn-primary" value="Cancel" href='app#/profile'>
 						  </div>
 						  
