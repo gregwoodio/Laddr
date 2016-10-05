@@ -1,3 +1,30 @@
+		<!-- Will eventually add to style.css file -->
+	
+	<style>
+
+		.personal-info {
+			background: rgba(226,226,226,1);
+			background: -moz-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: -webkit-gradient(left top, right top, color-stop(0%, rgba(226,226,226,1)), color-stop(51%, rgba(209,209,209,1)), color-stop(100%, rgba(254,254,254,1)));
+			background: -webkit-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: -o-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: -ms-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=1 );
+			padding: 2%;
+			border-radius:25px;
+		
+		}	
+		
+		.well {
+			background:none;
+			border:none;
+		}
+		.btn {
+				border-style:solid;
+				border-color:black;
+		}
+	</style>
 	
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
@@ -57,19 +84,19 @@
 						  </div>
 						</div>
 
-						<div>
-								<label>Academic Status:</label><br>
+						<div class="form-group" >
+							<label class="col-lg-3 control-label">Academic Status:</label><br>
 								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="0" >Not in School</label>
 								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="1">High School</label>
 								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="2">College</label>
 								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="3">University</label>
 								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="4">Graduate</label>
-							</div>
-
+						</div>
+						<br>
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Summary:</label>
 						  <div class="col-lg-8">
-							<textarea class="form-control" rows="5" value="" type="textbox" ng-model='profile.Description'></textarea>
+							<textarea class="form-control"   rows="8" value="" type="textbox" ng-model='profile.Description'></textarea>
 						  </div>
 						</div>
 						
@@ -95,11 +122,12 @@
 					-->
 						<div class="form-group">
 						  <label class="col-md-3 control-label"></label>
-						  
+						  <br>
 						  <div class="col-md-8 text-center">
-							<input class="btn btn-primary" value="Edit Profile" type="button">
-							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editVolunteer()'>
-							<input class="btn btn-primary" href='app#/profile' value="Cancel">
+						  <br>
+						<!--	<input class="btn btn-primary" value="Edit Profile" type="button"> -->
+							<input class="btn col-lg-offset-5 col-lg-3 btn-primary" value="Save Changes" type="button" ng-click='editVolunteer()'>
+							<input class="btn col-md-offset-1 col-lg-3 btn-primary" href='app#/profile' value="Cancel">
 						  </div>
 						  
 						</div>
@@ -145,7 +173,7 @@
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">Mission Statement:</label>
 						  <div class="col-lg-8">
-							<textarea class="form-control" rows="6" ng-model='profile.MissionStatement' type="textbox" id="missionStatement" ></textarea>
+							<textarea class="form-control" resize="none" rows="6" ng-model='profile.MissionStatement' type="textbox" id="missionStatement" ></textarea>
 						  </div>
 						</div>
 						
@@ -198,7 +226,8 @@
 					-->
 						<div class="form-group">
 						  <label class="col-md-3 control-label"></label>
-						  
+							
+							<br>
 						  <div class="col-md-8 text-center">
 							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editOrganization()'>
 							<input class="btn btn-primary" value="Cancel" href='app#/profile'>
