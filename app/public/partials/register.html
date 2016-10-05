@@ -1,4 +1,6 @@
+			<!-- Will eventually add to style.css file -->
 
+	
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header navbar-collapse collapse">
@@ -47,13 +49,14 @@
 								name:laddruser
 								value 0 == volunteer user
 								value 1 = organization user-->
+							<label for="accountType">Are you an Organization or Volunteer?</label><br>
 							<div class="btn-group">
 								<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = false' uib-btn-radio="'volunteer'" value='0'>Volunteer</label>
 								<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = true' uib-btn-radio="'organization'" value='1'>Organization</label>
 
 								<!--<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='0' checked>	I am a volunteer!</label>								
 								<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='1'>I am an organization!</label>-->
-							</div>
+							</div><br><br>
 							<div class="form-group">
 								<label>	Email address:</label>
 								<input type="email" ng-model='user.email' class="form-control" id="email" 		placeholder="Please enter your email" ><br>

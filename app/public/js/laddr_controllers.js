@@ -31,18 +31,19 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
       })
       .success(function(data, status, headers, config) {
 
-        $scope.profile.Email = data.Email;
-        $scope.profile.FirstName = data.FirstName;
-        $scope.profile.LastName = data.LastName;
+        $scope.profile = data;
+        // $scope.profile.Email = data.Email;
+        // $scope.profile.FirstName = data.FirstName;
+        // $scope.profile.LastName = data.LastName;
         $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
-        $scope.profile.AccountType = data.AccountType;
-        $scope.profile.Description = data.Description;
-        $scope.profile.Resume = data.Resume;
-        $scope.profile.AcademicStatus = data.AcademicStatus;
-        $scope.profile.OrganizationName = data.OrganizationName;
-        $scope.profile.Address = data.Address;
-        $scope.profile.URL = data.URL;
-        $scope.profile.MissionStatement = data.MissionStatement;
+        // $scope.profile.AccountType = data.AccountType;
+        // $scope.profile.Description = data.Description;
+        // $scope.profile.Resume = data.Resume;
+        // $scope.profile.AcademicStatus = data.AcademicStatus;
+        // $scope.profile.OrganizationName = data.OrganizationName;
+        // $scope.profile.Address = data.Address;
+        // $scope.profile.URL = data.URL;
+        // $scope.profile.MissionStatement = data.MissionStatement;
        
         //show logout button
         $scope.logout = true;
@@ -54,6 +55,106 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
   } else {
     $location.url('/login');
   }
+}]);
+
+laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage',
+  function($scope, $http, $routeParams, $location, $sessionStorage) {
+
+  $scope.$storage = $sessionStorage;
+
+  if ($scope.$storage.ldrToken != undefined) {
+    $scope.profile = {};
+    $scope.logout = false;
+
+    $http
+      .get('/api/profile', {
+        headers: {
+          'x-access-token': $scope.$storage.ldrToken
+        }
+      })
+      .success(function(data, status, headers, config) {
+        $scope.profile = data;
+        $scope.logout = true;
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Could not retrieve user.');
+        $location.url('/login');
+      });
+  } else {
+    $location.url('/login');
+  }
+
+  $scope.editVolunteer = function() {
+    data = {
+      FirstName: $scope.profile.FirstName,
+      LastName: $scope.profile.LastName,
+      AcademicStatus: $scope.profile.AcademicStatus,
+      Description: $scope.profile.Description,
+      Email: $scope.profile.Email,
+    };
+
+    console.log(data);
+
+    $http
+      .put('/api/user', data, {
+        headers: {
+          'x-access-token': $scope.$storage.ldrToken
+        }
+      })
+      .success(function(data, status, headers, config) {
+        console.log('Successful edit.');
+        if (data) {
+          $location.url('/profile');
+        } else {
+          console.log('Edit volunteer failed.');
+        }
+      })
+      .error(function(data, status, headers, config) {
+        console.log('AJAX error editing profile.');
+        console.log(data);
+        console.log(status);
+        $scope.$storage.ldrToken = null;
+        $location.url('/login');
+      });
+  };
+
+  $scope.editOrganization = function() {
+    data = {
+      Email: $scope.profile.Email,
+      OrganizationName: $scope.profile.OrganizationName,
+      URL: $scope.profile.URL,
+      MissionStatement: $scope.profile.MissionStatement,
+      AddressLine1: $scope.profile.AddressLine1,
+      AddressLine2: $scope.profile.AddressLine2,
+      City: $scope.profile.City,
+      Province: $scope.profile.Province,
+      Postal: $scope.profile.Postal
+    };
+
+    console.log(data);
+
+    $http
+      .put('/api/organization', data, {
+        headers: {
+          'x-access-token': $scope.$storage.ldrToken
+        }
+      })
+      .success(function(data, status, headers, config) {
+        console.log('Successful edit.');
+        if (data) {
+          $location.url('/profile');
+        } else {
+          console.log('Edit volunteer failed.');
+        }
+      })
+      .error(function(data, status, headers, config) {
+        console.log('AJAX error editing profile.');
+        console.log(data);
+        console.log(status);
+        $scope.$storage.ldrToken = null;
+        $location.url('/login');
+      });
+  };
 }]);
 
 laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 
@@ -128,9 +229,9 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         FirstName: $scope.user.firstName,
         LastName: $scope.user.lastName,
         AcademicStatus: $scope.user.academicStatus,
-        Picture: '',
-        Description: '',
-        Resume: ''
+        Picture: 'pic.jpg',
+        Description: 'description',
+        Resume: 'resume'
       };
 
       $http
