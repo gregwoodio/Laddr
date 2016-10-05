@@ -24,6 +24,7 @@
     	</div>
 
     	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
+            <a href="app#/forum" class="btn btn-primary btn-md" role="button">Back</a>
 			<section id="postings">
 				<h3>{{topic.Title}}</h3>
 				
@@ -32,9 +33,29 @@
 				<table class="table table-striped">
 					<tr ng-repeat="comment in comments">
 						<td>{{comment.LdrProfile.LdrUser.FirstName}}</td>
-						<td>{{comment.Body}}</td>
+						<td>{{comment.Body}}</td>  
+                        
+                        <!--
+                        <div ng-if='comment.LdrProfile.AccountType == 0'>
+                            <td>This was made by a volunteer account</td>
+                        </div>
+                        <div ng-if='comment.LdrProfile.AccountType == 1'>
+                            <td>This was made by a organziation account</td>
+                        </div>
+                        -->
 					</tr>
 				</table>
+                
+                <!-- Use this to check which account is logged in
+                <div ng-if='topic.LdrProfile.AccountType == 1'>
+                    <p>ORGANIZATION</p>      
+                </div>
+                
+                <div ng-if='topic.LdrProfile.AccountType == 0'>
+                    <p>VOLUNTEER</p>
+                </div>
+                -->
+
 				
 			</section>
 		</div>
