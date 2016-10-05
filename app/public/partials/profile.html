@@ -1,3 +1,27 @@
+	<style>
+		.personal-info {
+			background: rgba(226,226,226,1);
+			background: -moz-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: -webkit-gradient(left top, right top, color-stop(0%, rgba(226,226,226,1)), color-stop(51%, rgba(209,209,209,1)), color-stop(100%, rgba(254,254,254,1)));
+			background: -webkit-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: -o-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: -ms-linear-gradient(left, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=1 );
+			padding: 2%;
+			border-radius:25px;
+			
+			}	
+			
+			.btn {
+				border-style:solid;
+				border-color:black;
+			}
+	</style>
+  
+	
+		
+		
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header navbar-collapse collapse">
@@ -34,97 +58,103 @@
           <div class="row">
           <!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->
           <!-- left column -->
-          <div class="background-color:#000000 col-md-4 col-sm-6 col-xs-12">
-            <div class="text-center">
-            <img ng-src="{{profile.PictureURL}}" class="avatar img-circle img-thumbnail" alt="avatar" width="236" height="236">
+			  <div class="background-color:#000000 col-md-4 col-sm-6 col-xs-12">
+				<div class="text-center">
+				<img ng-src="{{profile.PictureURL}}" class="avatar img-circle img-thumbnail" alt="avatar" width="236" height="236">
 
-            </div>
-          </div>
-          
-          <!-- profile column -->
-          <div class="col-md-8 col-sm-6 col-xs-12 personal-info"> 
-            
-            <div ng-if='profile.AccountType == 0'>
+				</div>
+				
+				
+			  </div>
+			  
+			  <!-- profile column -->
+			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info"> 
+				
+				<div ng-if='profile.AccountType == 0'>
 
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">First name:</label>
-                <p id="firstName">{{profile.FirstName}}</p>
+				  <div class="col-lg-8">
+				  <label class="col-lg-4 control-label">First name:</label>
+					<p id="firstName">{{profile.FirstName}}</p>
 
-              </div>
-              <br><br>
-              
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Last name:</label>
-                <p id="lastName">{{profile.LastName}}</p>
-              </div>
-              <br><br>
-        
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Email:</label>  
-                <p id="email" >{{profile.Email}}</p>
-              </div><br>
-              
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Academic Status:</label>
-                <p id="academicstatus">{{profile.AcademicStatus}}</p>
-              </div>
-              <br><br>
+				  </div>
+				  <br><br>
+				  
+				  <div class="col-lg-8">
+				  <label class="col-lg-4 control-label">Last name:</label>
+					<p id="lastName">{{profile.LastName}}</p>
+				  </div>
+				  <br><br>
+			
+				  <div class="col-lg-8">
+				  <label class="col-lg-4 control-label">Email:</label>  
+					<p id="email" >{{profile.Email}}</p>
+				  </div><br>
+				  
+				  <div class="col-lg-8">
+				  <label class="col-lg-4 control-label">Academic Status:</label>
+					<p id="academicstatus">{{profile.AcademicStatus}}</p>
+				  </div>
+				  <br><br>
 
-              <div class="col-lg-8">
-              <label class="col-lg-3 control-label">Summary:</label>    
-                <p class="col-lg-10 " id="description">{{profile.Description}}</p>
-              </div>
-            </div>
+				  <div class="col-lg-8">
+				  <label class="col-lg-3 control-label">Summary:</label>    
+					<p class="col-lg-10 " id="description">{{profile.Description}}</p>
+				  </div>
+				</div>
 
-            <div ng-if='profile.AccountType == 1'>
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Organization Name:</label>
-                <p id="organizationName">{{profile.OrganizationName}}</p>
-              </div>
-              <br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">URL:</label>
-                <p id="url">{{profile.URL}}</p>
-              </div>
-              <br><br>
-          
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Email:</label>  
-                <p id="email" >{{profile.Email}}</p>
-              </div><br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Address:</label>
-                <p id="address-line1">{{profile.AddressLine1}}</p>  
-                <label class="col-lg-4 control-label"></label>
-                <p id="address-line2">{{profile.AddressLine2}}</p>
-              </div>
-              <br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">City:</label> 
-                <p id="city" >{{profile.City}}</p>
-              </div><br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Province:</label> 
-                <p id="province" >{{profile.Province}}</p>
-              </div><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Postal Code:</label>  
-                <p id="postal-code" >{{profile.Postal}}</p>
-              </div><br>
+				<div ng-if='profile.AccountType == 1'>
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">Organization Name:</label>
+					<p id="organizationName">{{profile.OrganizationName}}</p>
+				  </div>
+				  <br><br>
+				  
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">URL:</label>
+					<p id="url">{{profile.URL}}</p>
+				  </div>
+				  <br><br>
+			  
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">Email:</label>  
+					<p id="email" >{{profile.Email}}</p>
+				  </div><br><br>
+				  
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">Address:</label>
+					<p id="address-line1">{{profile.AddressLine1}}</p>  
+					<label class="col-lg-4 control-label"></label>
+					<p id="address-line2">{{profile.AddressLine2}}</p>
+				  </div>
+				  <br><br>
+				  
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">City:</label> 
+					<p id="city" >{{profile.City}}</p>
+				  </div><br><br>
+				  
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">Province:</label> 
+					<p id="province" >{{profile.Province}}</p>
+				  </div><br>
+				  
+				  <div class="col-lg-8">
+					<label class="col-lg-4 control-label">Postal Code:</label>  
+					<p id="postal-code" >{{profile.Postal}}</p>
+				  </div><br>
 
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Mission Statement:</label>    
-                <p class="col-lg-10 " id="missionStatement">{{profile.MissionStatement}}</p>
-              </div>
-            </div>
-            <br><br>
-              <a class="btn btn-lg btn-primary col-lg-5 col-lg-offset-2" href="app#/editProfile">Edit Profile</a>
-          </div>
+				  <div class="col-lg-8">
+				  <label class="col-lg-4 control-label">Mission Statement:</label>    
+					<p class="col-lg-10 " id="missionStatement">{{profile.MissionStatement}}</p>
+				  </div>
+				  
+				
+				</div>
+				 <div class="col-lg-7">
+					<br><br>
+					<a class="btn btn-lg btn-primary col-lg-4" href="app#/editProfile">Edit Profile</a>
+				</div>
+			  </div>
           </div>
         </div>
       </section>
