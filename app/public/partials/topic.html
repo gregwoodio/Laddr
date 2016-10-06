@@ -1,63 +1,42 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header navbar-collapse collapse">
-            <a class="navbar-brand" href="app#/home">Laddr</a>
-        </div>
-        <div ng-if="logout == true">
-            <ul class='nav navbar-nav navbar-right'>
-                <li><a href='app#/logout'>Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
-<div class="container-fluid" style="margin-top:50px;">
-    <div class="row">
+<div header></div>
 
-    	<div class="col-md-2 col-sm-3 sidebar">
-    		<ul class="nav nav-sidebar">
-    			<li><a href="app#/profile">Your Profile</a></li>
-    			<li><a href="app#/postings">Postings</a></li>
-    			<li><a href="app#/forum">Forum</a></li>
-    			<li><a href="app#/howto">How To</a></li>
-    		</ul>
-    	</div>
+<div class='row'>
+  <div navbar></div>
 
-    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
-            <a href="app#/forum" class="btn btn-primary btn-md" role="button">Back</a>
-			<section id="postings">
-				<h3>{{topic.Title}}</h3>
+  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+    <a href="app#/forum" class="btn btn-primary btn-md" role="button">Back</a>
+		<section id="postings">
+      <div class="page-header">
+  			<h1>{{topic.Title}}</h1>
+      </div>
+			
+			<small>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp}} </small>
 				
-				<small>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp}} </small>
-					
-				<table class="table table-striped">
-					<tr ng-repeat="comment in comments">
-						<td>{{comment.LdrProfile.LdrUser.FirstName}}</td>
-						<td>{{comment.Body}}</td>  
-                        
-                        <!--
-                        <div ng-if='comment.LdrProfile.AccountType == 0'>
-                            <td>This was made by a volunteer account</td>
-                        </div>
-                        <div ng-if='comment.LdrProfile.AccountType == 1'>
-                            <td>This was made by a organziation account</td>
-                        </div>
-                        -->
-					</tr>
-				</table>
-                
-                <!-- Use this to check which account is logged in
-                <div ng-if='topic.LdrProfile.AccountType == 1'>
-                    <p>ORGANIZATION</p>      
-                </div>
-                
-                <div ng-if='topic.LdrProfile.AccountType == 0'>
-                    <p>VOLUNTEER</p>
-                </div>
-                -->
-
-				
-			</section>
-		</div>
+			<table class="table table-striped">
+				<tr ng-repeat="comment in comments">
+					<td>{{comment.LdrProfile.LdrUser.FirstName}}</td>
+					<td>{{comment.Body}}</td>  
+                      
+          <!--
+          <div ng-if='comment.LdrProfile.AccountType == 0'>
+              <td>This was made by a volunteer account</td>
+          </div>
+          <div ng-if='comment.LdrProfile.AccountType == 1'>
+              <td>This was made by a organziation account</td>
+          </div>
+          -->
+				</tr>
+			</table>     
+      <!-- Use this to check which account is logged in
+      <div ng-if='topic.LdrProfile.AccountType == 1'>
+          <p>ORGANIZATION</p>      
+      </div>
+      
+      <div ng-if='topic.LdrProfile.AccountType == 0'>
+          <p>VOLUNTEER</p>
+      </div>
+      -->
+		</section>
 	</div>
 </div>

@@ -1,63 +1,33 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header navbar-collapse collapse">
-            <a class="navbar-brand" href="app#/home">Laddr</a>
+<div header></div>
+
+<div class='row'>
+  <div navbar></div>
+
+  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+    <section id="postings">
+      <div class="container-fluid">
+        <div class="page-header">
+        	<h1>Postings</h1>
         </div>
-        <div ng-if="logout == true">
-            <ul class='nav navbar-nav navbar-right'>
-                <li><a href='app#/logout'>Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        
+        <table>
+          <tr>
+            <th><b>Organization</b></th>
+            <th><b>Date Posted</b></th>
+            <th><b>Apply</b></th>
+          </tr>
+        </table>
 
-<div class="container-fluid" style="margin-top:50px;">
-    <div class="row">
-
-    	<div class="col-md-2 col-sm-3 sidebar">
-    		<ul class="nav nav-sidebar">
-    			<li><a href="app#/profile">Your Profile</a></li>
-    			<li><a href="app#/postings">Postings</a></li>
-    			<li><a href="app#/forum">Forum</a></li>
-    			<li><a href="app#/howto">How To</a></li>
-    		</ul>
-    	</div>
-
-    	<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
-			<section id="postings">
-                <h3 align="center"><b>Postings</b></h3>
-                
-                <!-- Starts of Peter's Segment -->
-                    <div class="container">
-	                   <div class="row">
-		                  <div class="span5">
-                                <table class="table table-striped table-condensed">
-                                    <thead>
-                                        <tr bgcolor="#088c5a">
-                                            <th>Posting Name</th>
-                                            <th>Location</th>
-                                            <th>Date Posted</th>
-                                            <th>Details</th>                                          
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <div>
-                                            <tr ng-repeat-start="posting in postings">
-                                                <td>Organization Name from Organizations table{{posting.OrganizationName}} <br> {{posting.JobTitle}}</td>
-                                                <td>{{posting.Location}}</td>
-                                                <td>{{posting.Timestamp}}</td>
-                                                <td><span class="label label-success"><a href="app#/postings/{{posting.PostingID}}">View Details</a></span></td>           
-                                            </tr> 
-                                            <tr ng-repeat-end>
-                                            </tr>
-                                        </div>
-                                    </tbody>
-                              </table>
-                           </div>
-	                   </div>
-                    </div>
-                <!-- End of Peter's Segment -->
-			</section>
-		</div>
-	</div>
+      	<div ng-repeat="posting in postings">
+          <table>
+            <tr>
+              <td>{{posting.OrganizationName}} <br> {{posting.JobTitle}}</td>
+              <td>{{posting.Timestamp}}</td>
+              <td><a href="app#/postings/{{posting.PostingID}}">View Details</a></td> 
+            </tr>
+          </table>
+      	</div>
+      </div>
+    </section>
+  </div>
 </div>

@@ -9,6 +9,69 @@
 	  'ngStorage',
 	]);
 
+	laddrApp.service('LoginService', ['$rootScope', function($rootScope) {
+		
+		this.setProfile = function(profile) {
+			console.log('LoginService setting profile');
+			$rootScope.profile = profile;
+		};
+
+		this.getProfile = function() {
+			console.log('LoginService returning profile');
+			return $rootScope.profile;
+		};
+
+		this.setToken = function(token) {
+			console.log('LoginService setting token');
+			$rootScope.token = token;
+		};
+
+		this.getToken = function() {
+			console.log('LoginService returning token');
+			return $rootScope.token;
+		};
+
+		this.isLoggedIn = function() {
+			console.log('LoginService checking login status')
+			return $rootScope.profile != undefined;
+		};
+
+	}]);
+
+	laddrApp.directive('header', function() {
+		return {
+			restrict: 'A', //must be on an attribute, not element
+			replace: true,
+			scope: false,
+			templateUrl: 'js/directives/header.html',
+			controller: ['$scope', '$rootScope', 'LoginService',
+			  function($scope, $rootScope, LoginService) {
+
+			  $scope.isLoggedIn = LoginService.isLoggedIn();
+			  if ($scope.isLoggedIn) {
+			    $scope.isUser = LoginService.getProfile().AccountType == 0;
+			  }
+			}]
+		}
+	});
+
+	laddrApp.directive('navbar', function() {
+		return {
+			restrict: 'A', //must be on an attribute, not element
+			replace: true,
+			scope: false,
+			templateUrl: 'js/directives/navbar.html',
+			controller: ['$scope', '$rootScope', 'LoginService',
+			  function($scope, $rootScope, LoginService) {
+
+			  $scope.isLoggedIn = LoginService.isLoggedIn();
+			  if ($scope.isLoggedIn) {
+			    $scope.isUser = LoginService.getProfile().AccountType == 0;
+			  }
+			}]
+		}
+	});	
+
 	laddrApp.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
 		when('/logout', {

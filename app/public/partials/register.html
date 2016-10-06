@@ -1,149 +1,119 @@
-			<!-- Will eventually add to style.css file -->
+<div header></div>
 
-	
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header navbar-collapse collapse">
-				<a class="navbar-brand" href="app#/home">Laddr</a>
-			</div>
-			<div class='navbar-right'>
-	      <a class='navbar-brand' href='app#/login'>Login</a>
-	    </div>
-			<div ng-if="logout == true">
-				<ul class='nav navbar-nav navbar-right'>
-					<li><a href='app#/logout'>Logout</a></li>
-				</ul>
-			</div>
+<div class='row'>
+  <div navbar></div>
+
+  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+  	<div class="page-header">
+			<h1>Let's Get Started</h1>
 		</div>
-	</nav>
-
-		<div class="container-fluid" style="margin-top:50px;">
-			<div class="row">
-
-				<div class="col-md-2 col-sm-3 sidebar">
-					<ul class="nav nav-sidebar">
-						<li><a href="app#/profile">Your Profile</a></li>
-						<li><a href="app#/postings">Postings</a></li>
-						<li><a href="app#/forum">Forum</a></li>
-						<li><a href="app#/howto">How To</a></li>
-					</ul>
-				</div>
-		<!-- Collapsible panel src: http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_collapsible_panel&stacked=h -->
-		
-		<div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
-			<h2>Let's Get Started</h2><br>
-				<form ng-submit='login()'> 
-			
-				  <div class="panel-group">
-					<div class="panel panel-default">
-					  <div class="panel-heading">
-						<h4 class="panel-title">
-						 Basic Information
-						</h4>
-					  </div>
-					  <div id="basicinformation" class="panel-collapse">
-						
-						<div class="panel-body">
-						<!-- Form for basic information -->				  
-							 <!-- User either chooses to be an organization or volunteer	
-								name:laddruser
-								value 0 == volunteer user
-								value 1 = organization user-->
-							<label for="accountType">Are you an Organization or Volunteer?</label><br>
-							<div class="btn-group">
-								<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = false' uib-btn-radio="'volunteer'" value='0'>Volunteer</label>
-								<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = true' uib-btn-radio="'organization'" value='1'>Organization</label>
-
-								<!--<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='0' checked>	I am a volunteer!</label>								
-								<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='1'>I am an organization!</label>-->
-							</div><br><br>
-							<div class="form-group">
-								<label>	Email address:</label>
-								<input type="email" ng-model='user.email' class="form-control" id="email" 		placeholder="Please enter your email" ><br>
-								<label>Password:</label>
-								<input type="password" ng-model='user.password1' class="form-control" id="pwd" 			placeholder="Please enter your password" ><br>
-								<label>Re-enter Password:</label>
-								<input type="password" ng-model='user.password2'	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" >
-							</div>		
-						</div>
-						
-					  </div>
-					</div>
-				  </div><br>
-				  
-				  <!-- INJECT HTML FORM --> 
-				  
-				 <div uib-collapse="showVolunteer" class='collapse'>
-					<div class="panel panel-default">
+		<form ng-submit='login()'> 
+		  <div class="panel-group">
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+					<h4 class="panel-title">
+					 Basic Information
+					</h4>
+				  </div>
+				  <div id="basicinformation" class="panel-collapse">
 					
-					  <div class="panel-heading">
-						<h4 class="panel-title">
-						  <a data-toggle="collapse" >Volunteer</a>
-						</h4>
-					  </div>
-					  
-					  
-						<!-- Form for volunteer information -->
-						<div class="panel-body">
-							<label for="firstName">	First Name:</label>	<input 	type="text" ng-model="user.firstName" class="form-control" id="firstName" placeholder="Please enter your first name" ><br>
-							<label for="lastName">	Last Name:</label>	<input 	type="text" ng-model="user.lastName" class="form-control" id="lastName" placeholder="Please enter your last name" ><br>
-							
-							<div>
-								<label>Academic Status:</label><br>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="0">Not in School</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="1" checked>High School</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="2">College</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="3">University</label>
-								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="4">Graduate</label>
-								
-							</div>
-					  </div>
+					<div class="panel-body">
+					<!-- Form for basic information -->				  
+						 <!-- User either chooses to be an organization or volunteer	
+							name:laddruser
+							value 0 == volunteer user
+							value 1 = organization user-->
+						<label for="accountType">Are you an Organization or Volunteer?</label><br>
+						<div class="btn-group">
+							<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = false' uib-btn-radio="'volunteer'" value='0'>Volunteer</label>
+							<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = true' uib-btn-radio="'organization'" value='1'>Organization</label>
+
+							<!--<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='0' checked>	I am a volunteer!</label>								
+							<label class="radio-inline"><input type="radio" name="laddruser" ng-model="user.accountType" value='1'>I am an organization!</label>-->
+						</div><br><br>
+						<div class="form-group">
+							<label>	Email address:</label>
+							<input type="email" ng-model='user.email' class="form-control" id="email" 		placeholder="Please enter your email" ><br>
+							<label>Password:</label>
+							<input type="password" ng-model='user.password1' class="form-control" id="pwd" 			placeholder="Please enter your password" ><br>
+							<label>Re-enter Password:</label>
+							<input type="password" ng-model='user.password2'	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" >
+						</div>		
 					</div>
+					
+				  </div>
+				</div>
+		  </div><br>
+	  
+			<div uib-collapse="showVolunteer" class='collapse'>
+				<div class="panel panel-default">
+				
+				  <div class="panel-heading">
+					<h4 class="panel-title">
+					  <a data-toggle="collapse" >Volunteer</a>
+					</h4>
 				  </div>
 				  
-				  <div uib-collapse="!showVolunteer" class='collapse'>
-					<div class="panel panel-default">
-					  <div class="panel-heading">
-						<h4 class="panel-title">
-						  <a data-toggle="collapse" href="">Organization</a>
-						</h4>
-					  </div>
-						<!-- Form for organization information -->
-						<div class="panel-body">
-							<label for="organizationName">Organization Name:</label>
-							<input type="text" ng-model='user.organizationName' class="form-control" id="organizationName" placeholder="Please enter the name of your organization" ><br>
-										
-							<!-- referenced code: http://bootsnipp.com/snippets/featured/generic-postal-address-form
+				  
+					<!-- Form for volunteer information -->
+					<div class="panel-body">
+						<label for="firstName">	First Name:</label>	<input 	type="text" ng-model="user.firstName" class="form-control" id="firstName" placeholder="Please enter your first name" ><br>
+						<label for="lastName">	Last Name:</label>	<input 	type="text" ng-model="user.lastName" class="form-control" id="lastName" placeholder="Please enter your last name" ><br>
+						
+						<div>
+							<label>Academic Status:</label><br>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="0">Not in School</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="1" checked>High School</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="2">College</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="3">University</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="4">Graduate</label>
 							
-							address-line1 input  -->
-							<label>Address Line 1: </label><input id="address-line1" ng-model="user.addressline1"	name="address-line1" type="text" placeholder="Enter your address line 1" class="form-control" ><br>				
-							<!-- address-line2 input -->
-							<label>Address Line 2: </label><input 	id="address-line2" ng-model='user.addressline2'	name="address-line2" 	type="text" placeholder="Enter your address line 2" class="form-control"><br>	
-							<!-- city input -->		
-							<label>City / Town</label><input 		id="city" 			name="city" ng-model='user.city' type="text" placeholder="Enter your city" 			class="form-control" ><br>	
-							<!-- region input-->
-							<label>Province</label>
-							<select class="form-control" ng-model='user.province' name="province">
-								<option name="province" value="on">Ontario</option>
-								<option name="province" value="bc">British Columbia</option>
-								<option name="province" value="qc">Quebec</option>
-								<option name="province" value="ns">Nove Scotia</option>
-								<option name="province" value="nb">New Brunswick</option>
-								<option name="province" value="mb">Manitoba</option>
-								<option name="province" value="pe">Prince Edward Island</option>
-								<option name="province" value="sk">Saskatchewan</option>
-								<option name="province" value="ab">Alberta</option>
-								<option name="province" value="nl">New Found Land</option>
-							</select><br>	
-							<!-- postal-code input-->
-							<label>Postal Code</label><input 		id="postal-code" 	name="postal-code" ng-model='user.postal' type="text" placeholder="Please enter your postal code" class="form-control" >	
 						</div>
-					</div>
 				  </div>
-				  <br><button type='submit' ng-click='register()' class="btn btn-lg btn-success">Register</a>
-			</form>
-		</div>
-
-		<!-- Javascript dependencies for bootstrap, could cause problems with Angular-->
-		<!--<script src='../js/jquery.min.js'></script>
-		<script src='../js/bootstrap.min.js'></script>-->
+				</div>
+		  </div>
+	  
+		  <div uib-collapse="!showVolunteer" class='collapse'>
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+					<h4 class="panel-title">
+					  <a data-toggle="collapse" href="">Organization</a>
+					</h4>
+				  </div>
+					<!-- Form for organization information -->
+					<div class="panel-body">
+						<label for="organizationName">Organization Name:</label>
+						<input type="text" ng-model='user.organizationName' class="form-control" id="organizationName" placeholder="Please enter the name of your organization" ><br>
+									
+						<!-- referenced code: http://bootsnipp.com/snippets/featured/generic-postal-address-form
+						
+						address-line1 input  -->
+						<label>Address Line 1: </label><input id="address-line1" ng-model="user.addressline1"	name="address-line1" type="text" placeholder="Enter your address line 1" class="form-control" ><br>				
+						<!-- address-line2 input -->
+						<label>Address Line 2: </label><input 	id="address-line2" ng-model='user.addressline2'	name="address-line2" 	type="text" placeholder="Enter your address line 2" class="form-control"><br>	
+						<!-- city input -->		
+						<label>City / Town</label><input 		id="city" 			name="city" ng-model='user.city' type="text" placeholder="Enter your city" 			class="form-control" ><br>	
+						<!-- region input-->
+						<label>Province</label>
+						<select class="form-control" ng-model='user.province' name="province">
+							<option name="province" value="on">Ontario</option>
+							<option name="province" value="bc">British Columbia</option>
+							<option name="province" value="qc">Quebec</option>
+							<option name="province" value="ns">Nove Scotia</option>
+							<option name="province" value="nb">New Brunswick</option>
+							<option name="province" value="mb">Manitoba</option>
+							<option name="province" value="pe">Prince Edward Island</option>
+							<option name="province" value="sk">Saskatchewan</option>
+							<option name="province" value="ab">Alberta</option>
+							<option name="province" value="nl">New Found Land</option>
+						</select><br>	
+						<!-- postal-code input-->
+						<label>Postal Code</label><input 		id="postal-code" 	name="postal-code" ng-model='user.postal' type="text" placeholder="Please enter your postal code" class="form-control" >	
+					</div>
+				</div>
+			</div>
+			<br>
+			<button type='submit' ng-click='register()' class="btn btn-lg btn-success">Register</a>
+		</form>
+	</div>
+</div>

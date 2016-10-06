@@ -1,0 +1,14 @@
+<div class="col-md-2 col-sm-3 col-xs-1 sidebar">
+  <ul ng-hide='!isLoggedIn' class="nav nav-sidebar">
+    <li><a href="app#/profile">Your Profile</a></li>
+    <li><a href="app#/postings">Postings</a></li>
+    <li><a href="app#/forum">Forum</a></li>
+    <li><a href="app#/howto">How To</a></li>
+  </ul>
+  <ul ng-hide='!(isLoggedIn && isUser)' class='nav nav-sidebar'>
+    <li><a href='app#/applications'>View Applications</a>
+  </ul>
+  <ul ng-hide='!(isLoggedIn && !isUser)' class='nav nav-sidebar'>
+    <li><a href='app#/applicants'>View Applicants</a>
+  </ul>
+</div>
