@@ -1,10 +1,10 @@
-laddrControllers.controller('PostingsController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', 
-  function($scope, $location, $http, $routeParams, $sessionStorage) {
+laddrControllers.controller('PostingsController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', 'LoginService',
+  function($scope, $location, $http, $routeParams, $sessionStorage, LoginService) {
     
   $scope.postings = {};
   $scope.$storage = $sessionStorage;
 
-  if ($scope.$storage.ldrToken != undefined) {
+  if (LoginService.isLoggedIn()) {
     $http
       .get('/api/posting', {
         headers: {

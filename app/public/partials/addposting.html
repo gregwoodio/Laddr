@@ -1,0 +1,30 @@
+<div header></div>
+
+<div class='row'>
+  <div navbar></div>
+
+  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+    <section id="addposting">
+
+      <div class="page-header">
+        <h1>Add Posting</h1>
+      </div>
+
+      <div class='container-fluid'>
+        <form ng-submit='addPosting()' class='form-signin'>
+          <label for='jobTitle'>Job Title: </label>
+          <input ng-model='posting.JobTitle' type='text' name='jobTitle' class='form-control'/>
+
+          <label for='location'>Location: </label>
+          <input ng-model='posting.Location' type='text' name='location' class='form-control'/>
+
+          <label for='description'>Description: </label>
+          <textarea ng-model='posting.Description' name='description' rows='5' class='form-control'></textarea>
+          
+          <input type='submit' value='Add Posting' class='form-control btn-success'/>
+        </form>
+      </div>
+      
+    </section>
+  </div>
+</div>

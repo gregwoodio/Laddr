@@ -122,6 +122,10 @@
 			templateUrl: 'partials/addtopic.html',
 			controller: 'AddTopicController'
 		}).
+		when('/addposting', {
+			templateUrl: 'partials/addposting.html',
+			controller: 'AddPostingController'
+		}).
 		otherwise({
 			redirectTo: '/login'
 		});

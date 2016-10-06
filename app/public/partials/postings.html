@@ -22,7 +22,7 @@
           <table>
             <tr>
               <td>{{posting.OrganizationName}} <br> {{posting.JobTitle}}</td>
-              <td>{{posting.Timestamp}}</td>
+              <td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
               <td><a href="app#/postings/{{posting.PostingID}}">View Details</a></td> 
             </tr>
           </table>
