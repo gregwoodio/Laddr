@@ -1,133 +1,112 @@
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header navbar-collapse collapse">
-        <a class="navbar-brand" href="app#/home">Laddr</a>
-      </div>
-      <div ng-if="logout == true">
-        <ul class='nav navbar-nav navbar-right'>
-          <li><a href='app#/logout'>Logout</a></li>
-        </ul>
-      </div>
+
+<div header></div>
+
+<div class='row'>
+  <div navbar></div>
+
+  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+    <section id="profile">
+
+      <div class="container-fluid">
+        <div class="page-header">
+      <h1 class="logo">Profile Information</h1>
     </div>
-  </nav>
-    
-  <div class="container-fluid" style="margin-top:50px;">
-    <div class="row">
+        <div class="row">
+        <!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->
+        <!-- left column -->
+        <div class="background-color:#000000 col-md-4 col-sm-6 col-xs-12">
+          <div class="text-center">
+          <img ng-src="{{profile.PictureURL}}" class="avatar img-circle img-thumbnail" alt="avatar" width="236" height="236">
 
-      <div class="col-md-2 col-sm-3 sidebar">
-        <ul class="nav nav-sidebar">
-          <li><a href="app#/profile">Your Profile</a></li>
-          <li><a href="app#/postings">Postings</a></li>
-          <li><a href="app#/forum">Forum</a></li>
-          <li><a href="app#/howto">How To</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main ">
-
-      <section id="profile">
-
-        <div class="container-fluid">
-          <div class="page-header">
-			  <h1 class="logo">Profile Information</h1>
-			</div>
-          <div class="row">
-          <!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->
-          <!-- left column -->
-          <div class="background-color:#000000 col-md-4 col-sm-6 col-xs-12">
-            <div class="text-center">
-            <img ng-src="{{profile.PictureURL}}" class="avatar img-circle img-thumbnail" alt="avatar" width="236" height="236">
-
-            </div>
-          </div>
-          
-          <!-- profile column -->
-          <div class="col-md-8 col-sm-6 col-xs-12 personal-info"> 
-            
-            <div ng-if='profile.AccountType == 0'>
-
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">First name:</label>
-                <p id="firstName">{{profile.FirstName}}</p>
-
-              </div>
-              <br><br>
-              
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Last name:</label>
-                <p id="lastName">{{profile.LastName}}</p>
-              </div>
-              <br><br>
-        
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Email:</label>  
-                <p id="email" >{{profile.Email}}</p>
-              </div><br>
-              
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Academic Status:</label>
-                <p id="academicstatus">{{profile.AcademicStatus}}</p>
-              </div>
-              <br><br>
-
-              <div class="col-lg-8">
-              <label class="col-lg-3 control-label">Summary:</label>    
-                <p class="col-lg-10 " id="description">{{profile.Description}}</p>
-              </div>
-            </div>
-
-            <div ng-if='profile.AccountType == 1'>
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Organization Name:</label>
-                <p id="organizationName">{{profile.OrganizationName}}</p>
-              </div>
-              <br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">URL:</label>
-                <p id="url">{{profile.URL}}</p>
-              </div>
-              <br><br>
-          
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Email:</label>  
-                <p id="email" >{{profile.Email}}</p>
-              </div><br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Address:</label>
-                <p id="address-line1">{{profile.AddressLine1}}</p>  
-                <label class="col-lg-4 control-label"></label>
-                <p id="address-line2">{{profile.AddressLine2}}</p>
-              </div>
-              <br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">City:</label> 
-                <p id="city" >{{profile.City}}</p>
-              </div><br><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Province:</label> 
-                <p id="province" >{{profile.Province}}</p>
-              </div><br>
-              
-              <div class="col-lg-8">
-                <label class="col-lg-4 control-label">Postal Code:</label>  
-                <p id="postal-code" >{{profile.Postal}}</p>
-              </div><br>
-
-              <div class="col-lg-8">
-              <label class="col-lg-4 control-label">Mission Statement:</label>    
-                <p class="col-lg-10 " id="missionStatement">{{profile.MissionStatement}}</p>
-              </div>
-            </div>
-            <br><br>
-              <a class="btn btn-lg btn-primary col-lg-5 col-lg-offset-2" href="app#/editProfile">Edit Profile</a>
-          </div>
           </div>
         </div>
-      </section>
-    </div>
+        
+        <!-- profile column -->
+        <div class="col-md-8 col-sm-6 col-xs-12 personal-info"> 
+          
+          <div ng-if='profile.AccountType == 0'>
+
+            <div class="col-lg-8">
+            <label class="col-lg-4 control-label">First name:</label>
+              <p id="firstName">{{profile.FirstName}}</p>
+
+            </div>
+            <br><br>
+            
+            <div class="col-lg-8">
+            <label class="col-lg-4 control-label">Last name:</label>
+              <p id="lastName">{{profile.LastName}}</p>
+            </div>
+            <br><br>
+      
+            <div class="col-lg-8">
+            <label class="col-lg-4 control-label">Email:</label>  
+              <p id="email" >{{profile.Email}}</p>
+            </div><br>
+            
+            <div class="col-lg-8">
+            <label class="col-lg-4 control-label">Academic Status:</label>
+              <p id="academicstatus">{{profile.AcademicStatus}}</p>
+            </div>
+            <br><br>
+
+            <div class="col-lg-8">
+            <label class="col-lg-3 control-label">Summary:</label>    
+              <p class="col-lg-10 " id="description">{{profile.Description}}</p>
+            </div>
+          </div>
+
+          <div ng-if='profile.AccountType == 1'>
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">Organization Name:</label>
+              <p id="organizationName">{{profile.OrganizationName}}</p>
+            </div>
+            <br><br>
+            
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">URL:</label>
+              <p id="url">{{profile.URL}}</p>
+            </div>
+            <br><br>
+        
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">Email:</label>  
+              <p id="email" >{{profile.Email}}</p>
+            </div><br><br>
+            
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">Address:</label>
+              <p id="address-line1">{{profile.AddressLine1}}</p>  
+              <label class="col-lg-4 control-label"></label>
+              <p id="address-line2">{{profile.AddressLine2}}</p>
+            </div>
+            <br><br>
+            
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">City:</label> 
+              <p id="city" >{{profile.City}}</p>
+            </div><br><br>
+            
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">Province:</label> 
+              <p id="province" >{{profile.Province}}</p>
+            </div><br>
+            
+            <div class="col-lg-8">
+              <label class="col-lg-4 control-label">Postal Code:</label>  
+              <p id="postal-code" >{{profile.Postal}}</p>
+            </div><br>
+
+            <div class="col-lg-8">
+            <label class="col-lg-4 control-label">Mission Statement:</label>    
+              <p class="col-lg-10 " id="missionStatement">{{profile.MissionStatement}}</p>
+            </div>
+          </div>
+          <br><br>
+            <a class="btn btn-lg btn-primary col-lg-5 col-lg-offset-2" href="app#/editProfile">Edit Profile</a>
+        </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

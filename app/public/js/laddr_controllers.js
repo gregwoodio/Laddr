@@ -157,10 +157,11 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
   };
 }]);
 
-laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 
-	function($scope, $http, $routeParams, $location, $sessionStorage) {
+laddrControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$sessionStorage', 'LoginService',
+	function($scope, $rootScope, $http, $routeParams, $location, $sessionStorage, LoginService) {
     
   $scope.$storage = $sessionStorage;
+  $scope.isLoggedIn = false;
 
   $scope.login = function() {
 
@@ -174,14 +175,30 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
       .success(function(data, status, headers, config) {
         if (data) {
           $scope.$storage.ldrToken = data.token;
+          LoginService.setToken(data.token);
+          LoginService.setProfile(data.profile);
+          $scope.isLoggedIn = LoginService.isLoggedIn();
+
           $location.url('/profile');
         } else {
           console.log("Bad login 1");
+
+          $scope.$storage.ldrToken = undefined;
+          LoginService.setProfile(undefined);
+          LoginService.setToken(undefined);
+
+          console.log("LoginController emitting refreshNavbar");
+          $rootScope.$broadcast("refreshNavbar", {});
+
         }
       })
       .error(function(data, status, headers, config) {
-        $scope.$storage.ldrToken = null;
         console.log("Bad login 2");
+
+        $scope.$storage.ldrToken = null;
+        LoginService.setProfile(undefined);
+        LoginService.setToken(undefined);
+
       });
   };
 }]);
@@ -479,30 +496,15 @@ laddrControllers.controller('AddTopicController', ['$location', '$scope','$http'
 
 }]);
 
-laddrControllers.controller('LogoutController', ['$location', '$scope', '$sessionStorage', 
-  function($location, $scope, $sessionStorage) {
+laddrControllers.controller('LogoutController', ['$location', '$scope', '$rootScope', '$sessionStorage', 'LoginService',
+  function($location, $scope, $sessionStorage, $rootScope, LoginService) {
   $scope.$storage = $sessionStorage;
   $scope.$storage.ldrToken = null;
+  LoginService.setProfile(null);
+  console.log('Logged in? ' + LoginService.isLoggedIn());
+  $scope.isLoggedIn = LoginService.isLoggedIn();
 
   $scope.$evalAsync(function(){
     $location.url('/login');
   });
 }]);
-
-laddrControllers.directive('toggletype', function() {
-
-  console.log('toggletype directive called.');
-
-  return function(scope, element, attrs) {
-
-    console.log(element);
-
-    scope.$watch(attrs.toggletype, function(value, oldValue) {
-      if (value) {
-        element.hide();
-      } else {
-        element.show();
-      }
-    }, true);
-  }
-});
