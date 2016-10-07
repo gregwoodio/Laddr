@@ -27,3 +27,4 @@ require('./posting')(chai, server, assert, orgEmail, orgPass);
 require('./password')(chai, server, assert, email, password);
 require('./password')(chai, server, assert, orgEmail, orgPass);
 require('./apply')(chai, server, assert, orgEmail, orgPass, email, password);
+require('./applications')(chai, server, assert, email, password);

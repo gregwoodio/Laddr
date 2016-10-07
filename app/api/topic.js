@@ -16,6 +16,9 @@ module.exports = function(app, models) {
         include: [models.Profile]
       })
       .then(function(topics) {
+        for (i = 0; i < topics.length; i++) {
+          topics[i].LdrProfile.Password = undefined;
+        }
         res.json(topics);
       })
       .catch(function(err) {

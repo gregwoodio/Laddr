@@ -32,7 +32,7 @@
 		};
 
 		this.isLoggedIn = function() {
-			console.log('LoginService checking login status')
+			console.log('LoginService checking login status');
 			return $rootScope.profile != undefined;
 		};
 
@@ -125,6 +125,10 @@
 		when('/addposting', {
 			templateUrl: 'partials/addposting.html',
 			controller: 'AddPostingController'
+		}).
+		when('/applications', {
+			templateUrl: 'partials/applications.html',
+			controller: 'ApplicationsController'
 		}).
 		otherwise({
 			redirectTo: '/login'

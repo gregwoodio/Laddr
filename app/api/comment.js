@@ -18,7 +18,7 @@ module.exports = function(app, models) {
   app.post('/api/comment', [mw.verifyToken], function(req, res) {
 
     if (req.body.TopicID == undefined || req.body.ProfileID == undefined || req.body.Body == undefined ||
-      req.body.TopicID == '' || req.body.ProfileID == '' || req.body.Body == undefined) {
+      req.body.TopicID == '' || req.body.ProfileID == '' || req.body.Body == '') {
       res.status(400).json({
         success: false,
         message: 'Missing form data.'
