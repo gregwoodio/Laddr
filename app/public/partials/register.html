@@ -1,11 +1,11 @@
 <div header></div>
 
 <div class='row'>
-  <div navbar></div>
-
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+  <!-- <div navbar></div> -->
+	<br>
+  <div class='col-md-10 col-md-offset-1  main'>
   	<div class="page-header">
-			<h1>Let's Get Started</h1>
+			<h1>Let's Get Started.</h1>
 		</div>
 		<form ng-submit='login()'> 
 		  <div class="panel-group">
@@ -24,7 +24,7 @@
 							value 0 == volunteer user
 							value 1 = organization user-->
 						<label for="accountType">Are you an Organization or Volunteer?</label><br>
-						<div class="btn-group">
+						<div class="btn-group"><br>
 							<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = false' uib-btn-radio="'volunteer'" value='0'>Volunteer</label>
 							<label class="btn btn-primary" ng-model="accountType" ng-click='showVolunteer = true' uib-btn-radio="'organization'" value='1'>Organization</label>
 
@@ -69,7 +69,7 @@
 							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="user.academicStatus" value="4">Graduate</label>
 							
 						</div>
-				  </div>
+				  </div><br>
 				</div>
 		  </div>
 	  
@@ -109,11 +109,13 @@
 						</select><br>	
 						<!-- postal-code input-->
 						<label>Postal Code</label><input 		id="postal-code" 	name="postal-code" ng-model='user.postal' type="text" placeholder="Please enter your postal code" class="form-control" >	
-					</div>
+					</div><br>
 				</div>
 			</div>
 			<br>
-			<button type='submit' ng-click='register()' class="btn btn-lg btn-success">Register</a>
+			<div class="text-center">
+				<button type='submit' ng-click='register()' class="btn btn-lg btn-success">Let's Go!</a>
+			</div>
 		</form>
 	</div>
 </div>
