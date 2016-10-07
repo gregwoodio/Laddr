@@ -27,6 +27,7 @@ module.exports = function(app, passport) {
   var posting = require('./api/posting')(app, models);
   var changepassword = require('./api/password')(app, models);
   var apply = require('./api/apply')(app, models);
+  var applications = require('./api/applications')(app, models);
 
   //social routes
   var twitter = require('./api/twitter')(app, passport);

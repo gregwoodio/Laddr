@@ -1,0 +1,30 @@
+<div header></div>
+
+<div class='row'>
+  <div navbar></div>
+
+  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+    <section id="applications">
+      <div class="container-fluid">
+        <div class="page-header">
+          <h1>Applications</h1>
+        </div>
+        
+        <div>
+          <div class='row'>
+            <div class='col-md-4'><strong>Job Title</strong></div>
+            <div class='col-md-2'><strong>Date Applied</strong></div>
+            <div class='col-md-4'><strong>Organization</strong></div>
+            <div class='col-md-2'><strong>Status</strong></div>
+          </div>
+          <div class='row' ng-repeat="application in applications">
+            <div class='col-md-4'><a href='app#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></div>
+            <div class='col-md-2'>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</div>
+            <div class='col-md-4'>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</div>
+            <div class='col-md-2'><strong>{{application.ApplicationStatus}}</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

@@ -92,7 +92,7 @@ module.exports = function(chai, server, assert, email, password) {
         .end(function(err, res)  {
 
           userToken = res.body.token;
-          profileID = res.body.profileID;
+          profileID = res.body.profile.ProfileID;
 
           //need to get the topic ID to post to it
           chai.request(server)
