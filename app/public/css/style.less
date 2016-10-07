@@ -1,0 +1,192 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+
+@white: #fafafa;
+@green: #088c5a;
+@lightgrey: #dddddd;
+@black: #121212;
+
+* {
+  font-family: Source Sans Pro 14;
+}
+
+.jumbotron {
+  background-color: @green;
+}
+
+.jumbotron h1 {
+  color: @white;
+  padding-top: 50px;
+  font-family: Lobster;
+}
+
+.jumbotron h3 {
+  font-family: Lobster;
+}
+
+.text-white {
+  color: @white;
+}
+
+.row {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+
+/* Left Green Sidebar*/
+.sidebar {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  background: @green;
+  color: @white;
+}
+/* TESTING NAV-BAR COLOR
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #FFFF00;
+    color: #FFC0CB;
+}
+*/
+
+.sidebar a {
+  color: @white; /* Changes font color on click */
+    
+}
+
+.sidebar a:hover {
+  color: @white; /* Changes font color on hover - WORKS */
+}
+
+.sidebar ul li a:focus {
+    color: @white;
+    background: saturate(@green, 5%);
+}
+
+.sidebar ul li a:hover {
+    background: saturate(@green, 10%);
+}
+
+.sidebar ul li a:active {
+    background: saturate(@green, 5%);
+}
+
+/* Table Stuff */
+
+table {
+    font-family: arial, sans-serif;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid @lightgrey;
+    text-align: left;
+}
+
+
+.profilepic {
+  max-height: 250px;
+  max-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  display: inherit;
+}
+
+
+.btn {
+  background-color: @green;
+  border-style:solid;
+  border-color:@black;
+  color: @white;
+}
+
+.btn:hover {
+  background-color: @green + 15;
+  color: @white;
+}
+
+.btn:active, .btn:focus {
+  background-color: @green - 15;
+  color: @white;
+}
+
+a {
+  color: @green;
+}
+
+a:hover {
+  color: saturate(@green, -5%);
+}
+
+a:active {
+  color: saturate(@green, 5%);
+}
+
+/** all modal styling for login **/
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+ 
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+   
+    width:inherit;
+    height:inherit;
+   
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+/** Styling for Profile Page (Muska) **/
+
+.panel-info {
+  background-color:@lightgrey; 
+}
+
+
+/** styling for registration page **/
+
+.panel,.panel-group{
+  border-radius:25px;
+}
+
+
+.personal-info {
+  background: @white;
+  padding: 2%;
+  border-radius:25px;
+  
+  } 
+
+/** Styling for the Login page **/
+
+body {
+  background: @lightgrey;
+}
+  
+
+#loginPanel {
+  border-radius:20px;
+  padding:1%;
+  background:@white;
+  border:none;
+}
+
+/** Minor Styling for Edit Profile Page **/
+
+.well {
+  
+  background: @lightgrey;
+}
+
+.lobster {
+  font-family: Lobster;
+  color: @white;
+}
