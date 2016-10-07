@@ -3,163 +3,185 @@
 <div class='row'>
   <div navbar></div>
 
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+  <div class='col-md-10 col-md-offset-2 main'>
+  
 		<section ng-if="profile.AccountType == 0">
+		
 			<div class="container-fluid">
+				<br>
 				<div class="page-header">
 				  <h1>Edit Profile Information</h1>
 				</div>
 				
-			  <div class="row">
-
-				<div class="col-md-4 col-sm-6 col-xs-12">
-				  <div class="text-center">
-					<img src="" class="avatar img-circle img-thumbnail" alt="avatar">
-					<h6>Upload a Profile Photo</h6>
-					<input type="file" class="text-center center-block well well-sm">
-				  </div>
-				</div>
-
-				<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				  <form class="form-horizontal" role="form">
-				  
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">First name:</label>
-					  <div class="col-lg-8">
-						<input class="form-control" value="" type="text" id="firstName" ng-model='profile.FirstName'>
-					  </div>
-					</div>
+				<div class="col-sm-10 col-sm-offset-1 personal-info">
+				
 					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Last name:</label>
-					  <div class="col-lg-8">
-						<input class="form-control" value="" type="text" id="lastName" ng-model="profile.LastName">
+					<div class="col-md-3">
+					  <div class="text-center"><br><br>
+						<img src="" class="avatar img-circle img-thumbnail" alt="avatar" width="280" height="280">
+						<h6>Upload a Profile Photo</h6>
+						<input type="file" class="text-center center-block well well-sm">
 					  </div>
 					</div>
 
-					<div>
-						<label>Academic Status:</label><br>
-						<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="0" >Not in School</label>
-						<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="1">High School</label>
-						<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="2">College</label>
-						<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="3">University</label>
-						<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="4">Graduate</label>
-					</div>
-
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Summary:</label>
-					  <div class="col-lg-8">
-						<textarea class="form-control" rows="5" value="" type="textbox" ng-model='profile.Description'></textarea>
-					  </div>
-					</div>
 					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Email:</label>
-					  <div class="col-lg-8">
-						<input class="form-control" ng-model="profile.Email" type="text" id="email">
-					  </div>
-					</div>
+					  <form class="form-horizontal col-md-7  col-md-offset-1" role="form">
+						<br>
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">First name:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="" type="text" id="firstName" ng-model='profile.FirstName'>
+						  </div>
+						</div><br>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Last name:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" value="" type="text" id="lastName" ng-model="profile.LastName">
+						  </div>
+						</div><br>
 
-					<div class="form-group">
-					  <label class="col-md-3 control-label"></label>
+						<div>
+							<label class="col-lg-3 control-label">Academic Status:</label><br>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="0" >Not in School</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="1">High School</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="2">College</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="3">University</label>
+							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="4">Graduate</label>
+						</div><br><br>
+
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Summary:</label>
+						  <div class="col-lg-8">
+							<textarea class="form-control" rows="8" value="" type="textbox" ng-model='profile.Description'></textarea>
+						  </div>
+						</div><br>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Email:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" ng-model="profile.Email" type="text" id="email">
+						  </div>
+						</div><br>
+
+						<div class="form-group">
+						  <label class="col-md-3 control-label"></label>
+						  
+						  <div class="col-md-8 text-center">
+							<!-- <input class="btn btn-primary" value="Edit Profile" type="button"> -->
+							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editVolunteer()'>
+							<input class="btn btn-primary" href='app#/profile' value="Cancel">
+						  </div>
+						  
+						</div><br>
+					  </form>
 					  
-					  <div class="col-md-8 text-center">
-						<input class="btn btn-primary" value="Edit Profile" type="button">
-						<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editVolunteer()'>
-						<input class="btn btn-primary" href='app#/profile' value="Cancel">
-					  </div>
 					  
-					</div>
-				  </form>
 				</div>
-			  </div>
 			</div>
+			
 		</section>
 
-		<section ng-if='profile.AccountType == 1'>
-
-			<div class="container-fluid">
-			  <h1 class="page-header">Edit Profile Information</h1>
-			  <div class="row">
-
-				<div class="col-md-4 col-sm-6 col-xs-12">
-				  <div class="text-center">
-					<img src="" class="avatar img-circle img-thumbnail" alt="avatar">
-					<h6>Upload a Profile Photo</h6>
-					<input type="file" class="text-center center-block well well-sm">
-				  </div>
+			<section ng-if='profile.AccountType == 1'>
+				<br>
+				<div class="page-header">
+				  <h1>Edit Profile Information</h1>
 				</div>
 
-				<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				  <form class="form-horizontal" role="form">
-					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Organization Name:</label>
-					  <div class="col-lg-8">
-						<input class="form-control" ng-model="profile.OrganizationName" type="text" id="organizationName" >
+				<div class="col-sm-10 col-sm-offset-1 personal-info">
+			
+					<div class="col-md-3">
+					  <div class="text-center"><br><br>
+						<img src="" class="avatar img-circle img-thumbnail" alt="avatar" width="280" height="280">
+						<h6>Upload a Profile Photo</h6>
+						<input type="file" class="text-center center-block well well-sm">
 					  </div>
 					</div>
-					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">URL:</label>
-					 <div class="col-lg-8">
-						<input class="form-control" ng-model='profile.URL' type="text" id="url" >
-					  </div>
-					</div>
-					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Mission Statement:</label>
-					  <div class="col-lg-8">
-						<textarea class="form-control" rows="6" ng-model='profile.MissionStatement' type="textbox" id="missionStatement" ></textarea>
-					  </div>
-					</div>
-					
-					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Address:</label>
-					  <div class="col-lg-8">
-						<input class="form-control" ng-model="profile.AddressLine1" type="text" id="addressline1" />
-					  </div>
-					  <br>
-					  <div class="col-lg-offset-3 col-lg-8">
-						<input class="form-control" ng-model="profile.AddressLine2" type="text" id="addressline2" />
-					  </div>
-					  <br>
-					  <div class="col-lg-offset-3 col-lg-8">
-						<input class="form-control" ng-model="profile.City" type="text" id="city"	/>
-					  </div>
-					  <br>
-					  <div class="col-lg-offset-3 col-lg-8">
-						<input class="form-control" ng-model="profile.Province" type="text" id="address" />
-					  </div>
-					  <br>
-					  <div class="col-lg-offset-3 col-lg-8">
-						<input class="form-control" ng-model="profile.Postal" type="text" id="address" />
-					  </div>
-					</div>
-					
-					<div class="form-group">
-					  <label class="col-lg-3 control-label">Email:</label>
-					  <div class="col-lg-8">
-						<input class="form-control" ng-model="profile.Email" type="text" id="email" >
-					  </div>
-					</div>
-					
-					<div class="form-group">
-					  <label class="col-md-3 control-label"></label>
-					  
-					  <div class="col-md-8 text-center">
-						<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editOrganization()'>
-						<input class="btn btn-primary" value="Cancel" href='app#/profile'>
-					  </div>
-					  
-					</div>
-				  </form>
-				</div>
-			  </div>
 
+
+					<form class="form-horizontal col-md-7  col-md-offset-1" role="form">
+						<br>
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Organization Name:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" ng-model="profile.OrganizationName" type="text" id="organizationName" >
+						  </div>
+						</div><br>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">URL:</label>
+						 <div class="col-lg-8">
+							<input class="form-control" ng-model='profile.URL' type="text" id="url" >
+						  </div>
+						</div><br>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Mission Statement:</label>
+						  <div class="col-lg-8">
+							<textarea class="form-control" rows="6" ng-model='profile.MissionStatement' type="textbox" id="missionStatement" ></textarea>
+						  </div>
+						</div><br>
+						
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Address:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" ng-model="profile.AddressLine1" type="text" id="addressline1" />
+						  </div>
+						  <br><br><br> 
+						  <div class="col-lg-offset-3 col-lg-8">
+							<input class="form-control" ng-model="profile.AddressLine2" type="text" id="addressline2" />
+						  </div>
+						  <br><br><br>
+						  
+						   <label class="col-lg-3 control-label">City:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" ng-model="profile.City" type="text" id="city"	/>
+						  </div>
+						  <br><br><br>
+						  
+						  <label class="col-lg-3 control-label">Province:</label>
+						  <div class="col-lg-8">						
+							<select class="form-control" ng-model='profile.Province' name="province" id="province" selected="" >
+								<option name="province" value="on">Ontario</option>
+								<option name="province" value="bc">British Columbia</option>
+								<option name="province" value="qc">Quebec</option>
+								<option name="province" value="ns">Nove Scotia</option>
+								<option name="province" value="nb">New Brunswick</option>
+								<option name="province" value="mb">Manitoba</option>
+								<option name="province" value="pe">Prince Edward Island</option>
+								<option name="province" value="sk">Saskatchewan</option>
+								<option name="province" value="ab">Alberta</option>
+								<option name="province" value="nl">New Found Land</option>
+							</select><br>	
+						  </div>
+						  <br><br><br>
+						  
+						   <label class="col-lg-3 control-label">Postal Code:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" ng-model="profile.Postal" type="text" id="address" />
+						  </div>
+						</div><br><br>
+						
+						<div class="form-group">
+						  <label class="col-lg-3 control-label">Email:</label>
+						  <div class="col-lg-8">
+							<input class="form-control" ng-model="profile.Email" type="text" id="email" >
+						  </div>
+						</div><br>
+						
+						<div class="form-group">
+						  <label class="col-md5 control-label"></label>
+						  
+						  <div class="col-md-6 text-center">
+							<input class="btn btn-primary" value="Save Changes" type="button" ng-click='editOrganization()'>
+							<input class="btn btn-primary" value="Cancel" href='app#/profile'>
+						  </div>
+						  
+						</div>
+					</form>
+				</div>
 			</div>
-
 		</section>
 	</div>
 </div>
