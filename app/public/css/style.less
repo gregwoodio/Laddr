@@ -5,6 +5,7 @@
 @green: #088c5a;
 @lightgrey: #dddddd;
 @black: #121212;
+@border-radius: 5px;
 
 * {
   font-family: Source Sans Pro 14;
@@ -144,25 +145,21 @@ a:active {
     pointer-events: all;
 }
 
-/** Styling for Profile Page (Muska) **/
-
-.panel-info {
-  background-color:@lightgrey; 
-}
-
 
 /** styling for registration page **/
 
 .panel,.panel-group{
-  border-radius:25px;
+  border-radius:@border-radius;
+   border:none;
+   background:@white;
 }
 
 
 .personal-info {
   background: @white;
   padding: 2%;
-  border-radius:25px;
-  
+  border-radius:@border-radius;
+  border:none;
   } 
 
 /** Styling for the Login page **/
@@ -172,8 +169,8 @@ body {
 }
   
 
-#loginPanel {
-  border-radius:20px;
+.login-style {
+  border-radius:@border-radius;
   padding:1%;
   background:@white;
   border:none;
@@ -183,10 +180,45 @@ body {
 
 .well {
   
-  background: @lightgrey;
+  background: @white;
 }
 
 .lobster {
   font-family: Lobster;
   color: @white;
+}
+
+.white {
+	background:@white;
+	border:none;
+}
+
+/** Styling for Profile page **/
+
+.profile-style {
+	border:none;
+	border-radius:@border-radius;
+	background:@white;
+}
+p {
+	word-wrap:break-word;
+}
+
+/** Styling for Tables **/
+
+.table-style {
+
+	border-radius:@border-radius;
+}
+
+thead {
+	border-radius:@border-radius;
+	background:black;
+	color:@white;
+}
+
+tr {
+		padding:2%;	
+		text-align:center;
+		
 }

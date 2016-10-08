@@ -112,35 +112,60 @@ a:active {
   margin: 0 auto;
   pointer-events: all;
 }
-/** Styling for Profile Page (Muska) **/
-.panel-info {
-  background-color: #dddddd;
-}
 /** styling for registration page **/
 .panel,
 .panel-group {
-  border-radius: 25px;
+  border-radius: 5px;
+  border: none;
+  background: #fafafa;
 }
 .personal-info {
   background: #fafafa;
   padding: 2%;
-  border-radius: 25px;
+  border-radius: 5px;
+  border: none;
 }
 /** Styling for the Login page **/
 body {
   background: #dddddd;
 }
-#loginPanel {
-  border-radius: 20px;
+.login-style {
+  border-radius: 5px;
   padding: 1%;
   background: #fafafa;
   border: none;
 }
 /** Minor Styling for Edit Profile Page **/
 .well {
-  background: #dddddd;
+  background: #fafafa;
 }
 .lobster {
   font-family: Lobster;
   color: #fafafa;
+}
+.white {
+  background: #fafafa;
+  border: none;
+}
+/** Styling for Profile page **/
+.profile-style {
+  border: none;
+  border-radius: 5px;
+  background: #fafafa;
+}
+p {
+  word-wrap: break-word;
+}
+/** Styling for Tables **/
+.table-style {
+  border-radius: 5px;
+}
+thead {
+  border-radius: 5px;
+  background: black;
+  color: #fafafa;
+}
+tr {
+  padding: 2%;
+  text-align: center;
 }
