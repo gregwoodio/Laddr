@@ -174,12 +174,12 @@ Application.belongsTo(Profile, {foreignKey: 'ProfileID'});
 Application.belongsTo(Posting, {foreignKey: 'PostingID'});
 
 module.exports = {
-  sequelize,
-  Profile,
-  User,
-  Organization,
-  Posting,
-  Topic,
-  Comment,
-  Application
+  sequelize: sequelize,
+  Profile: Profile,
+  User: User,
+  Organization: Organization,
+  Posting: Posting,
+  Topic: Topic,
+  Comment: Comment,
+  Application: Application
 };
