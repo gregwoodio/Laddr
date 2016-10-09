@@ -130,6 +130,10 @@
 			templateUrl: 'partials/applications.html',
 			controller: 'ApplicationsController'
 		}).
+		when('/applicants', {
+			templateUrl: 'partials/applicants.html',
+			controller: 'ApplicantController'
+		}).
 		otherwise({
 			redirectTo: '/login'
 		});

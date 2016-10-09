@@ -1,5 +1,5 @@
-laddrControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$sessionStorage', 'LoginService',
-  function($scope, $rootScope, $http, $routeParams, $location, $sessionStorage, LoginService) {
+laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 'LoginService',
+  function($scope, $http, $routeParams, $location, $sessionStorage, LoginService) {
     
   $scope.$storage = $sessionStorage;
   $scope.isLoggedIn = false;
@@ -14,8 +14,7 @@ laddrControllers.controller('LoginController', ['$scope', '$rootScope', '$http',
     $http
       .post('/api/login', data)
       .success(function(data, status, headers, config) {
-        if (data) {
-          $scope.$storage.ldrToken = data.token;
+        if (data) { 
           LoginService.setToken(data.token);
           LoginService.setProfile(data.profile);
           $scope.isLoggedIn = LoginService.isLoggedIn();
@@ -29,7 +28,6 @@ laddrControllers.controller('LoginController', ['$scope', '$rootScope', '$http',
           LoginService.setToken(undefined);
 
           console.log("LoginController emitting refreshNavbar");
-          $rootScope.$broadcast("refreshNavbar", {});
 
         }
       })
