@@ -33,6 +33,7 @@
 
 		this.isLoggedIn = function() {
 			console.log('LoginService checking login status');
+			console.log($rootScope.profile != undefined);
 			return $rootScope.profile != undefined;
 		};
 
