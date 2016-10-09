@@ -28,3 +28,4 @@ require('./password')(chai, server, assert, email, password);
 require('./password')(chai, server, assert, orgEmail, orgPass);
 require('./apply')(chai, server, assert, orgEmail, orgPass, email, password);
 require('./applications')(chai, server, assert, email, password);
+require('./applicants')(chai, server, assert, orgEmail, orgPass);
