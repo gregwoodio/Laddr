@@ -7,34 +7,43 @@
 		      
 		<section id="postings">
 			<div class="page-header">
-				<h1>Posting Detail</h1>
-			</div>
-
-			<a href="app#/postings" class="btn btn-primary btn-md" role="button">Back</a>
-			
-			<div class="container-fluid" ng-show="message == undefined">
-				<h4>{{posting.JobTitle}}</h4>
-				<p><strong>Organization: </strong> {{posting.OrganizationName}}</p>
-				<p><strong>Located in: </strong> {{posting.Location}}</p>
-				<p><strong>Description: </strong> {{posting.Description}} </p>
-				<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
-
+				<a href="app#/postings" class="btn btn-primary btn-md " role="button">Back</a>
 				<br>
-				<div class="row">
-					<div class="col-md-3 col-sm-4">
-						<img src="{{posting.PictureURL}}" class="profilepic" />
-					</div>
-					<div class="col-md-9 col-sm-8">
-						<h4>More info about {{posting.OrganizationName}}</h4>
-						
-						<p>{{posting.MissionStatement}} </p>
-						<p><strong>Address: </strong> {{posting.Address}}</p>
-
-						<button class='btn btn-primary btn-md' ng-click='apply()'>Apply now!</button>
-						<div>{{applyError}}</div>
-					</div>
-				</div>
+				<h1>Posting Details</h1>
+				
 			</div>
+
+			
+			<br>
+			<div class="posting-detail-style container-fluid " ng-show="message == undefined">
+				<div class="border col-xs-6">
+					<h3>{{posting.JobTitle}}</h3>
+					<h4><strong>Organization: </strong> {{posting.OrganizationName}}</h4>
+					<p><strong>Location: </strong> {{posting.Location}}</p>
+					<p><strong>Description: </strong> {{posting.Description}} </p>
+					<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
+				</div>
+				
+				<div class="border col-xs-6">
+					<br>
+					<br>
+					<img src="{{posting.PictureURL}}" class="profilepic" />
+					<h4>More info about {{posting.OrganizationName}}</h4>
+				
+					<p>{{posting.MissionStatement}} </p>
+					<p><strong>Address: </strong> {{posting.Address}}</p>
+					
+					<br><br>
+					<button class='btn btn-primary btn-md' ng-click='apply()'>Apply Now!</button>
+					<div>{{applyError}}</div>
+				</div>
+					
+					
+				
+			
+			
+			</div>
+			
 			<div>{{message}}</div>
 		</section>
 	</div>
