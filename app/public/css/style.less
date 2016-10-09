@@ -76,12 +76,19 @@
 
 table {
     font-family: arial, sans-serif;
-    width: 100%;
+    width: 90%;
 }
 
 td, th {
     border: 1px solid @lightgrey;
     text-align: left;
+}
+
+.comments-table-style {
+	font-family: arial, sans-serif;
+    width: 95%;
+	margin:2%;
+	border-radius:@border-radius;
 }
 
 
@@ -123,6 +130,10 @@ a:active {
   color: saturate(@green, 5%);
 }
 
+.page-header {
+
+}
+
 /** all modal styling for login **/
 .vertical-alignment-helper {
     display:table;
@@ -149,9 +160,10 @@ a:active {
 /** styling for registration page **/
 
 .panel,.panel-group{
-  border-radius:@border-radius;
-   border:none;
-   background:@white;
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+   
 }
 
 
@@ -199,7 +211,9 @@ body {
 	border:none;
 	border-radius:@border-radius;
 	background:@white;
+	width:100%;
 }
+
 p {
 	word-wrap:break-word;
 }
@@ -221,4 +235,33 @@ tr {
 		padding:2%;	
 		text-align:center;
 		
+}
+
+/** Styling for adding a posting - Organization **/
+
+.posting-style {
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+	width: 95%;
+	padding:2%;
+	}
+	
+.posting-detail-style {
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+	padding:1%;
+	width:90%;
+}
+
+/** Styling for FAQ/how to **/
+
+.faq-style {
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+	padding:1%;
+	width:95%;
+	margin:2%;
 }

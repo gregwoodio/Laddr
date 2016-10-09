@@ -5,6 +5,7 @@
 
   <div class='col-md-10 col-md-offset-2 main'>
   
+
 		<section ng-if="profile.AccountType == 0">
 		
 			<div class="container-fluid">
@@ -13,10 +14,10 @@
 				  <h1>Edit Profile Information</h1>
 				</div>
 				
-				<div class="col-sm-10 col-sm-offset-1 personal-info">
+				<div class="col-sm-10 personal-info">
 				
 					
-					<div class="col-md-3">
+					<div class="col-md-4">
 					  <div class="text-center"><br><br>
 						<img src="" class="avatar img-circle img-thumbnail" alt="avatar" width="280" height="280">
 						<h6>Upload a Profile Photo</h6>
@@ -25,7 +26,7 @@
 					</div>
 
 					
-					  <form class="form-horizontal col-md-7  col-md-offset-1" role="form">
+					  <form class="form-horizontal col-md-6  col-md-offset-1" role="form">
 						<br>
 						<div class="form-group">
 						  <label class="col-lg-3 control-label">First name:</label>
@@ -42,8 +43,8 @@
 						</div><br>
 
 						<div>
-							<label class="col-lg-3 control-label">Academic Status:</label><br>
-							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="0" >Not in School</label>
+							<label class="col-lg-3 control-label">Academic Status:</label>
+							<label class="radio-inline "><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="0" >Not in School</label>
 							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="1">High School</label>
 							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="2">College</label>
 							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.AcademicStatus" value="3">University</label>
@@ -81,6 +82,8 @@
 			</div>
 			
 		</section>
+		
+			<!-- Organization Profile -->
 
 			<section ng-if='profile.AccountType == 1'>
 				<br>
