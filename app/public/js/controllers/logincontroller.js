@@ -15,6 +15,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
       .post('/api/login', data)
       .success(function(data, status, headers, config) {
         if (data) { 
+          $scope.$storage.ldrToken = data.token;
           LoginService.setToken(data.token);
           LoginService.setProfile(data.profile);
           $scope.isLoggedIn = LoginService.isLoggedIn();
