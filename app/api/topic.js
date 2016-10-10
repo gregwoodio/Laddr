@@ -70,6 +70,10 @@ module.exports = function(app, models) {
           console.log('topic.js - comments: ');
           console.log(comments);
 
+          for (i = 0; i < comments.length; i++) {
+            comments[i].LdrProfile.Password = undefined;
+          }
+
           res.json({
             success: true,
             topic: topic,
