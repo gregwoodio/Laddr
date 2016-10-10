@@ -1,90 +1,21 @@
 <!DOCTYPE html>
-<html >
+<html>
   <head>
     <meta charset="UTF-8">
-    <title>Laddr</title>
-    <link rel='stylesheet' href='css/bootstrap.min.css'>
-    <link rel='stylesheet' href='css/style.min.css'>
+      <title>Laddr</title>
+      <script src="js/angular.min.js"></script>
+      <script src="js/angular-route.min.js"></script>
+      <script src="js/angular-animate.min.js"></script>
+      <script src="js/ui-bootstrap.min.js"></script>
+      <script src="js/ngstorage.min.js"></script>
+      <script src="js/laddr.min.js"></script>
+      <link rel='stylesheet' href='css/bootstrap.min.css'>
+      <link rel='stylesheet' href='css/style.min.css'>
+      <link rel='stylesheet' href='css/font-awesome.css'>
   </head>
 
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-              <a class="navbar-brand">Laddr</a>
-            </div>
-            <div class='navbar-right'>
-              <a class='navbar-brand' href='app#/login'>Login</a>
-      			  <!--<a class="navbar-brand" data-toggle="modal" data-target="#myLogin">Login</a>-->
-            </div>
-        </div>
-    </nav>
-
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class='text-center'>Laddr</h1>
-            <h3 class='text-center text-white'>Start your climb.</h3>
-        </div>
-    </div>
-
-<div class="container">
-  <div class="row">
-    <h3>Laddr is a social application designed to connect people with volunteer opportunities in their areas. You can feel good about the work you'll do within your community, all while developing useful skills and experiences that will help you in your career.</h3>
-  </div>
-  <div class="row">
-    <div class='col-md-4'>
-      <h3>Volunteer</h3>
-      <p>Sign up now, or log in using your Facebook, Twitter or Google accounts and start browsing through volunteer opportunities near you.</p><br>
-      <a class="btn btn-md btn-success" href="app#/register">Sign up &raquo;</a>
-    </div>
-    <div class='col-md-4'>
-      <h3>Post Opportunities</h3>
-      <p>Posting volunteer opportunities from your community, charity or business allows you to reach a wide number of people looking for volunteer experiences in your area.</p><br>
-      <a class="btn btn-md btn-success" href="app#/register">Post &raquo;</a>
-    </div>
-    <div class='col-md-4'>
-      <h3>Grow your career</h3>
-      <p>Grow your career with tutorials on how to write a resume and cover letter, how to ace the interview, and how to reach more employers with a well crafted LinkedIn profile.</p>
-      <a class="btn btn-md btn-success" href='app#/howto'>Learn &raquo;</a>
-    </div>
-  </div>
-  
-  <div class='row'><br>
-    <h3 class='text-center'>Laddr is coming soon. Keep checking back for more information. Thanks for your interest!</h3>
-  </div>
-</div>
-    <script src='js/jquery.min.js'></script>
-    <script src='js/bootstrap.min.js'></script>
-	
-	
-	
-	<!-- Modal for Login to Laddr
-		http://getbootstrap.com/javascript/
-									-->
-	<div class="modal fade" id="myLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="vertical-alignment-helper">
-			<div class="modal-dialog vertical-align-center">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Login to Laddr</h4>
-					</div>
-					<div class="modal-body">
-						<form ng-submit="login()" class="form-signin">
-							<input ng-model="user.email" type="text" name="email" placeholder="Email" class="form-control" autofocus/><br>
-							<input ng-model="user.password" type="password" name="pass" placeholder="Password" class="form-control"/> <br>
-							<button type="submit" value="Login" class="btn btn-md btn-primary btn-block">Log in</button><br>
-						</form>			
-						<p>Login VIA</p>							
-						<a class='btn btn-md btn-primary btn-block' href='api/twitter'><span class='fa fa-twitter'></span> Twitter</a><br>
-						<p>Don't have an account?</p>
-						<a class='btn btn-md btn-primary btn-block' href="app#/register.html"> Register</a><br>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <body ng-app='laddrApp'>
+    <div ng-view></div>
   </body>
+
 </html>

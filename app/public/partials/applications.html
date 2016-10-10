@@ -23,7 +23,7 @@
 				</thead>
 				<tbody class='row' ng-repeat="application in applications">
 					 <tr >
-						<th><a href='app#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
+						<th><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
 						<th>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
 						<th>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</th>
 						<th>{{application.ApplicationStatus}}</th>

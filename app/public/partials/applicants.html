@@ -23,8 +23,8 @@
             </thead>
             <tbody class='row' ng-repeat="application in applications">
                <tr >
-                <td><a href='app#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
-                <td><a href='app#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.Firstname + ' ' + application.LdrProfile.LdrUser.LastName}}</th>
+                <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
+                <td><a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.Firstname + ' ' + application.LdrProfile.LdrUser.LastName}}</th>
                 <td>{{application.LdrProfile.LdrUser.Description}}</th>
                 <td>
                   <select ng-model='application.ApplicationStatus' ng-change='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)'>
