@@ -10,21 +10,20 @@
 		
 		    <div class="page-header">
 				<br><br>
-				<h1>Topic: {{topic.Title}}</h1>
+				<h1>{{topic.Title}}</h1>
 		    </div>
-			<a href="#/forum" class="btn btn-primary btn-md" role="button">Back</a>
+			<a href="#/forum" class="btn btn-md" role="button">Back</a>
 			<table class="table table-striped  comments-table-style">
 				
 				<thead>
-					<th>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp}}</th>
+					<th>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
 				</thead>
 				<tbody ng-repeat="comment in comments">
 					<tr>
-						<td><small>{{comment.LdrProfile.LdrUser.FirstName}} ||    [TIMESTAMP?] </small> 
-							<br>
-							<br>
-							{{comment.Body}}
-							<br>
+						<td>
+							<div><strong>{{comment.LdrProfile.LdrUser.FirstName}}{{comment.LdrProfile.LdrOrganization.OrganizationName}}</strong></div>
+							<div><small>{{comment.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</small></div>
+							<div>{{comment.Body}}</div>
 						</td>  
 			
 					</tr>

@@ -13,7 +13,14 @@ module.exports = function(app, models) {
         where: {
           Archived: false
         }, 
-        include: [models.Profile]
+        include: [{
+          model: models.Profile,
+          include: [{
+            model: models.User
+          }, {
+            model: models.Organization
+          }]
+        }]
       })
       .then(function(topics) {
         for (i = 0; i < topics.length; i++) {
@@ -59,9 +66,11 @@ module.exports = function(app, models) {
           include: [
             {
               model: models.Profile,
-              include: [
-                models.User
-              ]
+              include: [{
+                model: models.User
+              }, {
+                model: models.Organization
+              }]
             }
           ]
         })
