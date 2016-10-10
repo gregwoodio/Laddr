@@ -108,6 +108,7 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
         .end(function(err, res) {
 
           userToken = res.body.token;
+          profileID = res.body.profile.ProfileID;
 
           chai.request(server)
             .get('/api/posting')
@@ -121,6 +122,7 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
                 .set('x-access-token', userToken)
                 .send({
                   PostingID: postingID,
+                  ProfileID: profileID,
                   ApplicationStatus: 4 //accepted!
                 })
                 .end(function(err, res) {
@@ -156,18 +158,28 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
               postingID = res.body[res.body.length - 1].PostingID;
 
               chai.request(server)
-                .put('/api/apply')
+                .get('/api/applicants')
                 .set('x-access-token', userToken)
-                .send({
-                  PostingID: postingID,
-                  ApplicationStatus: 4 //accepted!
-                })
                 .end(function(err, res) {
 
-                  assert.typeOf(res.body, 'object', 'Should return JSON object response.');
-                  assert.equal(res.status, 200, 'Should have 200 OK status.');
-                  assert.equal(res.body.success, true, 'Should indicate success.');
-                  done();
+                  profileID = res.body.applications[0].ProfileID;
+
+                  chai.request(server)
+                    .put('/api/apply')
+                    .set('x-access-token', userToken)
+                    .send({
+                      PostingID: postingID,
+                      ProfileID: profileID,
+                      ApplicationStatus: 4 //accepted!
+                    })
+                    .end(function(err, res) {
+
+                      assert.typeOf(res.body, 'object', 'Should return JSON object response.');
+                      assert.equal(res.status, 200, 'Should have 200 OK status.');
+                      assert.equal(res.body.success, true, 'Should indicate success.');
+                      done();
+                    });
+
                 });
             });
         });
