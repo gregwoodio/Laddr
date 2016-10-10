@@ -13,7 +13,17 @@ module.exports = function(app, models) {
         where: {
           Archived: false
         }, 
-        include: [models.Profile]
+        order: [
+          ['Timestamp', 'DESC']
+        ],
+        include: [{
+          model: models.Profile,
+          include: [{
+            model: models.User
+          }, {
+            model: models.Organization
+          }]
+        }]
       })
       .then(function(topics) {
         for (i = 0; i < topics.length; i++) {
@@ -56,12 +66,17 @@ module.exports = function(app, models) {
           where: {
             TopicID: req.params.id
           }, 
+          order: [
+            ['Timestamp', 'ASC']
+          ],
           include: [
             {
               model: models.Profile,
-              include: [
-                models.User
-              ]
+              include: [{
+                model: models.User
+              }, {
+                model: models.Organization
+              }]
             }
           ]
         })
@@ -69,6 +84,10 @@ module.exports = function(app, models) {
 
           console.log('topic.js - comments: ');
           console.log(comments);
+
+          for (i = 0; i < comments.length; i++) {
+            comments[i].LdrProfile.Password = undefined;
+          }
 
           res.json({
             success: true,

@@ -7,44 +7,48 @@
     <section id="alltopics">
       
       <div class="page-header">
-		<br>
+		    <br>
       	<h1>Forum Board</h1>
-		<p><b>Welcome to Laddr Forums!</b> You will be able to post topics of general discussions, discuss topics in regards 
-			to volunteering positions, questions about jobs or tips for acing an interview! Remember, this is a page that can be
-			 seen by your fellow volunteers and organizations. The following will be prohibited on the Forum Board:
-				<ul>
-					<li>Use of foul language</li>
-					<li>Trolling/Fighting amongst fellow users</li>
-					<li>Spamming</li>
-					<li>Solicitation Posts/Advertisements</li>
-				</ul>
-			Failure to abide by these rules will result in immediate banning with no warning. 
-		 </p>
-	  </div>
+	      <p><b>Welcome to Laddr Forums!</b> You will be able to post topics of general discussions, discuss topics in regards 
+  			to volunteering positions, questions about jobs or tips for acing an interview! Remember, this is a page that can be
+  			 seen by your fellow volunteers and organizations. The following will be prohibited on the Forum Board:
+  				<ul>
+  					<li>Use of foul language</li>
+  					<li>Trolling/Fighting amongst fellow users</li>
+  					<li>Spamming</li>
+  					<li>Solicitation Posts/Advertisements</li>
+  				</ul>
+  			Failure to abide by these rules will result in immediate banning with no warning. 
+  		  </p>
+    	</div>
 
-      <a href='#/addtopic' class='btn btn-md btn-success'>Add Topic</a><br><br><br>
-		
-		<div>
-			<table class="table table-striped table-style" cellspacing="0" width="100%">
-				<thead>
-					<tr>
-						<th>Topic</th>
-						<th>User</th>
-						<th>Date Posted</th>
-					</tr>
-				</thead>
-				<tbody class='row' ng-repeat="topic in topics">
-					 <tr >
-						<th><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></th>
-						<th>[User who posted should go in here]</th>
-						<th>[Date Posted should go here]</th>
-					</tr>
-				</tbody>
-			</table>
-        </div>
-		<br>
-		<a href='#/addtopic' class='btn btn-md btn-success'>Add Topic</a><br>
-    	
+      <a href='#/addtopic' class='btn btn-md'>Add Topic</a><br><br><br>
+	
+  		<div>
+  			<table class="table table-striped table-style" cellspacing="0" width="100%">
+  				<thead>
+  					<tr>
+  						<th>Topic</th>
+  						<th>User</th>
+  						<th>Date Posted</th>
+  					</tr>
+  				</thead>
+  				<tbody class='row' ng-repeat="topic in topics[page]">
+  					 <tr >
+  						<th><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></th>
+  						<th>{{topic.LdrProfile.LdrUser.FirstName}}{{topic.LdrProfile.LdrOrganization.OrganizationName}}</th>
+  						<th>{{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
+  					</tr>
+  				</tbody>
+  			</table>
+      </div>
+		  <br>
+		  <a href='#/addtopic' class='btn btn-md'>Add Topic</a><br>
+    	<div ng-show='topics.length > 1' class='row'>
+        <button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'>Prev</button>
+        <div class='col-md-2 page-number'>{{page + 1}}</div>
+        <button ng-click='nextPage()' class='btn btn-md col-md-2'>Next</button>
+      </div>
     </section>
   </div>
 </div>

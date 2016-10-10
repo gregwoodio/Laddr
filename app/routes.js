@@ -38,6 +38,6 @@ module.exports = function(app, passport) {
   });
 
   app.get('/*', function(req, res) {
-  	res.sendFile(__dirname + '/public/app.html');
+  	res.sendFile(__dirname + '/public/index.html');
   });
 };
