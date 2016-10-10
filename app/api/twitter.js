@@ -39,8 +39,6 @@ module.exports = function(app, passport) {
           type: profile.AccountType
         });
 
-        // res.redirect('/app#/login/' + token);
-
       });
     })(req, res, next);
   });

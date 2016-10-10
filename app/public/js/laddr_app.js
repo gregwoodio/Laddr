@@ -136,7 +136,7 @@
 			controller: 'ApplicantController'
 		}).
 		otherwise({
-			redirectTo: '/login'
+			redirectTo: '/home'
 		});
 	}]);
 })();

@@ -22,7 +22,7 @@
 		 </p>
 	  </div>
 
-      <a href='app#/addtopic' class='btn btn-md btn-success'>Add Topic</a><br><br><br>
+      <a href='#/addtopic' class='btn btn-md btn-success'>Add Topic</a><br><br><br>
 		
 		<div>
 			<table class="table table-striped table-style" cellspacing="0" width="100%">
@@ -35,7 +35,7 @@
 				</thead>
 				<tbody class='row' ng-repeat="topic in topics">
 					 <tr >
-						<th><a href="app#/forum/{{topic.TopicID}}">{{topic.Title}}</a></th>
+						<th><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></th>
 						<th>[User who posted should go in here]</th>
 						<th>[Date Posted should go here]</th>
 					</tr>
@@ -43,7 +43,7 @@
 			</table>
         </div>
 		<br>
-		<a href='app#/addtopic' class='btn btn-md btn-success'>Add Topic</a><br>
+		<a href='#/addtopic' class='btn btn-md btn-success'>Add Topic</a><br>
     	
     </section>
   </div>
