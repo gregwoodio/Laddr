@@ -7,21 +7,36 @@
     <section id="addposting">
 
       <div class="page-header">
+		<br>
         <h1>Add Posting</h1>
       </div>
 
-      <div class='container-fluid'>
+      <div class=' posting-style container-fluid'>
+		<p><b>NOTE:</b> In the add postings page, you will be able to create your volunteering opportunities that can be seen 
+			by users who are looking to volunteer! It's important to note that you should provide 
+			as much detail as possible in the description area of your postings. Some things you can 
+			add in the description area is: 
+				<ul>
+				  <li>Shifts/Times of volunteer positions</li>
+				  <li>Skills desired/required</li>
+				  <li>Long/Short term volunteer positions</li>
+				</ul>
+			<br>
+		</p>
         <form ng-submit='addPosting()' class='form-signin'>
           <label for='jobTitle'>Job Title: </label>
-          <input ng-model='posting.JobTitle' type='text' name='jobTitle' class='form-control'/>
-
+          <input ng-model='posting.JobTitle' type='text' name='jobTitle' class='form-control' placeholder="Name of Volunteer Position" required/>
+			<br>
+			<br>
           <label for='location'>Location: </label>
-          <input ng-model='posting.Location' type='text' name='location' class='form-control'/>
-
+          <input ng-model='posting.Location' type='text' name='location' class='form-control' placeholder="Location of Event"  />
+			<br>
+			<br>
           <label for='description'>Description: </label>
-          <textarea ng-model='posting.Description' name='description' rows='5' class='form-control'></textarea>
-          
-          <input type='submit' value='Add Posting' class='form-control btn-success'/>
+          <textarea ng-model='posting.Description' name='description' rows='5' class='form-control' placeholder="Details on the Volunteer Position" required></textarea>
+			<br>
+			<br>
+          <input type='submit' value='Add Posting' class='form-control btn'/>
         </form>
       </div>
       

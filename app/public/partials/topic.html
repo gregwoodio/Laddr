@@ -5,39 +5,52 @@
   <div navbar></div>
 
   <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
-    <a href="app#/forum" class="btn btn-primary btn-md" role="button">Back</a>
+  
 		<section id="postings">
-      <div class="page-header">
-			<br>
-  			<h1>{{topic.Title}}</h1>
-      </div>
-			
-			<small>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp}} </small>
+		
+		    <div class="page-header">
+				<a href="app#/forum" class="btn btn-primary btn-md" role="button">Back</a>
+				<br><br>
+				<h1>Topic: {{topic.Title}}</h1>
+		    </div>
 				
-			<table class="table table-striped">
-				<tr ng-repeat="comment in comments">
-					<td>{{comment.LdrProfile.LdrUser.FirstName}}</td>
-					<td>{{comment.Body}}</td>  
-                      
-          <!--
-          <div ng-if='comment.LdrProfile.AccountType == 0'>
-              <td>This was made by a volunteer account</td>
-          </div>
-          <div ng-if='comment.LdrProfile.AccountType == 1'>
-              <td>This was made by a organziation account</td>
-          </div>
-          -->
-				</tr>
-			</table>     
-      <!-- Use this to check which account is logged in
-      <div ng-if='topic.LdrProfile.AccountType == 1'>
-          <p>ORGANIZATION</p>      
-      </div>
-      
-      <div ng-if='topic.LdrProfile.AccountType == 0'>
-          <p>VOLUNTEER</p>
-      </div>
-      -->
+			<table class="table table-striped  comments-table-style">
+				
+				<thead>
+					<th>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp}}</th>
+				</thead>
+				<tbody ng-repeat="comment in comments">
+					<tr>
+						<td><small>{{comment.LdrProfile.LdrUser.FirstName}} ||    [TIMESTAMP?] </small> 
+							<br>
+							<br>
+							{{comment.Body}}
+							<br>
+						</td>  
+			
+					</tr>
+				</tbody>
+			</table>
+			
+			  <!--
+			  <div ng-if='comment.LdrProfile.AccountType == 0'>
+				  <td>This was made by a volunteer account</td>
+			  </div>
+			  <div ng-if='comment.LdrProfile.AccountType == 1'>
+				  <td>This was made by a organziation account</td>
+			  </div>
+			  -->
+				  
+				
+		  <!-- Use this to check which account is logged in
+		  <div ng-if='topic.LdrProfile.AccountType == 1'>
+			  <p>ORGANIZATION</p>      
+		  </div>
+		  
+		  <div ng-if='topic.LdrProfile.AccountType == 0'>
+			  <p>VOLUNTEER</p>
+		  </div>
+		  -->
 		</section>
 	</div>
 </div>
