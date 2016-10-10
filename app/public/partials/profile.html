@@ -27,12 +27,12 @@
 					</div>
 					<div class="header text-left col-md-7">
 						<br>
-						<h1>{{profile.FirstName}} {{profile.LastName}}</h1>
-						<h4>{{profile.AcademicStatus}}</h4> <!-- Academic Status goes here -->
+						<h1>{{profile.LdrUser.FirstName}} {{profile.LdrUser.LastName}}</h1>
+						<h4>{{profile.LdrUser.AcademicStatus}}</h4> <!-- Academic Status goes here -->
 						<h4>{{profile.Email}}</h4> 
 						<br>
 						<h4>Summary</h4>
-						<p><span>{{profile.Description}}</span><p>
+						<p><span>{{profile.LdrUser.Description}}</span><p>
 					</div>				   		
 				</div> 	
 			</div>						
@@ -53,19 +53,19 @@
 					</div>
 					<div class="header text-left col-md-7 personal-info white">
 					
-						<h1>{{profile.OrganizationName}}</h1>
-						<h4>{{profile.URL}} |  {{profile.City}}, {{profile.Province}}  </h4> <!-- Academic Status goes here -->
+						<h1>{{profile.LdrOrganization.OrganizationName}}</h1>
+						<h4>{{profile.LdrOrganization.URL}} |  {{profile.LdrOrganization.City}}, {{profile.LdrOrganization.Province}}  </h4> <!-- Academic Status goes here -->
 						<h4>{{profile.Email}}</h4> 
 						<br>
 						<h4>Mission Statement</h4>
-						<p><span>{{profile.MissionStatement}}<br></span></p><br>
+						<p><span>{{profile.LdrOrganization.MissionStatement}}<br></span></p><br>
 						
 						<h4>Address</h4>
-							<p>{{profile.AddressLine1}} 
-							{{profile.AddressLine2}} 
-							{{profile.Province}} 
-							{{profile.Postal}}
-							{{profile.City}} </p>
+							<p>{{profile.LdrOrganization.AddressLine1}} 
+							{{profile.LdrOrganization.AddressLine2}} 
+							{{profile.LdrOrganization.Province}} 
+							{{profile.LdrOrganization.Postal}}
+							{{profile.LdrOrganization.City}} </p>
     					
 					</div>				   		
 				</div> 	
@@ -73,7 +73,7 @@
 		</div>
 		
 		<div class="col-sm-4 col-lg-offset-1"><br><br>
-			<a class="btn btn-lg btn-primary col-lg-5" href="app#/editProfile">Edit Profile</a>
+			<a class="btn col-lg-5" href="app#/editProfile">Edit Profile</a>
 		</div>
        
           <!-- referenced code: http://bootstrap.snipplicious.com/snippet/19/edit-profile-page -->

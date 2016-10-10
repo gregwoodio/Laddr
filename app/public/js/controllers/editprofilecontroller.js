@@ -1,5 +1,5 @@
-laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage',
-  function($scope, $http, $routeParams, $location, $sessionStorage) {
+laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 'LoginService',
+  function($scope, $http, $routeParams, $location, $sessionStorage, LoginService) {
 
   $scope.$storage = $sessionStorage;
 
@@ -15,7 +15,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       })
       .success(function(data, status, headers, config) {
         $scope.profile = data;
-        $scope.logout = true;
+        $scope.isLoggedIn = LoginService.isLoggedIn();
       })
       .error(function(data, status, headers, config) {
         console.log('Could not retrieve user.');
@@ -27,10 +27,10 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
 
   $scope.editVolunteer = function() {
     data = {
-      FirstName: $scope.profile.FirstName,
-      LastName: $scope.profile.LastName,
-      AcademicStatus: $scope.profile.AcademicStatus,
-      Description: $scope.profile.Description,
+      FirstName: $scope.profile.LdrUser.FirstName,
+      LastName: $scope.profile.LdrUser.LastName,
+      AcademicStatus: $scope.profile.LdrUser.AcademicStatus,
+      Description: $scope.profile.LdrUser.Description,
       Email: $scope.profile.Email,
     };
 
@@ -54,22 +54,21 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         console.log('AJAX error editing profile.');
         console.log(data);
         console.log(status);
-        $scope.$storage.ldrToken = null;
-        $location.url('/login');
+        $scope.message = 'Error updating profile. Please try again later.';
       });
   };
 
   $scope.editOrganization = function() {
     data = {
       Email: $scope.profile.Email,
-      OrganizationName: $scope.profile.OrganizationName,
-      URL: $scope.profile.URL,
-      MissionStatement: $scope.profile.MissionStatement,
-      AddressLine1: $scope.profile.AddressLine1,
-      AddressLine2: $scope.profile.AddressLine2,
-      City: $scope.profile.City,
-      Province: $scope.profile.Province,
-      Postal: $scope.profile.Postal
+      OrganizationName: $scope.profile.LdrOrganization.OrganizationName,
+      URL: $scope.profile.LdrOrganization.URL,
+      MissionStatement: $scope.profile.LdrOrganization.MissionStatement,
+      AddressLine1: $scope.profile.LdrOrganization.AddressLine1,
+      AddressLine2: $scope.profile.LdrOrganization.AddressLine2,
+      City: $scope.profile.LdrOrganization.City,
+      Province: $scope.profile.LdrOrganization.Province,
+      Postal: $scope.profile.LdrOrganization.Postal
     };
 
     console.log(data);
@@ -93,7 +92,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         console.log(data);
         console.log(status);
         $scope.$storage.ldrToken = null;
-        $location.url('/login');
+        $scope.message = 'Error updating profile. Please try again later.';
       });
   };
 }]);
