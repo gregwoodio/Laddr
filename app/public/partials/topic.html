@@ -13,6 +13,9 @@
 				<h1>{{topic.Title}}</h1>
 		    </div>
 			<a href="#/forum" class="btn btn-md" role="button">Back</a>
+			
+			<div ng-show='message'>{{message}}</div>
+
 			<table class="table table-striped  comments-table-style">
 				
 				<thead>
@@ -25,10 +28,17 @@
 							<div><small>{{comment.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</small></div>
 							<div>{{comment.Body}}</div>
 						</td>  
-			
 					</tr>
 				</tbody>
 			</table>
+			<button class="btn btn-md" ng-model="replyToggle" uib-btn-checkbox>Reply</button>
+			<div ng-show='replyToggle'>
+				<form id='replyForm'>
+					<textarea class='form-control' rows='5' ng-model='reply' placeholder='Your comments here...'></textarea>
+					<button class='btn btn-md' ng-click='submitReply()'>Submit</button>
+					<div ng-show>{{replyMessage}}</div>
+				</form>
+			</div>
 		</section>
 	</div>
 </div>

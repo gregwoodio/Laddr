@@ -13,6 +13,9 @@ module.exports = function(app, models) {
         where: {
           Archived: false
         }, 
+        order: [
+          ['Timestamp', 'DESC']
+        ],
         include: [{
           model: models.Profile,
           include: [{
@@ -63,6 +66,9 @@ module.exports = function(app, models) {
           where: {
             TopicID: req.params.id
           }, 
+          order: [
+            ['Timestamp', 'ASC']
+          ],
           include: [
             {
               model: models.Profile,
