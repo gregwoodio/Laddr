@@ -150,6 +150,9 @@ module.exports = function(app, models) {
                   OrganizationName: req.body.OrganizationName || org.OrganizationName,
                   AddressLine1: req.body.AddressLine1 || org.AddressLine1,
                   AddressLine2: req.body.AddressLine2 || org.AddressLine2,
+                  City: req.body.City || org.City,
+                  Province: req.body.Province || org.Province,
+                  Postal: req.body.Postal || org.Postal,
                   URL: req.body.URL || org.URL,
                   MissionStatement: req.body.MissionStatement || org.MissionStatement
                 }, {
