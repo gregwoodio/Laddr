@@ -3,9 +3,9 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
 
   $scope.posting = {
     ProfileID: LoginService.getProfile().ProfileID,
-    JobTitle: 'The name of the position.',
-    Location: 'Enter the location here.',
-    Description: 'A description of the required role and duties.'
+    JobTitle: undefined,
+    Location: undefined,
+    Description: undefined
   };
 
   $scope.addPosting = function() {

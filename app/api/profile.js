@@ -22,18 +22,40 @@ module.exports = function(app, models) {
           // why are joins so tough in Sequelize? Raw queries FTW.
           // TODO: Take out the trash.
           if (decoded.AccountType == 0) {
-            models.sequelize.query('SELECT * FROM LdrProfiles p INNER JOIN LdrUsers u ON ' +
-              'p.ProfileID = u.ProfileID WHERE p.ProfileID =  "' + decoded.ProfileID + '"',
-              {type: models.sequelize.QueryTypes.SELECT})
+            models.Profile.find({
+              where: {
+                ProfileID: decoded.ProfileID,
+              },
+              include: {
+                model: models.User
+              }
+            })
             .then(function(results) { 
-              res.json(results[0]);
+              res.json(results);
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
+              });
             });
           } else if (decoded.AccountType == 1) {
-            models.sequelize.query('SELECT * FROM LdrProfiles p INNER JOIN LdrOrganizations o ON ' +
-              'p.ProfileID = o.ProfileID WHERE p.ProfileID = "' + decoded.ProfileID + '"',
-              {type: models.sequelize.QueryTypes.SELECT})
+            models.Profile.find({
+              where: {
+                ProfileID: decoded.ProfileID,
+              },
+              include: {
+                model: models.Organization
+              }
+            })
             .then(function(results) { 
-              res.json(results[0]);
+              res.json(results);
+            })
+            .catch(function(err) {
+              res.status(500).json({
+                success: false,
+                message: err.message
+              });
             });
           }
         }
