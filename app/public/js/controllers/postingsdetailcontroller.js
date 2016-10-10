@@ -14,15 +14,7 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
       })
       .success(function(data, status, headers, config) {
 
-        $scope.posting.PostingID = data.PostingID;
-        $scope.posting.OrganizationName = data.OrganizationName;
-        $scope.posting.JobTitle = data.JobTitle;
-        $scope.posting.Location = data.Location;
-        $scope.posting.Description = data.Description;
-        $scope.posting.Timestamp = data.Timestamp;
-        $scope.posting.Address = data.Address;
-        $scope.posting.MissionStatement = data.MissionStatement;
-        $scope.posting.PictureURL = data.PictureURL;
+        $scope.posting = data;
       })
       .error(function(data, status, headers, config) {
         //couldn't get postings

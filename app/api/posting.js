@@ -13,9 +13,16 @@ module.exports = function(app, models) {
         where: {
           PostingID: req.params.id,
           Archived: false
-        }
+        },
+        include: [{
+          model: models.Profile,
+          include: [{
+            model: models.Organization
+          }]
+        }]
       })
       .then(function(posting) {
+        posting.LdrProfile.Password = undefined;
         res.json(posting);
       })
       .catch(function(err) {
@@ -33,10 +40,21 @@ module.exports = function(app, models) {
     models.Posting.findAll({
         where: {
           Archived: false
-        }
+        },
+        include: [{
+          model: models.Profile,
+          include: [{
+            model: models.Organization
+          }]
+        }],
+        order: [
+          ['Timestamp', 'DESC']
+        ]
       })
       .then(function(postings) {
-        
+        for (i = 0; i < postings.length; i++) {
+          postings[i].LdrProfile.Password = undefined;
+        }
         res.json(postings);
       })
       .catch(function(err) {

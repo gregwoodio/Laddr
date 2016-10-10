@@ -15,7 +15,7 @@
 			<div class="posting-detail-style container-fluid " ng-show="message == undefined">
 				<div class="border col-xs-6">
 					<h3>{{posting.JobTitle}}</h3>
-					<h4><strong>Organization: </strong> {{posting.OrganizationName}}</h4>
+					<h4><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</h4>
 					<p><strong>Location: </strong> {{posting.Location}}</p>
 					<p><strong>Description: </strong> {{posting.Description}} </p>
 					<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
@@ -25,12 +25,18 @@
 					<br>
 					<br>
 					<img src="{{posting.PictureURL}}" class="profilepic" />
-					<h4>More info about {{posting.OrganizationName}}</h4>
+					<h4>More info about {{posting.LdrProfile.LdrOrganization.OrganizationName}}</h4>
 				
-					<p>{{posting.MissionStatement}} </p>
-					<p><strong>Address: </strong> {{posting.Address}}</p>
+					<p>{{posting.LdrProfile.LdrOrganization.MissionStatement}} </p>
+					<p>
+						<strong>Address: </strong> 
+						{{posting.LdrProfile.LdrOrganization.AddressLine1}}<br>
+						{{posting.LdrProfile.LdrOrganization.AddressLine2}}<br ng-show='posting.LdrProfile.LdrOrganization.AddressLine2'>
+						{{posting.LdrProfile.LdrOrganization.City}}<br>
+						{{posting.LdrProfile.LdrOrganization.Province}}<br>
+						{{posting.LdrProfile.LdrOrganization.Postal}}
+					</p>
 					
-					<!-- Application for positins only available to volunteers -->
 					<div ng-if='profile.AccountType == 0'>
 						<br><br>
 						<button class='btn btn-primary btn-md' ng-click='apply()'>Apply Now!</button>
