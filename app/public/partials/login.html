@@ -24,6 +24,8 @@
 					<button type='submit' value='Login' class='btn btn-md btn-block'>Log in</button><br>
 				</form>
 
+				<div ng-show='message != undefined' class='error-text'>{{message}}</div>
+
 				<h3>Social Media Login</h3>
 				<a class='btn btn-md btn-block' href='api/twitter'><span class='fa fa-twitter'></span> Twitter</a><br>
 				
