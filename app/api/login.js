@@ -15,7 +15,11 @@ module.exports = function(app, passport) {
 
       if (!profile) {
         console.log('login.js - No such user.');
-        return res.status(403).json(data);
+        return res.status(403).json({
+          success: false,
+          message: 'Invalid email or password.',
+          data: data
+        });
       }
 
       req.login(profile, function(err) {

@@ -14,7 +14,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
     $http
       .post('/api/login', data)
       .success(function(data, status, headers, config) {
-        if (data) { 
+        if (data.success) { 
           $scope.$storage.ldrToken = data.token;
           LoginService.setToken(data.token);
           LoginService.setProfile(data.profile);
@@ -28,7 +28,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
           LoginService.setProfile(undefined);
           LoginService.setToken(undefined);
 
-          console.log("LoginController emitting refreshNavbar");
+          $scope.message = data != undefined ? data.message : 'Cannot connect to Laddr, please try again later.';
 
         }
       })
@@ -38,6 +38,8 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
         $scope.$storage.ldrToken = null;
         LoginService.setProfile(undefined);
         LoginService.setToken(undefined);
+
+        $scope.message = data != undefined ? data.message : 'Cannot connect to Laddr, please try again later.';
 
       });
   };
