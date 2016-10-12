@@ -7,6 +7,7 @@
 		'ui.bootstrap',
 	  'laddrControllers',
 	  'ngStorage',
+	  'ngFileUpload'
 	]);
 
 	laddrApp.service('LoginService', ['$rootScope', function($rootScope) {

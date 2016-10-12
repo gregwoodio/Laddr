@@ -2,8 +2,12 @@ node_modules
 app/public/components
 app/public/css/*.min.css
 app/public/css/bootstrap.css
-app/public/js/*.min.js
+app/public/js/*.min.js*
 app/public/css/font-awesome.css
 app/public/css/style.css
 app/public/fonts/*
+app/public/img/uploads/*
+app/public/img/*.jpg
+app/public/img/*.png
+app/public/img/*.gif
 build/
