@@ -15,7 +15,7 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
       .success(function(data, status, headers, config) {
 
         // pagination
-        ppp = 2; //postings per page ;)
+        ppp = 10; //postings per page ;)
         for (i = 0; i < data.length; i += ppp) {
           $scope.postings.push(data.slice(i, i + ppp));
         }
