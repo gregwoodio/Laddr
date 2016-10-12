@@ -161,6 +161,9 @@
 		when('/contact', {
 			templateUrl: 'partials/contact.html',
 		}).
+		when('/aboutus', {
+			templateUrl: 'partials/about.html',
+		}).
 		otherwise({
 			redirectTo: '/home'
 		});
