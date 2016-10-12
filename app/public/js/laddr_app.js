@@ -72,6 +72,25 @@
 			}]
 		}
 	});	
+	
+	
+	laddrApp.directive('footer', function() {
+		return {
+			restrict: 'A', //must be on an attribute, not element
+			replace: true,
+			scope: false,
+			templateUrl: 'js/directives/footer.html',
+			controller: ['$scope', '$rootScope', 'LoginService',
+			  function($scope, $rootScope, LoginService) {
+
+			  $scope.isLoggedIn = LoginService.isLoggedIn();
+			  if ($scope.isLoggedIn) {
+			    $scope.isUser = LoginService.getProfile().AccountType == 0;
+			  }
+			}]
+		}
+	});	
+
 
 	laddrApp.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
@@ -134,6 +153,12 @@
 		when('/applicants', {
 			templateUrl: 'partials/applicants.html',
 			controller: 'ApplicantController'
+		}).
+		when('/rules', {
+			templateUrl: 'partials/rules.html',
+		}).
+		when('/contact', {
+			templateUrl: 'partials/contact.html',
 		}).
 		otherwise({
 			redirectTo: '/home'
