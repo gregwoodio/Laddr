@@ -25,7 +25,7 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
           $scope.academics = 'Not in school';
         } else if ($scope.profile.LdrUser.AcademicStatus == 1) {
           $scope.academics = 'High School';
-        } else if ($scope.profile.ApplicationStatus == 2) {
+        } else if ($scope.profile.LdrUser.AcademicStatus == 2) {
           $scope.academics = 'College';
         } else if ($scope.profile.LdrUser.AcademicStatus == 3) {
           $scope.academics = 'University';
