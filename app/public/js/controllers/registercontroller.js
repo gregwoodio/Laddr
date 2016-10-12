@@ -54,7 +54,7 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         Password: $scope.user.password1,
         OrganizationName: $scope.user.organizationName,
         AddressLine1: $scope.user.addressline1,
-        AddressLine2: $scope.user.addressline2 | '', //can be null
+        AddressLine2: $scope.user.addressline2 || '', //can be null
         City: $scope.user.city,
         Province: $scope.user.province,
         Postal: $scope.user.postal,
