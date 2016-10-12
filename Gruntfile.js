@@ -33,10 +33,18 @@ module.exports = function(grunt) {
   			src: 'app/public/components/angular/angular.min.js',
   			dest: 'app/public/js/angular.min.js'
   		},
+      angularMap: {
+        src: 'app/public/components/angular/angular.min.js.map',
+        dest: 'app/public/js/angular.min.js.map'
+      },
   		angularRoute: {
   			src: 'app/public/components/angular-route/angular-route.min.js',
     		dest: 'app/public/js/angular-route.min.js'
     	},
+      angularRouteMap: {
+        src: 'app/public/components/angular-route/angular-route.min.js.map',
+        dest: 'app/public/js/angular-route.min.js.map'
+      },
     	angularBootstrap: {
     		src: 'app/public/components/angular-bootstrap/ui-bootstrap.min.js',
     		dest: 'app/public/js/ui-bootstrap.min.js'
@@ -45,6 +53,10 @@ module.exports = function(grunt) {
     		src: 'app/public/components/angular-animate/angular-animate.min.js',
     		dest: 'app/public/js/angular-animate.min.js'
     	},
+      angularAnimateMap: {
+        src: 'app/public/components/angular-animate/angular-animate.min.js.map',
+        dest: 'app/public/js/angular-animate.min.js.map'
+      },
     	ngStorage: {
     		src: 'app/public/components/ngstorage/ngStorage.min.js',
     		dest: 'app/public/js/ngstorage.min.js'
@@ -60,7 +72,11 @@ module.exports = function(grunt) {
     	fontawesome: {
     		src: 'app/public/components/font-awesome/css/font-awesome.css',
     		dest: 'app/public/css/font-awesome.css'
-    	}
+    	},
+      ngFileUpload: {
+        src: 'app/public/components/ng-file-upload/ng-file-upload.min.js',
+        dest: 'app/public/js/ng-file-upload.min.js'
+      }
   	}
 	});
 
