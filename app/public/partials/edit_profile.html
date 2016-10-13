@@ -1,191 +1,155 @@
 <div header></div>
 
-<div class='row'>
-  <div navbar></div>
-  <div class='col-md-10 col-md-offset-2 main'>
-		<section ng-if="profile.AccountType == 0">
+<div class='container'>
+	<section ng-if="profile.AccountType == 0">
+	
+		<div class="page-header">
+		  <h1>Edit Profile Information</h1>
+		</div>
 		
-			<div class="container-fluid">
-				<br>
-				<div class="page-header">
-				  <h1>Edit Profile Information</h1>
-				</div>
-				
-				<div class="col-sm-10 personal-info">
-				
-					<form class="form-horizontal col-md-6  col-md-offset-1" role="form">
-
-						<div class="col-md-4">
-						  <div class="text-center">
-						  	<form>
-						  		<input type='file' ngf-select='fileSelected($files)' accept="'image/*'" >
-						  	</form>
-								
-						  </div>
-						</div>					
-						<br>
-						<div class="form-group">
-						  <label class="col-lg-3 control-label">First name:</label>
-						  <div class="col-lg-8">
-							<input class="form-control" value="" type="text" id="firstName" ng-model='profile.LdrUser.FirstName'>
-						  </div>
-						</div><br>
-						
-						<div class="form-group">
-						  <label class="col-lg-3 control-label">Last name:</label>
-						  <div class="col-lg-8">
-							<input class="form-control" value="" type="text" id="lastName" ng-model="profile.LdrUser.LastName">
-						  </div>
-						</div><br>
-
-						<div>
-							<label class="col-lg-3 control-label">Academic Status:</label>
-							<label class="radio-inline "><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="0" >Not in School</label>
-							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="1">High School</label>
-							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="2">College</label>
-							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="3">University</label>
-							<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="4">Graduate</label>
-						</div><br><br>
-
-						<div class="form-group">
-						  <label class="col-lg-3 control-label">Summary:</label>
-						  <div class="col-lg-8">
-							<textarea class="form-control" rows="8" value="" type="textbox" ng-model='profile.LdrUser.Description'></textarea>
-						  </div>
-						</div><br>
-						
-						<div class="form-group">
-						  <label class="col-lg-3 control-label">Email:</label>
-						  <div class="col-lg-8">
-							<input class="form-control" ng-model="profile.Email" type="text" id="email">
-						  </div>
-						</div><br>
-
-						<div class="form-group">
-						  <label class="col-md-3 control-label"></label>
-						  
-						  <div class="col-md-8 text-center">
-								<!-- <input class="btn btn-primary" value="Edit Profile" type="button"> -->
-								<input class="btn" value="Save Changes" type="button" ng-click='editVolunteer()'>
-								<a class="btn" href='#/profile'>Cancel</a>
-						  </div>
-
-						  <div>{{message}}</div>
-						  
-						</div><br>
-					</form>  
-				</div>
-			</div>
-			
-		</section>
+		<div class="personal-info">
 		
-			<!-- Organization Profile -->
+			<form class="form-horizontal" role="form">
 
-		<section ng-if='profile.AccountType == 1'>
-			<br>
-			<div class="page-header">
-			  <h1>Edit Profile Information</h1>
-			</div>
-
-			<div class="col-sm-10 col-sm-offset-1 personal-info">
-			
-					<div class="col-md-3">
-
-						<form class="form-horizontal col-md-7  col-md-offset-1" role="form">
-							
-						  <div class="text-center"><br><br>
-								<img src="" class="avatar img-circle img-thumbnail" alt="avatar" width="280" height="280">
-								<h6>Upload a Profile Photo</h6>
-								<input type="file" class="text-center center-block well well-sm">
-							  </div>
-							</div>
-						
-							<br>
-							<div class="form-group">
-							  <label class="col-lg-3 control-label">Organization Name:</label>
-							  <div class="col-lg-8">
-								<input class="form-control" ng-model="profile.LdrOrganization.OrganizationName" type="text" id="organizationName" >
-							  </div>
-							</div><br>
-							
-							<div class="form-group">
-							  <label class="col-lg-3 control-label">URL:</label>
-							 <div class="col-lg-8">
-								<input class="form-control" ng-model='profile.LdrOrganization.URL' type="text" id="url" >
-							  </div>
-							</div><br>
-							
-							<div class="form-group">
-							  <label class="col-lg-3 control-label">Mission Statement:</label>
-							  <div class="col-lg-8">
-								<textarea class="form-control" rows="6" ng-model='profile.LdrOrganization.MissionStatement' type="textbox" id="missionStatement" ></textarea>
-							  </div>
-							</div><br>
-							
-							
-							<div class="form-group">
-							  <label class="col-lg-3 control-label">Address:</label>
-							  <div class="col-lg-8">
-								<input class="form-control" ng-model="profile.LdrOrganization.AddressLine1" type="text" id="addressline1" />
-							  </div>
-							  <br><br><br> 
-							  <div class="col-lg-offset-3 col-lg-8">
-								<input class="form-control" ng-model="profile.LdrOrganization.AddressLine2" type="text" id="addressline2" />
-							  </div>
-							  <br><br><br>
-							  
-							   <label class="col-lg-3 control-label">City:</label>
-							  <div class="col-lg-8">
-								<input class="form-control" ng-model="profile.LdrOrganization.City" type="text" id="city"	/>
-							  </div>
-							  <br><br><br>
-							  
-							  <label class="col-lg-3 control-label">Province:</label>
-							  <div class="col-lg-8">						
-								<select class="form-control" ng-model='profile.LdrOrganization.Province' name="province" id="province" selected="" >
-									<option name="province" value="on">Ontario</option>
-									<option name="province" value="bc">British Columbia</option>
-									<option name="province" value="qc">Quebec</option>
-									<option name="province" value="ns">Nove Scotia</option>
-									<option name="province" value="nb">New Brunswick</option>
-									<option name="province" value="mb">Manitoba</option>
-									<option name="province" value="pe">Prince Edward Island</option>
-									<option name="province" value="sk">Saskatchewan</option>
-									<option name="province" value="ab">Alberta</option>
-									<option name="province" value="nl">New Found Land</option>
-								</select><br>	
-							  </div>
-							  <br><br><br>
-							  
-							   <label class="col-lg-3 control-label">Postal Code:</label>
-							  <div class="col-lg-8">
-								<input class="form-control" ng-model="profile.LdrOrganization.Postal" type="text" id="address" />
-							  </div>
-							</div><br><br>
-							
-							<div class="form-group">
-							  <label class="col-lg-3 control-label">Email:</label>
-							  <div class="col-lg-8">
-									<input class="form-control" ng-model="profile.Email" type="text" id="email" >
-							  </div>
-							</div><br>
-							
-							<div class="form-group">
-							  <label class="col-md5 control-label"></label>
-							  
-							  <div class="col-md-6 text-center">
-									<input class="btn" value="Save Changes" type="button" ng-click='editOrganization()' />
-									<a class="btn" href='#/profile'>Cancel</a>
-							  </div>
-
-							  <div>{{message}}</div>
-						  
+				<div class='row'>
+					<div class="col-md-5">
+					  <div class="text-center">
+				  		<input type='file' ngf-select='fileSelected($files)' accept="'image/*'" />								
+					  </div>
+					</div>					
+					
+					<div class='col-md-7'>
+						<div class="form-group">
+						  <label class="control-label" for='firstName'>First name:</label>
+							<input class="form-control" value="" type="text" name="firstName" ng-model='profile.LdrUser.FirstName'>
 						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-	</div>
-</div>
+					
+						<div class="form-group">
+						  <label class="control-label" for='lastName'>Last name:</label>
+							<input class="form-control" value="" type="text" name="lastName" ng-model="profile.LdrUser.LastName">
+						</div><br>
 
+						<div class='form-group'>
+							<label class="control-label" for='academicStatus'>Academic Status:</label>
+							<div name='academicStatus'>
+								<label class="radio-inline "><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="0" >Not in School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="1">High School</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="2">College</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="3">University</label>
+								<label class="radio-inline"><input type="radio" name="academicstatus" ng-model="profile.LdrUser.AcademicStatus" value="4">Graduate</label>
+							</div>
+						</div>
+
+						<div class='form-group'>
+						  <label class="control-label" for='summary'>Summary:</label>
+							<textarea class="form-control" name='summary' rows="8" value="" type="textbox" ng-model='profile.LdrUser.Description'></textarea>
+						</div>
+						
+						<div class='form-group'>
+						  <label class="control-label" for='email'>Email:</label>
+							<input class="form-control" name='email' ng-model="profile.Email" type="text" id="email">
+						</div>
+
+						<div class="form-group">
+							<input class="btn col-md-offset-3 col-md-3" value="Save Changes" type="button" ng-click='editVolunteer()'>
+							<a class="btn col-md-3" href='#/profile'>Cancel</a>
+						</div>
+					</div>
+
+				  <div>{{message}}</div>
+				  
+				</div>
+			</form>  
+		</div>
+		
+	</section>
+	
+		<!-- Organization Profile -->
+
+	<section ng-if='profile.AccountType == 1'>
+		
+		<div class="page-header">
+		  <h1>Edit Profile Information</h1>
+		</div>
+
+		<div class="personal-info">
+
+			<form class="form-horizontal" role="form">
+
+				<div class='row'>
+				
+				  <div class='col-md-5'>
+				  	<div class='text-center'>
+							<img src="" class="avatar img-circle img-thumbnail" alt="avatar" width="280" height="280">
+							<h6>Upload a Profile Photo</h6>
+							<input type="file" class="text-center center-block well well-sm">
+					  </div>
+					</div>
+				
+					<div class='col-md-7'>
+						<div class="form-group">
+						  <label class="control-label" for='orgName'>Organization Name:</label>
+							<input class="form-control" name='orgName' ng-model="profile.LdrOrganization.OrganizationName" type="text" id="organizationName" >
+						</div>
+						
+						<div class="form-group">
+						  <label class="control-label" for='url'>URL:</label>
+							<input class="form-control" name='url' ng-model='profile.LdrOrganization.URL' type="text" id="url" >
+						</div>
+						
+						<div class="form-group">
+						  <label class="control-label" for='missionStatement'>Mission Statement:</label>
+							<textarea class="form-control" name='missionStatement' rows="6" ng-model='profile.LdrOrganization.MissionStatement' type="textbox" id="missionStatement" ></textarea>
+						</div>
+						
+						
+						<div class="form-group">
+						  <label class="control-label" for='address'>Address:</label>
+							<input class="form-control" name='address' ng-model="profile.LdrOrganization.AddressLine1" type="text" id="addressline1" />
+							<input class="form-control" ng-model="profile.LdrOrganization.AddressLine2" type="text" id="addressline2" />
+						</div>
+
+						<div class='form-group'>
+					  	<label class="control-label" for='city'>City:</label>
+							<input class="form-control" name='city' ng-model="profile.LdrOrganization.City" type="text" id="city"	/>
+					  </div>
+						  
+						<div class='form-group'>
+						  <label class="control-label" for='province'>Province:</label>					
+							<select class="form-control" ng-model='profile.LdrOrganization.Province' name="province" id="province" selected="" >
+								<option name="province" value="on">Ontario</option>
+								<option name="province" value="bc">British Columbia</option>
+								<option name="province" value="qc">Quebec</option>
+								<option name="province" value="ns">Nove Scotia</option>
+								<option name="province" value="nb">New Brunswick</option>
+								<option name="province" value="mb">Manitoba</option>
+								<option name="province" value="pe">Prince Edward Island</option>
+								<option name="province" value="sk">Saskatchewan</option>
+								<option name="province" value="ab">Alberta</option>
+								<option name="province" value="nl">New Found Land</option>
+							</select>
+					  </div>
+						  
+						<div class='form-group'>
+					  	<label class="control-label" name='postal'>Postal Code:</label>
+							<input class="form-control" name='postal' ng-model="profile.LdrOrganization.Postal" type="text" id="address" />
+						</div>
+						
+						<div class="form-group">
+						  <label class="control-label" for='email'>Email:</label>
+							<input class="form-control" ng-model="profile.Email" type="text" id="email" >
+						</div>
+						
+						<div class="form-group">
+							<input class="btn col-md-offset-3 col-md-3" value="Save Changes" type="button" ng-click='editOrganization()'>
+							<a class="btn col-md-3" href='#/profile'>Cancel</a>
+				  	</div>
+
+				  	<div>{{message}}</div>
+				  </div>
+			  </div>
+			</form>
+		</div>
+	</section>
+</div>
 <div footer></div>

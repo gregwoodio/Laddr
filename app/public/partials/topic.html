@@ -1,46 +1,41 @@
 
 <div header></div>
 
-<div class='row'>
-  <div navbar></div>
-
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
-  
-		<section id="postings">
+<div class='container'>
+	<section id="postings">
+	
+	    <div class="page-header">
+			<br><br>
+			<h1>{{topic.Title}}</h1>
+	    </div>
+		<a href="#/forum" class="btn btn-md" role="button">Back</a>
 		
-		    <div class="page-header">
-				<br><br>
-				<h1>{{topic.Title}}</h1>
-		    </div>
-			<a href="#/forum" class="btn btn-md" role="button">Back</a>
-			
-			<div ng-show='message'>{{message}}</div>
+		<div ng-show='message'>{{message}}</div>
 
-			<table class="table table-striped  comments-table-style">
-				
-				<thead>
-					<th>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
-				</thead>
-				<tbody ng-repeat="comment in comments">
-					<tr>
-						<td>
-							<div><strong>{{comment.LdrProfile.LdrUser.FirstName}}{{comment.LdrProfile.LdrOrganization.OrganizationName}}</strong></div>
-							<div><small>{{comment.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</small></div>
-							<div>{{comment.Body}}</div>
-						</td>  
-					</tr>
-				</tbody>
-			</table>
-			<button class="btn btn-md" ng-model="replyToggle" uib-btn-checkbox>Reply</button>
-			<div ng-show='replyToggle'>
-				<form id='replyForm'>
-					<textarea class='form-control' rows='5' ng-model='reply' placeholder='Your comments here...'></textarea>
-					<button class='btn btn-md' ng-click='submitReply()'>Submit</button>
-					<div ng-show>{{replyMessage}}</div>
-				</form>
-			</div>
-		</section>
-	</div>
+		<table class="table table-striped table-style">
+			
+			<thead>
+				<th>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
+			</thead>
+			<tbody ng-repeat="comment in comments">
+				<tr>
+					<td>
+						<div><strong>{{comment.LdrProfile.LdrUser.FirstName}}{{comment.LdrProfile.LdrOrganization.OrganizationName}}</strong></div>
+						<div><small>{{comment.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</small></div>
+						<div>{{comment.Body}}</div>
+					</td>  
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-md" ng-model="replyToggle" uib-btn-checkbox>Reply</button>
+		<div ng-show='replyToggle'>
+			<form id='replyForm'>
+				<textarea class='form-control' rows='5' ng-model='reply' placeholder='Your comments here...'></textarea>
+				<button class='btn btn-md' ng-click='submitReply()'>Submit</button>
+				<div ng-show>{{replyMessage}}</div>
+			</form>
+		</div>
+	</section>
 </div>
 
 

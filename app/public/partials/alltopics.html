@@ -1,9 +1,7 @@
 <div header></div>
 
-<div class='row'>
-  <div navbar></div>
-
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+<div class='container'>
+  <div>
     <section id="alltopics">
       
       <div class="page-header">
@@ -26,9 +24,9 @@
   				</thead>
   				<tbody class='row' ng-repeat="topic in topics[page]">
   					 <tr >
-  						<th><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></th>
-  						<th>{{topic.LdrProfile.LdrUser.FirstName}}{{topic.LdrProfile.LdrOrganization.OrganizationName}}</th>
-  						<th>{{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
+  						<td><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></td>
+  						<td>{{topic.LdrProfile.LdrUser.FirstName}}{{topic.LdrProfile.LdrOrganization.OrganizationName}}</td>
+  						<td>{{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
   					</tr>
   				</tbody>
   			</table>
