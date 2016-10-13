@@ -18,7 +18,7 @@
 					  </div>
 					</div>					
 					
-					<div class='col-md-7'>
+					<div class='col-md-6'>
 						<div class="form-group">
 						  <label class="control-label" for='firstName'>First name:</label>
 							<input class="form-control" value="" type="text" name="firstName" ng-model='profile.LdrUser.FirstName'>
@@ -49,11 +49,12 @@
 						  <label class="control-label" for='email'>Email:</label>
 							<input class="form-control" name='email' ng-model="profile.Email" type="text" id="email">
 						</div>
-
+						<br>
 						<div class="form-group">
-							<input class="btn col-md-offset-3 col-md-3" value="Save Changes" type="button" ng-click='editVolunteer()'>
-							<a class="btn col-md-3" href='#/profile'>Cancel</a>
+							<input class="btn col-md-offset-2 col-md-3" value="Save Changes" type="button" ng-click='editVolunteer()'>
+							<a class="btn col-md-3 col-md-offset-1" href='#/profile'>Cancel</a>
 						</div>
+						
 					</div>
 
 				  <div>{{message}}</div>
@@ -86,7 +87,7 @@
 					  </div>
 					</div>
 				
-					<div class='col-md-7'>
+					<div class='col-md-6'>
 						<div class="form-group">
 						  <label class="control-label" for='orgName'>Organization Name:</label>
 							<input class="form-control" name='orgName' ng-model="profile.LdrOrganization.OrganizationName" type="text" id="organizationName" >
@@ -139,17 +140,19 @@
 						  <label class="control-label" for='email'>Email:</label>
 							<input class="form-control" ng-model="profile.Email" type="text" id="email" >
 						</div>
-						
-						<div class="form-group">
-							<input class="btn col-md-offset-3 col-md-3" value="Save Changes" type="button" ng-click='editOrganization()'>
-							<a class="btn col-md-3" href='#/profile'>Cancel</a>
+						<br>
+						<div class="form-group ">
+							<input class="btn col-md-3 col-md-offset-2" value="Save Changes" type="button" ng-click='editOrganization()'>
+							<a class="btn col-md-3 col-md-offset-1 " href='#/profile'>Cancel</a>
 				  	</div>
-
+					
 				  	<div>{{message}}</div>
 				  </div>
 			  </div>
 			</form>
 		</div>
+		
 	</section>
 </div>
+<br>
 <div footer></div>
