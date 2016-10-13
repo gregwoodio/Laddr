@@ -56,24 +56,6 @@
 			}]
 		}
 	});
-
-	laddrApp.directive('navbar', function() {
-		return {
-			restrict: 'A', //must be on an attribute, not element
-			replace: true,
-			scope: false,
-			templateUrl: 'js/directives/navbar.html',
-			controller: ['$scope', '$rootScope', 'LoginService',
-			  function($scope, $rootScope, LoginService) {
-
-			  $scope.isLoggedIn = LoginService.isLoggedIn();
-			  if ($scope.isLoggedIn) {
-			    $scope.isUser = LoginService.getProfile().AccountType == 0;
-			  }
-			}]
-		}
-	});	
-	
 	
 	laddrApp.directive('footer', function() {
 		return {
