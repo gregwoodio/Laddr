@@ -20,7 +20,7 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
         $scope.profile = data;
         $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
 
-        if ($scope.profile.LdrAcademicStatus) {}
+        if ($scope.profile.LdrAcademicStatus) {
           if ($scope.profile.LdrUser.AcademicStatus == 0) {
             $scope.academics = 'Not in school';
           } else if ($scope.profile.LdrUser.AcademicStatus == 1) {
