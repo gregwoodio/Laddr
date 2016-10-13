@@ -1,7 +1,7 @@
 <div header></div>
 
-<div class='row'>
-  <div>
+<div class='row col-md-8 col-md-offset-2 '>
+  <div class=''>
 
     <section id='addtopics'>
       <div class="page-header">
@@ -19,13 +19,13 @@
 		 </p>
       </div>
 
-      <div class='posting-style container-fluid'>
+      <div class='posting-style container-fluid '>
         <form ng-submit='submitTopic()' class='form-signin'>
           <label for='topicTitle'>Topic Title: </label>
           <input ng-model='topic.title' type='text' name='topicTitle' class='form-control' required placeholder="Enter Topic Title"/>
 			<br>
           <label for='topicBody'>Body: </label>
-          <textarea ng-model='topic.body' name='topicBody' class='form-control' placeholder="Enter Topic Details" required></textarea>
+          <textarea ng-model='topic.body' name='topicBody' rows="8" class='form-control' placeholder="Enter Topic Details" required></textarea>
           <br>
           <input type='submit' value='Submit' class='form-control btn'/>
         </form>
