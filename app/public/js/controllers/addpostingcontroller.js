@@ -1,5 +1,9 @@
-laddrControllers.controller('AddPostingController', ['$location', '$scope','$http', '$sessionStorage', 'LoginService',
-  function($location, $scope, $http, $sessionStorage, LoginService) {
+laddrControllers.controller('AddPostingController', ['$location', '$scope','$http', 'LoginService',
+  function($location, $scope, $http, LoginService) {
+
+  if (!LoginService.isLoggedIn()) {
+    $location.url('/login');
+  }
 
   $scope.posting = {
     ProfileID: LoginService.getProfile().ProfileID,

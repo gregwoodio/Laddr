@@ -1,16 +1,14 @@
-laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 'LoginService', 'Upload',
-  function($scope, $http, $routeParams, $location, $sessionStorage, LoginService, Upload) {
+laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', 'LoginService', 'Upload',
+  function($scope, $http, $routeParams, $location, LoginService, Upload) {
 
-  $scope.$storage = $sessionStorage;
-
-  if ($scope.$storage.ldrToken != undefined) {
+  if (LoginService.isLoggedIn()) {
     $scope.profile = {};
     $scope.logout = false;
 
     $http
       .get('/api/profile', {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {
@@ -40,7 +38,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
     $http
       .put('/api/user', data, {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {
@@ -77,7 +75,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
     $http
       .put('/api/organization', data, {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {

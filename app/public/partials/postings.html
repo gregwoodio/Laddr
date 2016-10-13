@@ -30,10 +30,10 @@
     				</thead>
     				<tbody class='row' ng-repeat="posting in postings[page]">
     					 <tr >
-    						<th>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</th>
-    						<th>{{posting.JobTitle}}</th>
-    						<th>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
-    						<th><a href="#/postings/{{posting.PostingID}}">View Details</a></th>
+    						<td>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</td>
+    						<td>{{posting.JobTitle}}</td>
+    						<td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
+    						<td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>
     					</tr>
     				</tbody>
     			</table>

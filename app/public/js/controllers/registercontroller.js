@@ -1,8 +1,7 @@
-laddrControllers.controller('RegisterController', ['$scope', '$http', '$location', '$sessionStorage', '$animate', 
-  function($scope, $http, $location, $sessionStorage, $animate) {
+laddrControllers.controller('RegisterController', ['$scope', '$http', '$location', '$animate', 
+  function($scope, $http, $location, $animate) {
 
   $scope.accountType = 'volunteer';
-  //$scope.showVolunteer = false;
 
   $scope.register = function() {
 
@@ -11,12 +10,6 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
     }
 
     if ($scope.accountType == 'volunteer') {
-
-      console.log($scope.user.email);
-      console.log($scope.user.password1);
-      console.log($scope.user.firstName);
-      console.log($scope.user.lastName);
-      console.log($scope.user.academicStatus);
 
       data = {
         //user profile
@@ -35,16 +28,14 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         .post('/api/user', data)
         .success(function(data, status, headers, config) {
           if (data) {
-            console.log('New user added.');
+            $scope.message = 'New user added.';
             $location.url('/login');
           } else {
-            console.log('User not added - db error.');
+            $scope.message = 'We encountered an error and the user wasn\'t added.';
           }
         })
         .error(function(data, status, headers, config) {
-          console.log('User not added - AJAX error.');
-          console.log(data);
-          console.log(status);
+          $scope.message = 'Could not connect to Laddr. User not added.';
         });
     } else if ($scope.accountType == 'organization') {
       data = {
@@ -66,18 +57,14 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         .post('/api/organization', data)
         .success(function(data, status, headers, config) {
           if (data) {
-            console.log('New organization added.');
+            $scope.message = 'New organization added.';
             $location.url('/login');
           } else {
-            console.log('Organization not added - db error.');
+            $scope.message = 'We encountered an error and the organization wasn\'t added.';
           }
         })
         .error(function(data, status, headers, config) {
-          console.log('Organization not added - AJAX error.');
-          console.log(data);
-          console.log(status);
-          console.log(headers);
-          console.log(config);
+          $scope.message = 'Could not connect to Laddr. Organization not added.';
         });
     }
   }
