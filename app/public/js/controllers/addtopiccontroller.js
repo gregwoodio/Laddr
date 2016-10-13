@@ -1,5 +1,5 @@
 laddrControllers.controller('AddTopicController', ['$location', '$scope','$http', 'LoginService',
-  function($location, $scope, $http, $LoginService) {
+  function($location, $scope, $http, LoginService) {
 
   if (!LoginService.isLoggedIn()) {
     $location.url('/login');
