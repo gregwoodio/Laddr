@@ -7,35 +7,40 @@
 		'ui.bootstrap',
 	  'laddrControllers',
 	  'ngStorage',
-	  'ngFileUpload'
+	  'ngFileUpload',
+	  'ngMap'
 	]);
 
-	laddrApp.service('LoginService', ['$rootScope', function($rootScope) {
+	laddrApp.service('LoginService', ['$rootScope', '$sessionStorage', function($rootScope, $sessionStorage) {
 		
 		this.setProfile = function(profile) {
-			console.log('LoginService setting profile');
 			$rootScope.profile = profile;
+			$sessionStorage.ldrProfile = profile;
 		};
 
 		this.getProfile = function() {
-			console.log('LoginService returning profile');
 			return $rootScope.profile;
 		};
 
 		this.setToken = function(token) {
-			console.log('LoginService setting token');
 			$rootScope.token = token;
+			$sessionStorage.ldrToken = token;
 		};
 
 		this.getToken = function() {
-			console.log('LoginService returning token');
 			return $rootScope.token;
 		};
 
 		this.isLoggedIn = function() {
-			console.log('LoginService checking login status');
-			console.log($rootScope.profile != undefined);
-			return $rootScope.profile != undefined;
+			//checks if you've got a profile set in rootscope or sessionStorage
+			if ($rootScope.profile) {
+				return $rootScope.profile;
+			} else if ($sessionStorage.ldrProfile) {
+				this.setProfile($sessionStorage.ldrProfile);
+				this.setToken($sessionStorage.ldrToken);
+				return $rootScope.profile;
+			}
+			return undefined;
 		};
 
 	}]);
@@ -46,8 +51,8 @@
 			replace: true,
 			scope: false,
 			templateUrl: 'js/directives/header.html',
-			controller: ['$scope', '$rootScope', 'LoginService',
-			  function($scope, $rootScope, LoginService) {
+			controller: ['$scope', 'LoginService',
+			  function($scope, LoginService) {
 
 			  $scope.isLoggedIn = LoginService.isLoggedIn();
 			  if ($scope.isLoggedIn) {
@@ -63,8 +68,8 @@
 			replace: true,
 			scope: false,
 			templateUrl: 'js/directives/footer.html',
-			controller: ['$scope', '$rootScope', 'LoginService',
-			  function($scope, $rootScope, LoginService) {
+			controller: ['$scope', 'LoginService',
+			  function($scope, LoginService) {
 
 			  $scope.isLoggedIn = LoginService.isLoggedIn();
 			  if ($scope.isLoggedIn) {
