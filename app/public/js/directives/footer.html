@@ -1,36 +1,42 @@
 
 <div class="footer" id="footer">
 	<div class="container">
-		<div class="col-sm-2 col-md-offset-4">
-			<p> about</p>
-			<ul>
-				<li> <a href="#/aboutus">about us</a> </li>
-				<li> <a href="#/howto">how to </a> </li>
-			</ul>
+		<div class='row'>
+			<div class="col-sm-2 col-md-offset-3">
+				<p> about</p>
+				<ul>
+					<li> <a href="#/aboutus">about us</a> </li>
+					<li> <a href="#/howto">how to </a> </li>
+				</ul>
+			</div>
+			<div class="col-sm-2">
+				<p> help</p>
+				<ul>
+					<li> <a href="#/contact"> contact us </a> </li>
+					<li> <a href="#/rules"> laddrquette </a> </li>
+				</ul>
+			</div>
+			<div class="col-sm-2">
+				<p> laddr</p>
+				<ul>
+					<li><a href="#/profile">profile</a></li>
+					<li><a href="#/postings">postings</a></li>
+					<li><a href="#/forum">forum</a></li>
+					<div ng-if='profile.AccountType == 1'>
+						<li><a href="#/addposting">create posting</a></li>
+						<li><a href="#/applicants">applicants</a></li>
+					</div>
+					<div ng-if='profile.AccountType == 0'>
+						<li><a href="#/applications">applications</a></li>
+					</div>
+					
+				</ul>
+			</div>
 		</div>
-		<div class="col-sm-2">
-			<p> help</p>
-			<ul>
-				<li> <a href="#/contact"> contact us </a> </li>
-				<li> <a href="#/rules"> laddrquette </a> </li>
-			</ul>
-		</div>
-		<div class="col-sm-2">
-			<p> laddr</p>
-			<ul>
-				<li><a href="#/profile">profile</a></li>
-				<li><a href="#/postings">postings</a></li>
-				<li><a href="#/forum">forum</a></li>
-				<div ng-if='profile.AccountType == 1'>
-					<li><a href="#/addposting">create posting</a></li>
-					<li><a href="#/applicants">applicants</a></li>
-				</div>
-				<div ng-if='profile.AccountType == 0'>
-					<li><a href="#/applications">applications</a></li>
-				</div>
-				
-			</ul>
+		<div class='row'>
+			<div class='col-md=-12 center-text'>
+				<small> Copyright © Codebusters, 2016. All rights reserved. </small>
+			</div>
 		</div>
 	</div>
-	<small class="pull-left col-md-offset-2"> Copyright © Codebusters, 2016. All right reserved. </small>
 </div>

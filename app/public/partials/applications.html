@@ -20,10 +20,10 @@
   				</thead>
   				<tbody class='row' ng-repeat="application in applications">
   					 <tr >
-  						<th><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
-  						<th>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
-  						<th>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</th>
-  						<th>{{application.ApplicationStatus}}</th>
+  						<td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></td>
+  						<td>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
+  						<td>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</td>
+  						<td>{{application.ApplicationStatus}}</td>
   					</tr>
   				</tbody>
   			</table>

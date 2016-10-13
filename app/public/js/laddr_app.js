@@ -7,8 +7,7 @@
 		'ui.bootstrap',
 	  'laddrControllers',
 	  'ngStorage',
-	  'ngFileUpload',
-	  'ngMap'
+	  'ngFileUpload'
 	]);
 
 	laddrApp.service('LoginService', ['$rootScope', '$sessionStorage', function($rootScope, $sessionStorage) {
@@ -35,7 +34,7 @@
 			//checks if you've got a profile set in rootscope or sessionStorage
 			if ($rootScope.profile) {
 				return $rootScope.profile;
-			} else if ($sessionStorage.ldrProfile) {
+			} else if ($sessionStorage.ldrProfile && $sessionStorage.ldrToken) {
 				this.setProfile($sessionStorage.ldrProfile);
 				this.setToken($sessionStorage.ldrToken);
 				return $rootScope.profile;

@@ -1,18 +1,17 @@
-laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 
-  function($scope, $http, $routeParams, $location, $sessionStorage) {
+laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', 'LoginService',
+  function($scope, $http, $routeParams, $location, LoginService) {
   
-  $scope.$storage = $sessionStorage;
   $scope.academics = undefined;
 
-  if ($scope.$storage.ldrToken != undefined) {
+  if (LoginService.isLoggedIn()) {
 
     $scope.profile = {};
-    $scope.logout = false;
+    $scope.isLoggedIn = true;
 
     $http
       .get('/api/profile', {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {

@@ -1,8 +1,7 @@
-laddrControllers.controller('PostingsDetailController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', 'LoginService',
-  function($scope, $location, $http, $routeParams, $sessionStorage, LoginService) {
+laddrControllers.controller('PostingsDetailController', ['$scope', '$location', '$http', '$routeParams', 'LoginService',
+  function($scope, $location, $http, $routeParams, LoginService) {
 
   $scope.posting = {};
-  $scope.$storage = $sessionStorage;
 
   if (LoginService.isLoggedIn() != undefined) {
 
@@ -33,13 +32,9 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
         }
       })
       .success(function(data, status, headers, config) {
-        console.log('Successful application.');
         $location.url('/applications');
       })
       .error(function(data, status, headers, config) {
-        console.log('Error while applying');
-        console.log(data);
-        console.log(status);
         $scope.applyError = 'Sorry, there was a problem applying to the job. Please try again later.';
       });
 

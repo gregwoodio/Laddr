@@ -1,10 +1,11 @@
-laddrControllers.controller('HomePartialController', ['$scope', '$http', '$routeParams', '$sessionStorage', 
-  function ($scope, $http, $routeParams, $sessionStorage) {
+laddrControllers.controller('HomePartialController', ['$scope', '$http', 'LoginService',
+  function ($scope, $http, LoginService) {
   
-  $scope.logout = false;
-  $scope.$storage = $sessionStorage;
-
-  if ($scope.$storage.ldrToken != undefined) {
-    $scope.logout = true;
+  if (LoginService.isLoggedIn()) {
+    $scope.isLoggedIn = true;
+    $scope.isUser = LoginService.getProfile().AccountType == 0;
+  } else {
+    $scope.isLoggedIn = false;
   }
+  
 }]);
