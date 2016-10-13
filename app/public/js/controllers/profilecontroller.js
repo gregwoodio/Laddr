@@ -19,18 +19,19 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
 
         $scope.profile = data;
         $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
-        console.log($scope.profile.LdrUser.AcademicStatus);
-       
-        if ($scope.profile.LdrUser.AcademicStatus == 0) {
-          $scope.academics = 'Not in school';
-        } else if ($scope.profile.LdrUser.AcademicStatus == 1) {
-          $scope.academics = 'High School';
-        } else if ($scope.profile.LdrUser.AcademicStatus == 2) {
-          $scope.academics = 'College';
-        } else if ($scope.profile.LdrUser.AcademicStatus == 3) {
-          $scope.academics = 'University';
-        } else if ($scope.profile.LdrUser.AcademicStatus == 4) {
-          $scope.academics = 'Graduated';
+
+        if ($scope.profile.LdrAcademicStatus) {}
+          if ($scope.profile.LdrUser.AcademicStatus == 0) {
+            $scope.academics = 'Not in school';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 1) {
+            $scope.academics = 'High School';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 2) {
+            $scope.academics = 'College';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 3) {
+            $scope.academics = 'University';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 4) {
+            $scope.academics = 'Graduated';
+          }
         }
 
       })

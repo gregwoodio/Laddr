@@ -35,6 +35,17 @@
   padding-bottom: 25px;
 }
 
+.navbar-inverse {
+  background-color: @green;
+}
+
+.navbar-inverse .navbar-brand {
+  color: @white - 15;
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text {
+  color: @white - 15;
+}
 
 /* Left Green Sidebar*/
 .sidebar {
@@ -44,12 +55,6 @@
   background: @green;
   color: @white;
 }
-/* TESTING NAV-BAR COLOR
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    background-color: #FFFF00;
-    color: #FFC0CB;
-}
-*/
 
 .sidebar a {
   color: @white; /* Changes font color on click */
@@ -132,7 +137,7 @@ a:active {
 }
 
 .page-header {
-
+  padding-top: 25px;
 }
 
 /** all modal styling for login **/
@@ -234,9 +239,8 @@ thead {
 }
 
 tr {
-		padding:2%;	
-		text-align:center;
-		
+	padding:2%;	
+	text-align:center;
 }
 
 /** Styling for adding a posting - Organization **/
@@ -254,7 +258,6 @@ tr {
 	border:none;
 	background:@white;
 	padding:1%;
-	width:90%;
 }
 
 /** Styling for FAQ/how to **/
@@ -279,4 +282,8 @@ tr {
   color: @error;
   font-weight: bold;
   text-align: center;
+}
+
+.form-control {
+  margin-bottom: 5px;
 }
