@@ -15,6 +15,9 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         $scope.profile = data;
         console.log($scope.imageUpload);
         $scope.isLoggedIn = LoginService.isLoggedIn();
+
+        $scope.asyncSelected = $scope.profile.LdrOrganization.AddressLine1 + ", " + $scope.profile.LdrOrganization.City + ", " +
+          $scope.profile.LdrOrganization.Province + ", " + $scope.profile.LdrOrganization.Postal;
       })
       .error(function(data, status, headers, config) {
         console.log('Could not retrieve user.');
@@ -68,7 +71,8 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       City: $scope.profile.LdrOrganization.City,
       Province: $scope.profile.LdrOrganization.Province,
       Postal: $scope.profile.LdrOrganization.Postal,
-      Location: $scope.profile.location
+      Lat: $scope.profile.lat,
+      Lng: $scope.profile.lng
     };
 
     console.log(data);
@@ -199,10 +203,8 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
 
     $scope.profile.LdrOrganization.AddressLine1 = street_number + " " + route;
     
-    $scope.profile.location = {
-      lat: $scope.address.geometry.location.lat,
-      lng: $scope.address.geometry.location.lng
-    };
+    $scope.profile.lat =  $scope.address.geometry.location.lat;
+    $scope.profile.lng =  $scope.address.geometry.location.lng;
   }
 
 }]);

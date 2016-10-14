@@ -81,6 +81,8 @@ var Organization = sequelize.define('LdrOrganizations', {
   Province: {type: Sequelize.STRING, allowNull: false},
   Postal: {type: Sequelize.STRING, allowNull: false},
   URL: {type: Sequelize.STRING},
+  Lat: {type: Sequelize.DOUBLE, allowNull: true},
+  Lng: {type: Sequelize.DOUBLE, allowNull: true},
   MissionStatement: {type: Sequelize.STRING}
 }, {
   timestamps: false
@@ -99,6 +101,8 @@ var Posting = sequelize.define('LdrPostings', {
   JobTitle: {type: Sequelize.STRING, allowNull: false},
   Location: {type: Sequelize.STRING, allowNull: false},
   Description: {type: Sequelize.STRING, allowNull: false},
+  Lat: {type: Sequelize.DOUBLE, allowNull: true},
+  Lng: {type: Sequelize.DOUBLE, allowNull: true},
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
   Archived: {type: Sequelize.BOOLEAN, defaultValue: false}
 }, {

@@ -24,8 +24,7 @@ module.exports = function(app, models) {
           message: 'No such user.'
         });
       } else {
-        console.log(org.attributes);
-        res.json(org.attributes);
+        res.json(org);
       }
     })
     .catch(function(err) {
@@ -73,6 +72,8 @@ module.exports = function(app, models) {
             City: req.body.City,
             Province: req.body.Province,
             Postal: req.body.Postal,
+            Lat: req.body.Lat || 43.653956, //Davis campus ;)
+            Lng: req.body.Lng || -79.739938999,
             URL: req.body.URL,
             MissionStatement: req.body.MissionStatement
           })
@@ -153,6 +154,8 @@ module.exports = function(app, models) {
                   City: req.body.City || org.City,
                   Province: req.body.Province || org.Province,
                   Postal: req.body.Postal || org.Postal,
+                  Lat: req.body.Lat || org.Lat,
+                  Lng: req.body.Lng || org.Lng,
                   URL: req.body.URL || org.URL,
                   MissionStatement: req.body.MissionStatement || org.MissionStatement
                 }, {
