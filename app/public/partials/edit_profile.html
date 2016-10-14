@@ -1,3 +1,20 @@
+<script type="text/ng-template" id="customPopupTemplate.html">
+  <div class="custom-popup-wrapper"
+     ng-style="{top: position().top+'px', left: position().left+'px'}"
+     style="display: block;"
+     ng-show="isOpen() && !moveInProgress"
+     aria-hidden="{{!isOpen()}}">
+    <p class="message">select location from drop down.</p>
+
+    <ul class="dropdown-menu" role="listbox">
+      <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+        ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+        <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+      </li>
+    </ul>
+  </div>
+</script>
+
 <div header></div>
 
 <div class='container'>
@@ -103,39 +120,23 @@
 							<textarea class="form-control" name='missionStatement' rows="6" ng-model='profile.LdrOrganization.MissionStatement' type="textbox" id="missionStatement" ></textarea>
 						</div>
 						
-						
-						<div class="form-group">
-						  <label class="control-label" for='address'>Address:</label>
-							<input class="form-control" name='address' ng-model="profile.LdrOrganization.AddressLine1" type="text" id="addressline1" />
-							<input class="form-control" ng-model="profile.LdrOrganization.AddressLine2" type="text" id="addressline2" />
-						</div>
+						<div class='form-group'>
+					    <label class="control-label" for='address'>Address:</label>
+					    <input type="text" 
+					    	ng-model="asyncSelected" 
+					    	placeholder="Type address here" 
+					    	uib-typeahead="address for address in getLocation($viewValue)" 
+					    	typeahead-loading="loadingLocations" 
+					    	typeahead-no-results="noResults" 
+					    	typeahead-on-select='setAddress()'
+					    	class="form-control"
+					    	name='address'>
+					    <label ng-show="loadingLocations" class="fa fa-spinner fa-spin"></label>
+					    <div ng-show="noResults">
+					      <i class="fa fa-times"></i> No Results Found
+					    </div>
+					  </div>
 
-						<div class='form-group'>
-					  	<label class="control-label" for='city'>City:</label>
-							<input class="form-control" name='city' ng-model="profile.LdrOrganization.City" type="text" id="city"	/>
-					  </div>
-						  
-						<div class='form-group'>
-						  <label class="control-label" for='province'>Province:</label>					
-							<select class="form-control" ng-model='profile.LdrOrganization.Province' name="province" id="province" selected="" >
-								<option name="province" value="on">Ontario</option>
-								<option name="province" value="bc">British Columbia</option>
-								<option name="province" value="qc">Quebec</option>
-								<option name="province" value="ns">Nove Scotia</option>
-								<option name="province" value="nb">New Brunswick</option>
-								<option name="province" value="mb">Manitoba</option>
-								<option name="province" value="pe">Prince Edward Island</option>
-								<option name="province" value="sk">Saskatchewan</option>
-								<option name="province" value="ab">Alberta</option>
-								<option name="province" value="nl">New Found Land</option>
-							</select>
-					  </div>
-						  
-						<div class='form-group'>
-					  	<label class="control-label" name='postal'>Postal Code:</label>
-							<input class="form-control" name='postal' ng-model="profile.LdrOrganization.Postal" type="text" id="address" />
-						</div>
-						
 						<div class="form-group">
 						  <label class="control-label" for='email'>Email:</label>
 							<input class="form-control" ng-model="profile.Email" type="text" id="email" >

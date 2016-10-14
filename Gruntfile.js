@@ -5,8 +5,7 @@ module.exports = function(grunt) {
 		less: {
 			build: {
 				files: {
-					'app/public/css/bootstrap.css': ['app/public/components/bootstrap/less/bootstrap.less'],
-          'app/public/css/style.css': ['app/public/css/style.less']
+					'app/public/css/bootstrap.css': ['app/public/components/bootstrap/less/bootstrap.less']
 				}
 			}
 		},
@@ -69,6 +68,10 @@ module.exports = function(grunt) {
     		src: 'app/public/components/bootstrap/dist/js/bootstrap.min.js',
     		dest: 'app/public/js/bootstrap.min.js'
     	},
+      bootstrapCSS: {
+        src: 'app/public/components/bootstrap/dist/css/bootstrap.min.css',
+        dest: 'app/public/css/bootstrap.min.css'
+      },
     	fontawesome: {
     		src: 'app/public/components/font-awesome/css/font-awesome.css',
     		dest: 'app/public/css/font-awesome.css'
