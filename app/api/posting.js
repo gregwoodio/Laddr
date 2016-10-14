@@ -70,11 +70,11 @@ module.exports = function(app, models) {
   app.post('/api/posting', [mw.verifyToken], function(req, res) {
 
     if (req.body.ProfileID == undefined || req.body.JobTitle == undefined || req.body.Location == undefined ||
-      req.body.Description == undefined || req.body.ProfileID == '' || req.body.JobTitle == '' ||
-      req.body.Location == '' || req.body.Description == '') {
+      req.body.Description == undefined || req.body.Lat == undefined || req.body.Lng == undefined || 
+      req.body.ProfileID == '' || req.body.JobTitle == '' || req.body.Location == '' || req.body.Description == '') {
       res.status(400).json({
         success: false,
-        message: 'Missing parameters for user creation.'
+        message: 'Missing parameters for posting creation.'
       });
     } else {
 
@@ -83,6 +83,8 @@ module.exports = function(app, models) {
           ProfileID: req.body.ProfileID,
           JobTitle: req.body.JobTitle,
           Location: req.body.Location,
+          Lat: req.body.Lat || 43.653956, //Davis campus ;)
+          Lng: req.body.Lng || -79.739938999,
           Description: req.body.Description
         })
         .save()

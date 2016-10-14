@@ -52,7 +52,8 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         Picture: '',
         MissionStatement: '',
         URL: '',
-        Location: $scope.user.location
+        Lat: $scope.user.lat,
+        Lng: $scope.user.lng
       };
 
       console.log(data);
@@ -116,10 +117,8 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
 
     $scope.user.AddressLine1 = street_number + " " + route;
     
-    $scope.user.location = {
-      lat: $scope.address.geometry.location.lat,
-      lng: $scope.address.geometry.location.lng
-    };
+    $scope.user.lat =  $scope.address.geometry.location.lat;
+    $scope.user.lng =  $scope.address.geometry.location.lng;
   }
 
 }]);

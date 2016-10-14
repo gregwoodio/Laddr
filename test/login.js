@@ -9,7 +9,7 @@ module.exports = function(chai, server, assert, email, password) {
 				.end(function(err, res) {
 					assert.equal(res.status, 403, 'Should have a status of 403');
 					assert.typeOf(res.body, 'object', 'Should return JSON object.');
-					assert.equal(res.body.message, "Missing credentials", 'Response should inform user of failure.');
+					assert.equal(res.body.success, false, 'Response should inform user of failure.');
 					done();
 				});
 

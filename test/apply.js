@@ -29,6 +29,8 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
                   ProfileID: profileID,
                   JobTitle: 'Applicant',
                   Location: 'Brampton',
+                  Lat: 43.653956,
+                  Lng: -79.739938999,
                   Description: 'Apply to this job!'
                 })
                 .end(function(err, res) {

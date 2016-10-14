@@ -70,6 +70,8 @@ module.exports = function(chai, server, assert, email, password) {
                   ProfileID: profileID,
                   JobTitle: 'Test job title',
                   Location: 'Mississauga',
+                  Lat: 43.653956,
+                  Lng: -79.739938999,
                   Description: 'A test job created in Mississauga'
                 })
                 .end(function(err, res) {
