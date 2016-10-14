@@ -45,8 +45,8 @@ module.exports = function(grunt) {
         dest: 'app/public/js/angular-route.min.js.map'
       },
     	angularBootstrap: {
-    		src: 'app/public/components/angular-bootstrap/ui-bootstrap.min.js',
-    		dest: 'app/public/js/ui-bootstrap.min.js'
+    		src: 'app/public/components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+    		dest: 'app/public/js/ui-bootstrap-tpls.min.js'
     	},
     	angularAnimate: {
     		src: 'app/public/components/angular-animate/angular-animate.min.js',
