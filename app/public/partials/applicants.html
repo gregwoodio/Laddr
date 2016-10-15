@@ -15,7 +15,7 @@
               <th>Volunteer Position Title</th>
               <th>Applicant</th>
               <th>Description</th>
-              <th>Status</th>
+              <th colspan='2'>Status</th>
             </tr>
           </thead>
           <tbody class='row' ng-repeat="application in applications">
@@ -24,11 +24,14 @@
               <td><a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.Firstname + ' ' + application.LdrProfile.LdrUser.LastName}}</th>
               <td>{{application.LdrProfile.LdrUser.Description}}</th>
               <td>
-                <select ng-model='application.ApplicationStatus' ng-change='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)'>
+                <select class='form-control' ng-model='application.ApplicationStatus'>
                   <option value='0' ng-selected='{{application.ApplicationStatus == 0}}'>Pending</option>
                   <option value='1' ng-selected='{{application.ApplicationStatus == 1}}'>Rejected</option>
                   <option value='2' ng-selected='{{application.ApplicationStatus == 2}}'>Accepted</option>
                 </select>
+              </td>
+              <td>
+                <button class='btn' ng-click='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)'><span class='fa fa-share'></span></button>
               </td>
             </tr>
           </tbody>

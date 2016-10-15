@@ -1,19 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
 
-@white: #fafafa;
-@green: #088c5a;
-@lightgrey: #dddddd;
-@black: #121212;
+@white: #f6f7fb;
+@primary: #424b54;
+@background: #c0d6ed;
+@black: #1d1e23;
 @error: #ff0000;
 @border-radius: 5px;
+@accent: #879baf;
 
 body {
   font-family: Source Sans Pro 14;
 }
 
 .jumbotron {
-  background-color: @green;
+  background-color: @primary;
 }
 
 .jumbotron h1 {
@@ -36,7 +37,7 @@ body {
 }
 
 .navbar-inverse {
-  background-color: @green;
+  background-color: @primary;
 }
 
 .navbar-inverse .navbar-brand {
@@ -52,7 +53,7 @@ body {
   position: fixed;
   top: 50px;
   bottom: 0;
-  background: @green;
+  background: @primary;
   color: @white;
 }
 
@@ -67,15 +68,15 @@ body {
 
 .sidebar ul li a:focus {
     color: @white;
-    background: saturate(@green, 5%);
+    background: saturate(@primary, 5%);
 }
 
 .sidebar ul li a:hover {
-    background: saturate(@green, 10%);
+    background: saturate(@primary, 10%);
 }
 
 .sidebar ul li a:active {
-    background: saturate(@green, 5%);
+    background: saturate(@primary, 5%);
 }
 
 /* Table Stuff */
@@ -86,7 +87,7 @@ table {
 }
 
 td, th {
-    border: 1px solid @lightgrey;
+    border: 1px solid @background;
     text-align: left;
 }
 
@@ -108,32 +109,32 @@ td, th {
 
 
 .btn {
-  background-color: @green;
+  background-color: @primary;
   border-style:solid;
   border-color:@black;
   color: @white;
 }
 
 .btn:hover {
-  background-color: @green + 15;
+  background-color: @primary + 15;
   color: @white;
 }
 
 .btn:active, .btn:focus {
-  background-color: @green - 15;
+  background-color: @primary - 15;
   color: @white;
 }
 
 a {
-  color: @green;
+  color: @accent;
 }
 
 a:hover {
-  color: saturate(@green, -5%);
+  color: saturate(@accent, -5%);
 }
 
 a:active {
-  color: saturate(@green, 5%);
+  color: saturate(@accent, 5%);
 }
 
 .page-header {
@@ -183,7 +184,7 @@ a:active {
 /** Styling for the Login page **/
 
 body {
-  background: @lightgrey;
+  background: @background;
   
 
   
@@ -243,7 +244,7 @@ p {
 
 thead {
 	border-radius:@border-radius;
-	background:black;
+	background:@accent;
 	color:@white;
 }
 
@@ -331,3 +332,31 @@ tr {
   }
 
 /* end typeahead style */
+
+.topic-avatar {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: @border-radius;
+}
+
+.topic-avatar-cell {
+  width: 167px;
+}
+
+.btn-toolbar{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+} 
+.btn-toolbar .btn{
+    -webkit-box-flex-grow: 1;
+    -moz-box-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    flex-grow: 1;
+}

@@ -153,6 +153,10 @@
 		when('/faq', {
 			templateUrl: 'partials/faq.html',
 		}).
+		when('/feed', {
+			templateUrl: 'partials/feed.html',
+			controller: 'FeedController'
+		}).
 		otherwise({
 			redirectTo: '/home'
 		});
