@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 
 @white: #f6f7fb;
 @primary: #424b54;
@@ -8,9 +8,11 @@
 @error: #ff0000;
 @border-radius: 5px;
 @accent: #879baf;
+@font: 'Raleway', sans serif;
 
 body {
-  font-family: Source Sans Pro 14;
+  font-family: @font;
+  font-size: 18px;
 }
 
 .jumbotron {
@@ -38,6 +40,7 @@ body {
 
 .navbar-inverse {
   background-color: @primary;
+  font-size: 0.75em;
 }
 
 .navbar-inverse .navbar-brand {
@@ -82,7 +85,7 @@ body {
 /* Table Stuff */
 
 table {
-    font-family: arial, sans-serif;
+    font-family: @font;
     width: 90%;
 }
 
