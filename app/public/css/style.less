@@ -7,9 +7,13 @@
 @black: #121212;
 @error: #ff0000;
 @border-radius: 5px;
+@fontsize: 18px;
+
 
 body {
   font-family: Source Sans Pro 14;
+  background: @lightgrey;
+
 }
 
 .jumbotron {
@@ -182,19 +186,17 @@ a:active {
 
 /** Styling for the Login page **/
 
-body {
-  background: @lightgrey;
-  
 
-  
-}
-
-body,html {
+body,html{
 
 	  max-width: 100%;
 	  overflow-x: hidden;
-	height: 100%;
+	  height: 100%;
   }
+	
+ .container {
+	height:100%;
+ }
   
 
 .login-style {
@@ -331,3 +333,4 @@ tr {
   }
 
 /* end typeahead style */
+
