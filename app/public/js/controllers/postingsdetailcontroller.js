@@ -2,6 +2,7 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
   function($scope, $location, $http, $routeParams, LoginService) {
 
   $scope.posting = {};
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 13 };
 
   if (LoginService.isLoggedIn() != undefined) {
 
@@ -14,6 +15,16 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
       .success(function(data, status, headers, config) {
 
         $scope.posting = data;
+        $scope.map.center.latitude = $scope.posting.Lat;
+        $scope.map.center.longitude = $scope.posting.Lng;
+        $scope.marker = {
+          id: 0,
+          coords: {
+            latitude: $scope.posting.Lat,
+            longitude: $scope.posting.Lng
+          },
+          options: { draggable: false }
+        };
       })
       .error(function(data, status, headers, config) {
         //couldn't get postings

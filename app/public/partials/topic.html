@@ -15,13 +15,16 @@
 		<table class="table table-striped table-style">
 			
 			<thead>
-				<th>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
+				<th colspan='2'>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
 			</thead>
 			<tbody ng-repeat="comment in comments">
 				<tr>
-					<td>
+					<td class='topic-avatar-cell'>
+						<img ng-src='{{comment.LdrProfile.PictureURL}}' alt='avatar' class='topic-avatar'/>
 						<div><strong>{{comment.LdrProfile.LdrUser.FirstName}}{{comment.LdrProfile.LdrOrganization.OrganizationName}}</strong></div>
 						<div><small>{{comment.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</small></div>
+					</td>
+					<td>
 						<div>{{comment.Body}}</div>
 					</td>  
 				</tr>

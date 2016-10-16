@@ -20,7 +20,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
           LoginService.setProfile(data.profile);
           $scope.isLoggedIn = LoginService.isLoggedIn();
 
-          $location.url('/profile');
+          $location.url('/feed');
         } else {
           console.log("Bad login 1");
 
