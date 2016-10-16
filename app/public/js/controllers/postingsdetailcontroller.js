@@ -43,7 +43,11 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
         }
       })
       .success(function(data, status, headers, config) {
-        $location.url('/applications');
+        if (data.success == true) {
+          $location.url('/applications');
+        } else {
+          $scope.applyError = data.message;
+        }
       })
       .error(function(data, status, headers, config) {
         $scope.applyError = 'Sorry, there was a problem applying to the job. Please try again later.';
