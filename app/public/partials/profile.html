@@ -28,7 +28,28 @@
 					<div class="header text-left col-md-7">
 						<br>
 						<h1>{{profile.LdrUser.FirstName}} {{profile.LdrUser.LastName}}</h1>
-						<h4>{{profile.LdrUser.AcademicStatus}}</h4> <!-- Academic Status goes here -->
+                        
+                        <!-- Academic Status goes here -->
+                        <!-- Changing the academic status from a number to text -->
+                        <!-- 0 = Not in School, 1 = High School, 2 = College, 3 = University, 4 = Graduate -->
+                        <div ng-switch on="profile.LdrUser.AcademicStatus">
+                            <div ng-switch-when="0">
+                                <h4><b>Academic Level:</b> Not in School</h4>
+                            </div>
+                            <div ng-switch-when="1">
+                                <h4><b>Academic Level: </b>High School</h4>
+                            </div>
+                            <div ng-switch-when="2">
+                                <h4><b>Academic Level:  </b>College</h4>
+                            </div>
+                            <div ng-switch-when="3">
+                                <h4><b>Academic Level: </b>University</h4>
+                            </div>
+                            <div ng-switch-when="4">
+                                <h4><b>Academic Level: </b>Graduate</h4>
+                            </div>
+                        </div>
+                        
 						<h4>{{profile.Email}}</h4> 
 						<br>
 						<h4>Summary</h4>

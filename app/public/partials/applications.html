@@ -22,11 +22,23 @@
     					</tr>
     				</thead>
     				<tbody class='row' ng-repeat="application in applications">
-    					 <tr >
-    						<th><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
+    					 <tr>
+    				        <th><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
     						<th>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
     						<th>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</th>
-    						<th>{{application.ApplicationStatus}}</th>
+                            <!-- These ng-if's will convert the number value from the DB to text -->
+                            <th ng-if="application.ApplicationStatus == '0'">
+                                Pending Approval
+                            </th>
+                            <th ng-if="application.ApplicationStatus == '1'">
+                                Declined 
+                            </th>
+                            <th ng-if="application.ApplicationStatus == '2'">
+                                Approved
+                            </th>
+                            <th ng-if="application.ApplicationStatus == '3'">
+                                Posting Cancelled
+                            </th>                             
     					</tr>
     				</tbody>
     			</table>

@@ -35,9 +35,9 @@
 							<label>	Email address:</label>
 							<input type="email" ng-model='user.email' class="form-control" id="email" 		placeholder="Please enter your email" ><br>
 							<label>Password:</label>
-							<input type="password" ng-model='user.password1' class="form-control" id="pwd" 			placeholder="Please enter your password" ><br>
+							<input type="password" ng-model='user.password1' ng-required="true" class="form-control" id="pwd" 			placeholder="Please enter your password" ><br>
 							<label>Re-enter Password:</label>
-							<input type="password" ng-model='user.password2'	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" >
+							<input type="password" ng-model='user.password2' ng-required="true"	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" >
 						</div>		
 					</div>
 					
@@ -90,7 +90,11 @@
 						address-line1 input  -->
 						<label>Address Line 1: </label><input id="address-line1" ng-model="user.addressline1"	name="address-line1" type="text" placeholder="Enter your address line 1" class="form-control" ><br>				
 						<!-- address-line2 input -->
-						<label>Address Line 2: </label><input 	id="address-line2" ng-model='user.addressline2'	name="address-line2" 	type="text" placeholder="Enter your address line 2" class="form-control"><br>	
+						<label>Address Line 2: </label><input 	id="address-line2" ng-model='user.addressline2'	name="address-line2" 	type="text" placeholder="Enter your address line 2" class="form-control"><br>
+                        
+                        <!-- Check to see if address 2 is null -->
+
+                        
 						<!-- city input -->		
 						<label>City / Town</label><input 		id="city" 			name="city" ng-model='user.city' type="text" placeholder="Enter your city" 			class="form-control" ><br>	
 						<!-- region input-->
@@ -114,7 +118,7 @@
 			</div>
 			<br>
 			<div class="text-center">
-				<button type='submit' ng-click='register()' class="btn btn-lg btn-success">Let's Go!</a>
+				<button type='submit' ng-disabled="someForm.$invalid" ng-click='register()' class="btn btn-lg btn-success">Let's Go!</a>
 			</div>
 		</form>
 	</div>
