@@ -30,9 +30,9 @@
         </table>
       </div>
 
-      <div class='col-md-3'>
-        <img ng-src='{{profile.PictureURL}}' alt='avatar' class='topic-avatar' />
-        <div ng-show='profile.AccountType == 0'>
+      <div class='col-md-3 text-center'>
+        <img ng-src='{{profile.PictureURL}}' alt='avatar' class='topic-avatar text-center' />
+        <div ng-show='profile.AccountType == 0' class='text-center'>
           <p>{{profile.LdrUser.FirstName}} {{profile.LdrUser.LastName}}</p>
           <p>{{profile.Email}}</p> 
         </div>
