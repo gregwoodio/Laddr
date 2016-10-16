@@ -10,19 +10,17 @@
 		<a href="#/postings" class="btn btn-md pull-left" role="button"><span class='fa fa-chevron-left'></span></a><br><br><br>
 		
 		<div class="posting-detail-style row" ng-show="message == undefined">
-	
-			
-							
-				<h3 class='col-md-11'><b>Position: {{posting.JobTitle}}</b></h3>
-	
+				<div class="border col-md-9">
+					<div class='row'>
+						<h3 class='col-md-11'><b>Position: {{posting.JobTitle}}</b></h3>
+					</div>
 
-				<div class="border col-md-6">
-				
-					<p><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</p>
-					<p><strong>Location: </strong> {{posting.Location}}</p>
-					<p><strong>Description: </strong> {{posting.Description}} </p>
-					<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
-
+					<div> 
+						<p><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</p>
+						<p><strong>Location: </strong> {{posting.Location}}</p>
+						<p><strong>Description: </strong> {{posting.Description}} </p>
+						<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
+					</div>
 					<div>
 						<ui-gmap-google-map center='map.center' zoom='map.zoom'>
 							<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
@@ -31,8 +29,8 @@
 					</div>
 				</div>
 				
-				<div class="border col-md-6">
-					<img src="{{posting.LdrProfile.PictureURL}}" class="profilepic" />
+				<div class="border col-md-3">
+					<img src="{{posting.LdrProfile.PictureURL}}" class="postingprofilepic" />
 					<h4><b>More Information on {{posting.LdrProfile.LdrOrganization.OrganizationName}}</b></h4>
 				
 					<p>{{posting.LdrProfile.LdrOrganization.MissionStatement}} </p>
@@ -47,8 +45,8 @@
 					
 					<div ng-if='profile.AccountType == 0'><br><br>
 						
-						<button class='btn btn-primary btn-md pull-left' ng-click='apply()'>Apply Now!</button>
-						<div>{{applyError}}</div>
+						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
+						<div class='error-text'>{{applyError}}</div>
 					</div><br><br><br>
 						
 				</div>
