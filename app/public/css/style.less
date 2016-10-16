@@ -1,0 +1,369 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+/* derp */
+
+@white: #f6f7fb;
+@primary: #424b54;
+@background: #c0d6ed;
+@black: #1d1e23;
+@error: #ff0000;
+@border-radius: 5px;
+@accent: #879baf;
+@font: 'Raleway', sans serif;
+
+body {
+  font-family: @font;
+  font-size: 18px;
+}
+
+.jumbotron {
+  background-color: @primary;
+}
+
+.jumbotron h1 {
+  color: @white;
+  padding-top: 50px;
+  font-family: Lobster;
+}
+
+.jumbotron h3 {
+  font-family: Lobster;
+}
+
+.text-white {
+  color: @white;
+}
+
+.row {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.navbar-inverse {
+  background-color: @primary;
+  font-size: 0.75em;
+}
+
+.navbar-inverse .navbar-brand {
+  color: @white - 15;
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text {
+  color: @white - 15;
+}
+
+/* Left Green Sidebar*/
+.sidebar {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  background: @primary;
+  color: @white;
+}
+
+.sidebar a {
+  color: @white; /* Changes font color on click */
+    
+}
+
+.sidebar a:hover {
+  color: @white; /* Changes font color on hover - WORKS */
+}
+
+.sidebar ul li a:focus {
+    color: @white;
+    background: saturate(@primary, 5%);
+}
+
+.sidebar ul li a:hover {
+    background: saturate(@primary, 10%);
+}
+
+.sidebar ul li a:active {
+    background: saturate(@primary, 5%);
+}
+
+/* Table Stuff */
+
+table {
+    font-family: @font;
+    width: 90%;
+}
+
+td, th {
+    border: 1px solid @background;
+    text-align: left;
+}
+
+.comments-table-style {
+	font-family: arial, sans-serif;
+    width: 95%;
+	margin:2%;
+	border-radius:@border-radius;
+}
+
+
+.profilepic {
+  max-height: 250px;
+  max-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  display: inherit;
+}
+
+
+.btn {
+  background-color: @primary;
+  border-style:solid;
+  border-color:@black;
+  color: @white;
+}
+
+.btn:hover {
+  background-color: @primary + 15;
+  color: @white;
+}
+
+.btn:active, .btn:focus {
+  background-color: @primary - 15;
+  color: @white;
+}
+
+a {
+  color: @accent;
+}
+
+a:hover {
+  color: saturate(@accent, -5%);
+}
+
+a:active {
+  color: saturate(@accent, 5%);
+}
+
+.page-header {
+  padding-top: 25px;
+}
+
+/** all modal styling for login **/
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+ 
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+   
+    width:inherit;
+    height:inherit;
+   
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+
+/** styling for registration page **/
+
+.panel,.panel-group{
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+   
+}
+
+
+.personal-info {
+  background: @white;
+  padding: 2%;
+  border-radius:@border-radius;
+  border:none;
+  } 
+
+/** Styling for the Login page **/
+
+body {
+  background: @background;
+  
+
+  
+}
+
+body,html {
+
+	  max-width: 100%;
+	  overflow-x: hidden;
+	height: 100%;
+  }
+  
+
+.login-style {
+  border-radius:@border-radius;
+  padding:1%;
+  background:@white;
+  border:none;
+}
+
+/** Minor Styling for Edit Profile Page **/
+
+.well {
+  
+  background: @white;
+}
+
+.lobster {
+  font-family: Lobster;
+  color: @white;
+}
+
+.white {
+	background:@white;
+	border:none;
+}
+
+/** Styling for Profile page **/
+
+.profile-style {
+	border:none;
+	border-radius:@border-radius;
+	background:@white;
+	width:100%;
+}
+
+p {
+	word-wrap:break-word;
+}
+
+/** Styling for Tables **/
+
+.table-style {
+
+	border-radius:@border-radius;
+}
+
+thead {
+	border-radius:@border-radius;
+	background:@accent;
+	color:@white;
+}
+
+tr {
+	padding:2%;	
+	text-align:center;
+}
+
+/** Styling for adding a posting - Organization **/
+
+.posting-style {
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+	width: 95%;
+	padding:2%;
+	}
+	
+.posting-detail-style {
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+	padding:1%;
+}
+
+/** Styling for FAQ/how to **/
+
+.faq-style {
+	border-radius:@border-radius;
+	border:none;
+	background:@white;
+	padding:1%;
+	width:95%;
+	margin:2%;
+}
+
+.page-number {
+  text-align: center;
+  font-family: Lobster;
+  padding-top: 3px;
+  font-size: 1.3em;
+}
+
+.error-text {
+  color: @error;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-control {
+  margin-bottom: 5px;
+}
+
+.center-text {
+  text-align: center;
+  width: 100%;
+}
+
+/* typeahead style */
+
+.typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+/* end typeahead style */
+
+.topic-avatar {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: @border-radius;
+}
+
+.topic-avatar-cell {
+  width: 167px;
+}
+
+.btn-toolbar{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+} 
+.btn-toolbar .btn{
+    -webkit-box-flex-grow: 1;
+    -moz-box-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    flex-grow: 1;
+}
+
+.angular-google-map-container { height: 400px; }
