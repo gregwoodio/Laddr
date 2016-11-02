@@ -23,6 +23,7 @@ if (process.env.NODE_ENV == 'test') {
   var sequelize = new Sequelize('Ladder', 'ladder', 'codebusters', {
     host: 'localhost',
       dialect: 'mysql',
+      // logging: false,
 
       pool: {
         max: 5,
@@ -181,7 +182,7 @@ var Tag = sequelize.define('LdrTags', {
   TagID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    allowNull: false
+    autoIncrement: true
   },
   Name: {
     type: Sequelize.STRING
@@ -193,7 +194,8 @@ var Tag = sequelize.define('LdrTags', {
 var PostingTag = sequelize.define('LdrPostingTags', {
   PostingTagID: {
     primaryKey: true,
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    autoIncrement: true
   },
   PostingID: {
     model: Posting,
@@ -217,7 +219,8 @@ PostingTag.belongsTo(Tag, {foreignKey: 'TagID'});
 var ProfileTag = sequelize.define('LdrProfileTags', {
   ProfileTagID: {
     type: Sequelize.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   ProfileID: {
     model: Profile,
