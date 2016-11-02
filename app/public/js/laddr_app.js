@@ -166,6 +166,9 @@
 			templateUrl: 'partials/feed.html',
 			controller: 'FeedController'
 		}).
+		when('/edit_posting', {
+			templateUrl: 'partials/postingedit.html',
+		}).
 		otherwise({
 			redirectTo: '/home'
 		});

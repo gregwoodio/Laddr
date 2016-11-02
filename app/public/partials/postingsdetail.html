@@ -43,10 +43,14 @@
 						{{posting.LdrProfile.LdrOrganization.Postal}}
 					</p>
 					
-					<div ng-if='profile.AccountType == 0'><br><br>
+					<div ng-if='profile.AccountType == 0'><br>
 						
 						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
 						<div class='error-text'>{{applyError}}</div>
+					</div>
+				
+					<div ng-if='profile.AccountType == 1'><br>
+						<div><a class='btn btn-primary btn-block pull-left' href="#/edit_posting">Edit Posting</a></div>
 					</div><br><br><br>
 						
 				</div>
