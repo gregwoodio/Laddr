@@ -19,6 +19,11 @@ module.exports = function(app, models) {
           include: [{
             model: models.Organization
           }]
+        }, {
+          model: models.PostingTag,
+          include: [{
+            model: models.Tag
+          }]
         }]
       })
       .then(function(posting) {
@@ -45,6 +50,11 @@ module.exports = function(app, models) {
           model: models.Profile,
           include: [{
             model: models.Organization
+          }]
+        }, {
+          model: models.PostingTag,
+          include: [{
+            model: models.Tag
           }]
         }],
         order: [
@@ -89,6 +99,27 @@ module.exports = function(app, models) {
         })
         .save()
         .then(function(posting) {
+
+          console.log(req.body.Tags);
+
+          //add tags
+          for (i = 0; i < req.body.Tags.length; i++) {
+            if (req.body.Tags[i] == true) {
+              models.PostingTag.build({
+                PostingID: posting.PostingID,
+                TagID: i
+              })
+              .save()
+              .then(function(tag) {
+                console.log(tag + ' added to ' + posting.JobTitle);
+              })
+              .catch(function(err) {
+                console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
+                console.log(err.message);
+              });
+            }
+          }
+
           res.json({
             success: true,
             message: 'Posting added.'
@@ -100,7 +131,6 @@ module.exports = function(app, models) {
             message: err.message
           });
         });
-
     }
   });
 
