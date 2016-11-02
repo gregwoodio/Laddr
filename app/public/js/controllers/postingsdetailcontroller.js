@@ -25,6 +25,25 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
           },
           options: { draggable: false }
         };
+
+
+        // make note of visit
+        data = {
+          ProfileID: LoginService.getProfile().ProfileID,
+          PostingID: $scope.posting.PostingID
+        }
+
+        $http.post('/api/profiletags', data, {
+          headers: {
+            'x-access-token': LoginService.getToken()
+          }
+        })
+        .success(function(data, status, headers, config) {
+          console.log('ProfileTags data: ' + data);
+        })
+        .error(function(data, status, headers, config) {
+          console.log('ProfileTags error: ' + data);
+        });
       })
       .error(function(data, status, headers, config) {
         //couldn't get postings

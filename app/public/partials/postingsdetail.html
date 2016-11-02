@@ -20,6 +20,11 @@
 						<p><strong>Location: </strong> {{posting.Location}}</p>
 						<p><strong>Description: </strong> {{posting.Description}} </p>
 						<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
+						<p><strong>Tags: </strong> 
+							<span ng-repeat='tag in posting.LdrPostingTags'>
+								{{tag.LdrTag.Name}}<span ng-if='$index < posting.LdrPostingTags.length - 1'>, </span>
+							</span>
+						</p>
 					</div>
 					<div>
 						<ui-gmap-google-map center='map.center' zoom='map.zoom'>

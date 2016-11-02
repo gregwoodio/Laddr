@@ -23,6 +23,7 @@ if (process.env.NODE_ENV == 'test') {
   var sequelize = new Sequelize('Ladder', 'ladder', 'codebusters', {
     host: 'localhost',
       dialect: 'mysql',
+      // logging: false,
 
       pool: {
         max: 5,
@@ -177,6 +178,74 @@ var Application = sequelize.define('LdrApplications', {
 Application.belongsTo(Profile, {foreignKey: 'ProfileID'});
 Application.belongsTo(Posting, {foreignKey: 'PostingID'});
 
+var Tag = sequelize.define('LdrTags', {
+  TagID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  Name: {
+    type: Sequelize.STRING
+  }
+}, {
+  timestamps: false
+});
+
+var PostingTag = sequelize.define('LdrPostingTags', {
+  PostingTagID: {
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+    autoIncrement: true
+  },
+  PostingID: {
+    model: Posting,
+    key: 'PostingID',
+    type: Sequelize.STRING
+  },
+  TagID: {
+    model: Tag,
+    key: 'TagID',
+    type: Sequelize.INTEGER
+  }
+}, {
+  timestamps: false
+});
+
+Posting.hasMany(PostingTag, {foreignKey: 'PostingID'});
+Tag.hasMany(PostingTag, {foreignKey: 'TagID'});
+PostingTag.belongsTo(Posting, {foreignKey: 'PostingID'});
+PostingTag.belongsTo(Tag, {foreignKey: 'TagID'});
+
+var ProfileTag = sequelize.define('LdrProfileTags', {
+  ProfileTagID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  ProfileID: {
+    model: Profile,
+    key: 'ProfileID',
+    type: Sequelize.STRING
+  },
+  TagID: {
+    model: Tag,
+    key: 'TagID',
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  Preference: {
+    type: Sequelize.DOUBLE,
+    defaultValue: 1000.0
+  }
+}, {
+  timestamps: false
+});
+
+ProfileTag.belongsTo(Profile, {foreignKey: 'ProfileID'});
+ProfileTag.belongsTo(Tag, {foreignKey: 'TagID'});
+Profile.hasMany(ProfileTag, {foreignKey: 'ProfileID'});
+Tag.hasMany(ProfileTag, {foreignKey: 'TagID'});
+
 module.exports = {
   sequelize: sequelize,
   Profile: Profile,
@@ -185,5 +254,8 @@ module.exports = {
   Posting: Posting,
   Topic: Topic,
   Comment: Comment,
-  Application: Application
+  Application: Application,
+  Tag: Tag,
+  PostingTag: PostingTag,
+  ProfileTag: ProfileTag
 };
