@@ -20,7 +20,8 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
         JobTitle: undefined,
         Lat: data.Lat,
         Lng: data.Lng,
-        Description: undefined
+        Description: undefined,
+        Tags: []
       };
 
       $scope.asyncSelected = data.AddressLine1 + ", " + data.City + ", " + data.Province + ", " + data.Postal;      
@@ -31,14 +32,31 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
         JobTitle: undefined,
         Lat: undefined,
         Lng: undefined,
-        Description: undefined
+        Description: undefined,
+        Tags: []
       };
     });
+
+  //get list of tags
+  $http.get('/api/tag', {
+    headers: {
+      'x-access-token': LoginService.getToken()
+    }
+  })
+  .success(function(data, status, headers, config) {
+    $scope.tags = data;
+  })
+  .error(function(data, status, headers, config) {
+    console.log(data);
+  });
 
   $scope.addPosting = function() {
 
     $scope.posting.Location = $scope.asyncSelected;
     data = $scope.posting;
+
+    console.log(data);
+    console.log(data.Tags);
 
     $http
       .post('/api/posting', data, {

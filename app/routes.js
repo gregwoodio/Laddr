@@ -29,6 +29,8 @@ module.exports = function(app, passport) {
   var apply = require('./api/apply')(app, models);
   var applications = require('./api/applications')(app, models);
   var applicants = require('./api/applicants')(app, models);
+  var tags = require('./api/tag')(app, models);
+  var profiletags = require('./api/profiletags')(app, models);
   var imageupload = require('./api/imageupload')(app, models);
 
   //social routes
