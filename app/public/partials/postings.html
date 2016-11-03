@@ -26,7 +26,6 @@
     						<th>Volunteer Position</th>
     						<th>Date Posted</th>
     						<th>Apply</th>
-							<th ng-if='profile.AccountType == 1'>Edit Posting</th>
     					</tr>
     				</thead>
     				<tbody class='row' ng-repeat="posting in postings[page]">
@@ -35,7 +34,6 @@
     						<td>{{posting.JobTitle}}</td>
     						<td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
     						<td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>
-							<td ng-if='profile.AccountType == 1'><a   href="#/edit_posting">Edit Posting</a></td>
 							</div>
     					</tr>
     				</tbody>

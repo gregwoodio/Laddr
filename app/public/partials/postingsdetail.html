@@ -32,9 +32,14 @@
 							</ui-gmap-marker>
 						</ui-gmap-google-map>
 					</div>
+					<div ng-if='posting.ProfileID == profile.ProfileID'><br>
+						<a href="#/postings/{{posting.PostingID}}/edit_posting" title='Edit Posting'><i class="fa fa-gear fa-2x pull-left" ></i></a>
+					</div>
 				</div>
 				
 				<div class="border col-md-3">
+					
+					
 					<img src="{{posting.LdrProfile.PictureURL}}" class="postingprofilepic" />
 					<h4><b>More Information on {{posting.LdrProfile.LdrOrganization.OrganizationName}}</b></h4>
 				
@@ -52,16 +57,16 @@
 						
 						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
 						<div class='error-text'>{{applyError}}</div>
+						
 					</div>
 				
-					<div ng-if='profile.AccountType == 1'><br>
-						<div><a class='btn btn-primary btn-block pull-left' href="#/edit_posting">Edit Posting</a></div>
-					</div><br><br><br>
-						
+		
+					
 				</div>
 			
-		
+				
 		</div>
+		
 		<br>
 		<div>{{message}}</div>
 	</section>
