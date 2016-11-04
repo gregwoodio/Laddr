@@ -55,9 +55,6 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
     $scope.posting.Location = $scope.asyncSelected;
     data = $scope.posting;
 
-    console.log(data);
-    console.log(data.Tags);
-
     $http
       .post('/api/posting', data, {
         headers: {

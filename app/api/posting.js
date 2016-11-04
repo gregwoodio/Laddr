@@ -172,6 +172,30 @@ module.exports = function(app, models) {
                   message: err.message
                 });
               });
+
+            //tags
+            // for (i = 0; i < req.body.Tags.length; i++) {
+            //   models.PostingTag  
+            // }
+            
+
+            // for (i = 0; i < req.body.Tags.length; i++) {
+            // if (req.body.Tags[i] == true) {
+            //   models.PostingTag.build({
+            //     PostingID: posting.PostingID,
+            //     TagID: i
+            //   })
+            //   .save()
+            //   .then(function(tag) {
+            //     console.log(tag + ' added to ' + posting.JobTitle);
+            //   })
+            //   .catch(function(err) {
+            //     console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
+            //     console.log(err.message);
+            //   });
+            // }
+          // }
+
           } else {
             res.status(500).json({
               success: false,
