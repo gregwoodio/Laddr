@@ -173,29 +173,32 @@ module.exports = function(app, models) {
                 });
               });
 
-            //tags
-            // for (i = 0; i < req.body.Tags.length; i++) {
-            //   models.PostingTag  
-            // }
-            
+            //tags are dodgy, this could probably be improved
+            //remove existing tags first
 
-            // for (i = 0; i < req.body.Tags.length; i++) {
-            // if (req.body.Tags[i] == true) {
-            //   models.PostingTag.build({
-            //     PostingID: posting.PostingID,
-            //     TagID: i
-            //   })
-            //   .save()
-            //   .then(function(tag) {
-            //     console.log(tag + ' added to ' + posting.JobTitle);
-            //   })
-            //   .catch(function(err) {
-            //     console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
-            //     console.log(err.message);
-            //   });
-            // }
-          // }
+            models.PostingTag.destroy({
+              where: {
+                PostingID: req.body.PostingID
+              }
+            });
 
+            // add new tags
+            for (i = 0; i < req.body.Tags.length; i++) {
+              if (req.body.Tags[i].Enabled == true) {
+                models.PostingTag.build({
+                  PostingID: req.body.PostingID,
+                  TagID: req.body.Tags[i].TagID
+                })
+                .save()
+                .then(function(tag) {
+                  console.log(tag + ' added to ' + posting.JobTitle);
+                })
+                .catch(function(err) {
+                  console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
+                  console.log(err.message);
+                });
+              }
+            }
           } else {
             res.status(500).json({
               success: false,
