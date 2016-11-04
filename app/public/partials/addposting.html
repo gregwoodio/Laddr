@@ -57,8 +57,9 @@
           <div class='col-md-4'><input name='tags' ng-model='posting.Tags[tags[$index].TagID]' type='checkbox' value='tag.TagID[tags[$index].TagID]'>{{tag.Name}}</div>
           <div class='col-md-4' ng-if='tags.length > ($index + 1)'><input name='tags' ng-model='posting.Tags[tags[$index + 1].TagID]' type='checkbox' value='tags[$index + 1].TagID'>{{tags[$index + 1].Name}}</div>
           <div class='col-md-4' ng-if='tags.length > ($index + 2)'><input name='tags' ng-model='posting.Tags[tags[$index + 2].TagID]' type='checkbox' value='tags[$index + 2].TagID'>{{tags[$index + 2].Name}}</div>
-        </div>
-
+		
+		</div>
+		<br>
         <input class='btn btn-md col-md-offset-4 col-md-4' type='submit' value='Add Posting' class='form-control btn'/>
 		
       </form>

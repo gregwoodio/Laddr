@@ -1,0 +1,97 @@
+<div header></div>
+
+<div class='container'>
+
+	<section id="editposting">
+	<div class="page-header">
+		<h1>Edit Posting</h1>
+	</div>
+
+		<div class="posting-detail-style row" ng-show="message == undefined">
+			<div class="posting-style container-fluid ">
+				<p><b>NOTE:</b> You will be able to create your volunteering opportunities that can be seen 
+					by users who are looking to volunteer! It's important to note that you should provide 
+					as much detail as possible in the description area of your postings. Some things you can 
+					add in the description area is: 
+						<ul>
+						  <li>Shifts/Times of volunteer positions</li>
+						  <li>Skills desired/required</li>
+						  <li>Long/Short term volunteer positions</li>
+						</ul>
+				</p>
+				<form class="form-horizontal" role="form">
+
+					<div class='row'>
+					
+						
+					<form ng-submit='addPosting()' class='form-signin'>
+						<div>
+						  <label for='jobTitle' class='control-label'>Change Job Title: </label>
+						  <input 
+							ng-model='posting.JobTitle' 
+							type='text' 
+							name='jobTitle' 
+							ng-model="posting.JobTitle"
+							class='form-control' 
+							required/>
+						</div>
+						<div>
+							<br>
+							
+							<label class="control-label" for='address'>Change Address:</label>
+							<input type="text" 
+							  ng-model="posting.Location" 
+							  uib-typeahead="address for address in getLocation($viewValue)" 
+							  typeahead-loading="loadingLocations" 
+							  typeahead-no-results="noResults" 
+							  typeahead-on-select='setAddress()'
+							  ng-model="posting.Location"
+							  class="form-control"
+							  name='address'
+							  required>
+							<label ng-show="loadingLocations" class="fa fa-spinner fa-spin"></label>
+
+							<div ng-show="noResults">
+							  <i class="fa fa-times"></i> No Results Found
+							</div>
+							
+							<div>
+								<br>
+								<label for='description' class='control-label'>Change Description: </label>
+								<textarea ng-model='posting.Description' name='description' rows='5' class='form-control' required></textarea>
+							</div>
+							
+							<br>
+							<label class='control-label'>Tags: </label>
+							<div><small>Tags help users find your posting! Simply check any category which applies to your posting.</small></div>
+							<div ng-repeat='tag in tags' ng-if='$index % 3 == 0' class='row tag-group'>
+							  <div class='col-md-4'><input name='tags' ng-model='posting.Tags[tags[$index].TagID]' type='checkbox' value='tag.TagID[tags[$index].TagID]'>{{tag.Name}}</div>
+							  <div class='col-md-4' ng-if='tags.length > ($index + 1)'><input name='tags' ng-model='posting.Tags[tags[$index + 1].TagID]' type='checkbox' value='tags[$index + 1].TagID'>{{tags[$index + 1].Name}}</div>
+							  <div class='col-md-4' ng-if='tags.length > ($index + 2)'><input name='tags' ng-model='posting.Tags[tags[$index + 2].TagID]' type='checkbox' value='tags[$index + 2].TagID'>{{tags[$index + 2].Name}}</div>
+							
+							</div>
+							<br>
+							
+							<div class="form-group ">
+								<br>
+								<button class='btn col-md-3 col-md-offset-2 btn-primary' ng-click="editPosting()" >Apply Changes</button>
+								<a class="btn col-md-3 col-md-offset-1 " href='#/postings'>Cancel</a>
+							</div>		
+						
+							<div>{{message}}</div>
+					</form>
+				
+					</div>
+			</form>
+		</div>
+		</div>
+				
+									
+				
+			
+		
+		</div>
+	</section>	
+</div>
+
+<div footer></div>
