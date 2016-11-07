@@ -367,3 +367,113 @@ tr {
 }
 
 .angular-google-map-container { height: 400px; }
+
+/* #pragma mark Peter's Posting Style */
+
+.box{
+     position: relative;
+     float:left;
+     z-index: 0;
+     width: 1125px;
+     height: 150px;
+     margin: 5px;
+     margin-top: 5px;
+     margin-left: 5px;	
+     background-color: #879baf;
+     overflow: hidden;
+ }
+
+
+.box-temp {
+        
+    position: absolute;
+    z-index: 10;   
+    width: 1125px;
+    height: 150px;
+    background-color: black;
+    opacity: 0;
+    transition: all 300ms ease-out;            
+}
+    
+.box-info{
+    position: absolute;
+    z-index: 100;
+    width: 200px;
+    height: 100px;
+    top: 0px;
+    left: 0px;   
+    width: 300px;
+    height: 199px;
+ }
+
+//Styling for the image here, Greg
+ .box-img {        
+    position: absolute;
+    z-index: 5;
+    width: 200px;
+    height: 100px;
+    top: 25px;
+    left: 75px;
+    width: 300px;
+    height: 199px;		        
+}
+
+@font-face {
+	font-family: "Bebas";
+	src: url("BebasNeue Regular.otf");
+}
+
+
+.details {
+    position: absolute;
+    width: 1125px;
+    z-index: 100;
+    top: 15px;
+    left: 0px;
+    text-align: center;
+    font-family: Raleway;
+    color: #f6f7fb;
+    font-size: 1px;
+    opacity: 1;
+    transition: all 300ms ease-out;    
+    font-size: 36px;
+} 
+
+.icon {
+    position: relative;
+    padding: 3px;
+    z-index: 100;
+    top: 110px;
+    left: 490px; 
+    color: black;
+    font-family: Raleway;
+    font-size: 1px;
+    opacity: 0;
+    transition: all 300ms ease-out;      
+ }
+ 
+    
+.icon-text a{
+    font-family: Raleway;
+    font-size: 15px;
+    margin-top: 2px;
+    color: #f6f7fb;
+    text-decoration: none;
+    text-align: center;
+}
+
+.box:hover .box-temp {
+    opacity: 0.5;
+}
+    
+.box:hover .details {
+    opacity: 1;
+    font-size: 36px;
+}
+
+.box:hover .icon {
+    opacity: 0.7;
+    font-size: 18px;
+}
+
+/* End peter's styling */

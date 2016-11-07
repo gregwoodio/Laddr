@@ -31,12 +31,19 @@
                 </select>
               </td>
               <td>
-                <button class='btn' ng-click='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)'><span class='fa fa-share'></span></button>
+                <button class='btn' ng-click='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)' id="update"><span class='fa fa-share'></span></button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+
+        <!-- Ahhhhhhhhhhhhhh -->
+         <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button><strong>Application Updated!</strong> The user will see these changes the next time they log in.</div>
+    
+
+
+    
     </div>
   </section>
 </div>
