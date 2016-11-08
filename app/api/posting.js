@@ -151,6 +151,8 @@ module.exports = function(app, models) {
 
             models.Posting.update({
                 JobTitle: req.body.JobTitle,
+                Lat: req.body.Lat,
+                Lng: req.body.Lng,
                 Location: req.body.Location,
                 Description: req.body.Description
               }, {
