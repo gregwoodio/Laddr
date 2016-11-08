@@ -40,8 +40,6 @@ module.exports = function(app, models) {
             return;
           });
 
-        }
-
         //now that we've definitely got all the Tags associated with Profile, lets go ahead and update them
         models.PostingTag.findAll({
           where: {
@@ -82,12 +80,11 @@ module.exports = function(app, models) {
 
             // update the database
             models.ProfileTag.update({
-              ProfileID: req.body.ProfileID,
-              TagID: pt[i].TagID,
               Preference: pt[i].Preference,
             }, {
               where: {
-                ProfileTagID: pt[i].ProfileTagID
+                ProfileID: req.body.ProfileID,
+                TagID: pt[i].TagID
               }
             })
             .then(function(pt) {
@@ -102,30 +99,34 @@ module.exports = function(app, models) {
 
           }
 
-          res.json({
-            success: true,
-            message: 'Preferences updated.'
-          });
+          
 
         })
         .catch(function(err) {
-          res.status(500).json({
-            success: false,
-            message: 'Block 3: ' + err.message
-          });
+          // res.status(500).json({
+          //   success: false,
+          //   message: 'Block 3: ' + err.message
+          // });
         });
-      })
+      }
+
+      res.json({
+        success: true,
+        message: 'Preferences updated.'
+      });
+
+    })
       .catch(function(err) {
-        res.status(500).json({
-          success: false,
-          message: 'Block 5: ' + err.message
-        });
+        // res.status(500).json({
+        //   success: false,
+        //   message: 'Block 5: ' + err.message
+        // });
       });
     } else {
-      res.status(400).json({
-        success: false,
-        message: 'Missing parameters'
-      });
+      // res.status(400).json({
+      //   success: false,
+      //   message: 'Missing parameters'
+      // });
     }
 
   });

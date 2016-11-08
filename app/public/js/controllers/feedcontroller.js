@@ -31,19 +31,19 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
       });
 
     $http
-      .get('/api/posting', {
+      .get('/api/feed/' + LoginService.getProfile().ProfileID, {
         headers: {
           'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {
-        console.log(data);
-        $scope.postings = data.slice(0,3);
+        
+        $scope.postings = data.postings.slice(0,5);
         console.log($scope.postings);
 
       })
       .error(function(data, status, headers, config) {
-        console.log("Could not retrieve user.");
+        console.log("Could not retrieve feed.");
         $location.url('/login');
       });
 
@@ -59,7 +59,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
         console.log($scope.topics);
       })
       .error(function(data, status, headers, config) {
-        console.log("Could not retrieve user.");
+        console.log("Could not retrieve topics.");
         // $location.url('/login');
       });
 
