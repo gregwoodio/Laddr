@@ -217,21 +217,23 @@ PostingTag.belongsTo(Posting, {foreignKey: 'PostingID'});
 PostingTag.belongsTo(Tag, {foreignKey: 'TagID'});
 
 var ProfileTag = sequelize.define('LdrProfileTags', {
-  ProfileTagID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
+  // ProfileTagID: {
+  //   type: Sequelize.INTEGER,
+  //   primaryKey: true,
+  //   autoIncrement: true
+  // },
   ProfileID: {
     model: Profile,
     key: 'ProfileID',
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    primaryKey: true
   },
   TagID: {
     model: Tag,
     key: 'TagID',
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    primaryKey: true
   },
   Preference: {
     type: Sequelize.DOUBLE,
