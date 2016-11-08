@@ -87,9 +87,11 @@ laddrControllers.controller('EditPostingController', ['$scope', '$location', '$h
       }
     }).then(function(response){
       return response.data.results.map(function(item){
+        console.log(item);
         $scope.posting.Location = item.formatted_address;
-        $scope.posting.Lat =  item.geometry.location.lat;
-        $scope.posting.Lng =  item.geometry.location.lng;
+        $scope.posting.Lat = item.geometry.location.lat;
+        $scope.posting.Lng = item.geometry.location.lng;
+        console.log($scope.posting);
         return item.formatted_address;
       });
     });
