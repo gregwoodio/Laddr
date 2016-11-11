@@ -23,7 +23,7 @@ if (process.env.NODE_ENV == 'test') {
   var sequelize = new Sequelize('Ladder', 'ladder', 'codebusters', {
     host: 'localhost',
       dialect: 'mysql',
-      logging: false,
+      //logging: false,
 
       pool: {
         max: 5,
@@ -105,7 +105,10 @@ var Posting = sequelize.define('LdrPostings', {
   Lat: {type: Sequelize.DOUBLE, allowNull: true},
   Lng: {type: Sequelize.DOUBLE, allowNull: true},
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
-  Archived: {type: Sequelize.BOOLEAN, defaultValue: false}
+  Archived: {type: Sequelize.BOOLEAN, defaultValue: false},
+  EventDate: {type: Sequelize.DATE},
+  Deadline: {type: Sequelize.DATE},
+  Repeating: {type: Sequelize.INTEGER, defaultValue: 0}
 }, {
   timestamps: false
 });
@@ -247,6 +250,17 @@ ProfileTag.belongsTo(Profile, {foreignKey: 'ProfileID'});
 ProfileTag.belongsTo(Tag, {foreignKey: 'TagID'});
 Profile.hasMany(ProfileTag, {foreignKey: 'ProfileID'});
 Tag.hasMany(ProfileTag, {foreignKey: 'TagID'});
+
+if (process.env.NODE_ENV == 'test') {
+  //add tags for tests
+  Tag.build({
+    Name: "Testing"
+  })
+  .save()
+  .then(function(tag) {
+    console.log("Test tag added.");
+  });
+}
 
 module.exports = {
   sequelize: sequelize,

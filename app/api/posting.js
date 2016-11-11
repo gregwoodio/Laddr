@@ -81,7 +81,8 @@ module.exports = function(app, models) {
 
     if (req.body.ProfileID == undefined || req.body.JobTitle == undefined || req.body.Location == undefined ||
       req.body.Description == undefined || req.body.Lat == undefined || req.body.Lng == undefined || 
-      req.body.ProfileID == '' || req.body.JobTitle == '' || req.body.Location == '' || req.body.Description == '') {
+      req.body.EventDate == undefined || req.body.ProfileID == '' || req.body.JobTitle == '' || req.body.Location == '' || 
+      req.body.Description == '' || req.body.EventDate == '') {
       res.status(400).json({
         success: false,
         message: 'Missing parameters for posting creation.'
@@ -95,7 +96,10 @@ module.exports = function(app, models) {
           Location: req.body.Location,
           Lat: req.body.Lat || 43.653956, //Davis campus ;)
           Lng: req.body.Lng || -79.739938999,
-          Description: req.body.Description
+          Description: req.body.Description,
+          EventDate: req.body.EventDate,
+          Deadline: req.body.Deadline,
+          Repeating: req.body.Repeating || 0
         })
         .save()
         .then(function(posting) {
@@ -103,20 +107,22 @@ module.exports = function(app, models) {
           console.log(req.body.Tags);
 
           //add tags
-          for (i = 0; i < req.body.Tags.length; i++) {
-            if (req.body.Tags[i] == true) {
-              models.PostingTag.build({
-                PostingID: posting.PostingID,
-                TagID: i
-              })
-              .save()
-              .then(function(tag) {
-                console.log(tag + ' added to ' + posting.JobTitle);
-              })
-              .catch(function(err) {
-                console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
-                console.log(err.message);
-              });
+          if (Array.isArray(req.body.Tags)) {
+            for (i = 0; i < req.body.Tags.length; i++) {
+              if (req.body.Tags[i] == true) {
+                models.PostingTag.build({
+                  PostingID: posting.PostingID,
+                  TagID: i
+                })
+                .save()
+                .then(function(tag) {
+                  console.log(tag + ' added to ' + posting.JobTitle);
+                })
+                .catch(function(err) {
+                  console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
+                  console.log(err.message);
+                });
+              }
             }
           }
 
@@ -154,7 +160,10 @@ module.exports = function(app, models) {
                 Lat: req.body.Lat,
                 Lng: req.body.Lng,
                 Location: req.body.Location,
-                Description: req.body.Description
+                Description: req.body.Description,
+                EventDate: req.body.EventDate,
+                Deadline: req.body.Deadline,
+                Repeating: req.body.Repeating || 0
               }, {
                 where: {
                   PostingID: req.body.PostingID,

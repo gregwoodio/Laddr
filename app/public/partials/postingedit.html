@@ -63,13 +63,16 @@
 							<div><small>Tags help users find your posting! Simply check any category which applies to your posting.</small></div>
 							<div ng-repeat='tag in tags' ng-if='$index % 3 == 0' class='row tag-group'>
 							  <div class='col-md-4'>
-							  	<input name='tags' type='checkbox' value='tags[$index].TagID' ng-checked='tags[$index].Enabled' ng-click='tags[$index].Enabled = !tags[$index].Enabled'>{{tags[$index].Name}}
+							  	<input name='tags' type='checkbox' value='tags[$index].TagID' ng-checked='tags[$index].Enabled' ng-click='tags[$index].Enabled = !tags[$index].Enabled' id="tags{{tags[$index].TagID}}">
+							  	<label class='tag-label' for='tags{{tags[$index].TagID}}'>{{tags[$index].Name}}</label>
 							  </div>
 							  <div class='col-md-4' ng-if='tags.length > ($index + 1)'>
-							  	<input name='tags' type='checkbox' value='tags[$index + 1].TagID' ng-checked='tags[$index + 1].Enabled' ng-click='tags[$index + 1].Enabled = !tags[$index + 1].Enabled'>{{tags[$index + 1].Name}}
+							  	<input name='tags' type='checkbox' value='tags[$index + 1].TagID' ng-checked='tags[$index + 1].Enabled' ng-click='tags[$index + 1].Enabled = !tags[$index + 1].Enabled' id='tags{{tags[$index + 1].TagID}}'>
+							  	<label class='tag-label' for='tags{{tags[$index + 1].TagID}}'>{{tags[$index + 1].Name}}</label>
 							  </div>
 							  <div class='col-md-4' ng-if='tags.length > ($index + 2)'>
-							  	<input name='tags' type='checkbox' value='tags[$index + 2].TagID' ng-checked='tags[$index + 2].Enabled' ng-click='tags[$index + 2].Enabled = !tags[$index + 2].Enabled'>{{tags[$index + 2].Name}}
+							  	<input name='tags' type='checkbox' value='tags[$index + 2].TagID' ng-checked='tags[$index + 2].Enabled' ng-click='tags[$index + 2].Enabled = !tags[$index + 2].Enabled' id='tags{{tags[$index + 2].TagID}}'>
+							  	<label class='tag-label' for='tags{{tags[$index + 2].TagID}}'>{{tags[$index + 2].Name}}</label>
 							  </div>
 							
 							</div>
