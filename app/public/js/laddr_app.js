@@ -13,7 +13,7 @@
 	])
 	// .config(function(uiGmapGoogleMapApiProvider) {
  //    uiGmapGoogleMapApiProvider.configure({
- //        key: 'AIzaSyCeGQJ4JcHtOvW4ooRX6Od_ENGJgJoW1t4',
+ //        key: 'AIzaSyBrPZaMWBDMB6grdT9hft8yrxpMbGWSvrA',
  //        v: '3.20', //defaults to latest 3.X anyhow
  //        libraries: 'weather,geometry,visualization'
  //    });
@@ -165,6 +165,10 @@
 		when('/feed', {
 			templateUrl: 'partials/feed.html',
 			controller: 'FeedController'
+		}).
+		when('/postings/:id/edit_posting', {
+			templateUrl: 'partials/postingedit.html',
+			controller: 'EditPostingController'
 		}).
 		otherwise({
 			redirectTo: '/home'

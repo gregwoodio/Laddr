@@ -18,24 +18,46 @@ module.exports = function(app, models) {
           });
         } else {
 
-          models.Application.build({
+          models.Application.findAll({
+            where: {
               ProfileID: decoded.ProfileID,
               PostingID: req.body.PostingID,
-              ApplicationStatus: 0
-            })
-            .save()
-            .then(function(application) {
+            }
+          })
+          .then(function(application) {
+            if (application.length == 0) {
+              models.Application.build({
+                  ProfileID: decoded.ProfileID,
+                  PostingID: req.body.PostingID,
+                  ApplicationStatus: 0
+                })
+                .save()
+                .then(function(application) {
+                  res.json({
+                    success: true,
+                    message: 'Thanks for applying.'
+                  });
+                })
+                .catch(function(err) {
+                  res.status(500).json({
+                    success: false,
+                    message: err.message
+                  });
+                });
+            } else {
               res.json({
-                success: true,
-                message: 'Thanks for applying.'
-              });
-            })
-            .catch(function(err) {
-              res.status(500).json({
                 success: false,
-                message: err.message
+                message: 'You\'ve already applied to this job.'
               });
+            }
+          })
+          .catch(function(err) {
+            res.status(500).json({
+              success: false,
+              message: err.message
             });
+          });
+          
         }
       });
     

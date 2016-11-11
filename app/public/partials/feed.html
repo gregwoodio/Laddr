@@ -7,32 +7,54 @@
         <br>
         <h1>Welcome to Laddr</h1>
       </div>
+
+      <div class="col-md-9">
       
-      <div class='col-md-9'>
-        <h3>Recent Postings</h3>
-        <table class="table table-striped table-style" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>Organization</th>
-              <th>Volunteer Position</th>
-              <th>Date Posted</th>
-              <th>Apply</th>
-            </tr>
-          </thead>
-          <tbody class='row' ng-repeat="posting in postings">
-            <tr >
-              <td>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</td>
-              <td>{{posting.JobTitle}}</td>
-              <td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
-              <td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>
-            </tr>
-          </tbody>
-        </table>
+        <div ng-show='postings.length > 0' class='col-md-12'>
+          <h3>Postings for you</h3>
+          <table class="table table-striped table-style" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Organization</th>
+                <th>Volunteer Position</th>
+                <th>Date Posted</th>
+                <th>Apply</th>
+              </tr>
+            </thead>
+            <tbody class='row' ng-repeat="posting in postings">
+              <tr >
+                <td>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</td>
+                <td>{{posting.JobTitle}}</td>
+                <td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
+                <td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class='col-md-12'>
+          <h3>Recent Topics</h3>
+          <table class="table table-striped table-style" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>User</th>
+                <th>Date Posted</th>
+              </tr>
+            </thead>
+            <tbody class='row' ng-repeat="topic in topics">
+               <tr >
+                <td><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></td>
+                <td>{{topic.LdrProfile.LdrUser.FirstName}}{{topic.LdrProfile.LdrOrganization.OrganizationName}}</td>
+                <td>{{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div class='col-md-3'>
-        <img ng-src='{{profile.PictureURL}}' alt='avatar' class='topic-avatar' />
-        <div ng-show='profile.AccountType == 0'>
+      <div class='col-md-3 text-center'>
+        <img ng-src='{{profile.PictureURL}}' alt='avatar' class='topic-avatar text-center' />
+        <div ng-show='profile.AccountType == 0' class='text-center'>
           <p>{{profile.LdrUser.FirstName}} {{profile.LdrUser.LastName}}</p>
           <p>{{profile.Email}}</p> 
         </div>
@@ -42,27 +64,6 @@
           <p>{{profile.LdrOrganization.City}}, {{profile.LdrOrganization.Province}}  </p>
           <p>{{profile.Email}}</p> 
         </div>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col-md-9'>
-        <h3>Recent Topics</h3>
-        <table class="table table-striped table-style" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>Topic</th>
-              <th>User</th>
-              <th>Date Posted</th>
-            </tr>
-          </thead>
-          <tbody class='row' ng-repeat="topic in topics">
-             <tr >
-              <td><a href="#/forum/{{topic.TopicID}}">{{topic.Title}}</a></td>
-              <td>{{topic.LdrProfile.LdrUser.FirstName}}{{topic.LdrProfile.LdrOrganization.OrganizationName}}</td>
-              <td>{{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </section>

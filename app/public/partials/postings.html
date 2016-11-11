@@ -14,7 +14,7 @@
 					
 					<div ng-if='profile.AccountType == 1'>
 						<br>
-						<a class='btn btn-primary btn-md' href="#/addposting"><i class="fa fa-plus"></i> Create Posting</a>
+						<a class='btn btn-primary btn-md' href="#/addposting"><i class="fa fa-plus"></i>   Create Posting</a>
 					</div>
         </div>
 		
@@ -35,9 +35,11 @@
     						<td>{{posting.JobTitle}}</td>
     						<td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
     						<td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>
+							</div>
     					</tr>
     				</tbody>
     			</table>
+<<<<<<< HEAD
           -->
     <div ng-show='postings.length > 1' class='row'>
         <button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
@@ -69,6 +71,13 @@
         <div class='col-md-2 page-number'>{{page + 1}}</div>
         <button ng-click='nextPage()' class='btn btn-md col-md-2'><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
       </div>
+=======
+			<div ng-show='postings.length > 1' class='row'>
+				<button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+				<div class='col-md-2 page-number'>{{page + 1}}</div>
+				<button ng-click='nextPage()' class='btn btn-md col-md-2'><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+			</div>
+>>>>>>> 2ba71353a45293d403186d1a1fd5be456d68d06e
         </div>
 		
       </div>
