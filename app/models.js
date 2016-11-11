@@ -23,7 +23,7 @@ if (process.env.NODE_ENV == 'test') {
   var sequelize = new Sequelize('Ladder', 'ladder', 'codebusters', {
     host: 'localhost',
       dialect: 'mysql',
-      // logging: false,
+      logging: false,
 
       pool: {
         max: 5,

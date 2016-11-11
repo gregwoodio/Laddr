@@ -39,7 +39,7 @@ module.exports = function(app, models) {
             });
             return;
           });
-
+        }
         //now that we've definitely got all the Tags associated with Profile, lets go ahead and update them
         models.PostingTag.findAll({
           where: {
@@ -74,9 +74,9 @@ module.exports = function(app, models) {
 
           for (i = 0; i < pt.length; i++) {
 
-            // console.log('Tag ID: ' + pt[i].TagID + ' Preference: ' + pt[i].Preference);
+            console.log('Tag ID: ' + pt[i].TagID + ' Preference: ' + pt[i].Preference);
             pt[i].Preference = pt[i].Preference + 32 * (pt[i].Result - pt[i].ExpectedValue);
-            // console.log('Tag ID: ' + pt[i].TagID + ' Preference: ' + pt[i].Preference);
+            console.log('Tag ID: ' + pt[i].TagID + ' Preference: ' + pt[i].Preference);
 
             // update the database
             models.ProfileTag.update({
@@ -108,7 +108,7 @@ module.exports = function(app, models) {
           //   message: 'Block 3: ' + err.message
           // });
         });
-      }
+      
 
       res.json({
         success: true,
@@ -123,10 +123,10 @@ module.exports = function(app, models) {
         // });
       });
     } else {
-      // res.status(400).json({
-      //   success: false,
-      //   message: 'Missing parameters'
-      // });
+      res.status(400).json({
+        success: false,
+        message: 'Missing parameters'
+      });
     }
 
   });

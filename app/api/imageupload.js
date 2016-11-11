@@ -25,6 +25,8 @@ module.exports = function(app, models) {
 
   app.post('/api/imageupload', function(req, res) {
 
+    console.log(req.params);
+
     upload(req,res,function(err){
       if(err){
         console.log('unsuccessful upload');
