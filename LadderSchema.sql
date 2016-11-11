@@ -339,7 +339,7 @@ CREATE TABLE `LdrApplications` (
 
 LOCK TABLES `LdrApplications` WRITE;
 /*!40000 ALTER TABLE `LdrApplications` DISABLE KEYS */;
-INSERT INTO `LdrApplications` VALUES ('5235c8b0-9234-11e6-b4ac-63d25d44356f','54cfad70-9234-11e6-b4ac-63d25d44356f',4,'2016-10-14 17:33:34');
+INSERT INTO `LdrApplications` VALUES ('b3018ff0-a821-11e6-a51e-275c4879e126','b59e0cc0-a821-11e6-a51e-275c4879e126',4,'2016-11-11 15:15:41');
 /*!40000 ALTER TABLE `LdrApplications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,7 +368,7 @@ CREATE TABLE `LdrComments` (
 
 LOCK TABLES `LdrComments` WRITE;
 /*!40000 ALTER TABLE `LdrComments` DISABLE KEYS */;
-INSERT INTO `LdrComments` VALUES ('534cb6f0-9234-11e6-b4ac-63d25d44356f','5235c8b0-9234-11e6-b4ac-63d25d44356f','2016-10-14 17:33:31','534c1ab0-9234-11e6-b4ac-63d25d44356f','This topic was creating during testing at Fri Oct 14 2016 13:33:31 GMT-0400 (EDT).',0),('5376fb40-9234-11e6-b4ac-63d25d44356f','5235c8b0-9234-11e6-b4ac-63d25d44356f','2016-10-14 17:33:31','53768610-9234-11e6-b4ac-63d25d44356f','This topic was creating during testing at Fri Oct 14 2016 13:33:31 GMT-0400 (EDT).',0),('53913a00-9234-11e6-b4ac-63d25d44356f','5235c8b0-9234-11e6-b4ac-63d25d44356f','2016-10-14 17:33:31','53768610-9234-11e6-b4ac-63d25d44356f','This is a comment added by the unit tests at Fri Oct 14 2016 13:33:31 GMT-0400 (EDT).',0);
+INSERT INTO `LdrComments` VALUES ('b40d0c80-a821-11e6-a51e-275c4879e126','b3018ff0-a821-11e6-a51e-275c4879e126','2016-11-11 15:15:38','b40cbe60-a821-11e6-a51e-275c4879e126','This topic was creating during testing at Fri Nov 11 2016 10:15:38 GMT-0500 (EST).',0),('b436dba0-a821-11e6-a51e-275c4879e126','b3018ff0-a821-11e6-a51e-275c4879e126','2016-11-11 15:15:39','b4366670-a821-11e6-a51e-275c4879e126','This topic was creating during testing at Fri Nov 11 2016 10:15:39 GMT-0500 (EST).',0),('b4518f90-a821-11e6-a51e-275c4879e126','b3018ff0-a821-11e6-a51e-275c4879e126','2016-11-11 15:15:39','b4366670-a821-11e6-a51e-275c4879e126','This is a comment added by the unit tests at Fri Nov 11 2016 10:15:39 GMT-0500 (EST).',0);
 /*!40000 ALTER TABLE `LdrComments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,8 +401,36 @@ CREATE TABLE `LdrOrganizations` (
 
 LOCK TABLES `LdrOrganizations` WRITE;
 /*!40000 ALTER TABLE `LdrOrganizations` DISABLE KEYS */;
-INSERT INTO `LdrOrganizations` VALUES ('52c5d3b0-9234-11e6-b4ac-63d25d44356f','Organization Name','123 Fake Organization Way','Unit 4','Mississauga','Ontario','A1B2C3','www.fakeorg.com','To be the fakest organization.',43.65395600000000,-79.73993899900000),('52d2f310-9234-11e6-b4ac-63d25d44356f','Organization Name','123 Fake Organization Way','Unit 4','Mississauga','Ontario','A1B2C3','www.fakeorg.com','To be the fakest organization.',43.65395600000000,-79.73993899900000);
+INSERT INTO `LdrOrganizations` VALUES ('b3860230-a821-11e6-a51e-275c4879e126','Organization Name','123 Fake Organization Way','Unit 4','Mississauga','Ontario','A1B2C3','www.fakeorg.com','To be the fakest organization.',43.65395600000000,-79.73993899900000),('b39348a0-a821-11e6-a51e-275c4879e126','Organization Name','123 Fake Organization Way','Unit 4','Mississauga','Ontario','A1B2C3','www.fakeorg.com','To be the fakest organization.',43.65395600000000,-79.73993899900000);
 /*!40000 ALTER TABLE `LdrOrganizations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `LdrPostingTags`
+--
+
+DROP TABLE IF EXISTS `LdrPostingTags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `LdrPostingTags` (
+  `PostingID` varchar(36) DEFAULT NULL,
+  `TagID` int(11) DEFAULT NULL,
+  `PostingTagID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`PostingTagID`),
+  KEY `PostingID` (`PostingID`),
+  KEY `TagID` (`TagID`),
+  CONSTRAINT `LdrPostingTags_ibfk_1` FOREIGN KEY (`PostingID`) REFERENCES `LdrPostings` (`PostingID`),
+  CONSTRAINT `LdrPostingTags_ibfk_2` FOREIGN KEY (`TagID`) REFERENCES `LdrTags` (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `LdrPostingTags`
+--
+
+LOCK TABLES `LdrPostingTags` WRITE;
+/*!40000 ALTER TABLE `LdrPostingTags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `LdrPostingTags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -424,7 +452,7 @@ CREATE TABLE `LdrPostings` (
   `Lng` double(16,14) DEFAULT NULL,
   PRIMARY KEY (`PostingID`),
   KEY `organizationID` (`ProfileID`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,8 +461,32 @@ CREATE TABLE `LdrPostings` (
 
 LOCK TABLES `LdrPostings` WRITE;
 /*!40000 ALTER TABLE `LdrPostings` DISABLE KEYS */;
-INSERT INTO `LdrPostings` VALUES ('53c653c0-9234-11e6-b4ac-63d25d44356f','52c5d3b0-9234-11e6-b4ac-63d25d44356f','Test job title','Mississauga','A test job created in Mississauga','2016-10-14 17:33:32',1,43.65395600000000,-79.73993899900000),('54cfad70-9234-11e6-b4ac-63d25d44356f','52c5d3b0-9234-11e6-b4ac-63d25d44356f','Applicant','Brampton','Apply to this job!','2016-10-14 17:33:34',0,43.65395600000000,-79.73993899900000);
+INSERT INTO `LdrPostings` VALUES ('b4871e80-a821-11e6-a51e-275c4879e126','b3860230-a821-11e6-a51e-275c4879e126','Test job title','Mississauga','A test job created in Mississauga','2016-11-11 15:15:39',1,43.65395600000000,-79.73993899900000),('b59e0cc0-a821-11e6-a51e-275c4879e126','b3860230-a821-11e6-a51e-275c4879e126','Applicant','Brampton','Apply to this job!','2016-11-11 15:15:41',0,43.65395600000000,-79.73993899900000);
 /*!40000 ALTER TABLE `LdrPostings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `LdrProfileTags`
+--
+
+DROP TABLE IF EXISTS `LdrProfileTags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `LdrProfileTags` (
+  `ProfileID` varchar(36) NOT NULL,
+  `TagID` int(11) NOT NULL,
+  `Preference` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ProfileID`,`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `LdrProfileTags`
+--
+
+LOCK TABLES `LdrProfileTags` WRITE;
+/*!40000 ALTER TABLE `LdrProfileTags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `LdrProfileTags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -465,8 +517,32 @@ CREATE TABLE `LdrProfiles` (
 
 LOCK TABLES `LdrProfiles` WRITE;
 /*!40000 ALTER TABLE `LdrProfiles` DISABLE KEYS */;
-INSERT INTO `LdrProfiles` VALUES ('5235c8b0-9234-11e6-b4ac-63d25d44356f','dat@boi.com','$2a$10$dN5KVKvN0ewjSKPiMwtyDeYuGlsE64ylJHN1jmy8Civ44bTVDVlde','somepic.jpg','2016-10-14 17:33:29',0,NULL,NULL,0),('52490290-9234-11e6-b4ac-63d25d44356f','user_to_be_deleted@gmail.com','$2a$10$VybiEJSZd95DyhvAG9tDNOrgid.k1L1eYWKENOLApA24yguwXC0pO','somepic.jpg','2016-10-14 17:33:29',0,NULL,NULL,1),('52c5d3b0-9234-11e6-b4ac-63d25d44356f','codebusters@laddr.xyz','$2a$10$AsV.7.tILbdQX0LprCX38.GfI5dlu0oEZTQwRX356NkNqoKb.gmL6','somepic.jpg','2016-10-14 17:33:30',1,NULL,NULL,0),('52d2f310-9234-11e6-b4ac-63d25d44356f','to_be_deleted@gmail.com','$2a$10$JVULNvJrYyHW.4A0/iWak.j5qtkpD.6Zms3p2i9bdadsL.HVMMDqW','somepic.jpg','2016-10-14 17:33:30',1,NULL,NULL,1);
+INSERT INTO `LdrProfiles` VALUES ('b3018ff0-a821-11e6-a51e-275c4879e126','dat@boi.com','$2a$10$IgaXx9OleaEUrasSlnfeaO7niD9Ty3EiZWPw0VSTsdpySyTK9LfIe','somepic.jpg','2016-11-11 15:15:37',0,NULL,NULL,0),('b312a6f0-a821-11e6-a51e-275c4879e126','user_to_be_deleted@gmail.com','$2a$10$wj3kG3r4u.iEN1ZvITQmiOO2JkundaoIFsSOqINpfCyqTkZ/cVe3S','somepic.jpg','2016-11-11 15:15:37',0,NULL,NULL,1),('b3860230-a821-11e6-a51e-275c4879e126','codebusters@laddr.xyz','$2a$10$B5TMyQquTncjzarisFqVVuFXmKAj269W7nvOsq4xNmC4NhXcKcQgq','somepic.jpg','2016-11-11 15:15:38',1,NULL,NULL,0),('b39348a0-a821-11e6-a51e-275c4879e126','to_be_deleted@gmail.com','$2a$10$920JiiLrFlQH3nYKCsHtOObaWeclmbkG4aCbl3PbmwAGsxNY4VBYe','somepic.jpg','2016-11-11 15:15:38',1,NULL,NULL,1);
 /*!40000 ALTER TABLE `LdrProfiles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `LdrTags`
+--
+
+DROP TABLE IF EXISTS `LdrTags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `LdrTags` (
+  `TagID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`TagID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `LdrTags`
+--
+
+LOCK TABLES `LdrTags` WRITE;
+/*!40000 ALTER TABLE `LdrTags` DISABLE KEYS */;
+INSERT INTO `LdrTags` VALUES (1,'Testing');
+/*!40000 ALTER TABLE `LdrTags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -492,7 +568,7 @@ CREATE TABLE `LdrTopics` (
 
 LOCK TABLES `LdrTopics` WRITE;
 /*!40000 ALTER TABLE `LdrTopics` DISABLE KEYS */;
-INSERT INTO `LdrTopics` VALUES ('534c1ab0-9234-11e6-b4ac-63d25d44356f','Topic created during testing','5235c8b0-9234-11e6-b4ac-63d25d44356f','2016-10-14 17:33:31',1),('53768610-9234-11e6-b4ac-63d25d44356f','Topic created during testing','5235c8b0-9234-11e6-b4ac-63d25d44356f','2016-10-14 17:33:31',0);
+INSERT INTO `LdrTopics` VALUES ('b40cbe60-a821-11e6-a51e-275c4879e126','Topic created during testing','b3018ff0-a821-11e6-a51e-275c4879e126','2016-11-11 15:15:38',1),('b4366670-a821-11e6-a51e-275c4879e126','Topic created during testing','b3018ff0-a821-11e6-a51e-275c4879e126','2016-11-11 15:15:39',0);
 /*!40000 ALTER TABLE `LdrTopics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,7 +596,7 @@ CREATE TABLE `LdrUsers` (
 
 LOCK TABLES `LdrUsers` WRITE;
 /*!40000 ALTER TABLE `LdrUsers` DISABLE KEYS */;
-INSERT INTO `LdrUsers` VALUES ('5235c8b0-9234-11e6-b4ac-63d25d44356f','Test','User','Test Description','Test Resume',0),('52490290-9234-11e6-b4ac-63d25d44356f','Deleted','User','Test Description','Test Resume',0);
+INSERT INTO `LdrUsers` VALUES ('b3018ff0-a821-11e6-a51e-275c4879e126','Test','User','Test Description','Test Resume',0),('b312a6f0-a821-11e6-a51e-275c4879e126','Deleted','User','Test Description','Test Resume',0);
 /*!40000 ALTER TABLE `LdrUsers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -533,4 +609,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-08 10:06:08
+-- Dump completed on 2016-11-11 10:16:40

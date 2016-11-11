@@ -63,24 +63,39 @@ module.exports = function(chai, server, assert, email, password) {
 
               profileID = res.body.ProfileID;
 
+              //get tags
               chai.request(server)
-                .post('/api/posting')
+                .get('/api/tag')
                 .set('x-access-token', userToken)
-                .send({
-                  ProfileID: profileID,
-                  JobTitle: 'Test job title',
-                  Location: 'Mississauga',
-                  Lat: 43.653956,
-                  Lng: -79.739938999,
-                  Description: 'A test job created in Mississauga'
-                })
                 .end(function(err, res) {
 
-                  assert.typeOf(res.body, 'object', 'Should return JSON object.');
-                  assert.equal(res.status, 200, 'Should have 200 status.');
-                  assert.equal(res.body.success, true, 'Should indicate failure.');
+                  tags = [];
 
-                  done();
+                  for (i = 0; i < res.body.length; i++) {
+                    tags.push(true);
+                  }
+
+                  chai.request(server)
+                    .post('/api/posting')
+                    .set('x-access-token', userToken)
+                    .send({
+                      ProfileID: profileID,
+                      JobTitle: 'Test job title',
+                      Location: 'Mississauga',
+                      Lat: 43.653956,
+                      Lng: -79.739938999,
+                      Description: 'A test job created in Mississauga',
+                      Tags: tags
+                    })
+                    .end(function(err, res) {
+
+                      assert.typeOf(res.body, 'object', 'Should return JSON object.');
+                      assert.equal(res.status, 200, 'Should have 200 status.');
+                      assert.equal(res.body.success, true, 'Should indicate failure.');
+
+                      done();
+                    });
+
                 });
             });
         });
