@@ -54,9 +54,9 @@
         <label class='control-label'>Tags: </label>
         <div><small>Tags help users find your posting! Simply check any category which applies to your posting.</small></div>
         <div ng-repeat='tag in tags' ng-if='$index % 3 == 0' class='row tag-group'>
-          <div class='col-md-4'><input name='tags' ng-model='posting.Tags[tags[$index].TagID]' type='checkbox' value='tag.TagID[tags[$index].TagID]'>{{tag.Name}}</div>
-          <div class='col-md-4' ng-if='tags.length > ($index + 1)'><input name='tags' ng-model='posting.Tags[tags[$index + 1].TagID]' type='checkbox' value='tags[$index + 1].TagID'>{{tags[$index + 1].Name}}</div>
-          <div class='col-md-4' ng-if='tags.length > ($index + 2)'><input name='tags' ng-model='posting.Tags[tags[$index + 2].TagID]' type='checkbox' value='tags[$index + 2].TagID'>{{tags[$index + 2].Name}}</div>
+          <div class='col-md-4'><input name='tags' ng-model='posting.Tags[tags[$index].TagID]' type='checkbox' value='tag.TagID[tags[$index].TagID]' id="tag{{tags[$index].TagID}}"><label for="tag{{tags[$index].TagID}}" class='tag-label'>{{tag.Name}}</label></div>
+          <div class='col-md-4' ng-if='tags.length > ($index + 1)'><input name='tags' ng-model='posting.Tags[tags[$index + 1].TagID]' type='checkbox' value='tags[$index + 1].TagID' id="tag{{tags[$index + 1].TagID}}"><label for="tag{{tags[$index + 1].TagID}}" class='tag-label'>{{tags[$index + 1].Name}}</label></div>
+          <div class='col-md-4' ng-if='tags.length > ($index + 2)'><input name='tags' ng-model='posting.Tags[tags[$index + 2].TagID]' type='checkbox' value='tags[$index + 2].TagID' id="tag{{tags[$index + 2].TagID}}"><label for="tag{{tags[$index + 2].TagID}}" class='tag-label'>{{tags[$index + 2].Name}}</label></div>
 		
 		</div>
 		<br>
