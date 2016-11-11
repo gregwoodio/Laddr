@@ -1,11 +1,9 @@
-laddrControllers.controller('HowToController', ['$scope', '$location', '$sessionStorage', 
-  function($scope, $location, $sessionStorage) {
+laddrControllers.controller('HowToController', ['$scope', '$location', 'LoginService', 
+  function($scope, $location, LoginService) {
 
-  $scope.$storage = $sessionStorage;
-  $scope.logout = false;
-
-  if ($scope.$storage.ldrToken != undefined) {
-    $scope.logout = true;
+  if (LoginService.isLoggedIn()) {
+    $scope.isLoggedIn = true;
+    $scope.isUser = LoginService.getProfile().AccountType == 0;
   } else {
     $location.url('/login');
   }

@@ -1,13 +1,14 @@
-laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage) {
-  $scope.$storage = $sessionStorage;
+laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$http', 'LoginService', 
+  function($scope, $location, $http, LoginService) {
+
   $scope.topics = [];
   $scope.page = 0;
 
-  if ($scope.$storage.ldrToken != undefined) {
+  if (LoginService.isLoggedIn()) {
     $http
       .get('/api/topic', {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {
@@ -34,12 +35,13 @@ laddrControllers.controller('AllTopicsController', ['$scope', '$location', '$htt
     if ($scope.page >= $scope.postings.length) {
       $scope.page = $scope.postings.length - 1;
     }
-  }
+  };
 
   $scope.prevPage = function() {
     $scope.page--;
     if ($scope.page < 0) {
       $scope.page = 0;
     }
-  }
+  };
+  
 }]);

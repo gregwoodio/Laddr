@@ -1,8 +1,9 @@
-laddrControllers.controller('AddTopicController', ['$location', '$scope','$http', '$sessionStorage', 
-  function($location, $scope, $http, $sessionStorage) {
+laddrControllers.controller('AddTopicController', ['$location', '$scope','$http', 'LoginService',
+  function($location, $scope, $http, LoginService) {
 
-  $scope.$storage = $sessionStorage;
-  $scope.logout = true;
+  if (!LoginService.isLoggedIn()) {
+    $location.url('/login');
+  }
 
   $scope.submitTopic = function() {
 
@@ -14,7 +15,7 @@ laddrControllers.controller('AddTopicController', ['$location', '$scope','$http'
     $http
       .post('/api/topic', data, {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {

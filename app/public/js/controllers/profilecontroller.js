@@ -1,37 +1,40 @@
-laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', '$sessionStorage', 
-  function($scope, $http, $routeParams, $location, $sessionStorage) {
+laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', 'LoginService',
+  function($scope, $http, $routeParams, $location, LoginService) {
   
-  $scope.$storage = $sessionStorage;
+  $scope.academics = undefined;
 
-  if ($scope.$storage.ldrToken != undefined) {
+  if (LoginService.isLoggedIn()) {
 
     $scope.profile = {};
-    $scope.logout = false;
+    $scope.isLoggedIn = true;
 
     $http
       .get('/api/profile', {
         headers: {
-          'x-access-token': $scope.$storage.ldrToken
+          'x-access-token': LoginService.getToken()
         }
       })
       .success(function(data, status, headers, config) {
 
         $scope.profile = data;
-        // $scope.profile.Email = data.Email;
-        // $scope.profile.FirstName = data.FirstName;
-        // $scope.profile.LastName = data.LastName;
-        $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
-        // $scope.profile.AccountType = data.AccountType;
-        // $scope.profile.Description = data.Description;
-        // $scope.profile.Resume = data.Resume;
-        // $scope.profile.AcademicStatus = data.AcademicStatus;
-        // $scope.profile.OrganizationName = data.OrganizationName;
-        // $scope.profile.Address = data.Address;
-        // $scope.profile.URL = data.URL;
-        // $scope.profile.MissionStatement = data.MissionStatement;
-       
-        //show logout button
-        $scope.logout = true;
+        if ($scope.profile.PictureURL == undefined || $scope.profile.PictureURL == 'pic.jpg') {
+          $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
+        }
+
+        if ($scope.profile.LdrUser) {
+          if ($scope.profile.LdrUser.AcademicStatus == 0) {
+            $scope.academics = 'Not in school';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 1) {
+            $scope.academics = 'High School';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 2) {
+            $scope.academics = 'College';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 3) {
+            $scope.academics = 'University';
+          } else if ($scope.profile.LdrUser.AcademicStatus == 4) {
+            $scope.academics = 'Graduated';
+          }
+        }
+
       })
       .error(function(data, status, headers, config) {
         console.log("Could not retrieve user.");

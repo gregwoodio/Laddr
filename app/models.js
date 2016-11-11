@@ -23,6 +23,7 @@ if (process.env.NODE_ENV == 'test') {
   var sequelize = new Sequelize('Ladder', 'ladder', 'codebusters', {
     host: 'localhost',
       dialect: 'mysql',
+      //logging: false,
 
       pool: {
         max: 5,
@@ -81,6 +82,8 @@ var Organization = sequelize.define('LdrOrganizations', {
   Province: {type: Sequelize.STRING, allowNull: false},
   Postal: {type: Sequelize.STRING, allowNull: false},
   URL: {type: Sequelize.STRING},
+  Lat: {type: Sequelize.DOUBLE, allowNull: true},
+  Lng: {type: Sequelize.DOUBLE, allowNull: true},
   MissionStatement: {type: Sequelize.STRING}
 }, {
   timestamps: false
@@ -99,8 +102,13 @@ var Posting = sequelize.define('LdrPostings', {
   JobTitle: {type: Sequelize.STRING, allowNull: false},
   Location: {type: Sequelize.STRING, allowNull: false},
   Description: {type: Sequelize.STRING, allowNull: false},
+  Lat: {type: Sequelize.DOUBLE, allowNull: true},
+  Lng: {type: Sequelize.DOUBLE, allowNull: true},
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
-  Archived: {type: Sequelize.BOOLEAN, defaultValue: false}
+  Archived: {type: Sequelize.BOOLEAN, defaultValue: false},
+  EventDate: {type: Sequelize.DATE},
+  Deadline: {type: Sequelize.DATE},
+  Repeating: {type: Sequelize.INTEGER, defaultValue: 0}
 }, {
   timestamps: false
 });
@@ -173,6 +181,87 @@ var Application = sequelize.define('LdrApplications', {
 Application.belongsTo(Profile, {foreignKey: 'ProfileID'});
 Application.belongsTo(Posting, {foreignKey: 'PostingID'});
 
+var Tag = sequelize.define('LdrTags', {
+  TagID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  Name: {
+    type: Sequelize.STRING
+  }
+}, {
+  timestamps: false
+});
+
+var PostingTag = sequelize.define('LdrPostingTags', {
+  PostingTagID: {
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+    autoIncrement: true
+  },
+  PostingID: {
+    model: Posting,
+    key: 'PostingID',
+    type: Sequelize.STRING
+  },
+  TagID: {
+    model: Tag,
+    key: 'TagID',
+    type: Sequelize.INTEGER
+  }
+}, {
+  timestamps: false
+});
+
+Posting.hasMany(PostingTag, {foreignKey: 'PostingID'});
+Tag.hasMany(PostingTag, {foreignKey: 'TagID'});
+PostingTag.belongsTo(Posting, {foreignKey: 'PostingID'});
+PostingTag.belongsTo(Tag, {foreignKey: 'TagID'});
+
+var ProfileTag = sequelize.define('LdrProfileTags', {
+  // ProfileTagID: {
+  //   type: Sequelize.INTEGER,
+  //   primaryKey: true,
+  //   autoIncrement: true
+  // },
+  ProfileID: {
+    model: Profile,
+    key: 'ProfileID',
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  TagID: {
+    model: Tag,
+    key: 'TagID',
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true
+  },
+  Preference: {
+    type: Sequelize.DOUBLE,
+    defaultValue: 1000.0
+  }
+}, {
+  timestamps: false
+});
+
+ProfileTag.belongsTo(Profile, {foreignKey: 'ProfileID'});
+ProfileTag.belongsTo(Tag, {foreignKey: 'TagID'});
+Profile.hasMany(ProfileTag, {foreignKey: 'ProfileID'});
+Tag.hasMany(ProfileTag, {foreignKey: 'TagID'});
+
+if (process.env.NODE_ENV == 'test') {
+  //add tags for tests
+  Tag.build({
+    Name: "Testing"
+  })
+  .save()
+  .then(function(tag) {
+    console.log("Test tag added.");
+  });
+}
+
 module.exports = {
   sequelize: sequelize,
   Profile: Profile,
@@ -181,5 +270,8 @@ module.exports = {
   Posting: Posting,
   Topic: Topic,
   Comment: Comment,
-  Application: Application
+  Application: Application,
+  Tag: Tag,
+  PostingTag: PostingTag,
+  ProfileTag: ProfileTag
 };

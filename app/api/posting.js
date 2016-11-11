@@ -19,6 +19,11 @@ module.exports = function(app, models) {
           include: [{
             model: models.Organization
           }]
+        }, {
+          model: models.PostingTag,
+          include: [{
+            model: models.Tag
+          }]
         }]
       })
       .then(function(posting) {
@@ -46,6 +51,11 @@ module.exports = function(app, models) {
           include: [{
             model: models.Organization
           }]
+        }, {
+          model: models.PostingTag,
+          include: [{
+            model: models.Tag
+          }]
         }],
         order: [
           ['Timestamp', 'DESC']
@@ -70,11 +80,12 @@ module.exports = function(app, models) {
   app.post('/api/posting', [mw.verifyToken], function(req, res) {
 
     if (req.body.ProfileID == undefined || req.body.JobTitle == undefined || req.body.Location == undefined ||
-      req.body.Description == undefined || req.body.ProfileID == '' || req.body.JobTitle == '' ||
-      req.body.Location == '' || req.body.Description == '') {
+      req.body.Description == undefined || req.body.Lat == undefined || req.body.Lng == undefined || 
+      req.body.EventDate == undefined || req.body.ProfileID == '' || req.body.JobTitle == '' || req.body.Location == '' || 
+      req.body.Description == '' || req.body.EventDate == '') {
       res.status(400).json({
         success: false,
-        message: 'Missing parameters for user creation.'
+        message: 'Missing parameters for posting creation.'
       });
     } else {
 
@@ -83,10 +94,37 @@ module.exports = function(app, models) {
           ProfileID: req.body.ProfileID,
           JobTitle: req.body.JobTitle,
           Location: req.body.Location,
-          Description: req.body.Description
+          Lat: req.body.Lat || 43.653956, //Davis campus ;)
+          Lng: req.body.Lng || -79.739938999,
+          Description: req.body.Description,
+          EventDate: req.body.EventDate,
+          Deadline: req.body.Deadline,
+          Repeating: req.body.Repeating || 0
         })
         .save()
         .then(function(posting) {
+
+          console.log(req.body.Tags);
+
+          //add tags
+          if (Array.isArray(req.body.Tags)) {
+            for (i = 0; i < req.body.Tags.length; i++) {
+              if (req.body.Tags[i] == true) {
+                models.PostingTag.build({
+                  PostingID: posting.PostingID,
+                  TagID: i
+                })
+                .save()
+                .then(function(tag) {
+                  console.log(tag + ' added to ' + posting.JobTitle);
+                })
+                .catch(function(err) {
+                  console.log(err.message);
+                });
+              }
+            }
+          }
+
           res.json({
             success: true,
             message: 'Posting added.'
@@ -98,7 +136,6 @@ module.exports = function(app, models) {
             message: err.message
           });
         });
-
     }
   });
 
@@ -119,8 +156,13 @@ module.exports = function(app, models) {
 
             models.Posting.update({
                 JobTitle: req.body.JobTitle,
+                Lat: req.body.Lat,
+                Lng: req.body.Lng,
                 Location: req.body.Location,
-                Description: req.body.Description
+                Description: req.body.Description,
+                EventDate: req.body.EventDate,
+                Deadline: req.body.Deadline,
+                Repeating: req.body.Repeating || 0
               }, {
                 where: {
                   PostingID: req.body.PostingID,
@@ -140,6 +182,33 @@ module.exports = function(app, models) {
                   message: err.message
                 });
               });
+
+            //tags are dodgy, this could probably be improved
+            //remove existing tags first
+
+            models.PostingTag.destroy({
+              where: {
+                PostingID: req.body.PostingID
+              }
+            });
+
+            // add new tags
+            for (i = 0; i < req.body.Tags.length; i++) {
+              if (req.body.Tags[i].Enabled == true) {
+                models.PostingTag.build({
+                  PostingID: req.body.PostingID,
+                  TagID: req.body.Tags[i].TagID
+                })
+                .save()
+                .then(function(tag) {
+                  console.log(tag + ' added to ' + posting.JobTitle);
+                })
+                .catch(function(err) {
+                  console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
+                  console.log(err.message);
+                });
+              }
+            }
           } else {
             res.status(500).json({
               success: false,

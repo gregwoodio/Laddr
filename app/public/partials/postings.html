@@ -1,11 +1,9 @@
 <div header></div>
 
 <div class='row'>
-  <div navbar></div>
-
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+  <div>
     <section id="postings">
-      <div class="container-fluid">
+      <div class="container">
         <div class="page-header">
           <br>
         	<h1>Volunteer Opportunities</h1>
@@ -13,9 +11,15 @@
     				in a position, just click the <i>View Details</i> link and review the posting. If you find that you would 
     				like to apply, the just click <i>Apply now</i>! It's that easy! <br><b>NOTE:</b> Please note that any volunteer 
     				opportunity that you apply to will submit your profile information - so remember to fill it out!</p>
+					
+					<div ng-if='profile.AccountType == 1'>
+						<br>
+						<a class='btn btn-primary btn-md' href="#/addposting"><i class="fa fa-plus"></i>   Create Posting</a>
+					</div>
         </div>
 		
     		<div>
+                <!-- Old Table
     			<table class="table table-striped table-style" cellspacing="0" width="100%">
     				<thead>
     					<tr>
@@ -27,21 +31,58 @@
     				</thead>
     				<tbody class='row' ng-repeat="posting in postings[page]">
     					 <tr >
-    						<th>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</th>
-    						<th>{{posting.JobTitle}}</th>
-    						<th>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
-    						<th><a href="#/postings/{{posting.PostingID}}">View Details</a></th>
+    						<td>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</td>
+    						<td>{{posting.JobTitle}}</td>
+    						<td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
+    						<td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>
+							</div>
     					</tr>
     				</tbody>
     			</table>
-          <div ng-show='postings.length > 1' class='row'>
-        <button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'>Prev</button>
+<<<<<<< HEAD
+          -->
+    <div ng-show='postings.length > 1' class='row'>
+        <button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
         <div class='col-md-2 page-number'>{{page + 1}}</div>
-        <button ng-click='nextPage()' class='btn btn-md col-md-2'>Next</button>
+        <button ng-click='nextPage()' class='btn btn-md col-md-2'><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
       </div>
+                
+                
+                        <!-- TEST TABLE  Link for test icon http://imgur.com/A2PKsqU.png-->
+    <div class="box" ng-repeat="posting in postings[page]">
+        <div class="box-temp"> </div>
+        <div class="box-img"><img ng-src="{{posting.LdrProfile.PictureURL}}" class="avatar img-circle img-thumbnail" width="100" height="100"></div>
+        <div class="box-info">
+            <div class="details"><b>{{posting.JobTitle}} </b><br>
+            {{posting.LdrProfile.LdrOrganization.OrganizationName}}</div>
+        <div class="icon">
+            <div class="icon-text">
+                <a href="#/postings/{{posting.PostingID}}">Click here for details</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+                
+    <!-- End test table -->
+                
+          <div ng-show='postings.length > 1' class='row'>
+        <br><button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <div class='col-md-2 page-number'>{{page + 1}}</div>
+        <button ng-click='nextPage()' class='btn btn-md col-md-2'><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+=======
+			<div ng-show='postings.length > 1' class='row'>
+				<button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+				<div class='col-md-2 page-number'>{{page + 1}}</div>
+				<button ng-click='nextPage()' class='btn btn-md col-md-2'><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+			</div>
+>>>>>>> 2ba71353a45293d403186d1a1fd5be456d68d06e
         </div>
 		
       </div>
     </section>
   </div>
 </div>
+
+<div footer></div>

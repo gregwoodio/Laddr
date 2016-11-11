@@ -5,8 +5,7 @@ module.exports = function(grunt) {
 		less: {
 			build: {
 				files: {
-					'app/public/css/bootstrap.css': ['app/public/components/bootstrap/less/bootstrap.less'],
-          'app/public/css/style.css': ['app/public/css/style.less']
+					'app/public/css/style.css': ['app/public/css/style.less']
 				}
 			}
 		},
@@ -33,18 +32,30 @@ module.exports = function(grunt) {
   			src: 'app/public/components/angular/angular.min.js',
   			dest: 'app/public/js/angular.min.js'
   		},
+      angularMap: {
+        src: 'app/public/components/angular/angular.min.js.map',
+        dest: 'app/public/js/angular.min.js.map'
+      },
   		angularRoute: {
   			src: 'app/public/components/angular-route/angular-route.min.js',
     		dest: 'app/public/js/angular-route.min.js'
     	},
+      angularRouteMap: {
+        src: 'app/public/components/angular-route/angular-route.min.js.map',
+        dest: 'app/public/js/angular-route.min.js.map'
+      },
     	angularBootstrap: {
-    		src: 'app/public/components/angular-bootstrap/ui-bootstrap.min.js',
-    		dest: 'app/public/js/ui-bootstrap.min.js'
+    		src: 'app/public/components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+    		dest: 'app/public/js/ui-bootstrap-tpls.min.js'
     	},
     	angularAnimate: {
     		src: 'app/public/components/angular-animate/angular-animate.min.js',
     		dest: 'app/public/js/angular-animate.min.js'
     	},
+      angularAnimateMap: {
+        src: 'app/public/components/angular-animate/angular-animate.min.js.map',
+        dest: 'app/public/js/angular-animate.min.js.map'
+      },
     	ngStorage: {
     		src: 'app/public/components/ngstorage/ngStorage.min.js',
     		dest: 'app/public/js/ngstorage.min.js'
@@ -57,10 +68,18 @@ module.exports = function(grunt) {
     		src: 'app/public/components/bootstrap/dist/js/bootstrap.min.js',
     		dest: 'app/public/js/bootstrap.min.js'
     	},
+      bootstrapCSS: {
+        src: 'app/public/components/bootstrap/dist/css/bootstrap.min.css',
+        dest: 'app/public/css/bootstrap.min.css'
+      },
     	fontawesome: {
     		src: 'app/public/components/font-awesome/css/font-awesome.css',
     		dest: 'app/public/css/font-awesome.css'
-    	}
+    	},
+      ngFileUpload: {
+        src: 'app/public/components/ng-file-upload/ng-file-upload.min.js',
+        dest: 'app/public/js/ng-file-upload.min.js'
+      }
   	}
 	});
 

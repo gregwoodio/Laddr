@@ -88,6 +88,7 @@
 						<!-- referenced code: http://bootsnipp.com/snippets/featured/generic-postal-address-form
 						
 						address-line1 input  -->
+<<<<<<< HEAD
 						<label>Address Line 1: </label><input id="address-line1" ng-model="user.addressline1"	name="address-line1" type="text" placeholder="Enter your address line 1" class="form-control" ><br>				
 						<!-- address-line2 input -->
 						<label>Address Line 2: </label><input 	id="address-line2" ng-model='user.addressline2'	name="address-line2" 	type="text" placeholder="Enter your address line 2" class="form-control"><br>
@@ -114,6 +115,25 @@
 						<!-- postal-code input-->
 						<label>Postal Code</label><input 		id="postal-code" 	name="postal-code" ng-model='user.postal' type="text" placeholder="Please enter your postal code" class="form-control" >	
 					</div><br>
+=======
+						<div class='form-group'>
+					    <label class="control-label" for='address'>Address:</label>
+					    <input type="text" 
+					    	ng-model="asyncSelected" 
+					    	placeholder="Type address here" 
+					    	uib-typeahead="address for address in getLocation($viewValue)" 
+					    	typeahead-loading="loadingLocations" 
+					    	typeahead-no-results="noResults" 
+					    	typeahead-on-select='setAddress()'
+					    	class="form-control"
+					    	name='address'>
+					    <label ng-show="loadingLocations" class="fa fa-spinner fa-spin"></label>
+					    <div ng-show="noResults">
+					      <i class="fa fa-times"></i> No Results Found
+					    </div>
+					  </div>
+					</div>
+>>>>>>> master
 				</div>
 			</div>
 			<br>

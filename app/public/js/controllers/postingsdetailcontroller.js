@@ -1,8 +1,8 @@
-laddrControllers.controller('PostingsDetailController', ['$scope', '$location', '$http', '$routeParams', '$sessionStorage', 'LoginService',
-  function($scope, $location, $http, $routeParams, $sessionStorage, LoginService) {
+laddrControllers.controller('PostingsDetailController', ['$scope', '$location', '$http', '$routeParams', 'LoginService',
+  function($scope, $location, $http, $routeParams, LoginService) {
 
   $scope.posting = {};
-  $scope.$storage = $sessionStorage;
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 13 };
 
   if (LoginService.isLoggedIn() != undefined) {
 
@@ -15,6 +15,35 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
       .success(function(data, status, headers, config) {
 
         $scope.posting = data;
+        $scope.map.center.latitude = $scope.posting.Lat;
+        $scope.map.center.longitude = $scope.posting.Lng;
+        $scope.marker = {
+          id: 0,
+          coords: {
+            latitude: $scope.posting.Lat,
+            longitude: $scope.posting.Lng
+          },
+          options: { draggable: false }
+        };
+
+
+        // make note of visit
+        data = {
+          ProfileID: LoginService.getProfile().ProfileID,
+          PostingID: $scope.posting.PostingID
+        }
+
+        $http.post('/api/profiletags', data, {
+          headers: {
+            'x-access-token': LoginService.getToken()
+          }
+        })
+        .success(function(data, status, headers, config) {
+          console.log('ProfileTags data: ' + data);
+        })
+        .error(function(data, status, headers, config) {
+          console.log('ProfileTags error: ' + data);
+        });
       })
       .error(function(data, status, headers, config) {
         //couldn't get postings
@@ -33,13 +62,13 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
         }
       })
       .success(function(data, status, headers, config) {
-        console.log('Successful application.');
-        $location.url('/applications');
+        if (data.success == true) {
+          $location.url('/applications');
+        } else {
+          $scope.applyError = data.message;
+        }
       })
       .error(function(data, status, headers, config) {
-        console.log('Error while applying');
-        console.log(data);
-        console.log(status);
         $scope.applyError = 'Sorry, there was a problem applying to the job. Please try again later.';
       });
 

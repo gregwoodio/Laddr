@@ -1,11 +1,35 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
+  <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand lobster" href='#/home'>Laddr</a>
+      <a ng-show='!isLoggedIn' class="navbar-brand lobster" href='#/home'>Laddr</a>
+      <a ng-show='isLoggedIn' class="navbar-brand lobster" href='#/feed'>Laddr</a>
     </div>
-    <div class='navbar-right'>
-      <a class='navbar-brand' href='#/login' ng-hide='isLoggedIn'>Login</a>
-      <a class='navbar-brand' href='#/logout' ng-hide='!isLoggedIn'>Logout</a>
-    </div>
+    <ul ng-hide='!isLoggedIn' class="nav navbar-nav">
+      <li><a href="#/profile">Profile</a></li>
+      <li uib-dropdown on-toggle="toggled(open)" ng-show='!isUser'>
+        <a href id="simple-dropdown" uib-dropdown-toggle>
+          Postings <span class='fa fa-caret-down'></span>
+        </a>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+          <li><a href="#/postings">All Postings</a></li>
+          <li><a href="#/addposting">Add Posting</a></li>
+        </ul>
+      </li>
+      <li ng-show='isUser'><a href="#/postings">Postings</a></li>
+      <li><a href="#/forum">Forum</a></li>
+      <li><a href="#/howto">How To</a></li>
+    </ul>
+
+    <ul ng-hide='!(isLoggedIn && isUser)' class='nav navbar-nav'>
+      <li><a href='#/applications'>View Applications</a></li>
+    </ul>
+    <ul ng-hide='!(isLoggedIn && !isUser)' class='nav navbar-nav'>
+      <li><a href='#/applicants'>View Applicants</a></li>
+
+    </ul>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a href='#/login' ng-hide='isLoggedIn'>Login</a></li>
+      <li><a href='#/logout' ng-hide='!isLoggedIn'>Logout</a></li>
+    </ul>
   </div>
 </nav>

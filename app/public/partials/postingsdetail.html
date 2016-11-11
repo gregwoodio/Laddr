@@ -1,31 +1,47 @@
 <div header></div>
 
-<div class='row'>
-  <div navbar></div>
-
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
+<div class='container'>
 		      
-		<section id="postings">
-			<div class="page-header">
-				<br>
-				<h1>Posting Details</h1>
-				
-			</div>
-			<a href="#/postings" class="btn btn-primary btn-md " role="button">Back</a><br>
-			<div class="posting-detail-style container-fluid " ng-show="message == undefined">
-				<div class="border col-xs-6">
-					<h3>{{posting.JobTitle}}</h3>
-					<h4><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</h4>
-					<p><strong>Location: </strong> {{posting.Location}}</p>
-					<p><strong>Description: </strong> {{posting.Description}} </p>
-					<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
+	<section id="postings">
+		<div class="page-header">
+			<h1>Posting Details</h1>
+		</div>
+		
+		<a href="#/postings" class="btn btn-md pull-left" role="button"><span class='fa fa-chevron-left'></span></a><br><br><br>
+		
+		<div class="posting-detail-style row" ng-show="message == undefined">
+				<div class="border col-md-9">
+					<div class='row'>
+						<h3 class='col-md-11'><b>Position: {{posting.JobTitle}}</b></h3>
+					</div>
+
+					<div> 
+						<p><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</p>
+						<p><strong>Location: </strong> {{posting.Location}}</p>
+						<p><strong>Description: </strong> {{posting.Description}} </p>
+						<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
+						<p><strong>Tags: </strong> 
+							<span ng-repeat='tag in posting.LdrPostingTags'>
+								{{tag.LdrTag.Name}}<span ng-if='$index < posting.LdrPostingTags.length - 1'>, </span>
+							</span>
+						</p>
+					</div>
+					<div>
+						<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+							<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+							</ui-gmap-marker>
+						</ui-gmap-google-map>
+					</div>
+					<div ng-if='posting.ProfileID == profile.ProfileID'><br>
+						<a href="#/postings/{{posting.PostingID}}/edit_posting" title='Edit Posting'><i class="fa fa-gear fa-2x pull-left" ></i></a>
+					</div>
 				</div>
 				
-				<div class="border col-xs-6">
-					<br>
-					<br>
-					<img src="{{posting.PictureURL}}" class="profilepic" />
-					<h4>More info about {{posting.LdrProfile.LdrOrganization.OrganizationName}}</h4>
+				<div class="border col-md-3">
+					
+					
+					<img src="{{posting.LdrProfile.PictureURL}}" class="postingprofilepic" />
+					<h4><b>More Information on {{posting.LdrProfile.LdrOrganization.OrganizationName}}</b></h4>
 				
 					<p>{{posting.LdrProfile.LdrOrganization.MissionStatement}} </p>
 					<p>
@@ -37,22 +53,23 @@
 						{{posting.LdrProfile.LdrOrganization.Postal}}
 					</p>
 					
-					<div ng-if='profile.AccountType == 0'>
-						<br><br>
-						<button class='btn btn-primary btn-md' ng-click='apply()'>Apply Now!</button>
-						<div>{{applyError}}</div>
+					<div ng-if='profile.AccountType == 0'><br>
+						
+						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
+						<div class='error-text'>{{applyError}}</div>
+						
 					</div>
-					
+				
+		
 					
 				</div>
-					
-					
+			
 				
-			
-			
-			</div>
-			
-			<div>{{message}}</div>
-		</section>
-	</div>
+		</div>
+		
+		<br>
+		<div>{{message}}</div>
+	</section>
 </div>
+
+<div footer></div>

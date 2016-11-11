@@ -1,45 +1,112 @@
 <div header></div>
 
-<div class='row'>
-  <div navbar></div>
+<div class='container'>
+  <section id="addposting">
 
-  <div class='col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-offset-1 col-xs-11 main'>
-    <section id="addposting">
+    <div class="page-header">
+      <h1>Add Posting</h1>
+    </div>
 
-      <div class="page-header">
+    <div class=' posting-style container-fluid'>
+      <p><b>NOTE:</b> In the add postings page, you will be able to create your volunteering opportunities that can be seen 
+  		by users who are looking to volunteer! It's important to note that you should provide 
+  		as much detail as possible in the description area of your postings. Some things you can 
+  		add in the description area is: 
+  			<ul>
+  			  <li>Shifts/Times of volunteer positions</li>
+  			  <li>Skills desired/required</li>
+  			  <li>Long/Short term volunteer positions</li>
+  			</ul>
 		<br>
-        <h1>Add Posting</h1>
+      </p>
+
+      <form ng-submit='addPosting()' class='form-signin'>
+        <div>
+          <label for='jobTitle' class='control-label'>Job Title: </label>
+          <input ng-model='posting.JobTitle' type='text' name='jobTitle' class='form-control' placeholder="Name of Volunteer Position" required/>
+		    </div>
+        <div>
+			<br>
+
+      <div class='form-group'>
+        <label class="control-label" for='address'>Address:</label>
+        <input type="text" 
+          ng-model="asyncSelected" 
+          placeholder="Type address here" 
+          uib-typeahead="address for address in getLocation($viewValue)" 
+          typeahead-loading="loadingLocations" 
+          typeahead-no-results="noResults" 
+          typeahead-on-select='setAddress()'
+          class="form-control"
+          name='address'>
+        <label ng-show="loadingLocations" class="fa fa-spinner fa-spin"></label>
+
+        <div ng-show="noResults">
+          <i class="fa fa-times"></i> No Results Found
+        </div>
       </div>
 
-      <div class=' posting-style container-fluid'>
-		<p><b>NOTE:</b> In the add postings page, you will be able to create your volunteering opportunities that can be seen 
-			by users who are looking to volunteer! It's important to note that you should provide 
-			as much detail as possible in the description area of your postings. Some things you can 
-			add in the description area is: 
-				<ul>
-				  <li>Shifts/Times of volunteer positions</li>
-				  <li>Skills desired/required</li>
-				  <li>Long/Short term volunteer positions</li>
-				</ul>
-			<br>
-		</p>
-        <form ng-submit='addPosting()' class='form-signin'>
-          <label for='jobTitle'>Job Title: </label>
-          <input ng-model='posting.JobTitle' type='text' name='jobTitle' class='form-control' placeholder="Name of Volunteer Position" required/>
-			<br>
-			<br>
-          <label for='location'>Location: </label>
-          <input ng-model='posting.Location' type='text' name='location' class='form-control' placeholder="Location of Event"  />
-			<br>
-			<br>
-          <label for='description'>Description: </label>
-          <textarea ng-model='posting.Description' name='description' rows='5' class='form-control' placeholder="Details on the Volunteer Position" required></textarea>
-			<br>
-			<br>
-          <input type='submit' value='Add Posting' class='form-control btn'/>
-        </form>
+      <div class='row'>
+        <div class='col-md-6'>
+          <label class="control-label" for='eventDate'>Event Date:</label>
+          <p class='input-group'>
+            <input type='text' 
+              class='form-control' 
+              uib-datepicker-popup='dd-MMMM-yyyy' 
+              ng-model='eventDate'
+              is-open='eventDatePopup.opened'
+              datepicker-options='dateOptions'
+              ng-required='true'
+              close-text='Close'
+              alt-input-formats='altInputFormats'
+              ng-change='updateDeadline(eventDate)' />
+            <span class='input-group-btn'>
+              <button type='button' class='btn btn-default' ng-click='openEventDate()'><i class='fa fa-calendar'></i></button>
+            </span>
+          </p>
+        </div>
+        <div class='col-md-6'>
+          <label class="control-label" for='deadline'>Application Deadline:</label>
+          <p class='input-group'>
+            <input type='text' 
+              class='form-control' 
+              uib-datepicker-popup='dd-MMMM-yyyy' 
+              ng-model='deadline'
+              is-open='deadlinePopup.opened'
+              datepicker-options='deadlineOptions'
+              ng-required='true'
+              close-text='Close'
+              alt-input-formats='altInputFormats' />
+            <span class='input-group-btn'>
+              <button type='button' class='btn btn-default' ng-click='openDeadline()'><i class='fa fa-calendar-times-o'></i></button>
+            </span>
+          </p>
+        </div>
       </div>
       
-    </section>
-  </div>
+        <div>
+			<br>
+          <label for='description' class='control-label'>Description: </label>
+          <textarea ng-model='posting.Description' name='description' rows='5' class='form-control' placeholder="Details on the Volunteer Position" required></textarea>
+    		</div>
+		<br>
+        <label class='control-label'>Tags: </label>
+        <div><small>Tags help users find your posting! Simply check any category which applies to your posting.</small></div>
+        <div ng-repeat='tag in tags' ng-if='$index % 3 == 0' class='row tag-group'>
+          <div class='col-md-4'><input name='tags' ng-model='posting.Tags[tags[$index].TagID]' type='checkbox' value='tag.TagID[tags[$index].TagID]' id="tag{{tags[$index].TagID}}"><label for="tag{{tags[$index].TagID}}" class='tag-label'>{{tag.Name}}</label></div>
+          <div class='col-md-4' ng-if='tags.length > ($index + 1)'><input name='tags' ng-model='posting.Tags[tags[$index + 1].TagID]' type='checkbox' value='tags[$index + 1].TagID' id="tag{{tags[$index + 1].TagID}}"><label for="tag{{tags[$index + 1].TagID}}" class='tag-label'>{{tags[$index + 1].Name}}</label></div>
+          <div class='col-md-4' ng-if='tags.length > ($index + 2)'><input name='tags' ng-model='posting.Tags[tags[$index + 2].TagID]' type='checkbox' value='tags[$index + 2].TagID' id="tag{{tags[$index + 2].TagID}}"><label for="tag{{tags[$index + 2].TagID}}" class='tag-label'>{{tags[$index + 2].Name}}</label></div>
+		
+		</div>
+		<br>
+        <input class='btn btn-md col-md-offset-4 col-md-4' type='submit' value='Add Posting' class='form-control btn'/>
+		
+      </form>
+	<br><br>
+    </div>
+    
+  </section>
+  
 </div>
+
+<div footer></div>

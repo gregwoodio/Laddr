@@ -27,11 +27,16 @@
 				<div ng-show='message != undefined' class='error-text'>{{message}}</div>
 
 				<h3>Social Media Login</h3>
-				<a class='btn btn-md btn-block' href='api/twitter'><span class='fa fa-twitter'></span> Twitter</a><br>
-				
-				<h5>Don't have an account?</h5>
-				<a class='btn btn-md btn-block' href='#/register'>Register</a>
-				<br><br>
+				<div class='btn-toolbar' style='width: 100%'>
+					<a class='btn' href='api/twitter'><span class='fa fa-twitter'></span> Twitter</a>
+					<a class='btn' href=''><span class='fa fa-facebook'></span> Facebook</a>
+					<a class='btn' href=''><span class='fa fa-google'></span> Google</a>
+				</div>
+				<br>
+				<h3>Don't have an account?</h3>
+				<div>
+					<a class='btn btn-md btn-block' href='#/register'>Register</a>
+				</div>
 			</div>
 
 		</section>

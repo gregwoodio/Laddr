@@ -21,6 +21,8 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
             .end(function(err, res) {
 
               profileID = res.body.ProfileID;
+              var tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
 
               chai.request(server)
                 .post('/api/posting')
@@ -29,7 +31,11 @@ module.exports = function(chai, server, assert, orgEmail, orgPass, email, passwo
                   ProfileID: profileID,
                   JobTitle: 'Applicant',
                   Location: 'Brampton',
-                  Description: 'Apply to this job!'
+                  Lat: 43.653956,
+                  Lng: -79.739938999,
+                  Description: 'Apply to this job!',
+                  EventDate: tomorrow,
+                  Deadline: new Date()
                 })
                 .end(function(err, res) {
 

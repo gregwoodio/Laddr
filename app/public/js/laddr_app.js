@@ -7,34 +7,48 @@
 		'ui.bootstrap',
 	  'laddrControllers',
 	  'ngStorage',
-	]);
+	  'ngFileUpload',
+	  'nemLogging',
+	  'uiGmapgoogle-maps'
+	])
+	// .config(function(uiGmapGoogleMapApiProvider) {
+ //    uiGmapGoogleMapApiProvider.configure({
+ //        key: 'AIzaSyBrPZaMWBDMB6grdT9hft8yrxpMbGWSvrA',
+ //        v: '3.20', //defaults to latest 3.X anyhow
+ //        libraries: 'weather,geometry,visualization'
+ //    });
+	// });
 
-	laddrApp.service('LoginService', ['$rootScope', function($rootScope) {
+	laddrApp.service('LoginService', ['$rootScope', '$sessionStorage', function($rootScope, $sessionStorage) {
 		
 		this.setProfile = function(profile) {
-			console.log('LoginService setting profile');
 			$rootScope.profile = profile;
+			$sessionStorage.ldrProfile = profile;
 		};
 
 		this.getProfile = function() {
-			console.log('LoginService returning profile');
 			return $rootScope.profile;
 		};
 
 		this.setToken = function(token) {
-			console.log('LoginService setting token');
 			$rootScope.token = token;
+			$sessionStorage.ldrToken = token;
 		};
 
 		this.getToken = function() {
-			console.log('LoginService returning token');
 			return $rootScope.token;
 		};
 
 		this.isLoggedIn = function() {
-			console.log('LoginService checking login status');
-			console.log($rootScope.profile != undefined);
-			return $rootScope.profile != undefined;
+			//checks if you've got a profile set in rootscope or sessionStorage
+			if ($rootScope.profile) {
+				return $rootScope.profile;
+			} else if ($sessionStorage.ldrProfile && $sessionStorage.ldrToken) {
+				this.setProfile($sessionStorage.ldrProfile);
+				this.setToken($sessionStorage.ldrToken);
+				return $rootScope.profile;
+			}
+			return undefined;
 		};
 
 	}]);
@@ -45,8 +59,8 @@
 			replace: true,
 			scope: false,
 			templateUrl: 'js/directives/header.html',
-			controller: ['$scope', '$rootScope', 'LoginService',
-			  function($scope, $rootScope, LoginService) {
+			controller: ['$scope', 'LoginService',
+			  function($scope, LoginService) {
 
 			  $scope.isLoggedIn = LoginService.isLoggedIn();
 			  if ($scope.isLoggedIn) {
@@ -55,15 +69,15 @@
 			}]
 		}
 	});
-
-	laddrApp.directive('navbar', function() {
+	
+	laddrApp.directive('footer', function() {
 		return {
 			restrict: 'A', //must be on an attribute, not element
 			replace: true,
 			scope: false,
-			templateUrl: 'js/directives/navbar.html',
-			controller: ['$scope', '$rootScope', 'LoginService',
-			  function($scope, $rootScope, LoginService) {
+			templateUrl: 'js/directives/footer.html',
+			controller: ['$scope', 'LoginService',
+			  function($scope, LoginService) {
 
 			  $scope.isLoggedIn = LoginService.isLoggedIn();
 			  if ($scope.isLoggedIn) {
@@ -72,6 +86,7 @@
 			}]
 		}
 	});	
+
 
 	laddrApp.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
@@ -134,6 +149,26 @@
 		when('/applicants', {
 			templateUrl: 'partials/applicants.html',
 			controller: 'ApplicantController'
+		}).
+		when('/rules', {
+			templateUrl: 'partials/rules.html',
+		}).
+		when('/contact', {
+			templateUrl: 'partials/contact.html',
+		}).
+		when('/aboutus', {
+			templateUrl: 'partials/about.html',
+		}).
+		when('/faq', {
+			templateUrl: 'partials/faq.html',
+		}).
+		when('/feed', {
+			templateUrl: 'partials/feed.html',
+			controller: 'FeedController'
+		}).
+		when('/postings/:id/edit_posting', {
+			templateUrl: 'partials/postingedit.html',
+			controller: 'EditPostingController'
 		}).
 		otherwise({
 			redirectTo: '/home'
