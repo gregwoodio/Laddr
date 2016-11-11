@@ -119,7 +119,6 @@ module.exports = function(app, models) {
                   console.log(tag + ' added to ' + posting.JobTitle);
                 })
                 .catch(function(err) {
-                  console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
                   console.log(err.message);
                 });
               }
