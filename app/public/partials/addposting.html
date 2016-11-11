@@ -45,6 +45,45 @@
           <i class="fa fa-times"></i> No Results Found
         </div>
       </div>
+
+      <div class='row'>
+        <div class='col-md-6'>
+          <label class="control-label" for='eventDate'>Event Date:</label>
+          <p class='input-group'>
+            <input type='text' 
+              class='form-control' 
+              uib-datepicker-popup='dd-MMMM-yyyy' 
+              ng-model='eventDate'
+              is-open='eventDatePopup.opened'
+              datepicker-options='dateOptions'
+              ng-required='true'
+              close-text='Close'
+              alt-input-formats='altInputFormats'
+              ng-change='updateDeadline(eventDate)' />
+            <span class='input-group-btn'>
+              <button type='button' class='btn btn-default' ng-click='openEventDate()'><i class='fa fa-calendar'></i></button>
+            </span>
+          </p>
+        </div>
+        <div class='col-md-6'>
+          <label class="control-label" for='deadline'>Application Deadline:</label>
+          <p class='input-group'>
+            <input type='text' 
+              class='form-control' 
+              uib-datepicker-popup='dd-MMMM-yyyy' 
+              ng-model='deadline'
+              is-open='deadlinePopup.opened'
+              datepicker-options='deadlineOptions'
+              ng-required='true'
+              close-text='Close'
+              alt-input-formats='altInputFormats' />
+            <span class='input-group-btn'>
+              <button type='button' class='btn btn-default' ng-click='openDeadline()'><i class='fa fa-calendar-times-o'></i></button>
+            </span>
+          </p>
+        </div>
+      </div>
+      
         <div>
 			<br>
           <label for='description' class='control-label'>Description: </label>

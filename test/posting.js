@@ -75,6 +75,9 @@ module.exports = function(chai, server, assert, email, password) {
                     tags.push(true);
                   }
 
+                  var tomorrow = new Date();
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+
                   chai.request(server)
                     .post('/api/posting')
                     .set('x-access-token', userToken)
@@ -85,6 +88,9 @@ module.exports = function(chai, server, assert, email, password) {
                       Lat: 43.653956,
                       Lng: -79.739938999,
                       Description: 'A test job created in Mississauga',
+                      EventDate: tomorrow,
+                      DeadLine: new Date(),
+                      Repeating: 0,
                       Tags: tags
                     })
                     .end(function(err, res) {

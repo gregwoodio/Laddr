@@ -105,7 +105,10 @@ var Posting = sequelize.define('LdrPostings', {
   Lat: {type: Sequelize.DOUBLE, allowNull: true},
   Lng: {type: Sequelize.DOUBLE, allowNull: true},
   Timestamp: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
-  Archived: {type: Sequelize.BOOLEAN, defaultValue: false}
+  Archived: {type: Sequelize.BOOLEAN, defaultValue: false},
+  EventDate: {type: Sequelize.DATE},
+  Deadline: {type: Sequelize.DATE},
+  Repeating: {type: Sequelize.INTEGER, defaultValue: 0}
 }, {
   timestamps: false
 });
