@@ -61,19 +61,21 @@
         <div class="box" ng-repeat="posting in filtered = (postings | filter:search) | startFrom: ((page - 1) * ppp) | limitTo: ppp" >
             <div class="box-temp"> </div>
             <div class="box-img"><img ng-src="{{posting.LdrProfile.PictureURL}}" class="avatar img-circle img-thumbnail" width="100" height="100"></div>
-            <div class="box-info">
-                <div class="details"><b>{{posting.JobTitle}} </b><br>
-                {{posting.LdrProfile.LdrOrganization.OrganizationName}}</div>
-            <div class="icon">
-                <div class="icon-text">
-                    <a href="#/postings/{{posting.PostingID}}">Click here for details</a>
-                </div>
-            </div>
-            </div>
+            
+			<a href="#/postings/{{posting.PostingID}}">
+				<div class="box-info">
+					<div class="details">
+						 <h2>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</h2> 
+						<b><h3>Position: {{posting.JobTitle}}  |  Event Date:  {{posting.EventDate | date: 'dd MMM yyyy'}}</h3></b>
+				   
+					</div>
+				</div>
+			</a>
         </div>    
         <!-- End test table -->
                 
 		<div ng-show='postings.length > 1' class='row'>
+			
             <button ng-click='prevPage()' class='btn btn-md col-md-offset-3 col-md-2'>
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </button>
