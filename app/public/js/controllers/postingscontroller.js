@@ -2,7 +2,8 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
   function($scope, $location, $http, $routeParams, LoginService) {
     
   $scope.postings = [];
-  $scope.page = 0;
+  $scope.page = 1;
+  $scope.ppp = 6;
 
   if (LoginService.isLoggedIn()) {
     $http
@@ -13,11 +14,7 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
       })
       .success(function(data, status, headers, config) {
 
-        // pagination
-        ppp = 6; //postings per page ;)
-        for (i = 0; i < data.length; i += ppp) {
-          $scope.postings.push(data.slice(i, i + ppp));
-        }
+        $scope.postings = data;
 
       })
       .error(function(data, status, headers, config) {
@@ -30,15 +27,19 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
 
   $scope.nextPage = function() {
     $scope.page++;
-    if ($scope.page >= $scope.postings.length) {
-      $scope.page = $scope.postings.length - 1;
+    if ($scope.page >= Math.ceil($scope.filtered.length / $scope.ppp)) {
+      $scope.page = Math.ceil($scope.filtered.length  / $scope.ppp);
     }
   }
 
   $scope.prevPage = function() {
     $scope.page--;
-    if ($scope.page < 0) {
-      $scope.page = 0;
+    if ($scope.page < 1) {
+      $scope.page = 1;
     }
+  }
+
+  $scope.resetPages = function() {
+    $scope.page = 1;
   }
 }]);

@@ -19,7 +19,7 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         FirstName: $scope.user.firstName,
         LastName: $scope.user.lastName,
         AcademicStatus: $scope.user.academicStatus,
-        Picture: 'pic.jpg',
+        Picture: 'img/uploads/generic.jpg',
         Description: 'description',
         Resume: 'resume'
       };
@@ -49,7 +49,7 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         City: $scope.user.City,
         Province: $scope.user.Province,
         Postal: $scope.user.Postal,
-        Picture: '',
+        Picture: 'img/uploads/generic.jpg',
         MissionStatement: '',
         URL: '',
         Lat: $scope.user.lat,
