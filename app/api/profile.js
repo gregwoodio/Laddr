@@ -18,9 +18,7 @@ module.exports = function(app, models) {
             message: "Failed to authenticate token."
           });
         } else {
-
-          // why are joins so tough in Sequelize? Raw queries FTW.
-          // TODO: Take out the trash.
+          
           if (decoded.AccountType == 0) {
             models.Profile.find({
               where: {

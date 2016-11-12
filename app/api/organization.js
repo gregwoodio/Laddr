@@ -56,7 +56,7 @@ module.exports = function(app, models) {
         models.Profile.build({
           ProfileID: profileID,
           Email: req.body.Email,
-          PictureURL: req.body.Picture,
+          PictureURL: 'img/uploads/generic.jpg',
           Password: hash,
           Timestamp: new Date(),
           AccountType: 1,
