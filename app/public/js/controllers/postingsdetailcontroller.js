@@ -26,6 +26,19 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
           options: { draggable: false }
         };
 
+        // deadline display
+        deadline = new Date($scope.posting.Deadline);
+        today = new Date();
+        $scope.daysRemaining = Math.round((deadline.getTime() - today.getTime()) / 86400000); //milliseconds per day
+        if ($scope.daysRemaining == 0) {
+          $scope.daysLeft = "Applications close today!";  
+        } else if ($scope.daysRemaining == 1) {
+          $scope.daysLeft = "Applications close in 1 day.";
+        } else if ($scope.daysRemaining > 1) {
+          $scope.daysLeft = "Applications close in " + $scope.daysRemaining + " days.";
+        } else {
+          $scope.daysLeft = "Applications are closed.";
+        }
 
         // make note of visit
         data = {
@@ -55,22 +68,29 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
 
   $scope.apply = function() {
     // logged in user applies to posting
-    $http
-      .post('/api/apply', $scope.posting, {
-        headers: {
-          'x-access-token': LoginService.getToken()
-        }
-      })
-      .success(function(data, status, headers, config) {
-        if (data.success == true) {
-          $location.url('/applications');
-        } else {
-          $scope.applyError = data.message;
-        }
-      })
-      .error(function(data, status, headers, config) {
-        $scope.applyError = 'Sorry, there was a problem applying to the job. Please try again later.';
-      });
+    today = new Date();
+    deadline = new Date($scope.posting.Deadline);
+
+    if (deadline > today) {
+      $http
+        .post('/api/apply', $scope.posting, {
+          headers: {
+            'x-access-token': LoginService.getToken()
+          }
+        })
+        .success(function(data, status, headers, config) {
+          if (data.success == true) {
+            $location.url('/applications');
+          } else {
+            $scope.applyError = data.message;
+          }
+        })
+        .error(function(data, status, headers, config) {
+          $scope.applyError = 'Sorry, there was a problem applying to the job. Please try again later.';
+        });
+    } else {
+      $scope.applyError = 'Sorry, applications are closed.';
+    }
 
   };
 

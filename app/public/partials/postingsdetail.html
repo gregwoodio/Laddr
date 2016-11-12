@@ -19,7 +19,8 @@
 						<p><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</p>
 						<p><strong>Location: </strong> {{posting.Location}}</p>
 						<p><strong>Description: </strong> {{posting.Description}} </p>
-						<p><strong>Posted: </strong> {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </p>
+						<p><strong>Event date: </strong> {{posting.EventDate | date: 'dd MMM yyyy'}}</p>
+						<p>{{daysLeft}}</p>
 						<p><strong>Tags: </strong> 
 							<span ng-repeat='tag in posting.LdrPostingTags'>
 								{{tag.LdrTag.Name}}<span ng-if='$index < posting.LdrPostingTags.length - 1'>, </span>
@@ -35,6 +36,8 @@
 					<div ng-if='posting.ProfileID == profile.ProfileID'><br>
 						<a href="#/postings/{{posting.PostingID}}/edit_posting" title='Edit Posting'><i class="fa fa-gear fa-2x pull-left" ></i></a>
 					</div>
+
+					<p><small>Posted: {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </small></p>
 				</div>
 				
 				<div class="border col-md-3">
@@ -53,7 +56,7 @@
 						{{posting.LdrProfile.LdrOrganization.Postal}}
 					</p>
 					
-					<div ng-if='profile.AccountType == 0'><br>
+					<div ng-if='profile.AccountType == 0 && daysRemaining >= 0'><br>
 						
 						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
 						<div class='error-text'>{{applyError}}</div>
