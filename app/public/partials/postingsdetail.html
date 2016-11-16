@@ -3,19 +3,18 @@
 <div class='container'>
 		      
 	<section id="postings">
-		<div class="page-header">
+		<div class="page-header block-inline">
+			
 			<h1>Posting Details</h1>
 		</div>
 		
-		<a href="#/postings" class="btn btn-md pull-left" role="button"><span class='fa fa-chevron-left'></span></a><br><br><br>
-		
-		<div class="posting-detail-style row" ng-show="message == undefined">
-				<div class="border col-md-9">
-					<div class='row'>
-						<h3 class='col-md-11'><b>Position: {{posting.JobTitle}}</b></h3>
-					</div>
-
+		<div class="posting-detail-style row container-fluid" ng-show="message == undefined">
+				
+				<div class="border col-md-9">		
+	
 					<div> 
+						<a href="#/postings" class="btn btn-md pull-left" role="button"><i class='fa fa-chevron-left'></i></a><br>
+						<h3><b>Position: {{posting.JobTitle}}</b></h3>
 						<p><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</p>
 						<p><strong>Location: </strong> {{posting.Location}}</p>
 						<p><strong>Description: </strong> {{posting.Description}} </p>
@@ -32,11 +31,13 @@
 							<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
 							</ui-gmap-marker>
 						</ui-gmap-google-map>
+						
 					</div>
-					<div ng-if='posting.ProfileID == profile.ProfileID'><br>
-						<a href="#/postings/{{posting.PostingID}}/edit_posting" title='Edit Posting'><i class="fa fa-gear fa-2x pull-left" ></i></a>
+					
+					<div class="edit-icon" ng-if='posting.ProfileID == profile.ProfileID'><br>
+						<a href="#/postings/{{posting.PostingID}}/edit_posting" class="edit-icon" title='Edit Posting'><i class="fa fa-gear fa-2x pull-right" ></i></a>
 					</div>
-
+					
 					<p><small>Posted: {{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}} </small></p>
 				</div>
 				
@@ -54,8 +55,9 @@
 						{{posting.LdrProfile.LdrOrganization.City}}<br>
 						{{posting.LdrProfile.LdrOrganization.Province}}<br>
 						{{posting.LdrProfile.LdrOrganization.Postal}}
+						
 					</p>
-					
+		
 					<div ng-if='profile.AccountType == 0 && daysRemaining >= 0'><br>
 						
 						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
@@ -63,10 +65,11 @@
 						
 					</div>
 				
-		
+					
 					
 				</div>
-			
+				
+
 				
 		</div>
 		
