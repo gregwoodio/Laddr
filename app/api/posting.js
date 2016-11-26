@@ -1,7 +1,6 @@
 // posting.js
 
 var uuid = require('uuid');
-var jwt = require('jsonwebtoken');
 var mw = require('../middleware');
 
 module.exports = function(app, models) {
@@ -139,137 +138,102 @@ module.exports = function(app, models) {
     }
   });
 
-  app.put('/api/posting', function(req, res) {
+  app.put('/api/posting', mw.verifyToken, function(req, res) {
 
-    var token = req.headers['x-access-token'];
+    // Alter the posting only if the current ProfileID is also the poster
+    if (req.decoded.ProfileID == req.body.ProfileID) {
 
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-          // Alter the posting only if the current ProfileID is also the poster
-          if (decoded.ProfileID == req.body.ProfileID) {
-
-            models.Posting.update({
-                JobTitle: req.body.JobTitle,
-                Lat: req.body.Lat,
-                Lng: req.body.Lng,
-                Location: req.body.Location,
-                Description: req.body.Description,
-                EventDate: req.body.EventDate,
-                Deadline: req.body.Deadline,
-                Repeating: req.body.Repeating || 0
-              }, {
-                where: {
-                  PostingID: req.body.PostingID,
-                  ProfileID: decoded.ProfileID,
-                  Archived: false
-                }
-              })
-              .then(function(posting) {
-                res.json({
-                  success: true,
-                  message: 'Posting updated.'
-                });
-              })
-              .catch(function(err) {
-                res.status(500).json({
-                  success: false,
-                  message: err.message
-                });
-              });
-
-            //tags are dodgy, this could probably be improved
-            //remove existing tags first
-
-            models.PostingTag.destroy({
-              where: {
-                PostingID: req.body.PostingID
-              }
-            });
-
-            // add new tags
-            for (i = 0; i < req.body.Tags.length; i++) {
-              if (req.body.Tags[i].Enabled == true) {
-                models.PostingTag.build({
-                  PostingID: req.body.PostingID,
-                  TagID: req.body.Tags[i].TagID
-                })
-                .save()
-                .then(function(tag) {
-                  console.log(tag + ' added to ' + posting.JobTitle);
-                })
-                .catch(function(err) {
-                  console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
-                  console.log(err.message);
-                });
-              }
-            }
-          } else {
-            res.status(500).json({
-              success: false,
-              message: 'Cannot edit posting created by another user.'
-            });
+      models.Posting.update({
+          JobTitle: req.body.JobTitle,
+          Lat: req.body.Lat,
+          Lng: req.body.Lng,
+          Location: req.body.Location,
+          Description: req.body.Description,
+          EventDate: req.body.EventDate,
+          Deadline: req.body.Deadline,
+          Repeating: req.body.Repeating || 0
+        }, {
+          where: {
+            PostingID: req.body.PostingID,
+            ProfileID: req.decoded.ProfileID,
+            Archived: false
           }
+        })
+        .then(function(posting) {
+          res.json({
+            success: true,
+            message: 'Posting updated.'
+          });
+        })
+        .catch(function(err) {
+          res.status(500).json({
+            success: false,
+            message: err.message
+          });
+        });
+
+      //tags are dodgy, this could probably be improved
+      //remove existing tags first
+
+      models.PostingTag.destroy({
+        where: {
+          PostingID: req.body.PostingID
         }
       });
+
+      // add new tags
+      for (i = 0; i < req.body.Tags.length; i++) {
+        if (req.body.Tags[i].Enabled == true) {
+          models.PostingTag.build({
+            PostingID: req.body.PostingID,
+            TagID: req.body.Tags[i].TagID
+          })
+          .save()
+          .then(function(tag) {
+            console.log(tag + ' added to ' + posting.JobTitle);
+          })
+          .catch(function(err) {
+            console.log('Didn\'t add ' + tag + ' to ' + posting.JobTitle);
+            console.log(err.message);
+          });
+        }
+      }
     } else {
-      res.status(403).json({
+      res.status(500).json({
         success: false,
-        message: "No token provided."
+        message: 'Cannot edit posting created by another user.'
       });
     }
+
   });
 
-  app.delete('/api/posting/:id', function(req, res) {
-    var token = req.headers['x-access-token'];
-
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-
-          models.Posting.update({
-              Archived: true
-            }, {
-              where: {
-                PostingID: req.params.id,
-                ProfileID: decoded.ProfileID
-              }
-            })
-            .then(function(posting) {
-
-              console.log('test/posting.js - ' + posting);
-
-              res.json({
-                success: true,
-                message: 'Posting deleted.'
-              });
-            })
-            .catch(function(err) {
-
-              console.log('test/posting.js - ' + err.message);
-
-              res.status(500).json({
-                success: false,
-                message: err.message
-              });
-            });
+  app.delete('/api/posting/:id', mw.verifyToken, function(req, res) {
+    
+    models.Posting.update({
+        Archived: true
+      }, {
+        where: {
+          PostingID: req.params.id,
+          ProfileID: req.decoded.ProfileID
         }
+      })
+      .then(function(posting) {
+
+        console.log('test/posting.js - ' + posting);
+
+        res.json({
+          success: true,
+          message: 'Posting deleted.'
+        });
+      })
+      .catch(function(err) {
+
+        console.log('test/posting.js - ' + err.message);
+
+        res.status(500).json({
+          success: false,
+          message: err.message
+        });
       });
-    } else {
-      res.status(403).json({
-        success: false,
-        message: "No token provided."
-      });
-    }
   });
 };

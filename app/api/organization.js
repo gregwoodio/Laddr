@@ -102,86 +102,62 @@ module.exports = function(app, models) {
     }
   });
 
-  app.put('/api/organization', function(req, res) {
+  app.put('/api/organization', mw.verifyToken, function(req, res) {
 
-    var token = req.headers['x-access-token'];
+    // Alter only the information for current organization
+    // ProfileID cannot change
+    // Passwords will be changed elsewhere.
 
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-          // Alter only the information for current organization
-          // ProfileID cannot change
-          // Passwords will be changed elsewhere.
+    //get the existing profile first
+    models.Profile.find({
+      where: {
+        ProfileID: req.decoded.ProfileID
+      }, 
+      include: [models.Organization]
+    })
+    .then(function(profile) {
+      org = {};
 
-          //get the existing profile first
-          models.Profile.find({
+      for (key in profile.dataValues) {
+        org[key] = profile.dataValues[key];
+      }
+
+      for (key in profile.dataValues.LdrOrganization) {
+        org[key] = profile.dataValues.LdrOrganization[key];
+      }
+
+      //now change the values to the new values
+      models.Profile.update({
+        ProfileID: org.ProfileID,
+        Email: req.body.Email || org.Email,
+        PictureURL: req.body.PictureURL || org.PictureURL
+      }, {
+        where: {
+          ProfileID: req.decoded.ProfileID
+        }
+      })
+      .then(function(profile) {
+        models.Organization.update({
+            OrganizationName: req.body.OrganizationName || org.OrganizationName,
+            AddressLine1: req.body.AddressLine1 || org.AddressLine1,
+            AddressLine2: req.body.AddressLine2 || org.AddressLine2,
+            City: req.body.City || org.City,
+            Province: req.body.Province || org.Province,
+            Postal: req.body.Postal || org.Postal,
+            Lat: req.body.Lat || org.Lat,
+            Lng: req.body.Lng || org.Lng,
+            URL: req.body.URL || org.URL,
+            MissionStatement: req.body.MissionStatement || org.MissionStatement
+          }, {
             where: {
-              ProfileID: decoded.ProfileID
-            }, 
-            include: [models.Organization]
+              ProfileID: org.ProfileID
+            } 
           })
-          .then(function(profile) {
-            org = {};
-
-            for (key in profile.dataValues) {
-              org[key] = profile.dataValues[key];
-            }
-
-            for (key in profile.dataValues.LdrOrganization) {
-              org[key] = profile.dataValues.LdrOrganization[key];
-            }
-
-            //now change the values to the new values
-            models.Profile.update({
-              ProfileID: org.ProfileID,
-              Email: req.body.Email || org.Email,
-              PictureURL: req.body.PictureURL || org.PictureURL
-            }, {
-              where: {
-                ProfileID: decoded.ProfileID
-              }
-            })
-            .then(function(profile) {
-              models.Organization.update({
-                  OrganizationName: req.body.OrganizationName || org.OrganizationName,
-                  AddressLine1: req.body.AddressLine1 || org.AddressLine1,
-                  AddressLine2: req.body.AddressLine2 || org.AddressLine2,
-                  City: req.body.City || org.City,
-                  Province: req.body.Province || org.Province,
-                  Postal: req.body.Postal || org.Postal,
-                  Lat: req.body.Lat || org.Lat,
-                  Lng: req.body.Lng || org.Lng,
-                  URL: req.body.URL || org.URL,
-                  MissionStatement: req.body.MissionStatement || org.MissionStatement
-                }, {
-                  where: {
-                    ProfileID: org.ProfileID
-                  } 
-                })
-                .then(function(org) {
-                  res.json({
-                    success: true,
-                    message: 'Account updated.',
-                    token: token
-                  });
-                })
-                .catch(function(err) {
-                  res.status(500).json({
-                    success: false,
-                    message: err.message
-                  });
-                });
-            })
-            .catch(function(err) {
-              res.status(500).json({
-                success: false,
-                message: err.message
-              });
+          .then(function(org) {
+            res.json({
+              success: true,
+              message: 'Account updated.',
+              token: token
             });
           })
           .catch(function(err) {
@@ -190,98 +166,82 @@ module.exports = function(app, models) {
               message: err.message
             });
           });
-
-          
-        }
-      });
-    } else {
-        res.status(403).json({
+      })
+      .catch(function(err) {
+        res.status(500).json({
           success: false,
-          message: 'No token provided.'
+          message: err.message
         });
-    }
+      });
+    })
+    .catch(function(err) {
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
+    });
+
   });
 
-  app.delete('/api/organization', function(req, res) {
-    
-    var token = req.headers['x-access-token'];
+  app.delete('/api/organization', mw.verifyToken, function(req, res) {
 
-    if (token) {
+    // only delete accounts that are verified by a token. 
+    // Accounts are not deleted from the database, but are marked as archived.
 
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-
-          // only delete accounts that are verified by a token. 
-          // Accounts are not deleted from the database, but are marked as archived.
-
-          models.Profile.update({
-              Archived: true
-            }, {
-              where: {
-                ProfileID: decoded.ProfileID
-              }
-            })
-            .then(function(profile) {
-
-              // delete Topics, Comments and Postings created by that user as well.
-              models.Comment.update({
-                  Archived: true
-                }, {
-                  where: {
-                    ProfileID: decoded.ProfileID
-                  }
-                })
-                .then(function(comments) {
-
-                });
-
-              models.Topic.update({
-                  Archived: true
-                }, {
-                  where: {
-                    ProfileID: decoded.ProfileID
-                  }
-                })
-                .then(function(topics) {
-
-                });
-
-              models.Posting.update({
-                  Archived: true
-                }, {
-                  where: {
-                    ProfileID: decoded.ProfileID
-                  }
-                })
-                .then(function(postings) {
-
-                });
-
-              res.status(200).json({
-                success: true,
-                message: 'Account deleted. Sorry to see you go!',
-              });
-            })
-            .catch(function(err) {
-              res.status(500).json({
-                success: false,
-                message: 'Encountered error deleting account: ' + err.message
-              });
-            });
-
+    models.Profile.update({
+        Archived: true
+      }, {
+        where: {
+          ProfileID: req.decoded.ProfileID
         }
+      })
+      .then(function(profile) {
+
+        // delete Topics, Comments and Postings created by that user as well.
+        models.Comment.update({
+            Archived: true
+          }, {
+            where: {
+              ProfileID: req.decoded.ProfileID
+            }
+          })
+          .then(function(comments) {
+
+          });
+
+        models.Topic.update({
+            Archived: true
+          }, {
+            where: {
+              ProfileID: req.decoded.ProfileID
+            }
+          })
+          .then(function(topics) {
+
+          });
+
+        models.Posting.update({
+            Archived: true
+          }, {
+            where: {
+              ProfileID: req.decoded.ProfileID
+            }
+          })
+          .then(function(postings) {
+
+          });
+
+        res.status(200).json({
+          success: true,
+          message: 'Account deleted. Sorry to see you go!',
+        });
+      })
+      .catch(function(err) {
+        res.status(500).json({
+          success: false,
+          message: 'Encountered error deleting account: ' + err.message
+        });
       });
 
-    } else {
-      res.status(403).json({
-        success: false,
-        message: 'No token provided.'
-      });
-    }
   });
 };

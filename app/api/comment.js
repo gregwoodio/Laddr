@@ -1,7 +1,6 @@
 // comment.js
 
 var uuid = require('uuid');
-var jwt = require('jsonwebtoken');
 var mw = require('../middleware');
 
 module.exports = function(app, models) {
@@ -15,7 +14,7 @@ module.exports = function(app, models) {
   });
 
   // Add a comment
-  app.post('/api/comment', [mw.verifyToken], function(req, res) {
+  app.post('/api/comment', mw.verifyToken, function(req, res) {
 
     if (req.body.TopicID == undefined || req.body.ProfileID == undefined || req.body.Body == undefined ||
       req.body.TopicID == '' || req.body.ProfileID == '' || req.body.Body == '') {
@@ -58,47 +57,28 @@ module.exports = function(app, models) {
     });
   }); 
 
-  app.delete('/api/comment/:id', function(req, res) {
-    
-    var token = req.headers['x-access-token'];
+  app.delete('/api/comment/:id', mw.verifyToken, function(req, res) {
 
-    if (token) {
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: "Failed to authenticate token."
-          });
-        } else {
-
-          models.Comment.update({
-              Archived: true
-            }, {
-              where: {
-                ProfileID: decoded.ProfileID,
-                CommentID: req.params.id
-              }
-            })
-            .then(function(comment) {
-              res.json({
-                success: true,
-                message: 'Comment successfully deleted.'
-              });
-            })
-            .catch(function(err) {
-              res.status(500).json({
-                success: false,
-                message: 'Error deleting comment: ' + err.message
-              });
-            });
+    models.Comment.update({
+        Archived: true
+      }, {
+        where: {
+          ProfileID: req.decoded.ProfileID,
+          CommentID: req.params.id
         }
+      })
+      .then(function(comment) {
+        res.json({
+          success: true,
+          message: 'Comment successfully deleted.'
+        });
+      })
+      .catch(function(err) {
+        res.status(500).json({
+          success: false,
+          message: 'Error deleting comment: ' + err.message
+        });
       });
-    } else {
-      res.status(403).json({
-        success: false,
-        message: "No token provided."
-      });
-    }
   });
     
 };

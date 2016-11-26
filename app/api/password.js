@@ -1,14 +1,12 @@
 // password.js
 
-jwt = require('jsonwebtoken');
+mw = require('../middleware');
 bcrypt = require('bcrypt');
 
 module.exports = function(app, models) {
 
   //change the user's password
-  app.post('/api/changepassword', function(req, res, next) {
-
-    var token = req.headers['x-access-token'];
+  app.post('/api/changepassword', mw.verifyToken, function(req, res, next) {
 
     if (req.body.OldPass == undefined || req.body.NewPass == undefined) {
       console.log('password.js - Missing form data.');
@@ -18,63 +16,45 @@ module.exports = function(app, models) {
       });
     } else {
 
-      if (token) {
-        jwt.verify(token, app.get('secret'), function(err, decoded) {
-          if (err) {
-            console.log('topic.js - failed to authenticate token.');
+      models.Profile.find({
+        where: {
+          Email: req.decoded.Email,
+          Archived: false
+        }}).then(function(profile) {
+          //verify old password
+          if (!bcrypt.compareSync(req.body.OldPass, profile.dataValues.Password)) {
             res.status(403).json({
               success: false,
-              message: 'Failed to authenticate token.'
+              message: 'Bad password.'
             });
           } else {
 
-            models.Profile.find({
-              where: {
-                Email: decoded.Email,
-                Archived: false
-              }}).then(function(profile) {
-                //verify old password
-                if (!bcrypt.compareSync(req.body.OldPass, profile.dataValues.Password)) {
-                  res.status(403).json({
+            //change to new password
+            bcrypt.hash(req.body.NewPass, 10, function(err, hash) {
+
+              models.Profile.update({
+                  Password: hash
+                }, {
+                  where: {
+                    ProfileID: req.decoded.ProfileID
+                  }
+                })
+                .then(function(password) {
+                  res.json({
+                    success: true,
+                    message: 'Password changed.'
+                  });
+                })
+                .catch(function(err) {
+                  res.status(500).json({
                     success: false,
-                    message: 'Bad password.'
+                    message: 'Encountered error: ' + err.message
                   });
-                } else {
-
-                  //change to new password
-                  bcrypt.hash(req.body.NewPass, 10, function(err, hash) {
-
-                    models.Profile.update({
-                        Password: hash
-                      }, {
-                        where: {
-                          ProfileID: decoded.ProfileID
-                        }
-                      })
-                      .then(function(password) {
-                        res.json({
-                          success: true,
-                          message: 'Password changed.'
-                        });
-                      })
-                      .catch(function(err) {
-                        res.status(500).json({
-                          success: false,
-                          message: 'Encountered error: ' + err.message
-                        });
-                      });
-                  });
-                }
-              }); 
+                });
+            });
           }
-        });
-      } else {
-        console.log('topic.js - No token provided.');
-        res.status(403).json({
-          success: false,
-          message: "No token provided."
-        });
-      }      
+        }); 
+ 
     }
   });
 
