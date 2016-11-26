@@ -1,5 +1,5 @@
-laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', 'LoginService', 'Upload',
-  function($scope, $http, $routeParams, $location, LoginService, Upload) {
+laddrControllers.controller('EditProfileController', ['$scope', '$http', '$routeParams', '$location', '$timeout', 'LoginService', 'Upload',
+  function($scope, $http, $routeParams, $location, $timeout, LoginService, Upload) {
 
   if (LoginService.isLoggedIn()) {
     $scope.profile = {};
@@ -28,6 +28,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
   }
 
   $scope.editVolunteer = function() {
+
     data = {
       FirstName: $scope.profile.LdrUser.FirstName,
       LastName: $scope.profile.LdrUser.LastName,
@@ -47,10 +48,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       .success(function(data, status, headers, config) {
         console.log('Successful edit.');
         if (data) {
-
-          console.log('updatePicture called.');
-          $scope.updatePicture();
-
+          
           $location.url('/profile');
         } else {
           console.log('Edit volunteer failed.');
@@ -65,6 +63,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
   };
 
   $scope.editOrganization = function() {
+
     data = {
       Email: $scope.profile.Email,
       OrganizationName: $scope.profile.LdrOrganization.OrganizationName,
@@ -90,10 +89,6 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       .success(function(data, status, headers, config) {
         console.log('Successful edit.');
         if (data) {
-
-          console.log('updatePicture called.');
-          $scope.updatePicture();
-
           $location.url('/profile');
         } else {
           console.log('Edit volunteer failed.');
@@ -104,43 +99,11 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         console.log('AJAX error editing profile.');
         console.log(data);
         console.log(status);
-        $scope.$storage.ldrToken = null;
         $scope.message = 'Error updating profile. Please try again later.';
       });
   };
 
-  // $scope.uploadAvatar = function(){ //function to call on form submit
-  //   if (imageuploadform.file.$valid && $scope.avatar) { //check if from is valid
-  //     $scope.upload($scope.avatar); //call upload function
-  //   } else {
-  //     console.log('didn\'t work');
-  //     console.log('$scope.avatar:');
-  //     console.log($scope.avatar);
-  //     console.log('imageuploadform.file.$valid:');
-  //     console.log(imageuploadform.file.$valid);
-  //   }
-  // }
-
-  // $scope.upload = function(file) {
-  //   Upload.upload({
-  //     url: '/api/imageupload',
-  //     data: {
-  //       file: file, 
-  //       // ProfileID: LoginService.getProfile().ProfileID
-  //     }
-  //   }).then(function (resp) {
-  //     console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-  //   }, function (err) {
-  //     console.log('Error status: ' + err.status);
-  //   }, function (evt) {
-  //     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-  //     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-  //   });
-  // };
-
   $scope.upload = function(file) {
-
-    console.log('updatePicture called.');
 
     if (file) {
       Upload.upload({
@@ -153,45 +116,19 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         }
       })
       .then(function(res) {
+
+        $scope.successfulUpload = true; 
+
+        $timeout(function () {
+          $scope.successfulUpload = false; 
+        }, 3000);
+
         console.log(res);
       });
     } else {
       console.log("file is undefined");
     }
   };
-
-  // $scope.uploadFile = function() {
-
-  //   console.log('uploadFile() called');
-  //   $scope.fileSelected($files);
-  // };
-
-  // $scope.fileSelected = function(files) {
-  //     console.log('fileSelected() called');
-
-  //     console.log('files');
-  //     console.log(files);
-  //     console.log(files.length);
-      
-  //     // if (files && files.length) {
-  //     //   $scope.file = files[0];
-  //     // }
-
-  //     Upload.upload({
-  //       url: '/api/imageupload',
-  //       arrayKey: '',
-  //       headers: {
-  //         x-access-token: LoginService.getToken()
-  //       },
-  //       file: files
-  //     })
-  //     .success(function(data) {
-  //       console.log(data, 'uploaded');
-  //     })
-  //     .catch(function(err) {
-  //       console.log('Error: ' + err.message);
-  //     });
-  //   };
 
   //typeahead
   _selected = undefined;
