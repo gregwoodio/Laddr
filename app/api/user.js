@@ -136,7 +136,7 @@ module.exports = function(app, models) {
       where: {
         ProfileID: req.decoded.ProfileID
       }, 
-      include: [models.Organization]
+      include: [models.User]
     })
     .then(function(profile) {
       user = {};
@@ -145,8 +145,8 @@ module.exports = function(app, models) {
         user[key] = profile.dataValues[key];
       }
 
-      for (key in profile.dataValues.LdrOrganization) {
-        user[key] = profile.dataValues.LdrOrganization[key];
+      for (key in profile.dataValues.LdrUser) {
+        user[key] = profile.dataValues.LdrUser[key];
       }
 
       //now change the values to the new values
@@ -196,6 +196,30 @@ module.exports = function(app, models) {
           message: err.message
         });
       });
+
+  });
+
+  app.put('/api/user/resume', mw.verifyToken, function(req, res) {
+
+    models.User.update({
+      Resume: req.body.Resume
+    }, {
+      where: {
+        ProfileID: req.decoded.ProfileID
+      }
+    })
+    .then(function(user) {
+      res.json({
+        success: true,
+        message: 'Resume updated.'
+      });
+    })
+    .catch(function(err) {
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
+    });
 
   });
 
