@@ -14,6 +14,8 @@ function verifyToken(req, res, next) {
           message: "Failed to authenticate token."
         });
       } else {
+        //save reference to decoded profile for use in other routes
+        req.decoded = decoded;
         return next();
       }
     });

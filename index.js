@@ -9,7 +9,7 @@ var config = require('./config/config');
 var app = express();
 var port = 3000;
 
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 app.set('secret', config.secret);
 
 //body-parser to check for POST parameters

@@ -1,55 +1,30 @@
 // apply.js
 
-var jwt = require('jsonwebtoken');
+var mw = require('../middleware');
 
 module.exports = function(app, models) {
 
-  app.post('/api/apply', function(req, res) {
+  app.post('/api/apply', mw.verifyToken, function(req, res) {
 
-    var token = req.headers['x-access-token'];
-
-    if (token && req.body.PostingID != undefined) {
-
-      jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-
-          models.Application.findAll({
-            where: {
-              ProfileID: decoded.ProfileID,
-              PostingID: req.body.PostingID,
-            }
+    models.Application.findAll({
+      where: {
+        ProfileID: req.decoded.ProfileID,
+        PostingID: req.body.PostingID,
+      }
+    })
+    .then(function(application) {
+      if (application.length == 0) {
+        models.Application.build({
+            ProfileID: req.decoded.ProfileID,
+            PostingID: req.body.PostingID,
+            ApplicationStatus: 0
           })
+          .save()
           .then(function(application) {
-            if (application.length == 0) {
-              models.Application.build({
-                  ProfileID: decoded.ProfileID,
-                  PostingID: req.body.PostingID,
-                  ApplicationStatus: 0
-                })
-                .save()
-                .then(function(application) {
-                  res.json({
-                    success: true,
-                    message: 'Thanks for applying.'
-                  });
-                })
-                .catch(function(err) {
-                  res.status(500).json({
-                    success: false,
-                    message: err.message
-                  });
-                });
-            } else {
-              res.json({
-                success: false,
-                message: 'You\'ve already applied to this job.'
-              });
-            }
+            res.json({
+              success: true,
+              message: 'Thanks for applying.'
+            });
           })
           .catch(function(err) {
             res.status(500).json({
@@ -57,16 +32,20 @@ module.exports = function(app, models) {
               message: err.message
             });
           });
-          
-        }
-      });
-    
-    } else {
-      res.status(403).json({
+      } else {
+        res.json({
+          success: false,
+          message: 'You\'ve already applied to this job.'
+        });
+      }
+    })
+    .catch(function(err) {
+      res.status(500).json({
         success: false,
-        message: 'No token provided.'
+        message: err.message
       });
-    }
+    });
+          
   });
 
   app.get('/api/apply', function(req, res) {
@@ -76,60 +55,31 @@ module.exports = function(app, models) {
     });
   }); 
 
-  app.put('/api/apply', function(req, res) {
+  app.put('/api/apply', mw.verifyToken, function(req, res) {
 
-    var token = req.headers['x-access-token'];
+    models.Posting.findAll({
+        where: {
+          PostingID: req.body.PostingID,
+          ProfileID: req.decoded.ProfileID
+          // must be the same profile that created the posting
+        }
+      })
+      .then(function(posting) {
 
-    if (token && req.body.PostingID != undefined && req.body.ApplicationStatus != undefined && req.body.ProfileID != undefined) {
-
-     jwt.verify(token, app.get('secret'), function(err, decoded) {
-        if (err) {
-          res.json({
-            success: false,
-            message: 'Failed to authenticate token.'
-          });
-        } else {
-
-          models.Posting.findAll({
+        if (posting.length > 0) {
+          models.Application.update({
+              ApplicationStatus: req.body.ApplicationStatus
+            }, {
               where: {
-                PostingID: req.body.PostingID,
-                ProfileID: decoded.ProfileID
-                // must be the same profile that created the posting
+                PostingID: posting[0].dataValues.PostingID,
+                ProfileID: req.body.ProfileID
               }
             })
-            .then(function(posting) {
-
-              if (posting.length > 0) {
-                models.Application.update({
-                    ApplicationStatus: req.body.ApplicationStatus
-                  }, {
-                    where: {
-                      PostingID: posting[0].dataValues.PostingID,
-                      ProfileID: req.body.ProfileID
-                    }
-                  })
-                  .then(function(application) {
-                    res.json({
-                      success: true,
-                      message: 'Application updated.'
-                    })
-                  })
-                  .catch(function(err) {
-
-                    console.log('apply.js - ' + err.message);
-
-                    res.status(500).json({
-                      success: false,
-                      message: err.message
-                    });
-                  });  
-              } else {
-                res.status(403).json({
-                  success: false,
-                  message: 'This isn\'t your posting, you can\'t edit it.'
-                });
-              }
-              
+            .then(function(application) {
+              res.json({
+                success: true,
+                message: 'Application updated.'
+              })
             })
             .catch(function(err) {
 
@@ -139,16 +89,24 @@ module.exports = function(app, models) {
                 success: false,
                 message: err.message
               });
-            });
+            });  
+        } else {
+          res.status(403).json({
+            success: false,
+            message: 'This isn\'t your posting, you can\'t edit it.'
+          });
         }
+        
+      })
+      .catch(function(err) {
+
+        console.log('apply.js - ' + err.message);
+
+        res.status(500).json({
+          success: false,
+          message: err.message
+        });
       });
-    
-    } else {
-      res.status(403).json({
-        success: false,
-        message: 'No token provided.'
-      });
-    }
   }); 
 
   app.delete('/api/apply', function(req, res) {

@@ -1,49 +1,57 @@
 // imageupload.js
 
-fs = require('fs');
-jwt = require('jsonwebtoken');
-var multer = require('multer');
+var fs = require('fs');
+var path = require('path');
+var jwt = require('jsonwebtoken');
+var multiparty = require('connect-multiparty')();
+var mw = require('../middleware');
 
-//multer setup for file uploads
-var storage = multer.diskStorage({ //multers disk storage settings
-  destination: function (req, file, next) {
-    next(null, './app/public/img/uploads/')
-  },
-  filename: function (req, file, next) {
-    //rename file
-    console.log('file: ' + file);
-
-    split = file.originalname.split('.'); //get file extension
-    next(null, file.originalname);
-  }
-});
-var upload = multer({ //multer settings
-  storage: storage
-}).single('file');
+UPLOADS_PATH = path.join(__dirname, '..', 'public', 'img', 'uploads');
 
 module.exports = function(app, models) {
 
-  app.post('/api/imageupload', function(req, res) {
+  app.post('/api/imageupload', mw.verifyToken, multiparty, function(req, res) {
 
-    console.log(req.params);
+    var file = req.files.file;
 
-    upload(req,res,function(err){
-      if(err){
-        console.log('unsuccessful upload');
-        console.log(err.message);
-        res.json({
-          error_code:1,
-          err_desc:err
+    //file exists, generate new name
+    if (file) {
+      ext = file.name.split('.')[file.name.split('.').length - 1];
+      newFileName = req.decoded.ProfileID + '.' + ext;
+
+      newPath = path.join(UPLOADS_PATH, newFileName);
+
+      fs.readFile(file.path, function(err, data) {
+        fs.writeFile(newPath, data, function(err) {
+          if (err) {
+            return res.status(500).json({
+              success: false, 
+              message: err.message
+            });
+          }
+
+          models.Profile.update({
+            PictureURL: 'img/uploads/' + newFilename
+          }, {
+            where: {
+              ProfileID: req.decoded.ProfileID
+            }
+          })
+          .then(function(profile) {
+            return res.json({
+              success: true,
+              message: 'http://laddr.xyz:3000/img/uploads/' + newFileName
+            });
+          })
+          .catch(function(err) {
+            return res.status(500).json({
+              success: false,
+              message: err.message
+            });
+          });
         });
-        return; 
-      }
-
-      console.log('Successful upload.');
-      res.json({
-        error_code:0,
-        err_desc:null
       });
-    });
+    }
 
   });
 

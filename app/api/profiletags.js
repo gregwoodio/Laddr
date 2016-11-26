@@ -5,7 +5,7 @@ var mw = require('../middleware');
 module.exports = function(app, models) {
 
   // update user preferences based on page visit
-  app.post('/api/profiletags', function(req, res) {
+  app.post('/api/profiletags', mw.verifyToken, function(req, res) {
 
     if (req.body.PostingID != undefined && req.body.ProfileID != undefined ) {
 
