@@ -174,7 +174,6 @@ module.exports = function(app, models) {
               res.json({
                 success: true,
                 message: 'Account updated.',
-                token: token
               });
             })
             .catch(function(err) {

@@ -47,6 +47,10 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       .success(function(data, status, headers, config) {
         console.log('Successful edit.');
         if (data) {
+
+          console.log('updatePicture called.');
+          $scope.updatePicture();
+
           $location.url('/profile');
         } else {
           console.log('Edit volunteer failed.');
@@ -86,10 +90,15 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       .success(function(data, status, headers, config) {
         console.log('Successful edit.');
         if (data) {
+
+          console.log('updatePicture called.');
+          $scope.updatePicture();
+
           $location.url('/profile');
         } else {
           console.log('Edit volunteer failed.');
         }
+
       })
       .error(function(data, status, headers, config) {
         console.log('AJAX error editing profile.');
@@ -129,35 +138,60 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
   //   });
   // };
 
-  $scope.uploadFile = function() {
+  $scope.upload = function(file) {
 
-    console.log('uploadFile() called');
-    $scope.fileSelected($files);
+    console.log('updatePicture called.');
+
+    if (file) {
+      Upload.upload({
+        url: 'http://localhost:3000/api/imageupload',
+        data: {
+          file: file,
+        },
+        headers: {
+          'x-access-token': LoginService.getToken()
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+      });
+    } else {
+      console.log("file is undefined");
+    }
   };
 
-  $scope.fileSelected = function(files) {
-      console.log('fileSelected() called');
+  // $scope.uploadFile = function() {
 
-      console.log('files');
-      console.log(files);
-      console.log(files.length);
+  //   console.log('uploadFile() called');
+  //   $scope.fileSelected($files);
+  // };
+
+  // $scope.fileSelected = function(files) {
+  //     console.log('fileSelected() called');
+
+  //     console.log('files');
+  //     console.log(files);
+  //     console.log(files.length);
       
-      // if (files && files.length) {
-      //   $scope.file = files[0];
-      // }
+  //     // if (files && files.length) {
+  //     //   $scope.file = files[0];
+  //     // }
 
-      Upload.upload({
-        url: '/api/imageupload',
-        arrayKey: '',
-        file: files
-      })
-      .success(function(data) {
-        console.log(data, 'uploaded');
-      })
-      .catch(function(err) {
-        console.log('Error: ' + err.message);
-      });
-    };
+  //     Upload.upload({
+  //       url: '/api/imageupload',
+  //       arrayKey: '',
+  //       headers: {
+  //         x-access-token: LoginService.getToken()
+  //       },
+  //       file: files
+  //     })
+  //     .success(function(data) {
+  //       console.log(data, 'uploaded');
+  //     })
+  //     .catch(function(err) {
+  //       console.log('Error: ' + err.message);
+  //     });
+  //   };
 
   //typeahead
   _selected = undefined;

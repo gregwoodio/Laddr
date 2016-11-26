@@ -31,7 +31,7 @@ module.exports = function(app, models) {
           }
 
           models.Profile.update({
-            PictureURL: 'img/uploads/' + newFilename
+            PictureURL: 'img/uploads/' + newFileName
           }, {
             where: {
               ProfileID: req.decoded.ProfileID
