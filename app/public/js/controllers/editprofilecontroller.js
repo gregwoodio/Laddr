@@ -107,7 +107,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
 
     if (file) {
       Upload.upload({
-        url: 'api/imageupload',
+        url: '/api/imageupload',
         data: {
           file: file,
         },
