@@ -100,6 +100,30 @@ module.exports = function(app, models) {
     }
   });
 
+  app.post('/api/user/:fdi', mw.verifyToken, function(req, res) {
+
+    models.User.update({
+      Fdi: req.params.fdi
+    }, {
+      where: {
+        ProfileID: req.decoded.ProfileID
+      }
+    })
+    .then(function(user) {
+      res.json({
+        success: true,
+        message: 'FDI added.'
+      });
+    })
+    .catch(function(err) {
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
+    });
+
+  });
+
   //modify user and profile
   app.put('/api/user', mw.verifyToken, function(req, res) {
 

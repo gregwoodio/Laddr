@@ -60,7 +60,8 @@ var User = sequelize.define('LdrUsers', {
   LastName: {type: Sequelize.STRING, allowNull: false},
   Description: {type: Sequelize.STRING},
   Resume: {type: Sequelize.STRING}, //TODO:maybe should be BLOB
-  AcademicStatus: {type: Sequelize.INTEGER}
+  AcademicStatus: {type: Sequelize.INTEGER},
+  Fdi: {type: Sequelize.STRING}
 }, {
   timestamps: false
 });
