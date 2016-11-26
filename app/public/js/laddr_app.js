@@ -99,7 +99,12 @@
 	});
 
 
-	laddrApp.config(['$routeProvider', function($routeProvider) {
+	laddrApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+
+		// var app = angular.injector(['laddrApp']);
+		// $provide.constant('LoginService', app.get('LoginService'));
+		// $httpProvider.defaults.headers['x-access-token'] = LoginService.getToken();
+
 		$routeProvider.
 		when('/logout', {
 			templateUrl: 'partials/login.html',
