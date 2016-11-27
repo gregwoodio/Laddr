@@ -2,8 +2,30 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
   function($scope, $location, $http, $routeParams, LoginService, $timeout) {
       
   if (!LoginService.isLoggedIn()) {
-    $location.url('/login');
+    $location.url('/login');   
   }
+      
+      $http
+        .get('/api/profile', {
+            headers: {
+            'x-access-token': LoginService.getToken()
+            }
+          })
+          .success(function(data, status, headers, config) {
+
+            $scope.profile = data;
+            $scope.tinymceModel = $scope.profile.LdrUser.Resume;
+
+            console.log($scope.profile.LdrUser.Resume);
+                  console.log("Im an idiot");
+
+          })
+          .error(function(data, status, headers, config) {
+            console.log("Could not retrieve user.");
+            $location.url('/login');
+          });
+
+    
       
       //Insertion into database for resumes
     $scope.getEditorContent = function(){
@@ -11,13 +33,13 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
     document.getElementById('updateAlert').style.display = "block";
         
         
-    data = { resume: resumeText 
+    data = { Resume: resumeText 
            };
         
     console.log(data);
         
         $http
-        .put('/api/user', data, {
+        .put('/api/user/resume', data, {
             headers: {
                 'x-access-token': LoginService.getToken()
             }
