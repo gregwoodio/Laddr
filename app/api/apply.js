@@ -63,7 +63,13 @@ module.exports = function(app, models) {
           PostingID: req.body.PostingID,
           ProfileID: req.decoded.ProfileID
           // must be the same profile that created the posting
-        }
+        }, 
+        include: [{
+          model: models.Profile,
+          include: [{
+            model: models.Organization
+          }]
+        }]
       })
       .then(function(posting) {
 
@@ -80,7 +86,7 @@ module.exports = function(app, models) {
 
               if (req.body.ApplicationStatus == 2) {
 
-                message = 'Your volunteer application to ' + posting[0].dataValues.JobTitle + ' was accepted!';
+                message = 'Your volunteer application to ' + posting[0].LdrProfile.LdrOrganization.OrganizationName + ' was accepted!';
 
                 // FCM notification to user
                 models.User.find({
@@ -103,7 +109,7 @@ module.exports = function(app, models) {
                       }
                     }
                   }, function(err, response, body) {
-                    console.log(response);
+                    // console.log(response);
                     // res.json({
                     //   response
                     // });
