@@ -5,7 +5,21 @@
       <a ng-show='isLoggedIn' class="navbar-brand lobster" href='#/feed'>Laddr</a>
     </div>
     <ul ng-hide='!isLoggedIn' class="nav navbar-nav">
-      <li><a href="#/profile">Profile</a></li>
+        
+      <li uib-dropdown on-toggle="toggled(open)" ng-show='isUser'>
+          <a href id="simple-dropdown" uib-dropdown-toggle>
+          Profile <span class='fa fa-caret-down'></span>
+          </a>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+            <li><a href="#/profile">My Profile</a></li>
+            <li><a href="#/resume">Edit Resume</a></li>
+          </ul>
+        </li>
+        
+        <li  ng-show='!isUser'>
+            <a href="#/profile">My Profile</a>
+        </li>
+          
       <li uib-dropdown on-toggle="toggled(open)" ng-show='!isUser'>
         <a href id="simple-dropdown" uib-dropdown-toggle>
           Postings <span class='fa fa-caret-down'></span>

@@ -1,11 +1,13 @@
-laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', 'LoginService',
-  function($scope, $http, $routeParams, $location, LoginService) {
+laddrControllers.controller('ProfileController', ['$scope', '$http', '$routeParams', '$location', 'LoginService','$sce',
+  function($scope, $http, $routeParams, $location, LoginService, $sce) {
   
   $scope.academics = undefined;
 
   if (LoginService.isLoggedIn()) {
 
     $scope.profile = {};
+      
+      
     $scope.isLoggedIn = true;
 
     $http
@@ -22,6 +24,7 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
         }
 
         if ($scope.profile.LdrUser) {
+            $scope.profile.LdrUser.Resume = $sce.trustAsHtml($scope.profile.LdrUser.Resume);
           if ($scope.profile.LdrUser.AcademicStatus == 0) {
             $scope.academics = 'Not in school';
           } else if ($scope.profile.LdrUser.AcademicStatus == 1) {
