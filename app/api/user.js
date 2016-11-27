@@ -1,5 +1,3 @@
-// user.js
-
 uuid = require('uuid');
 bcrypt = require('bcrypt');
 jwt = require('jsonwebtoken');
@@ -271,6 +269,5 @@ module.exports = function(app, models) {
           message: 'Encountered error deleting user: ' + err.message
         });
       });
-
   });
 };

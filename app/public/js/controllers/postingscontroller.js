@@ -1,5 +1,6 @@
-laddrControllers.controller('PostingsController', ['$scope', '$location', '$http', '$routeParams', 'LoginService',
-  function($scope, $location, $http, $routeParams, LoginService) {
+laddrControllers.controller('PostingsController', ['$scope', '$location', '$http', '$routeParams', 'LoginService', '$timeout',
+  function($scope, $location, $http, $routeParams, LoginService, $timeout) {
+      
     
   $scope.postings = [];
   $scope.page = 1;
@@ -42,4 +43,29 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
   $scope.resetPages = function() {
     $scope.page = 1;
   }
+  
+  
+  $scope.tinymceModel = 'Enter your information here';
+  $scope.tinyMceOptions = {
+  height: '350px',
+  plugins: [
+     'advlist autolink lists link image charmap print preview anchor',
+     'searchreplace visualblocks code fullscreen',
+     'insertdatetime media table contextmenu paste code'
+   ],
+   toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+   content_css: '//www.tinymce.com/css/codepen.min.css',
+  setup: function (editor) {
+   //onload
+    console.log("I reached here");
+   $timeout(function () {
+    $scope.tinyMceLoaded = true;
+   });
+  }
+ };
+      
+
+  
 }]);
+
+
