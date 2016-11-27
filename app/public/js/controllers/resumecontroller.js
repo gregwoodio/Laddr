@@ -5,33 +5,34 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
     $location.url('/login');
   }
       
-      //Insertion into database for resumes
-    $scope.getEditorContent = function(){
-    var resumeText = tinyMCE.activeEditor.getContent();
-    document.getElementById('updateAlert').style.display = "block";
-        
-        
-    data = { resume: resumeText 
-           };
-        
-    console.log(data);
-        
-        $http
-        .put('/api/user', data, {
-            headers: {
-                'x-access-token': LoginService.getToken()
-            }
-        })
-        .success(function(data, status, headers, config) {
-        if (data) {
-          $location.url('/profile');
-        } else {
-          console.log('Failed to add resume.');
-        }
-      })
-      .error(function(data, status, headers, config) {
-        console.log('Failed to add resume, part 2.');
-      });
+  //Insertion into database for resumes
+  $scope.getEditorContent = function(){
+  var resumeText = tinyMCE.activeEditor.getContent();
+  document.getElementById('updateAlert').style.display = "block";
+      
+      
+  data = { 
+    Resume: resumeText 
+  };
+      
+  console.log(data);
+      
+  $http
+  .put('/api/user/resume', data, {
+      headers: {
+          'x-access-token': LoginService.getToken()
+      }
+  })
+  .success(function(data, status, headers, config) {
+    if (data) {
+      $location.url('/profile');
+    } else {
+      console.log('Failed to add resume.');
+    }
+  })
+  .error(function(data, status, headers, config) {
+    console.log('Failed to add resume, part 2.');
+  });
 }
 
 
