@@ -15,6 +15,7 @@
 			  
 				<div ng-if='profile.AccountType == 0'>
 					<div class="personal-info"> 
+                        
 				
 						<div class="panel">
 							<div class="col-md-5" >
@@ -35,9 +36,21 @@
 						<div class='row'> 	
 						</div>
 						<a href="#/editProfile" title='Edit Profile'><i class="fa fa-gear fa-2x pull-right" ></i></a>
-						<br>
-					</div>					
+						<br><br><br>
+					</div>	
+                                 
+                    <br>
+            <div class="panel panel-primary">
+                <div class ='panel-heading'>
+                    <h2 align="center"><b>Resume</b></h2>
+                </div>
+                <div class="panel-body">
+                    <div ng-bind-html="profile.LdrUser.Resume">
+                </div>
+            </div>
+			             
 				</div>
+          </div>
 		
 		
 		

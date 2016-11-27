@@ -20,9 +20,12 @@
           </thead>
           <tbody class='row' ng-repeat="application in applications">
              <tr >
-              <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
-              <td><a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.Firstname + ' ' + application.LdrProfile.LdrUser.LastName}}</th>
-              <td>{{application.LdrProfile.LdrUser.Description}}</th>
+              <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a>
+            </td>
+              <td>
+                  <a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
+             </td>
+              <td>{{application.LdrProfile.LdrUser.Description}}</td>
               <td>
                 <select class='form-control' ng-model='application.ApplicationStatus'>
                   <option value='0' ng-selected='{{application.ApplicationStatus == 0}}'>Pending</option>
@@ -39,7 +42,7 @@
       </div>
 
         <!-- Ahhhhhhhhhhhhhh -->
-         <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button><strong>Application Updated!</strong> The user will see these changes the next time they log in.</div>
+         <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><strong>Application Updated!</strong> The user will see these changes the next time they log in.</div>
     
 
 

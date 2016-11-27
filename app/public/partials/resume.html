@@ -1,0 +1,32 @@
+<div header></div>
+
+<div class='row'>
+  <div>
+  
+    <section id="profile">
+      <div class="container">
+
+        <div class="page-header">
+		    <br>
+      	<h1>Edit Your Resume</h1>
+	      <p>Here you can make changes to your resume! Make sure to keep it neat and tidy as organizations will be able to see it.</p>
+    	</div>
+          
+          
+          <!-- Tiny MCE Here -->
+            <form method="put">
+                <textarea id="resumeText" ui-tinymce="tinyMceOptions" ng-model="tinymceModel" class="mceEditor"></textarea><br>
+                <button class= 'btn' ng-click="getEditorContent()">Save Resume</button>
+           </form>
+          <br>
+        <!-- Update Alert -->
+         <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><strong>Resume Updated!</strong> Go check your profile to see the changes!</div>
+          
+			</div>
+			<br>
+		</section>
+  </div>
+</div>
+
+<div footer></div>
+

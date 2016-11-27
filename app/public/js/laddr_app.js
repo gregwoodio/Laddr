@@ -2,6 +2,7 @@
 
 (function () {
 	var laddrApp = angular.module('laddrApp', [
+        'ngSanitize',
 		'ngRoute',
 		'ngAnimate',
 		'ui.bootstrap',
@@ -9,7 +10,9 @@
 	  'ngStorage',
 	  'ngFileUpload',
 	  'nemLogging',
-	  'uiGmapgoogle-maps'
+	  'uiGmapgoogle-maps',
+        'ui.tinymce'
+        
 	])
 	// .config(function(uiGmapGoogleMapApiProvider) {
  //    uiGmapGoogleMapApiProvider.configure({
@@ -181,6 +184,11 @@
 			templateUrl: 'partials/postingedit.html',
 			controller: 'EditPostingController'
 		}).
+        when('/resume', {
+            templateUrl: 'partials/resume.html',
+            controller: 'ResumeController'
+        }).
+
 		otherwise({
 			redirectTo: '/home'
 		});

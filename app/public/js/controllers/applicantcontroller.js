@@ -11,7 +11,10 @@ laddrControllers.controller('ApplicantController', ['$scope', '$http', '$locatio
       ApplicationStatus: newValue,
       PostingID: postingID,
       ProfileID: profileID
+        
     }
+  
+    
     $http.put('/api/apply', data, {
         headers: {
           'x-access-token': LoginService.getToken()
@@ -23,7 +26,10 @@ laddrControllers.controller('ApplicantController', ['$scope', '$http', '$locatio
       .error(function(data, status, headers, config) {
         $scope.message = 'Error updating, try again later.';
       });
+      
+      document.getElementById('updateAlert').style.display = "block";
   }
+  
 
   if (LoginService.isLoggedIn()) {
     $http.get('/api/applicants', {
@@ -41,5 +47,8 @@ laddrControllers.controller('ApplicantController', ['$scope', '$http', '$locatio
   } else {
     $location.url('/login');
   }
+      
 
 }]);
+
+

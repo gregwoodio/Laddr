@@ -12,6 +12,7 @@ laddrControllers.controller('AddTopicController', ['$location', '$scope','$http'
       Body: $scope.topic.body
     };
 
+      
     $http
       .post('/api/topic', data, {
         headers: {
