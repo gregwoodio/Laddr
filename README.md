@@ -18,4 +18,4 @@ Here is our full-stack, essentially backend, mid tier, and front end of the webs
 - [x] create an iOS application.
 - [ ] start talks with organizations to pick up / work with Laddr.
 - [ ] get Angular to play nice with mobile.
-- [ ] get picture upload working as intended.
+- [x] get picture upload working as intended.
