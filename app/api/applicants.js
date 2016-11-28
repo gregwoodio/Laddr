@@ -10,7 +10,8 @@ module.exports = function(app, models) {
       include: [{
         model: models.Posting,
         where: {
-          ProfileID: req.decoded.ProfileID
+          ProfileID: req.decoded.ProfileID,
+          Archived: false
         }
       }, {
         model: models.Profile,
