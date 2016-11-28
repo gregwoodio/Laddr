@@ -9,14 +9,19 @@ module.exports = function(app, models) {
 
   // TODO: isAuthenticated middleware
   // Get organization 
-  app.get('/api/organization', [mw.verifyToken], function(req, res) {
+  app.get('/api/organization/:id', [mw.verifyToken], function(req, res) {
 
-    models.Organization.find({
+    models.Profile.find({
       where: {
-        ProfileID: req.query.ProfileID
-      }
+        ProfileID: req.params.id
+      },
+      include: [{
+        model: models.Organization
+      }]
     })
     .then(function(org) {
+
+      delete org.dataValues.Password;
 
       if (!org) {
         res.status(400).json({
