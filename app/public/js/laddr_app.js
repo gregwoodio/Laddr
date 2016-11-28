@@ -169,6 +169,10 @@
 			templateUrl: 'partials/applicants.html',
 			controller: 'ApplicantController'
 		}).
+		when('/organization/:id', {
+			templateUrl: 'partials/organization.html',
+			controller: 'OrganizationController'
+		}).
 		when('/rules', {
 			templateUrl: 'partials/rules.html',
 		}).

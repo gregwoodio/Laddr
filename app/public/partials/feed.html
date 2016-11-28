@@ -23,7 +23,7 @@
             </thead>
             <tbody class='row' ng-repeat="posting in postings">
               <tr >
-                <td>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</td>
+                <td><a href='#/organization/{{posting.LdrProfile.ProfileID}}'>{{posting.LdrProfile.LdrOrganization.OrganizationName}}</a></td>
                 <td>{{posting.JobTitle}}</td>
                 <td>{{posting.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
                 <td><a href="#/postings/{{posting.PostingID}}">View Details</a></td>

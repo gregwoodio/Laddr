@@ -100,8 +100,9 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
   // datepicker popup
   $scope.today = function() {
     $scope.eventDate = new Date();
+    $scope.eventDate.setDate($scope.eventDate.getDate() + 2);
     $scope.deadline = new Date();
-    $scope.deadline.setDate($scope.eventDate.getDate() - 2);
+    $scope.deadline.setDate($scope.eventDate.getDate() - 1);
   };
   $scope.today();
 
