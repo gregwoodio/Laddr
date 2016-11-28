@@ -33,11 +33,11 @@
 						</div><br><br>
 						<div class="form-group">
 							<label>	Email address:</label>
-							<input type="email" ng-model='user.email' class="form-control" id="email" 		placeholder="Please enter your email" ><br>
+							<input type="email" ng-model='user.email' class="form-control" id="email" 		placeholder="Please enter your email" ng-required="true"><br>
 							<label>Password:</label>
-							<input type="password" ng-model='user.password1' class="form-control" id="pwd" 			placeholder="Please enter your password" ><br>
+							<input type="password" ng-model='user.password1' class="form-control" id="pwd" 			placeholder="Please enter your password" ng-required="true"><br>
 							<label>Re-enter Password:</label>
-							<input type="password" ng-model='user.password2'	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" >
+							<input type="password" ng-model='user.password2'	class="form-control" id="cnfrmpwd" 		placeholder="Please re-enter your password" ng-required="true">
 						</div>		
 					</div>
 					
@@ -57,8 +57,8 @@
 				  
 					<!-- Form for volunteer information -->
 					<div class="panel-body">
-						<label for="firstName">	First Name:</label>	<input 	type="text" ng-model="user.firstName" class="form-control" id="firstName" placeholder="Please enter your first name" ><br>
-						<label for="lastName">	Last Name:</label>	<input 	type="text" ng-model="user.lastName" class="form-control" id="lastName" placeholder="Please enter your last name" ><br>
+						<label for="firstName">	First Name:</label>	<input 	type="text" ng-model="user.firstName" class="form-control" id="firstName" placeholder="Please enter your first name" ng-required="true"><br>
+						<label for="lastName">	Last Name:</label>	<input 	type="text" ng-model="user.lastName" class="form-control" id="lastName" placeholder="Please enter your last name" ng-required="true"><br>
 						
 						<div>
 							<label>Academic Status:</label><br>
@@ -83,7 +83,7 @@
 					<!-- Form for organization information -->
 					<div class="panel-body">
 						<label for="organizationName">Organization Name:</label>
-						<input type="text" ng-model='user.organizationName' class="form-control" id="organizationName" placeholder="Please enter the name of your organization" ><br>
+						<input type="text" ng-model='user.organizationName' class="form-control" id="organizationName" placeholder="Please enter the name of your organization" ng-required="true"><br>
 									
 						<!-- referenced code: http://bootsnipp.com/snippets/featured/generic-postal-address-form
 						
@@ -98,7 +98,8 @@
 					    	typeahead-no-results="noResults" 
 					    	typeahead-on-select='setAddress()'
 					    	class="form-control"
-					    	name='address'>
+					    	name='address'
+							ng-required="true">
 					    <label ng-show="loadingLocations" class="fa fa-spinner fa-spin"></label>
 					    <div ng-show="noResults">
 					      <i class="fa fa-times"></i> No Results Found

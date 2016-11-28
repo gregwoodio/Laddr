@@ -5,14 +5,14 @@
     <section id="postings">
       <div class="container">
         <div class="page-header">
-          <br>
+          
         	<h1>Volunteer Opportunities</h1>
 			<p>Below you will find volunteer opportunities that are available to you. If you are interested in a position, just click the <i>View Details</i> link and review the posting. If you find that you would like to apply, the just click <i>Apply now</i>! It's that easy! 
             <br><b>NOTE:</b> Please note that any volunteer opportunity that you apply to will submit your profile information - so remember to fill it out!</p>
 				
 			<div ng-if='profile.AccountType == 1'>
 				<br>
-				<a class='btn btn-primary btn-md' href="#/addposting"><i class="fa fa-plus"></i>   Create Posting</a>
+				<a class='btn btn-primary' href="#/addposting"><i class="fa fa-plus"></i>   Create Posting</a>
 			</div>
         </div>
 		<div>
@@ -25,15 +25,16 @@
                 </div>      
             </div>
         </form>
+		
         <div ng-show='postings.length > 1' class='row'>
             <div class='col-md-2 col-md-offset-3 text-center'>
-                <button ng-click='prevPage()' class='btn btn-md'>
+                <button ng-click='prevPage()' class='btn '>
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 </button>
             </div>
             <div class='col-md-2 page-number'>{{page}}</div>
             <div class='col-md-2 text-center'>
-                <button ng-click='nextPage()' class='btn btn-md'>
+                <button ng-click='nextPage()' class='btn '>
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </button>
             </div>
@@ -42,7 +43,7 @@
         <!-- TEST TABLE  Link for test icon http://imgur.com/A2PKsqU.png-->
         <div class="box" ng-repeat="posting in filtered = (postings | filter:search) | startFrom: ((page - 1) * ppp) | limitTo: ppp" >
             <div class="box-temp"> </div>
-            <div class="box-img"><img ng-src="{{posting.LdrProfile.PictureURL}}" class="avatar img-circle img-thumbnail" width="100" height="100"></div>
+            <div class="box-img"><img ng-src="{{posting.LdrProfile.PictureURL}}" class="avatar img-thumbnail" width="100" height="100"></div>
             
 			<a href="#/postings/{{posting.PostingID}}">
 				<div class="box-info">
@@ -57,17 +58,19 @@
         <!-- End test table -->
                 
 		<div ng-show='postings.length > 1' class='row'>
-            <div class='col-md-2 col-md-offset-3 text-center'>
-                <button ng-click='prevPage()' class='btn btn-md'>
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class='col-md-2 page-number'>{{page}}</div>
-            <div class='col-md-2 text-center'>
-                <button ng-click='nextPage()' class='btn btn-md'>
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                </button>
-            </div>
+			<div>
+				<div class='col-md-2 col-md-offset-3 text-center'>
+					<button ng-click='prevPage()' class='btn '>
+						<i class="fa fa-arrow-left" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div class='col-md-2 page-number'>{{page}}</div>
+				<div class='col-md-2 text-center'>
+					<button ng-click='nextPage()' class='btn '>
+						<i class="fa fa-arrow-right" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
         </div>     
             
             
