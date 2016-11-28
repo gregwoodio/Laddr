@@ -9,7 +9,7 @@
       </div>
 
       <div class='col-md-12'>
-        <div ng-show='showMessages' uib-alert class="alert alert-success" close="dismissMessages()" ng-model="updateAlert"><strong>Your application status has been updated!</strong> Click <a href='#/applications'>here</a> to view your applications.</div>
+        <div ng-show='showMessages && profile.AccountType == 0' uib-alert class="alert alert-success" close="dismissMessages()" ng-model="updateAlert"><strong>Your application status has been updated!</strong> Click <a href='#/applications'>here</a> to view your applications.</div>
       </div>
 
       <div class="col-md-9">

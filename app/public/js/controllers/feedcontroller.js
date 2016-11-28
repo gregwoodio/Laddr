@@ -71,7 +71,19 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
 
   $scope.dismissMessages = function() {
     $scope.showMessages = false;
-    //add call to set user's ShowMessage to false
+    
+    //verify notifications have been seen
+    $http.post('/api/applications', undefined, {
+      headers: {
+        'x-access-token': LoginService.getToken()
+      }
+    })
+    .success(function(data, status, headers, config) {
+      console.log(data);
+    })
+    .error(function(data, status, headers, config) {
+      console.log(data);
+    });
   };
 
 }]);
