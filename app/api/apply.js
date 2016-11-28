@@ -84,11 +84,26 @@ module.exports = function(app, models) {
             })
             .then(function(application) {
 
+              // Show notification to user that their status has changed on website
+              models.User.update({
+                ShowMessage: true
+              }, {
+                where: {
+                  ProfileID: req.body.ProfileID
+                }
+              })
+              .then(function(user) {
+
+              })
+              .catch(function(err) {
+
+              });
+
+              // FCM notification to user
               if (req.body.ApplicationStatus == 2) {
 
                 message = 'Your volunteer application to ' + posting[0].LdrProfile.LdrOrganization.OrganizationName + ' was accepted!';
 
-                // FCM notification to user
                 models.User.find({
                   where: {
                     ProfileID: req.body.ProfileID

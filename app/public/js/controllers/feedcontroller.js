@@ -4,6 +4,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
   $scope.profile = undefined;
   $scope.postings = undefined;
   $scope.topics = undefined;
+  $scope.showMessages = true;
 
   if (LoginService.isLoggedIn()) {
 
@@ -23,6 +24,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
         if ($scope.profile.PictureURL == undefined || $scope.profile.PictureURL == 'pic.jpg') {
           $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
         }
+        $scope.showMessages = $scope.profile.LdrUser.ShowMessage || false;
 
       })
       .error(function(data, status, headers, config) {
@@ -66,4 +68,22 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
   } else {
     $location.url('/login');
   }
+
+  $scope.dismissMessages = function() {
+    $scope.showMessages = false;
+    
+    //verify notifications have been seen
+    $http.post('/api/applications', undefined, {
+      headers: {
+        'x-access-token': LoginService.getToken()
+      }
+    })
+    .success(function(data, status, headers, config) {
+      console.log(data);
+    })
+    .error(function(data, status, headers, config) {
+      console.log(data);
+    });
+  };
+
 }]);
