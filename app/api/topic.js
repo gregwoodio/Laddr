@@ -49,9 +49,11 @@ module.exports = function(app, models) {
       },
       include: {
         model: models.Profile,
-        include: [
-          models.User
-        ]
+        include: [{
+          model: models.User,
+        }, {
+          model: models.Organization
+        }]
       }
     })
     .then(function(topic) {

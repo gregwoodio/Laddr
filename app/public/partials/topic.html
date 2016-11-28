@@ -12,7 +12,8 @@
 		<table class="table table-striped table-style">
 			
 			<thead>
-				<th colspan='2'>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
+				<th ng-show="topic.LdrProfile.AccountType == 0" colspan='2'>By {{topic.LdrProfile.LdrUser.FirstName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
+				<th ng-show="topic.LdrProfile.AccountType == 1" colspan='2'>By {{topic.LdrProfile.LdrOrganization.OrganizationName}} on {{topic.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
 			</thead>
 			<tbody ng-repeat="comment in comments">
 				<tr>
