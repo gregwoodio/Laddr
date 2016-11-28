@@ -8,7 +8,34 @@ var mw = require('../middleware');
 module.exports = function(app, models) {
 
   // TODO: isAuthenticated middleware
-  // Get organization 
+  // GET organization
+  app.get('/api/organization', [mw.verifyToken], function(req, res) {
+
+    models.Organization.find({
+      where: {
+        ProfileID: req.query.ProfileID
+      }
+    })
+    .then(function(org) {
+
+      if (!org) {
+        res.status(400).json({
+          success: false,
+          message: 'No such user.'
+        });
+      } else {
+        res.json(org);
+      }
+    })
+    .catch(function(err) {
+      res.status(500).json({
+        success: false,
+        message: 'Invalid profile ID.'
+      });
+    });
+});
+
+  // Get specific organiztion, public
   app.get('/api/organization/:id', [mw.verifyToken], function(req, res) {
 
     models.Profile.find({
