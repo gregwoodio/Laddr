@@ -21,16 +21,16 @@ laddrControllers.controller('TopicController', ['$scope', '$location', '$http', 
         }
       })
       .success(function(data, status, headers, config) {
-        //added, refresh page
-        $location.url('#/topic/' + $scope.topicId);
+        $scope.getComments();
+        $scope.replyToggle = false;
+        $scope.reply = '';
       })
       .error(function(data, status, headers, config) {
         $scope.replyMessage = 'Couldn\'t add a reply. Please try again later.';
       });
   };
 
-  if (LoginService.isLoggedIn()) {
-
+  $scope.getComments = function() {
     $http
       .get('/api/topic/' + $routeParams.id, {
         headers: {
@@ -46,8 +46,12 @@ laddrControllers.controller('TopicController', ['$scope', '$location', '$http', 
       .error(function(data, status, headers, config) {
         $scope.message = "Could not retrieve topic. Please try again later.";
       });
+  }
 
-  } else {
+
+  if (!LoginService.isLoggedIn()) {
     $location.url('/login');
   }
+  $scope.getComments();
+
 }]);
