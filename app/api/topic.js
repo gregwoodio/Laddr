@@ -49,6 +49,7 @@ module.exports = function(app, models) {
       },
       include: {
         model: models.Profile,
+        attributes: ['ProfileID', 'Email', 'PictureURL', 'Timestamp', 'AccountType', 'Archived'],
         include: [{
           model: models.User,
         }, {
@@ -60,7 +61,6 @@ module.exports = function(app, models) {
 
       topic = topic.dataValues;
       topic.LdrProfile = topic.LdrProfile.dataValues;
-      delete topic.LdrProfile.Password;
       console.log('topic.js - topic: ');
       console.log(topic);
 
