@@ -17,30 +17,24 @@
         <div ng-show='postings.length > 0' class='col-md-12'>
           <h3>Postings For You</h3>
 			
-			
-			 
 				<div class="row row-post" ng-repeat="posting in postings">
 					 <a  class="a-style"  href="#/postings/{{posting.PostingID}}">
 					<div class="col-md-2"><img class="img-panel" ng-src="{{posting.LdrProfile.PictureURL}}"  height="60" /></div>
 					<div class="col-md-offset-1 col-md-6">
-					{{posting.LdrProfile.LdrOrganization.OrganizationName}}<br> 
+					 {{posting.LdrProfile.LdrOrganization.OrganizationName}}<br> 
 					  Position: {{posting.JobTitle}}  |  Event Date: {{posting.EventDate | date: 'dd MMM yyyy'}}</div>
 					 </a>
 				</div> 
-			
-			   
         </div>
 		
         <div class='col-md-12'>
           <h3>Recent Topics</h3>
-			
-			
 		      <div class="row row-post" ng-repeat="topic in topics">
 				  <a class="a-style" href="#/forum/{{topic.TopicID}}" >
 					<div class="col-md-12"> 
-						<p>Topic: {{topic.Title}} <br>
+					  <p>Topic: {{topic.Title}} <br>
 						Poster: {{topic.LdrProfile.LdrUser.FirstName}}{{topic.LdrProfile.LdrOrganization.OrganizationName}}  | Date Posted:  {{topic.Timestamp | date: 'dd MMM yyyy'}}
-						</p>
+					  </p>
 					</div>
 				  </a>
 			  </div> 
