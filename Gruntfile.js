@@ -73,6 +73,10 @@ module.exports = function(grunt) {
         dest: 'app/public/css/bootstrap.min.css'
       },
       bootstrapCssMap: {
+        src: 'app/public/components/bootstrap/fonts/*',
+        dest: 'app/public/fonts/'
+      },
+      bootstrapFonts: {
         src: 'app/public/components/bootstrap/dist/css/bootstrap.min.css.map',
         dest: 'app/public/css/bootstrap.min.css.map'
       },
