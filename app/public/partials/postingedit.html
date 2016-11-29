@@ -67,7 +67,7 @@
 				              alt-input-formats='altInputFormats'
 				              ng-change='updateDeadline(eventDate)' />
 				            <span class='input-group-btn'>
-				              <button type='button' class='btn btn-default' ng-click='openEventDate()'><i class='fa fa-calendar'></i></button>
+				              <button type='button' class='btn btn-default ldrbtn' ng-click='openEventDate()'><i class='fa fa-calendar'></i></button>
 				            </span>
 				          </p>
 				        </div>
@@ -84,7 +84,7 @@
 				              close-text='Close'
 				              alt-input-formats='altInputFormats' />
 				            <span class='input-group-btn'>
-				              <button type='button' class='btn btn-default' ng-click='openDeadline()'><i class='fa fa-calendar-times-o'></i></button>
+				              <button type='button' class='btn btn-default ldrbtn' ng-click='openDeadline()'><i class='fa fa-calendar-times-o'></i></button>
 				            </span>
 				          </p>
 				        </div>
@@ -118,8 +118,8 @@
 							
 							<div class="form-group ">
 								<br>
-								<input class='btn col-md-3 col-md-offset-2 btn-primary' type='submit' value='Apply Changes'>
-								<a class="btn col-md-3 col-md-offset-1 " href='#/postings/{{posting.PostingID}}'>Cancel</a>
+								<input class='btn col-md-3 col-md-offset-2 btn-primary ldrbtn' type='submit' value='Apply Changes'>
+								<a class="btn col-md-3 col-md-offset-1 ldrbtn" href='#/postings/{{posting.PostingID}}'>Cancel</a>
 							</div>		
 						
 							<div>{{message}}</div>

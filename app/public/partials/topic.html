@@ -28,13 +28,13 @@
 				</tr>
 			</tbody>
 		</table>
-		<button class="btn btn-md" ng-model="replyToggle" uib-btn-checkbox>Reply</button>
+		<button class="btn btn-md ldrbtn" ng-model="replyToggle" uib-btn-checkbox>Reply</button>
 		<div ng-show='replyToggle'>
 			<br>
 			<form id='replyForm'>
 				<textarea class='form-control' rows='5' ng-model='reply' placeholder='Enter your reply comments here...'></textarea>
 				<br>
-				<button class='btn ' ng-click='submitReply()'>Submit</button>
+				<button class='btn ldrbtn' ng-click='submitReply()'>Submit</button>
 				<div ng-show>{{replyMessage}}</div>
 			</form>
 		</div>

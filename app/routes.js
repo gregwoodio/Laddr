@@ -33,6 +33,7 @@ module.exports = function(app, passport) {
   var profiletags = require('./api/profiletags')(app, models);
   var imageupload = require('./api/imageupload')(app, models);
   var feed = require('./api/feed')(app, models);
+  var events = require('./api/events')(app, models);
 
   //social routes
   var twitter = require('./api/twitter')(app, passport);

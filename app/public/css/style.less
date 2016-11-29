@@ -1,8 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-/* derp */
-
 @white: #f8fcda;
 @primary: #873260;
 @background: #f1f4d4;
@@ -119,19 +117,19 @@ td, th {
 }
 
 
-.btn {
+.ldrbtn {
   background-color: @primary;
   border-style:solid;
   border-color:@black;
   color: @white;
 }
 
-.btn:hover {
+.ldrbtn:hover {
   background-color: @primary + 15;
   color: @white;
 }
 
-.btn:active, .btn:focus {
+.ldrbtn:active, .ldrbtn:focus {
   background-color: @primary - 15;
   color: @white;
 }
@@ -573,3 +571,17 @@ tr {
 }
  
  /* end of feed panels styling */
+
+/* datepicker style */
+
+.date-booked {
+  border: 2px solid @accent !important;
+  color: @black;
+}
+
+.events-list {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+/* end datepicker style */
