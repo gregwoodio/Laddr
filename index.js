@@ -27,6 +27,7 @@ require('./config/passport')(passport);
 app.use('/js', express.static(__dirname + '/app/public/js'));
 app.use('/css', express.static(__dirname + '/app/public/css'));
 app.use('/lib', express.static(__dirname + '/app/public/lib'));
+app.use('/fonts', express.static(__dirname + '/app/public/fonts'));
 app.use('/partials', express.static(__dirname + '/app/public/partials'));
 app.use('/img', express.static(__dirname + '/app/public/img'));
 app.use('/uploads', express.static(__dirname + 'app/public/img/uploads'));
