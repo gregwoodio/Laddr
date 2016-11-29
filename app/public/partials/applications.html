@@ -1,4 +1,4 @@
-<div header></div>
+<div header></div>
 
 <div class='container'>
   <section id="applications">
@@ -20,22 +20,22 @@
     				</thead>
     				<tbody class='row' ng-repeat="application in applications">
     					 <tr>
-    				        <th><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></th>
-    						<th>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</th>
-    						<th>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</th>
+    				        <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a></td>
+    						<td>{{application.Timestamp | date: 'hh:mm:ss dd/MM/yy'}}</td>
+    						<td>{{application.LdrPosting.LdrProfile.LdrOrganization.OrganizationName}}</td>
                             <!-- These ng-if's will convert the number value from the DB to text -->
-                            <th ng-if="application.ApplicationStatus == '0'">
+                            <td ng-if="application.ApplicationStatus == '0'">
                                 Pending Approval
-                            </th>
-                            <th ng-if="application.ApplicationStatus == '1'">
+                            </td>
+                            <td ng-if="application.ApplicationStatus == '1'">
                                 Declined 
-                            </th>
-                            <th ng-if="application.ApplicationStatus == '2'">
+                            </td>
+                            <td ng-if="application.ApplicationStatus == '2'">
                                 Approved
-                            </th>
-                            <th ng-if="application.ApplicationStatus == '3'">
+                            </td>
+                            <td ng-if="application.ApplicationStatus == '3'">
                                 Posting Cancelled
-                            </th>                             
+                            </td>                             
     					</tr>
     				</tbody>
     			</table>
