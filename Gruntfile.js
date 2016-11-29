@@ -72,11 +72,27 @@ module.exports = function(grunt) {
         src: 'app/public/components/bootstrap/dist/css/bootstrap.min.css',
         dest: 'app/public/css/bootstrap.min.css'
       },
-      bootstrapCssMap: {
-        src: 'app/public/components/bootstrap/fonts/*',
-        dest: 'app/public/fonts/'
+      bootstrapFontsEot: {
+        src: 'app/public/components/bootstrap/fonts/glyphicons-halflings-regular.eot',
+        dest: 'app/public/fonts/glyphicons-halflings-regular.eot'
       },
-      bootstrapFonts: {
+      bootstrapFontsSvg: {
+        src: 'app/public/components/bootstrap/fonts/glyphicons-halflings-regular.svg',
+        dest: 'app/public/fonts/glyphicons-halflings-regular.svg'
+      },
+      bootstrapFontsTtf: {
+        src: 'app/public/components/bootstrap/fonts/glyphicons-halflings-regular.ttf',
+        dest: 'app/public/fonts/glyphicons-halflings-regular.ttf'
+      },
+      bootstrapFontsWoff: {
+        src: 'app/public/components/bootstrap/fonts/glyphicons-halflings-regular.woff',
+        dest: 'app/public/fonts/glyphicons-halflings-regular.woff'
+      },
+      bootstrapFontsWoff2: {
+        src: 'app/public/components/bootstrap/fonts/glyphicons-halflings-regular.woff2',
+        dest: 'app/public/fonts/glyphicons-halflings-regular.woff2'
+      },
+      bootstrapCssMaps: {
         src: 'app/public/components/bootstrap/dist/css/bootstrap.min.css.map',
         dest: 'app/public/css/bootstrap.min.css.map'
       },
