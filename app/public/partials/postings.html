@@ -12,7 +12,7 @@
 				
 			<div ng-if='profile.AccountType == 1'>
 				<br>
-				<a class='btn btn-primary' href="#/addposting"><i class="fa fa-plus"></i>   Create Posting</a>
+				<a class='btn btn-primary ldrbtn' href="#/addposting"><i class="fa fa-plus"></i>   Create Posting</a>
 			</div>
         </div>
 		<div>
@@ -28,13 +28,13 @@
 		
         <div ng-show='postings.length > 1' class='row'>
             <div class='col-md-2 col-md-offset-3 text-center'>
-                <button ng-click='prevPage()' class='btn '>
+                <button ng-click='prevPage()' class='btn ldrbtn'>
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 </button>
             </div>
             <div class='col-md-2 page-number'>{{page}}</div>
             <div class='col-md-2 text-center'>
-                <button ng-click='nextPage()' class='btn '>
+                <button ng-click='nextPage()' class='btn ldrbtn'>
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </button>
             </div>
@@ -60,13 +60,13 @@
 		<div ng-show='postings.length > 1' class='row'>
 			<div>
 				<div class='col-md-2 col-md-offset-3 text-center'>
-					<button ng-click='prevPage()' class='btn '>
+					<button ng-click='prevPage()' class='btn ldrbtn'>
 						<i class="fa fa-arrow-left" aria-hidden="true"></i>
 					</button>
 				</div>
 				<div class='col-md-2 page-number'>{{page}}</div>
 				<div class='col-md-2 text-center'>
-					<button ng-click='nextPage()' class='btn '>
+					<button ng-click='nextPage()' class='btn ldrbtn'>
 						<i class="fa fa-arrow-right" aria-hidden="true"></i>
 					</button>
 				</div>

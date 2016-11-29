@@ -49,18 +49,30 @@
       
       <div class='col-md-3 text-center'>
         <img ng-src='{{profile.PictureURL}}' alt='avatar' class='topic-avatar text-center'  />
-		<div ng-show='profile.AccountType == 0' class='text-center'>
-			<br>
+		    <div ng-show='profile.AccountType == 0' class='text-center'>
+          <br>
           <p>{{profile.LdrUser.FirstName}} {{profile.LdrUser.LastName}}</p>
           <p>{{profile.Email}}</p> 
         </div>
         <div ng-show='profile.AccountType == 1'>
-		  <br>
+		      <br>
           <p>{{profile.LdrOrganization.OrganizationName}}</p>
           <p>{{profile.LdrOrganization.URL}}</p>
           <p>{{profile.LdrOrganization.City}}, {{profile.LdrOrganization.Province}}  </p>
           <p>{{profile.Email}}</p> 
         </div>
+
+        <div style="display:inline-block; min-height:290px;">
+          <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+        </div>
+
+        <div ng-show="events.length > 0">
+          <h4>Upcoming events</h4>
+          <div ng-repeat="event in events" class='events-list'>
+            <p><strong>{{event.LdrPosting.JobTitle}}</strong> - <em>{{event.LdrPosting.EventDate | date: 'dd MMM yyyy'}}</em></p>
+          </div>
+        </div>
+
       </div>
   </section>
 </div>
