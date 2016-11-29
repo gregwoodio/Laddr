@@ -4,6 +4,7 @@
 @white: #f8fcda;
 @primary: #873260;
 @background: #f1f4d4;
+@purewhite: #ffffff;
 @black: #65655f;
 @error: #ff0000;
 @border-radius: 5px;
@@ -535,41 +536,46 @@ tr {
 }
 /* edit of resume styling */
 
-/* start of feed panels styling */
-
-.feed-box{
-    position: relative;
-	margin:2px;
-	padding:7px;
-    background-color: @accent;
-     
- }
- 
- .feed-box:hover {
-	opacity: 0.7;
- }
- 
- .feed-box-info{
-  
-
- }
- 
- .feed-box-img {        
-    position: absolute;
-    z-index: 5;
-    top: 25px;
-    left: 75px;	        
+/* start of feed panels styling*/ 
+	
+.panel {
+	background-color:@accent;
+	border-radius:0;
+	text-align:center;
+	
 }
 
-.feed-details {
-    
-    z-index: 100;
-    top: 15px;
-    text-align: center;
-    color: #f6f7fb;
-    font-size: 20px;
+.panel-body {
+	@color:white;
+	border-radius:0;
+	text-align:center;
+	background:@accent;
 }
- 
+
+.row-post {
+	color:#ffffff;
+	margin:10px;
+	padding: 7px;
+	background:@accent;
+	text-align:center;
+}
+.row-post:hover {
+	opacity:0.5;
+	background:@primary+10;
+	
+	
+}
+
+.a-style {
+	color:@purewhite;
+}
+
+ .img-panel {
+	padding-top:8px;
+	text-align:center;
+}
+
+
  /* end of feed panels styling */
 
 /* datepicker style */
@@ -585,3 +591,5 @@ tr {
 }
 
 /* end datepicker style */
+
+
