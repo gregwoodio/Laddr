@@ -1,19 +1,18 @@
 // ApplicantController.js
 
-laddrControllers.controller('ApplicantController', ['$scope', '$http', '$location', 'LoginService',
-  function($scope, $http, $location, LoginService) {
+laddrControllers.controller('ApplicantController', ['$scope', '$http', '$location', '$uibModal', 'LoginService',
+  function($scope, $http, $location, $uibModal, LoginService) {
 
   $scope.applications = {};
+  $scope.resume = "";
 
   $scope.updateApplication = function(newValue, profileID, postingID) {
     // console.log('Value: ' + newValue + ' PostingID: ' + postingID);
     data = {
       ApplicationStatus: newValue,
       PostingID: postingID,
-      ProfileID: profileID
-        
+      ProfileID: profileID   
     }
-  
     
     $http.put('/api/apply', data, {
         headers: {
@@ -47,7 +46,23 @@ laddrControllers.controller('ApplicantController', ['$scope', '$http', '$locatio
   } else {
     $location.url('/login');
   }
-      
+
+  $scope.open = function (index, size, parentSelector) {
+
+    $scope.resume = $scope.applications[index].LdrProfile.LdrUser.Resume;
+
+    var parentElem = parentSelector ? angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+    $scope.modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'resumeModal.html',
+      size: size,
+      appendTo: parentElem,
+      scope: $scope
+    });
+
+  };
 
 }]);
 
