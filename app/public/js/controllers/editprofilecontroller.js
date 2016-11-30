@@ -16,8 +16,10 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         // console.log($scope.imageUpload);
         $scope.isLoggedIn = LoginService.isLoggedIn();
 
-        $scope.asyncSelected = $scope.profile.LdrOrganization.AddressLine1 + ", " + $scope.profile.LdrOrganization.City + ", " +
-          $scope.profile.LdrOrganization.Province + ", " + $scope.profile.LdrOrganization.Postal;
+        if ($scope.profile.AccountType == 1) {
+          $scope.asyncSelected = $scope.profile.LdrOrganization.AddressLine1 + ", " + $scope.profile.LdrOrganization.City + ", " +
+            $scope.profile.LdrOrganization.Province + ", " + $scope.profile.LdrOrganization.Postal;
+        }
       })
       .error(function(data, status, headers, config) {
         // console.log('Could not retrieve user.');

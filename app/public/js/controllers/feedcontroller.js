@@ -24,7 +24,10 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
         if ($scope.profile.PictureURL == undefined || $scope.profile.PictureURL == 'pic.jpg') {
           $scope.profile.PictureURL = 'https://www.orthoneuro.com/wp-content/themes/orthoneuro/images/generic-profile.jpg';
         }
-        $scope.showMessages = $scope.profile.LdrUser.ShowMessage || false;
+
+        if ($scope.profile.AccountType == 0) {
+          $scope.showMessages = $scope.profile.LdrUser.ShowMessage || false;
+        }
 
       })
       .error(function(data, status, headers, config) {
@@ -41,7 +44,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
       .success(function(data, status, headers, config) {
         
         $scope.postings = data.postings.slice(0,5);
-        console.log($scope.postings);
+        // console.log($scope.postings);
 
       })
       .error(function(data, status, headers, config) {
@@ -120,7 +123,6 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
   })
   .success(function(data, status, headers, config) {
     $scope.events = data.events;
-    getDayClass();
   })
   .error(function(data, status, headers, config) {
     // console.log("Could not retrieve events.");

@@ -16,8 +16,8 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
         $scope.profile = data;
         $scope.tinymceModel = $scope.profile.LdrUser.Resume;
 
-        console.log($scope.profile.LdrUser.Resume);
-              console.log("Im an idiot");
+        // console.log($scope.profile.LdrUser.Resume);
+        // console.log("Im an idiot");
 
       })
       .error(function(data, status, headers, config) {
