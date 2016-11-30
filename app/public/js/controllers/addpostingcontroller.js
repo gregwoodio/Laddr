@@ -47,7 +47,7 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
     $scope.tags = data;
   })
   .error(function(data, status, headers, config) {
-    console.log(data);
+    // console.log(data);
   });
 
   $scope.addPosting = function() {
@@ -67,13 +67,13 @@ laddrControllers.controller('AddPostingController', ['$location', '$scope','$htt
         if (data) {
           $location.url('/postings');
         } else {
-          console.log('Failed to add posting.');
+          // console.log('Failed to add posting.');
         }
       })
       .error(function(data, status, headers, config) {
-        console.log('Failed to add posting, part 2.');
-        console.log(data);
-        console.log(status);
+        // console.log('Failed to add posting, part 2.');
+        // console.log(data);
+        // console.log(status);
       });
   };
 

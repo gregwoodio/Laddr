@@ -16,8 +16,8 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
         $scope.profile = data;
         $scope.tinymceModel = $scope.profile.LdrUser.Resume;
 
-        console.log($scope.profile.LdrUser.Resume);
-              console.log("Im an idiot");
+        // console.log($scope.profile.LdrUser.Resume);
+        // console.log("Im an idiot");
 
       })
       .error(function(data, status, headers, config) {
@@ -34,7 +34,7 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
         Resume: resumeText 
       };
         
-      console.log(data);
+      // console.log(data);
         
       $http
         .put('/api/user/resume', data, {
@@ -46,11 +46,11 @@ laddrControllers.controller('ResumeController', ['$scope', '$location', '$http',
           if (data) {
             $location.url('/profile');
           } else {
-            console.log('Failed to add resume.');
+            // console.log('Failed to add resume.');
           }
         })
         .error(function(data, status, headers, config) {
-          console.log('Failed to add resume, part 2.');
+          // console.log('Failed to add resume, part 2.');
         });
     }
 

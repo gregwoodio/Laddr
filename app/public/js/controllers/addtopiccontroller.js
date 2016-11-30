@@ -23,11 +23,11 @@ laddrControllers.controller('AddTopicController', ['$location', '$scope','$http'
         if (data) {
           $location.url('/forum');
         } else {
-          console.log('Failed to add topic.');
+          // console.log('Failed to add topic.');
         }
       })
       .error(function(data, status, headers, config) {
-        console.log('Failed to add topic, part 2.');
+        // console.log('Failed to add topic, part 2.');
       });
   }
 

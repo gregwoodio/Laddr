@@ -39,10 +39,10 @@ laddrControllers.controller('ApplicationsController', ['$scope', '$http', '$loca
     }
   })
   .success(function(data, status, headers, config) {
-    console.log(data);
+    // console.log(data);
   })
   .error(function(data, status, headers, config) {
-    console.log(data);
+    // console.log(data);
   });
 
 }]);
