@@ -6,7 +6,7 @@ laddrControllers.controller('ApplicantController', ['$scope', '$http', '$locatio
   $scope.applications = {};
 
   $scope.updateApplication = function(newValue, profileID, postingID) {
-    console.log('Value: ' + newValue + ' PostingID: ' + postingID);
+    // console.log('Value: ' + newValue + ' PostingID: ' + postingID);
     data = {
       ApplicationStatus: newValue,
       PostingID: postingID,

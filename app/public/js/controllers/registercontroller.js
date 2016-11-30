@@ -56,7 +56,7 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
         Lng: $scope.user.lng
       };
 
-      console.log(data);
+      // console.log(data);
 
       $http
         .post('/api/organization', data)
@@ -94,7 +94,7 @@ laddrControllers.controller('RegisterController', ['$scope', '$http', '$location
 
   $scope.setAddress = function() {
 
-    console.log($scope.address);
+    // console.log($scope.address);
 
     street_number = undefined;
     route = undefined;

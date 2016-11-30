@@ -28,7 +28,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
 
       })
       .error(function(data, status, headers, config) {
-        console.log("Could not retrieve user.");
+        // console.log("Could not retrieve user.");
         $location.url('/login');
       });
 
@@ -45,7 +45,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
 
       })
       .error(function(data, status, headers, config) {
-        console.log("Could not retrieve feed.");
+        // console.log("Could not retrieve feed.");
         $location.url('/login');
       });
 
@@ -56,12 +56,12 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
         }
       })
       .success(function(data, status, headers, config) {
-        console.log(data);
+        // console.log(data);
         $scope.topics = data.slice(0,4);
-        console.log($scope.topics);
+        // console.log($scope.topics);
       })
       .error(function(data, status, headers, config) {
-        console.log("Could not retrieve topics.");
+        // console.log("Could not retrieve topics.");
         // $location.url('/login');
       });
 
@@ -79,10 +79,10 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
       }
     })
     .success(function(data, status, headers, config) {
-      console.log(data);
+      // console.log(data);
     })
     .error(function(data, status, headers, config) {
-      console.log(data);
+      // console.log(data);
     });
   };
 
@@ -123,7 +123,7 @@ laddrControllers.controller('FeedController', ['$scope', '$http', '$routeParams'
     getDayClass();
   })
   .error(function(data, status, headers, config) {
-    console.log("Could not retrieve events.");
+    // console.log("Could not retrieve events.");
   });
 
 

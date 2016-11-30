@@ -13,14 +13,14 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       })
       .success(function(data, status, headers, config) {
         $scope.profile = data;
-        console.log($scope.imageUpload);
+        // console.log($scope.imageUpload);
         $scope.isLoggedIn = LoginService.isLoggedIn();
 
         $scope.asyncSelected = $scope.profile.LdrOrganization.AddressLine1 + ", " + $scope.profile.LdrOrganization.City + ", " +
           $scope.profile.LdrOrganization.Province + ", " + $scope.profile.LdrOrganization.Postal;
       })
       .error(function(data, status, headers, config) {
-        console.log('Could not retrieve user.');
+        // console.log('Could not retrieve user.');
         $location.url('/login');
       });
   } else {
@@ -37,7 +37,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       Email: $scope.profile.Email,
     };
 
-    console.log(data);
+    // console.log(data);
 
     $http
       .put('/api/user', data, {
@@ -46,7 +46,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         }
       })
       .success(function(data, status, headers, config) {
-        console.log('Successful edit.');
+        // console.log('Successful edit.');
         if (data) {
           
           $location.url('/profile');
@@ -55,9 +55,9 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         }
       })
       .error(function(data, status, headers, config) {
-        console.log('AJAX error editing profile.');
-        console.log(data);
-        console.log(status);
+        // console.log('AJAX error editing profile.');
+        // console.log(data);
+        // console.log(status);
         $scope.message = 'Error updating profile. Please try again later.';
       });
   };
@@ -78,7 +78,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
       Lng: $scope.profile.lng
     };
 
-    console.log(data);
+    // console.log(data);
 
     $http
       .put('/api/organization', data, {
@@ -87,18 +87,18 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
         }
       })
       .success(function(data, status, headers, config) {
-        console.log('Successful edit.');
+        // console.log('Successful edit.');
         if (data) {
           $location.url('/profile');
         } else {
-          console.log('Edit volunteer failed.');
+          // console.log('Edit volunteer failed.');
         }
 
       })
       .error(function(data, status, headers, config) {
-        console.log('AJAX error editing profile.');
-        console.log(data);
-        console.log(status);
+        // console.log('AJAX error editing profile.');
+        // console.log(data);
+        // console.log(status);
         $scope.message = 'Error updating profile. Please try again later.';
       });
   };
@@ -123,10 +123,10 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
           $scope.successfulUpload = false; 
         }, 3000);
 
-        console.log(res);
+        // console.log(res);
       });
     } else {
-      console.log("file is undefined");
+      // console.log("file is undefined");
     }
   };
 
@@ -151,7 +151,7 @@ laddrControllers.controller('EditProfileController', ['$scope', '$http', '$route
 
   $scope.setAddress = function() {
 
-    console.log($scope.address);
+    // console.log($scope.address);
 
     street_number = undefined;
     route = undefined;
