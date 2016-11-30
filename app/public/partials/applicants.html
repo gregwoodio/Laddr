@@ -23,7 +23,7 @@
               <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a>
             </td>
               <td>
-                  <a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
+                  <a ng-click="open($index)">{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
              </td>
               <td>{{application.LdrProfile.LdrUser.Description}}</td>
               <td>
@@ -39,14 +39,16 @@
             </tr>
           </tbody>
         </table>
+
+        <script type="text/ng-template" id="resumeModal.html">
+          <div class='modal-body'>
+            <div ng-bind-html="resume"></div>
+          </div>
+        </script>
       </div>
-
-        <!-- Ahhhhhhhhhhhhhh -->
-         <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><strong>Application Updated!</strong> The user will see these changes the next time they log in.</div>
-    
-
-
-    
+        <div class="alert alert-success fade in" id="updateAlert" style="display:none;">
+          <strong>Application Updated!</strong> The user will see these changes the next time they log in.
+        </div>
     </div>
   </section>
 </div>
