@@ -22,8 +22,28 @@
              <tr >
               <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a>
             </td>
-              <td>
+              <td> <!-- Modal Pop-up here -->
+                  <!--
                   <a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
+                    -->
+                  <div ng-controller="ApplicantController as $ctrl" class="modal-demo">
+                    <script type="text/ng-template" id="applicants.html">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="modal-title">{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}'s Resume</h3>
+                        </div>
+                        <div class="modal-body" id="modal-body">
+                            This is where the resume should be
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Close</button>
+                        </div>
+                      </script>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.open()">
+                        {{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
+                    </button>
+                </div>
+                <!-- End Modal Pop Up -->
+                  
              </td>
               <td>{{application.LdrProfile.LdrUser.Description}}</td>
               <td>
@@ -43,9 +63,6 @@
 
         <!-- Ahhhhhhhhhhhhhh -->
          <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><strong>Application Updated!</strong> The user will see these changes the next time they log in.</div>
-    
-
-
     
     </div>
   </section>
