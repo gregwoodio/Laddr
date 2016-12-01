@@ -26,8 +26,14 @@ module.exports = function(app, models) {
         attributes: ['ProfileID', 'Email', 'PictureURL', 'Timestamp', 'AccountType', 'Archived']
       }],
       where: {
-        Archived: false
-      }
+        Archived: false,
+        Deadline: {
+          $gte: new Date()
+        }
+      },
+      order: [
+        ['Timestamp', 'DESC']
+      ]
     })
     .then(function(postings) {
       p = [];
