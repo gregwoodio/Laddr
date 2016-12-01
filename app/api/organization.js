@@ -44,7 +44,8 @@ module.exports = function(app, models) {
       },
       include: [{
         model: models.Organization
-      }]
+      }],
+      attributes: ['ProfileID', 'Email', 'PictureURL', 'Timestamp', 'AccountType', 'Archived']
     })
     .then(function(org) {
 

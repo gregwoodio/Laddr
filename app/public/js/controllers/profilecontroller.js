@@ -40,7 +40,7 @@ laddrControllers.controller('ProfileController', ['$scope', '$http', '$routePara
 
       })
       .error(function(data, status, headers, config) {
-        console.log("Could not retrieve user.");
+        // console.log("Could not retrieve user.");
         $location.url('/login');
       });
   } else {

@@ -57,7 +57,7 @@ laddrControllers.controller('PostingsController', ['$scope', '$location', '$http
    content_css: '//www.tinymce.com/css/codepen.min.css',
   setup: function (editor) {
    //onload
-    console.log("I reached here");
+    // console.log("I reached here");
    $timeout(function () {
     $scope.tinyMceLoaded = true;
    });

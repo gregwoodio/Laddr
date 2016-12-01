@@ -22,6 +22,7 @@
              <tr >
               <td><a href='#/postings/{{application.PostingID}}'>{{application.LdrPosting.JobTitle}}</a>
             </td>
+<<<<<<< HEAD
               <td> <!-- Modal Pop-up here -->
                   <!--
                   <a href='#/user/{{application.LdrProfile.LdrProfileID}}'>{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
@@ -44,6 +45,10 @@
                 </div>
                 <!-- End Modal Pop Up -->
                   
+=======
+              <td>
+                  <a ng-click="open($index)">{{application.LdrProfile.LdrUser.FirstName}}  {{application.LdrProfile.LdrUser.LastName}}
+>>>>>>> 91632f0faf1b696b5616a365d2cde3d64e5c267a
              </td>
               <td>{{application.LdrProfile.LdrUser.Description}}</td>
               <td>
@@ -54,18 +59,33 @@
                 </select>
               </td>
               <td>
-                <button class='btn' ng-click='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)' id="update"><span class='fa fa-share'></span></button>
+                <button class='btn ldrbtn' ng-click='updateApplication(application.ApplicationStatus, application.ProfileID, application.PostingID)' id="update"><span class='fa fa-share'></span></button>
               </td>
             </tr>
           </tbody>
         </table>
+<<<<<<< HEAD
       </div>
 
         <!-- Ahhhhhhhhhhhhhh -->
          <div class="alert alert-success fade in" id="updateAlert" style="display:none;"><strong>Application Updated!</strong> The user will see these changes the next time they log in.</div>
     
+=======
+
+        <script type="text/ng-template" id="resumeModal.html">
+          <div class='modal-body'>
+            <div ng-bind-html="resume"></div>
+          </div>
+        </script>
+      </div>
+        <div class="alert alert-success fade in" id="updateAlert" style="display:none;">
+          <strong>Application Updated!</strong> The user will see these changes the next time they log in.
+        </div>
+>>>>>>> 91632f0faf1b696b5616a365d2cde3d64e5c267a
     </div>
   </section>
 </div>
+
+
 
 <div footer></div>

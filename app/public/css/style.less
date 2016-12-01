@@ -1,11 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-/* derp */
-
 @white: #f8fcda;
 @primary: #873260;
 @background: #f1f4d4;
+@purewhite: #ffffff;
 @black: #65655f;
 @error: #ff0000;
 @border-radius: 5px;
@@ -98,6 +97,8 @@ table {
 td, th {
     border: 1px solid @background;
     text-align: left;
+	border-collapse:collapse;
+	border-style:none;
 }
 
 .comments-table-style {
@@ -117,19 +118,19 @@ td, th {
 }
 
 
-.btn {
+.ldrbtn {
   background-color: @primary;
   border-style:solid;
   border-color:@black;
   color: @white;
 }
 
-.btn:hover {
+.ldrbtn:hover {
   background-color: @primary + 15;
   color: @white;
 }
 
-.btn:active, .btn:focus {
+.ldrbtn:active, .ldrbtn:focus {
   background-color: @primary - 15;
   color: @white;
 }
@@ -148,6 +149,7 @@ a:active {
 
 .page-header {
   padding-top: 25px;
+  border-bottom: 1px solid @accent;
 }
 
 /** all modal styling for login **/
@@ -178,13 +180,13 @@ a:active {
 .panel,.panel-group{
 	border-radius:@border-radius;
 	border:none;
-	background:@white;
+	background:@purewhite;
    
 }
 
 
 .personal-info {
-  background: @white;
+  background: @purewhite;
   padding: 2%;
   border-radius:@border-radius;
   border:none;
@@ -210,7 +212,7 @@ body,html {
 .login-style {
   border-radius:@border-radius;
   padding:1%;
-  background:@white;
+  background:@purewhite;
   border:none;
 }
 
@@ -236,7 +238,7 @@ body,html {
 .profile-style {
 	border:none;
 	border-radius:@border-radius;
-	background:@white;
+	background:@purewhite;
 	width:100%;
 }
 
@@ -245,10 +247,13 @@ p {
 }
 
 /** Styling for Tables **/
-
+table {
+		border-collapse:collapse;
+}
 .table-style {
 
 	border-radius:@border-radius;
+
 }
 
 thead {
@@ -258,8 +263,13 @@ thead {
 }
 
 tr {
-	padding:2%;	
+		
 	text-align:center;
+	padding-bottom:0em;
+	padding-top:0em;
+	top-border-style:none;
+	bottom-border-style:none;
+	
 }
 
 /** Styling for adding a posting - Organization **/
@@ -267,7 +277,7 @@ tr {
 .posting-style {
 	border-radius:@border-radius;
 	border:none;
-	background:@white;
+	background: @purewhite;
 	width: 95%;
 	padding:2%;
 	}
@@ -275,7 +285,7 @@ tr {
 .posting-detail-style {
 	border-radius:@border-radius;
 	border:none;
-	background:@white;
+	background:@purewhite;
 	padding:1%;
 }
 
@@ -412,7 +422,7 @@ tr {
      margin: 5px;
      margin-top: 5px;
      margin-left: 5px;	
-     background-color: #879baf;
+     background-color: @accent;
      overflow: hidden;
  }
 
@@ -464,7 +474,7 @@ tr {
     top: 15px;
     left: 0px;
     text-align: center;
-    font-family: Raleway;
+    font-family: @font;
     color: #f6f7fb;
     font-size: 1px;
     opacity: 1;
@@ -479,7 +489,7 @@ tr {
     top: 110px;
     left: 490px; 
     color: black;
-    font-family: Raleway;
+    font-family: @font;
     font-size: 1px;
     opacity: 0;
     transition: all 300ms ease-out;      
@@ -487,7 +497,7 @@ tr {
  
     
 .icon-text a{
-    font-family: Raleway;
+    font-family: @font;
     font-size: 15px;
     margin-top: 2px;
     color: #f6f7fb;
@@ -517,6 +527,60 @@ tr {
 }
 /* End of edit icon styling */
 
+<<<<<<< HEAD
 .panel-primary > .panel-heading {
     background-color: @primary;
 }
+=======
+/* Start of resume styling */
+
+
+.resume-header {
+	background-color: @primary;
+	color:@white;
+}
+/* edit of resume styling */
+
+/* start of feed panels styling*/ 
+	
+
+.row-post {
+	color:#ffffff;
+	margin:10px;
+	padding: 7px;
+	background:@accent;
+	text-align:center;
+}
+.row-post:hover {
+	opacity:0.5;
+	background:@primary+10;
+}
+
+.a-style {
+	color:@purewhite;
+}
+
+ .img-panel {
+	padding-top:8px;
+	text-align:center;
+}
+
+
+ /* end of feed panels styling */
+
+/* datepicker style */
+
+.date-booked {
+  border: 2px solid @accent !important;
+  color: @black;
+}
+
+.events-list {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+/* end datepicker style */
+
+
+>>>>>>> 91632f0faf1b696b5616a365d2cde3d64e5c267a

@@ -38,4 +38,27 @@ module.exports = function(app, models) {
       });
   });
 
+  // Set the notifications marked as viewed
+  app.post('/api/applications', mw.verifyToken, function(req, res) {
+    
+    models.User.update({
+      ShowMessage: false
+    }, {
+      where: {
+        ProfileID: req.decoded.ProfileID
+      }
+    }).then(function(user) {
+      res.json({
+        success: true,
+        message: 'Notifications viewed.'
+      });
+    }).catch(function(err) {
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
+    });
+
+  });
+
 }

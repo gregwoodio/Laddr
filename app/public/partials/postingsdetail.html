@@ -13,7 +13,6 @@
 				<div class="border col-md-9">		
 	
 					<div> 
-						<a href="#/postings" class="btn btn-md pull-left" role="button"><i class='fa fa-chevron-left'></i></a><br>
 						<h3><b>Position: {{posting.JobTitle}}</b></h3>
 						<p><strong>Organization: </strong> {{posting.LdrProfile.LdrOrganization.OrganizationName}}</p>
 						<p><strong>Location: </strong> {{posting.Location}}</p>
@@ -60,7 +59,7 @@
 		
 					<div ng-if='profile.AccountType == 0 && daysRemaining >= 0'><br>
 						
-						<div><button class='btn btn-primary btn-block pull-left' ng-click='apply()'>Apply Now!</button></div>
+						<div><button class='btn btn-primary btn-block ldrbtn pull-left' ng-click='apply()'>Apply Now!</button></div>
 						<div class='error-text'>{{applyError}}</div>
 						
 					</div>

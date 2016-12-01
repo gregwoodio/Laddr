@@ -22,7 +22,8 @@ module.exports = function(app, models) {
         model: models.Profile,
         include: {
           model: models.Organization
-        }
+        },
+        attributes: ['ProfileID', 'Email', 'PictureURL', 'Timestamp', 'AccountType', 'Archived']
       }],
       where: {
         Archived: false

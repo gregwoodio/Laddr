@@ -52,10 +52,10 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
           }
         })
         .success(function(data, status, headers, config) {
-          console.log('ProfileTags data: ' + data);
+          // console.log('ProfileTags data: ' + data);
         })
         .error(function(data, status, headers, config) {
-          console.log('ProfileTags error: ' + data);
+          // console.log('ProfileTags error: ' + data);
         });
       })
       .error(function(data, status, headers, config) {

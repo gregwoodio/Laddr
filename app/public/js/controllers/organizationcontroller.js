@@ -28,7 +28,7 @@ laddrControllers.controller('OrganizationController', ['$scope', '$location', '$
       };
     })
     .error(function(data, status, headers, config) {
-      console.log("Could not retrieve organization.");
+      // console.log("Could not retrieve organization.");
       $location.url('/login');
     });
 

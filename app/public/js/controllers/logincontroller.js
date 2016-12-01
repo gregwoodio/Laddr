@@ -22,7 +22,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
 
           $location.url('/feed');
         } else {
-          console.log("Bad login 1");
+          // console.log("Bad login 1");
 
           LoginService.setProfile(undefined);
           LoginService.setToken(undefined);
@@ -32,7 +32,7 @@ laddrControllers.controller('LoginController', ['$scope', '$http', '$routeParams
         }
       })
       .error(function(data, status, headers, config) {
-        console.log("Bad login 2");
+        // console.log("Bad login 2");
 
         LoginService.setProfile(undefined);
         LoginService.setToken(undefined);

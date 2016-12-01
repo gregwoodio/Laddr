@@ -49,16 +49,18 @@ module.exports = function(app, models) {
       },
       include: {
         model: models.Profile,
-        include: [
-          models.User
-        ]
+        attributes: ['ProfileID', 'Email', 'PictureURL', 'Timestamp', 'AccountType', 'Archived'],
+        include: [{
+          model: models.User,
+        }, {
+          model: models.Organization
+        }]
       }
     })
     .then(function(topic) {
 
       topic = topic.dataValues;
       topic.LdrProfile = topic.LdrProfile.dataValues;
-      delete topic.LdrProfile.Password;
       console.log('topic.js - topic: ');
       console.log(topic);
 
