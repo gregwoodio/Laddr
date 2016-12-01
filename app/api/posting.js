@@ -43,7 +43,10 @@ module.exports = function(app, models) {
       
     models.Posting.findAll({
         where: {
-          Archived: false
+          Archived: false,
+          Deadline: {
+            $gt: new Date()
+          }
         },
         include: [{
           model: models.Profile,
