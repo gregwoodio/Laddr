@@ -68,10 +68,10 @@ laddrControllers.controller('PostingsDetailController', ['$scope', '$location', 
 
   $scope.apply = function() {
     // logged in user applies to posting
-    today = new Date();
-    deadline = new Date($scope.posting.Deadline);
+    today = new Date().getTime();
+    deadline = new Date($scope.posting.Deadline).getTime();
 
-    if (deadline > today) {
+    if (deadline >= today) {
       $http
         .post('/api/apply', $scope.posting, {
           headers: {

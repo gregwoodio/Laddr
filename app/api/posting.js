@@ -45,7 +45,7 @@ module.exports = function(app, models) {
         where: {
           Archived: false,
           Deadline: {
-            $gt: new Date()
+            $gte: new Date()
           }
         },
         include: [{
@@ -91,6 +91,10 @@ module.exports = function(app, models) {
       });
     } else {
 
+      deadline = new Date(req.body.Deadline);
+      deadline.setDate(date.getDate() + 1);
+      deadline.setHours(18,59,59,59);
+
       models.Posting.build({
           PostingID: uuid.v1(),
           ProfileID: req.body.ProfileID,
@@ -100,7 +104,7 @@ module.exports = function(app, models) {
           Lng: req.body.Lng || -79.739938999,
           Description: req.body.Description,
           EventDate: req.body.EventDate,
-          Deadline: req.body.Deadline,
+          Deadline: deadline,
           Repeating: req.body.Repeating || 0
         })
         .save()

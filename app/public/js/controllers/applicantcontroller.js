@@ -50,6 +50,7 @@ laddrControllers.controller('ApplicantController', ['$scope', '$http', '$locatio
   $scope.open = function (index, size, parentSelector) {
 
     $scope.resume = $scope.applications[index].LdrProfile.LdrUser.Resume;
+    console.log($scope.resume);
 
     var parentElem = parentSelector ? angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
     $scope.modalInstance = $uibModal.open({
