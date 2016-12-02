@@ -92,7 +92,7 @@ module.exports = function(app, models) {
     } else {
 
       deadline = new Date(req.body.Deadline);
-      deadline.setDate(date.getDate() + 1);
+      deadline.setDate(deadline.getDate() + 1);
       deadline.setHours(18,59,59,59);
 
       models.Posting.build({
