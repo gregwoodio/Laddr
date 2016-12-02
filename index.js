@@ -33,6 +33,10 @@ app.use('/img', express.static(__dirname + '/app/public/img'));
 app.use('/uploads', express.static(__dirname + 'app/public/img/uploads'));
 //bower components
 app.use('/components', express.static(__dirname + '/app/public/components'));
+//privacy policy
+app.use('/policy', express.static(__dirname + '/app/public/policy'));
+app.use('/policy/css', express.static(__dirname + '/app/public/policy/css'));
+app.use('/policy/js', express.static(__dirname + '/app/public/policy/js'));
 //app.use(express.static(__dirname + '/app/public'));
 
 //passport setup
