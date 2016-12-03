@@ -4,6 +4,7 @@ app/public/css/*.min.css
 app/public/css/*.min.css.map
 app/public/css/bootstrap.css
 app/public/js/*.min.js*
+app/public/js/angular.js
 app/public/css/font-awesome.css
 app/public/css/style.css
 app/public/fonts/*

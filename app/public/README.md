@@ -1,0 +1,14 @@
+# Laddr/app/public
+ 
+This is the home directory of our Angular JS app. 
+
+- **css/** - Contains our stylesheet. Before running grunt, there is only one file in there: style.less. This then compiled into CSS. Grunt also fills this directory with CSS for Bootstrap, FontAwesome, and others.
+- **img/** - Contains static images for our site, as well as the uploads/ directory which is where we store all user profile pictures. 
+- **js/** Contains our JavaScript files, and is further broken down into:
+  - **controllers/** - Our Angular controllers. There is (almost) every page that you navigate to in the app. These controllers generally check to see if the user is logged in, then make an API call to get relevant data to display.  Some are a bit more involved, such as ```editpostingcontroller.js``` which includes logic for the typeahead address field, and for the datepicker dropdowns. 
+  - **directives/** - Angular directives are like custom HTML tags that you can define, which have their own partial (HTML view) and controllers associated with them. Our directives directory contains the partials for our header and footer.
+- **laddr_app.js** - The meat of our Angular app. First we declare our dependencies, which includes stuff like ngRoute, UI Bootstrap, ngStorage, and ngFileUpload, which are all included when we install our bower components. The next part of the file is really crucial, it's our LoginService. Services and Factories in Angular are similar ways of including repeated code across the application. Our LoginService saves the authentication token and profile into session storage, and has methods for returning it and checking if the user is logged in or not. This service is called in almost every one of our controllers, so it's pretty important! Afterwards we define our directives, which I mentioned above is our header and footer. We also have a custom filter in this file that is used in our postings view. After all of that, we get down to defining the routes, and what request should be routed to which controller while displaying which partial template. 
+  - **laddr_controllers.js** - Originally all of our controllers were defined in this file, but it got unwieldy and we split it up. Not it just defines the name of our laddrControllers variable.
+- **partials/** - Partials are bits of HTML files that are injected into our ```index.html``` file when needed. There is one mapping up with each view on the site, and each has an associated controller which handles its logic.
+- **policy/** contains static files of our privacy policy. This was required to get the app hosted on an app store.
+- **index.html** is the only page you'll be on in our app, thanks to Angular making it a single page app. It contains an ng-view element which is replaced by our partials based on which page you're attempting to visit.

@@ -1,0 +1,7 @@
+# Laddr/app/
+
+This directory contains the following files:
+
+- **middleware.js** - Our middleware file currently contains one function, which just checks the validity of a JSON web token that should be included as a header in all requests to pages which are secured. If it succeeds, we decode the token and add it as a request variable which the routes have access to. If it fails the response returns a 403 status and indicates that the token was not provided.
+- **models.js** - This file is our setup of Sequelize, a JavaScript based ORM. We're using MySQL for our database, which Sequelize works well with. We first check an environment variable to see which database we're using, testing or production. Then we setup our models, which are just JavaScript objects which correspond to rows in our various database tables. We define Profiles, Users, Organizations, Postings, Topics, Comments, Applications, Tags, PostingTags, and ProfileTags, and their associations with each other. This file is commonly included with all API routes because we use it to add, update, and query our database.
+- **routes.js** - This is our master routes file. Whenever a request comes into our application, this file is consulted. All of our API routes are prefixed with ```/api/``` and are routed accordingly. Otherwise we establish two routes, one to our Privacy Policy (which is static and outside of our web app) and one that catches everything else and directs your to our Angular.JS app.
