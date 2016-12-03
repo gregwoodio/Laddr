@@ -15,7 +15,8 @@
       <div class="col-md-9">
       
         <div ng-show='postings.length > 0' class='col-md-12'>
-          <h3>Postings For You</h3>
+          <h3 ng-show="profile.AccountType == 0">Postings For You</h3>
+          <h3 ng-show="profile.AccountType == 1">Your Postings</h3>
 			
 				<div class="row row-post" ng-repeat="posting in postings">
 					 <a  class="a-style"  href="#/postings/{{posting.PostingID}}">
